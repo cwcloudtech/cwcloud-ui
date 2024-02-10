@@ -1,0 +1,17 @@
+.mainContainer {
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.chartTitle {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.TotalConsumptionsText {
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0;
+}

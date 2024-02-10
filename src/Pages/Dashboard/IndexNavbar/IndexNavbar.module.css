@@ -1,0 +1,110 @@
+.avatar {
+  height: 35px;
+  width: 35px;
+  min-width: 35px;
+  border-radius: 50px;
+  margin-left: 14px;
+}
+.container {
+  height: 40px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  padding: 30px;
+  border-radius: 15px;
+  margin-top: 10px;
+  backdrop-filter: blur(5px);
+  margin-left: 5px;
+}
+.dropdownItemText{
+    font-size: 13px;
+    margin: 0;
+    font-weight: 500;
+}
+.name {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.2;
+  text-align: right;
+  margin: 0;
+  color: black;
+}
+.separator {
+  border-left: 1px solid #dfe0eb;
+  margin-left: 22px;
+  margin-right: 22px;
+  height: 32px;
+  width: 2px;
+}
+.title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.3;
+}
+.dropStyles{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  border: 1px transparent;
+
+}
+.regionStyles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.regionText{
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    color: black;
+}
+.regionItemStyles {
+  display: flex;
+  font-weight: 500;
+  padding: 10px 5px 10px 5px;
+  justify-content: center;
+  align-items: center;
+}
+.ImageRegionStyles {
+  width: 20px;
+  margin-right: 7px;
+}
+@media (max-width: 1080px) {
+  .title {
+    margin-left: 50px;
+  }
+}
+@media (max-width: 768px) {
+  .avatar {
+    margin-left: 14px;
+  }
+  .name {
+    display: none;
+  }
+  .separator {
+    margin-left: 14px;
+    margin: 0px;
+  }
+  .dropStyles {
+    margin-left: 12px;
+  }
+}
+@media (min-width: 1080px) {
+  .rightPart{
+    position: fixed !important;
+    right: 300px !important;
+  }
+}
+@media (max-width: 468px) {
+  .title {
+    font-size: 20px;
+  }
+  .dropStyles {
+    cursor: pointer;
+    margin-left: 25px;
+  }
+}

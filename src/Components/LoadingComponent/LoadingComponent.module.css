@@ -1,0 +1,22 @@
+.mainContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 900;
+    backdrop-filter: blur(3px);
+}
+
+.logoImage {
+    width: 10em;
+    margin: auto;
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    transition: all .3 linear;
+    transform: scale(1);
+}

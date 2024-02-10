@@ -1,0 +1,464 @@
+import React, { useContext, useState, useEffect } from 'react';
+import { Spinner, Col, Row, Container } from "reactstrap";
+import classes from "./FunctionOverview.module.css";
+import axios from "../../../../../../utils/axios";
+import { isNotBlank } from "../../../../../../utils/common";
+import { NavLink, useParams, useNavigate } from "react-router-dom"
+import { toast } from "react-toastify";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import LoadingSpinner from '../../../../../../Components/LoadingSpinner/LoadingSpinner';
+import Translate from 'react-translate-component';
+import GlobalContext from '../../../../../../Context/GlobalContext';
+import colors from '../../../../../../Context/Colors';
+import { Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import IOSSwitch from '../../../../../../utils/iosswitch';
+import formateDate from '../../../../../../utils/FormateDate';
+import { OutlinedInput, MenuItem, Select } from '@material-ui/core';
+import EditorModal from '../../../../../../Components/EditorModal/EditorModal';
+import BlocklyWorkspace from '../../../../../../Components/BlocklyWorkspace/BlocklyWorkspace';
+import BlocklyModal from '../../../../../../Components/BlocklyModal/BlocklyModal';
+import { saveAs } from 'file-saver';
+import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
+import getSelectedProgrammingLanguage from '../../../../../../utils/language';
+import EditorBox from '../../../../../../Components/EditorBox/EditorBox';
+import WarningModal from '../../../../../../Components/WarningModal/WarningModal';
+
+function FunctionOverview() {
+    const context = useContext(GlobalContext);
+    const _mode = context.mode;
+    const navigate = useNavigate()
+    // eslint-disable-next-line
+    const [withBlockly, setWithBlockly] = useState(false)
+    const [openedBlockly, setOpenedBlockly] = useState(false)
+    const [functionIsPublic, setFunctionIsPublic] = useState(false)
+    const [changesAreSaved, setChangesAreSaved] = useState(true)
+    const [showWarningModal, setShowWarningModal] = useState(false)
+    const [functionCode, setFunctionCode] = useState('')
+    const [functionName, setFunctionName] = useState('')
+    const [functionCallbackUrl, setFunctionCallbackUrl] = useState('')
+    const [functionCallbackAuthorizationHeader, setFunctionCallbackAuthorizationHeader] = useState('')
+    const [functionBlockly, setFunctionBlockly] = useState('')
+    const [functionRegexp, setFunctionRegexp] = useState('')
+    const [functionCreatedAt, setFunctionCreatedAt] = useState('')
+    // eslint-disable-next-line
+    const [functionUpdatedAt, setFunctionUpdatedAt] = useState('')
+    const [args, setArgs] = useState([])
+    const [finalArgs, setFinalArgs] = useState([])
+    const [languages, setLanguages] = useState([])
+    const [selectedLanguage, setSelectedLanguage] = useState('')
+    const [currentCode, setCurrentCode] = useState('')
+    const [currentState, setCurrentState] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const [loadingExport, setLoadingExport] = useState(false)
+    const [loadingSubmit, setLoadingSubmit] = useState(false)
+    const { id } = useParams()
+    const [showEditorFullScreen, setShowEditorFullScreen] = useState(false)
+    const [showBlocklyFullScreen, setShowBlocklyFullScreen] = useState(false)
+    const message = context.counterpart("dashboard.function.message.unsavedChangesWarning")
+
+    useEffect(() => {
+        context.setIsGlobal(true)
+        setLoading(true)
+        axios.get('/faas/languages')
+            .then(res => {
+                setLanguages([...res.data.languages, "blockly"])
+                axios.get(`/faas/function/${id}`)
+                    .then(res => {
+                        setFunctionIsPublic(res.data.is_public)
+                        setFunctionCode(res.data.content.code)
+                        setFunctionName(res.data.content.name)
+                        setFunctionCallbackUrl(res.data.content.callback_url)
+                        setFunctionCallbackAuthorizationHeader(res.data.content.callback_authorization_header)
+                        setFunctionBlockly(res.data.content.blockly)
+                        setFunctionRegexp(res.data.content.regexp)
+                        setFunctionCreatedAt(res.data.created_at)
+                        setFunctionUpdatedAt(res.data.updated_at)
+                        setCurrentCode(res.data.content.code)
+                        setArgs(res.data.content.args)
+                        setFinalArgs(res.data.content.args)
+                        setSelectedLanguage(res.data.content.language)
+                        if (isNotBlank(res.data.content.blockly)) {
+                            setWithBlockly(true)
+                            setOpenedBlockly(true)
+                            setSelectedLanguage(selectedLanguage ? "python" : "blockly")
+                            setCurrentState(JSON.parse(res.data.content.blockly))
+                        }
+                        setLoading(false)
+                    })
+            })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            if (!changesAreSaved) {
+                (event || window.event).returnValue = message;
+                return message;
+            }
+        };
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [changesAreSaved]);
+
+    const navigateBack = () => {
+        if (!changesAreSaved) {
+            setShowWarningModal(true)
+        } else {
+            navigate("/function/overview");
+        }
+    }
+
+    const handleClickButton = () => {
+        setLoadingSubmit(true)
+
+        axios.put(`/faas/function/${id}`, {
+            id: id,
+            is_public: functionIsPublic,
+            content: {
+                code: functionCode,
+                blockly: functionBlockly,
+                name: functionName,
+                language: getSelectedProgrammingLanguage(selectedLanguage),
+                callback_url: functionCallbackUrl,
+                callback_authorization_header: functionCallbackAuthorizationHeader,
+                regexp: functionRegexp,
+                args: args
+            }
+        }).then(response => {
+            setLoadingSubmit(false)
+            setChangesAreSaved(true)
+            toast.success(context.counterpart('dashboard.function.message.successUpdate'))
+            navigate('/function/overview')
+        }).catch(err => {
+            setLoadingSubmit(false)
+        })
+    }
+
+    const handleWarningModalClickButton = () => {
+        setShowWarningModal(false)
+        handleClickButton()
+    }
+
+    const updateArgHandler = (index, value) => {
+        const updatedArgs = [...args];
+        updatedArgs[index] = value;
+        setArgs(updatedArgs);
+    };
+
+    const handleTypingFinished = () => {
+        setFinalArgs(args.filter(arg => isNotBlank(arg)));
+    };
+
+    const handleDeleteArg = (index) => {
+        const updatedArgs = [...args];
+        updatedArgs.splice(index, 1);
+        setArgs(updatedArgs);
+
+        const updatedFinalArgs = [...finalArgs];
+        updatedFinalArgs.splice(index, 1);
+        setFinalArgs(updatedFinalArgs);
+    };
+
+    const handleCodeAndStateChange = (newCode, newState) => {
+        setCurrentCode(newCode)
+        setCurrentState(newState)
+        setFunctionCode(newCode)
+        setFunctionBlockly(JSON.stringify(newState))
+    }
+    const exportFunctionHandler = () => {
+        setLoadingExport(true)
+        axios.get(`/faas/function/${id}/export`)
+            .then(res => {
+                const byteCharacters = atob(res.data.blob.toString('base64'));
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const jsonBlob = new Blob([byteArray], { type: 'application/json' });
+                saveAs(jsonBlob, `${functionName}.json`);
+                toast.success(context.counterpart('dashboard.function.message.successExport'))
+                setLoadingExport(false)
+            })
+            .catch(err => {
+                setLoadingExport(false)
+            })
+    }
+    if (loading)
+        return <LoadingSpinner />
+    else
+        return (
+            <div>
+                <WarningModal isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} title="common.message.warning" message={message} buttonTitle="common.button.save" cancelbuttonTitle="common.button.return" onClick={handleWarningModalClickButton} loading={loadingSubmit} />
+                <Row>
+                    <Col>
+                        <div onClick={navigateBack} className={classes.goBack}>
+                            <NavLink className={classes.link}>
+                                <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                                <Translate content="dashboard.function.back" />
+                            </NavLink>
+                        </div>
+                    </Col>
+                </Row>
+                <Container className={classes.container} fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
+                    <Row >
+                        <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                            <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                                <Translate content="dashboard.function.title.overview" />
+                            </h5>
+                            <h4 className={classes.createdStyle} style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.table.createdAt" /> : {formateDate(functionCreatedAt)}</h4>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+                            <LoadingButton loading={loadingExport} onClick={exportFunctionHandler}>Export</LoadingButton>
+                        </Col>
+                    </Row>
+                    <Row style={{ margin: "30px 0px" }}>
+                        <Col>
+                            <Row style={{ display: "flex", alignItems: "center" }}>
+                                <Col md="4">
+                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                        <Translate content="dashboard.function.inputs.language.title" />
+                                        <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
+                                </Col>
+                                <Col md="6">
+                                    <Select
+                                        id="function_language"
+                                        value={selectedLanguage || 'none'}
+                                        onChange={(e) => {
+                                            setSelectedLanguage(e.target.value)
+                                            var blocklyTurnedOn = selectedLanguage === "blockly" ? true : false
+                                            setWithBlockly(blocklyTurnedOn)
+                                            setOpenedBlockly(blocklyTurnedOn)
+                                        }}
+                                        input={<OutlinedInput label="Name" />}
+                                        required 
+                                        fullWidth
+                                    >
+                                        {languages.map(language => (
+                                            <MenuItem
+                                                key={language}
+                                                value={language}
+                                            >
+                                                {language}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row style={{ margin: "30px 0px" }}>
+                        <Col>
+                            <Row style={{ display: "flex", alignItems: "center" }}>
+                                <Col md="4">
+                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                        <Translate content="dashboard.function.inputs.name.title" />
+                                        <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
+                                </Col>
+                                <Col md="6">
+                                    <TextField id="function_name" label={context.counterpart('dashboard.function.inputs.name.placeholder')} onChange={(e) => setFunctionName(e.target.value)} value={functionName} required fullWidth />
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row style={{ margin: "30px 0px" }}>
+                        <Col>
+                            <Row style={{ display: "flex", alignItems: "center" }}>
+                                <Col md="4">
+                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                        <Translate content="dashboard.function.inputs.regexp.title" />
+                                    </h5>
+                                </Col>
+                                <Col md="6">
+                                    <TextField id="function_regexp" label={context.counterpart('dashboard.function.inputs.regexp.placeholder')} onChange={(e) => setFunctionRegexp(e.target.value)} value={functionRegexp} required fullWidth />
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row style={{ margin: "30px 0px" }}>
+                        <Col>
+                            <Row style={{ display: "flex", alignItems: "center" }}>
+                                <Col md="4">
+                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                        <Translate content="dashboard.function.inputs.callback_url.title" />
+                                    </h5>
+                                </Col>
+                                <Col md="6">
+                                    <TextField id="callback_url" label={context.counterpart('dashboard.function.inputs.callback_url.placeholder')} onChange={(e) => setFunctionCallbackUrl(e.target.value)} value={functionCallbackUrl} fullWidth />
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row style={{ margin: "30px 0px" }}>
+                        <Col>
+                            <Row style={{ display: "flex", alignItems: "center" }}>
+                                <Col md="4">
+                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                        <Translate content="dashboard.function.inputs.callback_header.title" />
+                                    </h5>
+                                </Col>
+                                <Col md="6">
+                                    <TextField id="callback_authorization_header" label={context.counterpart('dashboard.function.inputs.callback_header.placeholder')} onChange={(e) => setFunctionCallbackAuthorizationHeader(e.target.value)} value={functionCallbackAuthorizationHeader} fullWidth />
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row style={{ display: "flex", alignItems: "center" }}>
+                        <Col md="4">
+                            <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                <Translate content="dashboard.function.inputs.args.title" />
+                            </h5>
+                            <Fab color="primary" aria-label="add" onClick={() => setArgs([...args, ''])} style={{ transform: 'scale(0.7)' }} >
+                                <AddIcon className="whiteIcon" />
+                            </Fab>
+                        </Col>
+                        <Col md="6">
+                            {args?.map((arg, index) => (
+                                <Row key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                                    <Col>
+                                        <TextField
+                                            style={{ marginTop: '10px' }}
+                                            value={arg}
+                                            onChange={(e) => updateArgHandler(index, e.target.value)}
+                                            onBlur={handleTypingFinished}
+                                            label={context.counterpart('dashboard.function.inputs.args.placeholder')}
+                                            fullWidth />
+                                    </Col>
+                                    <Col xs="1">
+                                        <Fab aria-label="delete" color='primary' onClick={() => handleDeleteArg(index) } style={{ transform: 'scale(0.7)' }} >
+                                            <DeleteIcon className="whiteIcon" />
+                                        </Fab>
+                                    </Col>
+                                </Row>
+                            ))}
+                        </Col>
+                    </Row>
+                    <Row style={{ margin: "30px 0px" }}>
+                        <Col>
+                            <Row style={{ display: "flex", alignItems: "center" }}>
+                                <Col md={{ size: 2 }}>
+                                    <Row>
+                                        <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                            <Translate content="dashboard.function.is_public" />
+                                            <span style={{ marginLeft: "2px", color: "red" }}>*</span>
+                                        </h5>
+                                        <FormControlLabel
+                                            checked={functionIsPublic}
+                                            control={<IOSSwitch sx={{ m: 1 }} />}
+                                            onChange={
+                                                (e) => {
+                                                    setFunctionIsPublic(e.target.checked)
+                                                }
+                                            } />
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                    {
+                       (selectedLanguage === "blockly") && (
+                        <Row style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "20px", marginTop: "10px" }}>
+                            <div style={{width: "fit-content"}}>
+                                <div className="toggleContainer" style={{ backgroundColor: colors.secondBackground[_mode], border: "1px solid "+colors.border[_mode], color: colors.mainText[_mode] }}>
+                                    <div
+                                        className={openedBlockly? "activeToggleItemContainer": "toggleItemContainer"}
+                                        onClick={() => setOpenedBlockly(true)}>
+                                        <h5 className="toggleItemText">
+                                            <Translate content="dashboard.function.state.lowCode.title" />
+                                        </h5>
+                                    </div>
+                                    <div
+                                        className={!openedBlockly? "activeToggleItemContainer": "toggleItemContainer"}
+                                        onClick={() => setOpenedBlockly(false)}>
+                                        <h5 className="toggleItemText">
+                                            <Translate content="dashboard.function.inputs.code.title" />
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </Row>
+                       )
+                    }
+                    <Row className={classes.rowContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: '20px', marginTop: "30px" }}>
+                        {
+                            (selectedLanguage === "blockly" && openedBlockly) ?
+                            (
+                                <Col md="12">
+                                    <BlocklyWorkspace
+                                        handleFullScreen={() => setShowBlocklyFullScreen(true)}
+                                        showBlocklyFullScreen={false}
+                                        key={`blockly-workspace-${showBlocklyFullScreen}`}
+                                        code={currentCode}
+                                        args={finalArgs}
+                                        state={currentState}
+                                        _mode={_mode}
+                                        onWorkspaceChange={
+                                            (generatedCode, newState) => {
+                                                setChangesAreSaved(false);
+                                                handleCodeAndStateChange(generatedCode, newState)
+                                            }
+                                        }
+                                    />
+                                    <BlocklyModal
+                                        isOpen={showBlocklyFullScreen}
+                                        showBlocklyFullScreen={showBlocklyFullScreen}
+                                        toggle={() => setShowBlocklyFullScreen(!showBlocklyFullScreen)}
+                                        code={currentCode}
+                                        state={currentState}
+                                        _mode={_mode}
+                                        onWorkspaceChange={ (generatedCode, state) => {
+                                               setChangesAreSaved(false);
+                                               handleCodeAndStateChange(generatedCode, state)
+                                            }
+                                        }
+                                    />
+                                </Col>
+                            ): 
+                            (
+                                <div>
+                                    <Col md="12">
+                                        <EditorBox
+                                            title={context.counterpart('dashboard.function.inputs.code.title')}
+                                            textToCopy={functionCode}
+                                            handleFullScreen={() => setShowEditorFullScreen(true)}
+                                            language={getSelectedProgrammingLanguage(selectedLanguage)}
+                                            value={currentCode}
+                                            defaultValue=""
+                                            onChange={v => {setFunctionCode(v);setCurrentCode(v);setChangesAreSaved(false)}} />
+                                        <EditorModal
+                                            isOpen={showEditorFullScreen}
+                                            toggle={() => setShowEditorFullScreen(!showEditorFullScreen)}
+                                            language={getSelectedProgrammingLanguage(selectedLanguage)}
+                                            value={currentCode}
+                                            onChange={v => {setFunctionCode(v);setCurrentCode(v);;setChangesAreSaved(false)}}
+                                        />
+                                    </Col>
+                                </div>
+                            )
+                        }
+                    </Row>
+                    <Row>
+                        <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "20px" }}>
+                            <Button onClick={handleClickButton} style={{ width: "250px", height: "50px" }} variant="outlined"
+                                size="large">
+                                {loadingSubmit ? <Spinner size="sm" style={{ marginRight: "8px" }} />
+                                    : <i className="fa-solid fa-floppy-disk" style={{ marginRight: "8px" }}></i>}
+                                <Translate content="common.button.save" />
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </div >
+        )
+}
+
+export default FunctionOverview

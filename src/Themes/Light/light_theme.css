@@ -1,0 +1,36 @@
+body {
+    background-color: #f7f8fc !important;
+}
+
+/* .dropdown-item:hover, */
+.btn-info, 
+.MuiFab-root, 
+.css-113qkos-MuiSwitch-root .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track {
+    background-color: #0861AF !important;
+}
+
+.MuiButton-outlinedPrimary, a{
+    color: #0861AF !important;
+}
+
+
+.gadientIcon {
+    background-color: #4ea8f7 !important;
+    background-image: linear-gradient(48deg, rgba(227,145,79,1) 0%, rgba(8,97,175,1) 47%) !important;
+    background-size: 100% !important;
+    -webkit-background-clip: text !important;
+    -moz-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important; 
+    -moz-text-fill-color: transparent !important;
+    color: transparent !important;
+}
+
+.bm-menu{
+    background-color: #ffffff !important;
+}
+
+@media screen and (max-width: 1080px){
+    .bm-menu{
+        background-color: rgb(236 245 254) !important;
+    }
+}

@@ -1,0 +1,140 @@
+.mainContainer {
+    background: #F3F3F3;
+    overflow: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-shadow: 2px 0px 32px rgba(7, 30, 51, 0.9);
+    z-index: 999;
+    border-right: 8px;
+    border-color: black;
+}
+
+.centerRow {
+    display: flex;
+    height: 100%;
+    align-self: center;
+    justify-self: flex-end;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.formContainer,
+.logoContainer {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.formContainer {
+    height: 100%;
+}
+
+.headerTitle {
+    margin: 15px 0 20px 0;
+    font-weight: 800;
+    font-size: 30px;
+}
+
+.emailStyle {
+    margin: 10px 0 10px 0;
+    color: #868c96 !important;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.subtitleStyle {
+    margin: 0;
+    color: #98a6ad !important;
+    font-size: 13px;
+    letter-spacing: 0.1px;
+    font-weight: 400;
+}
+
+.passwordStyle {
+    margin: 10px 0 10px 0;
+    color: #868c96 !important;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.buttonStyle {
+    margin: 50px 0 0 0 !important;
+    width: 100% !important;
+    background-color: #165EA2 !important;
+    color: white !important;
+}
+
+.buttonStyle:hover {
+    background-color: #0C345A !important;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.comWorkLogo {
+    padding-top: 25px;
+    width: 13em;
+    display: block;
+    margin: auto;
+}
+
+.spinner {
+    margin-left: 10px;
+}
+
+.row {
+    margin: 0 !important;
+    height: 100vh;
+}
+
+.imageStyle {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.backgroundLogin {
+    padding: 0px;
+    background-color: #0C345A;
+}
+
+.itemTextError {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+}
+
+.inputMessage {
+    border: 1px solid #DBDFE3;
+    padding: 6px 12px;
+    width: 100%;
+}
+
+.wikiDoc {
+    margin-left: 2px;
+    font-size: 11px;
+    font-style: italic;
+    letter-spacing: .1px;
+    font-weight: 400;
+    padding-top: 10px;
+}
+
+.eyeIcon {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}
+
+@media screen and (max-width: 767px) {
+    .imageStyle {
+        display: none;
+    }
+}

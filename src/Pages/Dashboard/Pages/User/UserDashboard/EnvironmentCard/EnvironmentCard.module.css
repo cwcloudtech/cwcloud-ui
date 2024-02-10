@@ -1,0 +1,53 @@
+.mainContainer {
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0px !important;
+    margin: 4px !important;
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.illustration{
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    background-size: no-repeat;
+}
+
+.textEnv{
+    padding: 15px;
+    min-height: 120px;
+}
+
+.mainContainer:hover {
+    transition: all 0.2s ease-in-out;
+    border-color: #0861AF !important;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+}
+
+.iconContainer {
+    background-color: #0e61aa2e;
+    height: 35px;
+    width: 35px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.environmentText {
+    font-size: 20px;
+    font-weight: 350;
+    margin: 0;
+}
+
+.descriptionText {
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 11;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

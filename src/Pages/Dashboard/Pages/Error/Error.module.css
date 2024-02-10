@@ -1,0 +1,31 @@
+.center{
+  margin: auto !important;
+  width: 50% !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.textError{
+    color: #3688fc;
+    text-shadow: rgb(54 136 252 / 30%) 5px 1px, rgb(54 136 252 / 20%) 10px 3px;
+    font-size: 5.25rem;
+    line-height: 5.625rem;
+}
+
+.textNotFound{
+    color: #fa6767;
+    font: 18px Nunito,sans-serif;
+    font-weight: 700;
+}
+
+.textMuted{
+    --bs-text-opacity: 1;
+    color: #98a6ad!important;
+    font: 14.4px Nunito,sans-serif;
+}
+
+.imageStyle{
+    height: 200px !important;
+    width: 250px !important;
+}

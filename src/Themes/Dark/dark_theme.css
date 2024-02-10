@@ -1,0 +1,457 @@
+body {
+    background-color: #31373d !important;
+}
+
+.dropdown-item:hover{
+    background-color: #41474d !important;
+}
+
+.btn-info, 
+.MuiFab-root, 
+.css-113qkos-MuiSwitch-root .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track  {
+    background-color: #4ea8f7 !important;
+}
+
+.MuiButton-outlinedPrimary, a{
+    color: #4ea8f7 !important;
+}
+
+.MuiSvgIcon-root {
+    color: white !important;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out;
+}
+
+.MuiSvgIcon-root:hover {
+    color: #4ea8f7 !important;
+    transition: color 0.15s ease-in-out;
+}
+
+.deleteBtn {
+    color: #DE4452 !important;
+}
+
+.deleteBtn:hover {
+    color: #ff6b75 !important;
+}
+
+.copyBtn {
+    color: white !important;
+}
+
+.copyBtn:hover {
+    color: #e6e6e6 !important;
+}
+
+.rerunBtn {
+    color: #22c8a2 !important;
+}
+
+.rerunBtn:hover {
+    color: #4ce1bc !important;
+}
+
+.powerBtn {
+    color: #c58a37 !important;
+}
+
+.powerBtn:hover {
+    color: #e3914f !important;
+}
+
+.sendBtn {
+    color: #4ea8f7 !important;
+}
+
+.sendBtn:hover {
+    color: #6eb4f7 !important;
+}
+
+.scheduleBtn {
+    color: #f1c40f !important;
+}
+
+.scheduleBtn:hover {
+    color: #f5d03e !important;
+}
+
+.downloadBtn {
+    color: #4ea8f7 !important;
+}
+
+.downloadBtn:hover {
+    color: #6eb4f7 !important;
+}
+
+.whiteIcon,
+.whiteIcon:hover,
+.whiteIcon:active,
+.whiteIcon:focus{
+    color: white !important;
+}
+
+.MuiDataGrid-columnSeparator,
+.MuiDataGrid-columnSeparator>.MuiSvgIcon-root,
+.MuiDataGrid-columnSeparator>.MuiSvgIcon-root:hover{
+    color: #aab8c5 !important;
+}
+
+.Mui-disabled,
+.Mui-disabled:hover>.MuiSvgIcon-root,
+.Mui-disabled>.MuiSvgIcon-root,
+.Mui-disabled>.MuiSvgIcon-root:hover{
+    color : #8f99a3 !important;
+    cursor: not-allowed !important;
+}
+
+.MuiDataGrid-cell,
+.MuiDataGrid-columnHeaders,
+.css-1nitb7c{
+    border-bottom: 1px solid #51575d !important;
+}
+
+.MuiDataGrid-footerContainer,
+.css-1yy0dv2{
+    border-top: 1px solid #51575d !important;
+}
+
+.form-text,
+.invalid-feedback,
+.MuiTablePagination-toolbar,
+.css-8nphli{
+    color: #aab8c5 !important;
+}
+
+.CustomDeleteIcon_deleteIcon__KT7k5{
+    color: #de4452 !important;
+}
+
+.DataTable_selectionDeleteContainer__LvaIB{
+    background-color: #37404a !important;
+    color: white !important;
+    box-shadow: none !important;
+    border-radius: 3px !important;
+    border: 1px solid #41474d !important;
+}
+
+.blackableInput{
+    transition: border 0.2s ease-in-out, outline 0.2s ease-in-out;
+    color: #bbd6e0 !important;
+    background-color: #47505a !important;
+    border: 1px solid #51575d !important;
+}
+
+.blackableInput:active,
+.blackableInput:focus{
+    transition: border 0.2s ease-in-out, outline 0.2s ease-in-out;
+    border: 1px solid #4ea8f7 !important;
+    outline: 1px solid #4ea8f7 !important;
+    box-shadow: none !important;
+}
+
+.miniContainer:hover{
+    border-color: #4ea8f7 !important;
+    color: #4ea8f7 !important;
+}
+
+.miniContainerChecked {
+    background-color: #4ea8f7 !important;
+    border: 1px solid #4ea8f7 !important;
+}
+
+.MuiSelect-select,
+.MuiSelect-outlined,
+.MuiInputBase-input,
+.MuiOutlinedInput-input,
+.css-qiwgdb{
+    color: #aab8c5 !important;
+}
+
+fieldset,
+.css-1v4ccyo>*>.MuiOutlinedInput-notchedOutline,
+.css-fvipm8>*>.MuiOutlinedInput-notchedOutline,
+.css-1v4ccyo>*>.css-igs3ac,
+.css-fvipm8>*>.css-igs3ac,
+.MuiInputBase-root>*>.MuiOutlinedInput-notchedOutline,
+.MuiInputBase-root>*>.css-igs3ac,
+.MuiFormControl-root>*>.MuiOutlinedInput-notchedOutline,
+.MuiFormControl-root>*>.css-igs3ac{
+    border: 1px solid #aab8c5 !important;
+}
+
+.MuiFormControl-root>label,
+.css-1mzc8>label,
+.css-u9osun{
+    color: #aab8c5 !important;
+}
+
+.css-1v4ccyo:hover>*>.MuiOutlinedInput-notchedOutline,
+.css-fvipm8:hover>*>.MuiOutlinedInput-notchedOutline,
+.css-1v4ccyo:hover>*>.css-igs3ac,
+.css-fvipm8:hover>*>.css-igs3ac,
+.MuiInputBase-root:hover>*>.MuiOutlinedInput-notchedOutline,
+.MuiInputBase-root:hover>*>.css-igs3ac,
+.MuiFormControl-root:hover>*>.MuiOutlinedInput-notchedOutline,
+.MuiFormControl-root:hover>*>.css-igs3ac{
+    border: 1px solid white !important;
+}
+
+.MuiFormControl-root:hover>label,
+.css-1mzc8:hover>label,
+.css-u9osun{
+    color: white !important;
+}
+
+.css-1v4ccyo:focus>*>.MuiOutlinedInput-notchedOutline,
+.css-fvipm8:focus>*>.MuiOutlinedInput-notchedOutline,
+.css-1v4ccyo:focus>*>.css-igs3ac,
+.css-fvipm8:focus>*>.css-igs3ac,
+.css-1v4ccyo:active>*>.MuiOutlinedInput-notchedOutline,
+.css-fvipm8:active>*>.MuiOutlinedInput-notchedOutline,
+.css-1v4ccyo:active>*>.css-igs3ac,
+.css-fvipm8:active>*>.css-igs3ac,
+.MuiInputBase-root:focus>*>.MuiOutlinedInput-notchedOutline,
+.MuiInputBase-root:focus>*>.css-igs3ac,
+.MuiInputBase-root:active>*>.MuiOutlinedInput-notchedOutline,
+.MuiInputBase-root:active>*>.css-igs3ac,
+.MuiFormControl-root:active>*>.MuiOutlinedInput-notchedOutline,
+.MuiFormControl-root:active>*>.css-igs3ac,
+.MuiFormControl-root:focus>*>.MuiOutlinedInput-notchedOutline,
+.MuiFormControl-root:focus>*>.css-igs3ac{
+    border: 1px solid #4ea8f7 !important;
+}
+
+.MuiFormControl-root:focus>label,
+.css-1mzc8:focus>label,
+.MuiFormControl-root:active>label,
+.css-1mzc8:active>label,
+.css-u9osun.Mui-focused{
+    color: #4ea8f7 !important;
+}
+
+.MuiInput-underline:before,
+.MuiInput-underline::before,
+.css-1vv4lmi::before,
+.css-1yf1g2m::before{
+    transition: border 0.1s ease-in-out;
+    border-bottom: 1px solid #aab8c5 !important;
+}
+
+.MuiInput-underline:hover:before,
+.MuiInput-underline:hover::before,
+.css-1vv4lmi:hover::before,
+.css-1yf1g2m:hover::before{
+    transition: border 0.1s ease-in-out;
+    border-bottom: 2px solid white !important;
+}
+
+.MuiInput-underline:focus::before,
+.MuiInput-underline:focus::before,
+.MuiInput-underline:active:before,
+.MuiInput-underline:active::before,
+.css-1vv4lmi:focus::before,
+.css-1yf1g2m:focus::before,
+.css-1vv4lmi:active::before,
+.css-1yf1g2m:active::before{
+    transition: border 0.15s ease-in-out;
+    border-bottom: 2px solid #4ea8f7 !important;
+}
+
+::placeholder,
+::-ms-input-placeholder,
+:-ms-input-placeholder{
+    color: #aab8c5 !important;
+    outline: none !important;
+}
+
+.MuiTypography-root,
+.MuiFormControlLabel-label,
+.css-9l3uo3{
+    color: white !important;
+}
+
+.MuiFormHelperText-root,
+.css-v7esy{
+    color: #aab8c5 !important;
+}
+
+.modal-content{
+    background-color: #37404a !important;
+    color: white !important;
+}
+
+.modal-header{
+    border-bottom: 1px solid #51575d;
+}
+
+.modal-footer{
+    border-top: 1px solid #51575d;
+}
+
+.btn-close{
+    filter: brightness(0) invert(1);
+}
+
+.MuiPaper-root,
+.MuiDrawer-paper{
+    background-color: #37404a !important;
+    color: #aab8c5 !important;
+}
+
+.css-hpjz40,
+.css-1b49ddv,
+.css-hpjz40>*>.MuiSvgIcon-root:hover,
+.css-1b49ddv>*>.MuiSvgIcon-root:hover{
+    color: white !important;
+}
+
+.css-hpjz40{
+    background-color: #c58a37 !important;
+}
+
+.css-1b49ddv{
+    background-color: #2d7dc2 !important;
+}
+
+.css-hpjz40>*>.css-p6lc9q{
+    color: white !important;
+    border-color: white !important;
+    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.css-hpjz40>*>.css-p6lc9q:hover{
+    color: #e3914f !important;
+    background-color: white !important;
+    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.css-ub1r1{
+    background-color: #37404a !important;
+    color: white !important;
+}
+
+.css-ub1r1:hover{
+    border: 1px solid #4ea8f7 !important;
+}
+
+.orangeBtn,
+.greenBtn,
+.blueBtn
+.orangeBtn:hover,
+.greenBtn:hover,
+.blueBtn:hover{
+    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.orangeBtn,
+.greenBtn,
+.blueBtn{
+    cursor: pointer;
+    background-color: transparent !important;
+    min-height: 33px !important;
+}
+
+.orangeBtn{
+    color: #c58a37 !important;
+}
+.greenBtn{
+    border: 1px solid #22c8a2 !important;
+    color: #22c8a2 !important;
+}
+
+.successBtn {
+    color: #22c8a2 !important;
+}
+
+.successBtn:hover {
+    color: #ff6b75 !important;
+}
+
+.dangerBtn {
+    color: #de4452 !important;
+}
+
+.dangerBtn:hover {
+    color: #22c8a2 !important;
+}
+
+.blueBtn{
+    color: #4ea8f7 !important;
+}
+
+.orangeBtn:hover,
+.orangeBtn:active,
+.orangeBtn:focus{
+    color: #c58a37 !important;
+}
+
+.greenBtn:hover,
+.greenBtn:active,
+.greenBtn:focus{
+    background-color: #22c8a2 !important;
+}
+
+.blueBtn:hover,
+.blueBtn:active,
+.blueBtn:focus{
+    color: #4ea8f7 !important;
+}
+
+.orangeBtn:active,
+.greenBtn:active,
+.blueBtn:active,
+.blueBtn:active>a,
+.blueBtn:active>a:hover,
+.orangeBtn:focus,
+.greenBtn:focus,
+.blueBtn:focus,
+.blueBtn:focus>a,
+.blueBtn:focus>a:hover,
+.orangeBtn:hover,
+.greenBtn:hover,
+.blueBtn:hover,
+.blueBtn:hover>a,
+.blueBtn:hover>a:hover{
+    color: white !important;
+}
+
+.gadientIcon {
+    background-color: #4ea8f7 !important;
+    background-image: linear-gradient(48deg, rgba(227,145,79,1) 0%, rgba(78,168,247,1) 100%) !important;
+    background-size: 100% !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -moz-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important; 
+    -moz-text-fill-color: transparent !important;
+    color: transparent !important;
+}
+
+.blueIcon{
+    color: #4ea8f7 !important;
+}
+
+.greyText{
+    color: #aab8c5 !important;
+}
+
+.bm-menu{
+    background-color: #31373d !important;
+}
+
+@media screen and (max-width: 1080px){
+    .bm-menu{
+        background-color: #37404a !important;
+    }
+}
+
+.ql-toolbar.ql-snow {
+    background-color: #31373D;
+}
+.ql-toolbar.ql-snow .ql-picker-label,
+.ql-toolbar.ql-snow .ql-picker-item {
+    color: #fff;
+}
+.ql-snow .ql-stroke {
+    stroke: #fff;
+}

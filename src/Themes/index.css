@@ -1,0 +1,224 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+li,
+ul,
+a,
+span,
+button {
+    font-family: 'Helvetica Neue', Arial, sans-serif !important;
+    outline: none !important;
+
+}
+
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+article>*+* {
+    margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+body {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 26px;
+    color: #424147;
+}
+
+.btn-info {
+    border: none !important;
+    color: white !important;
+    outline: none !important;
+}
+
+.seo-info {
+    display: none;
+}
+
+.wiki-subtitle {
+    text-align: center;
+    color: #98a6ad;
+    font-size: 11px;
+    font-style: italic;
+    letter-spacing: .1px;
+    font-weight: 400;
+    padding-top: 10px;
+}
+
+.bm-menu {
+    overflow-x: hidden !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+    outline: none !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within {
+    outline: none !important;
+}
+
+.show>.dropdown-menu {
+    float: right;
+    width: 90%;
+}
+
+.MuiDataGrid-cell {
+    overflow: visible !important;
+}
+
+
+.MuiInputBase-formControl {
+    padding: 10px !important;
+}
+
+.dropdown-item:focus {
+    background-color: rgba(16, 70, 116, 0.4) !important;
+}
+
+.MuiButton-outlinedPrimary {
+    border: 1px solid rgb(78, 135, 185) !important;
+}
+
+a{
+    transition: color 0.2s ease-in-out !important;
+}
+
+a:hover {
+    transition: color 0.2s ease-in-out !important;
+    color: #e3914f !important;
+}
+
+.MuiFab-root {
+    z-index: 99 !important;
+}
+
+.MuiTablePagination-selectLabel {
+    margin: 0 !important;
+}
+
+.MuiTablePagination-displayedRows {
+    margin: 0 !important;
+}
+
+.css-1v4ccyo,
+.css-fvipm8{
+    min-width: 120px !important;
+}
+
+.toggleContainer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 5px !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    padding: 5px !important;
+}
+
+.activeToggleItemContainer {
+    color: white !important;
+    background-color: #0860AF !important;
+}
+
+.activeToggleItemContainer,
+.toggleItemContainer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    padding: 15px 10px !important;
+    border-radius: 5px !important;
+}
+
+.toggleItemText {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+}
+
+.toggleItemContainer,
+.toggleItemContainer:hover{
+    transition: background-color 0.15s ease-in-out;
+}
+
+.toggleItemContainer:hover{
+    background-color: #2185dd47 !important;
+}
+
+.MuiSwitch-colorSecondary.Mui-checked{
+    color: #ea9752 !important;
+}
+
+.MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track{
+    background-color: #e3914f !important;
+}
+
+#langDropDown {
+    padding: 0px !important;
+}

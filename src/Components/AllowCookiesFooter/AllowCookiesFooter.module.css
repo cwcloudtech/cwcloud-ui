@@ -1,0 +1,39 @@
+.mainContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #eeeeee;
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.buttonAllow {
+    background-color: #0860AE !important;
+    border-color: #0860AE !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    border-radius: 5px !important;
+}
+
+.buttonAllow:hover {
+    background-color: #4086c3 !important;
+    border-color: #4086c3 !important;
+
+}
+
+.cookiesText {
+    margin: 0;
+    font-size: 14px;
+    color: black;
+    font-weight: 400;
+}
+
+.learnMore {
+    color: #0860AE;
+}

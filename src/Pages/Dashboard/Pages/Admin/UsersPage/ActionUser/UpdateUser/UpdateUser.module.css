@@ -1,0 +1,50 @@
+.textTitle {
+    font-size: 20px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    margin: 0;
+}
+
+.list {
+    width: 350px;
+}
+
+.buttonStyle {
+    width: 100%;
+    height: 40px;
+}
+
+.passwordListItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.passwordTextField {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+    width: 100%;
+}
+
+.TextFieldFirst {
+    margin-bottom: 15px !important;
+    width: 100%;
+}
+
+.Divider {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.formLabelStyle {
+    display: inline-block;
+    width: 100% !important;
+    text-align: left !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+}

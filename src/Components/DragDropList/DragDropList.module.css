@@ -1,0 +1,10 @@
+.listIconArrowUpDown {
+   display: flex;
+   justify-content: flex-end;
+   flex-direction: column;
+}
+.arrowUpDown {
+    display: flex;
+    justify-content: flex-end;
+    line-height: 0.5;
+}

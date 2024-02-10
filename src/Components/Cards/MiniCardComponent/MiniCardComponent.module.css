@@ -1,0 +1,59 @@
+.miniContainer, .darkContainer {
+    border: 2px solid #dfe0eb;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 70%;
+    padding: 10px;
+}
+
+.instancetitle {
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    margin: 0;
+    color: #bcb8c2;
+    text-align: center;
+}
+
+.value {
+    color: #bcb8c2;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    margin: 0;
+}
+
+.valueChecked {
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    margin: 0;
+    text-align: center;
+}
+
+.spanChecked {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
+    line-height: 24px;
+    text-align: center;
+}
+
+.miniContainer:hover {
+    border-color: #0861AF;
+}
+
+.darkContainer:hover {
+    border-color: #4ea8f7;
+}
+
+.miniContainerChecked {
+    background-color: #0861AF;
+    border: 1px solid #0861AF;
+}
+
+.darkContainerChecked {
+    background-color: #4ea8f7;
+    border: 1px solid #4ea8f7;
+}

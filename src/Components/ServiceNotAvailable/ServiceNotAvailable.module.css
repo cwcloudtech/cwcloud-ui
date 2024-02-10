@@ -1,0 +1,17 @@
+.mainContainer {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainTitle {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.icon {
+    font-size: 60px;
+
+}

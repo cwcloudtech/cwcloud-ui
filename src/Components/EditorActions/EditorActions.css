@@ -1,0 +1,14 @@
+.copy-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 10px; 
+}
+
+.copybtn:hover {
+  color: #4990CF;
+}
+
+.fullscreenbtn:hover {
+  color: #4990CF;
+}

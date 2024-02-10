@@ -1,0 +1,18 @@
+.container {
+    min-height: 100vh;
+}
+
+.mainBlock {
+    margin-left: 255px;
+    padding: 30px;
+}
+
+@media (max-width: 1080px) {
+    .mainBlock {
+        margin-left: 0px;
+    }
+}
+
+.contentBlock {
+    margin-top: 130px;
+}

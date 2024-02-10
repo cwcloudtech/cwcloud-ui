@@ -1,0 +1,7 @@
+version: '3.3'
+
+services:
+  comwork_cloud_ui:
+    restart: always
+    image: cwcloud-ui:latest
+    build: .

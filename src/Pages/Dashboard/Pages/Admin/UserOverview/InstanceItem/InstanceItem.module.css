@@ -1,0 +1,49 @@
+.checkboxWrapper {
+  cursor: pointer;
+  margin-right: 16px;
+  opacity: 0.8;
+}
+
+.NameWrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.itemTitle {
+  font-weight: 500;
+  margin: 0;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.2;
+  cursor: pointer;
+}
+
+.itemTitleName {
+  font-weight: 500;
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.2;
+  color: #0A6DE0;
+  cursor: pointer;
+}
+
+.itemTitleName:hover {
+  text-decoration: underline;
+}
+
+.itemTitleNameDisabled {
+  font-weight: 500;
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.2;
+  cursor: pointer;
+  color:  #c4cfe6; 
+}
+
+.linkstyle{
+  text-decoration: inherit;
+  color: inherit;
+}
