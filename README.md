@@ -1,5 +1,11 @@
 # Cwcloud CE Web UI
 
+## Git mirrors
+
+* Main mirror: https://gitlab.comwork.io/oss/cwcloud/cwcloud-ui.git
+* Github mirror: https://github.com/comworkio/cwcloud-ui.git
+* Gitlab mirror: https://gitlab.com/ineumann/cwcloud-ui.git
+
 ## Getting started
 
 In order to work on localhost:
