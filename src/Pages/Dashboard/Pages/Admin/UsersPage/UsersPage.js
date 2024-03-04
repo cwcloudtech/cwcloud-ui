@@ -16,7 +16,7 @@ import ActionUser from './ActionUser/ActionUser';
 import formateDate from '../../../../../utils/FormateDate';
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import updateList from "../../../../../utils/update";
-import DataTable from '../../../../../Components/DataTable/DataTable';
+import DataTable from '../../../../../Components/Table/DataTable';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 

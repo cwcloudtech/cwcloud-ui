@@ -12,7 +12,7 @@ import Translate from 'react-translate-component';
 import GlobalContext from '../../../../../../../Context/GlobalContext';
 import colors from '../../../../../../../Context/Colors';
 import LoadingButton from '../../../../../../../Components/LoadingButton/LoadingButton';
-import DataTable from '../../../../../../../Components/DataTable/DataTable';
+import DataTable from '../../../../../../../Components/Table/DataTable';
 import ConfirmPaymentModal from './ConfirmPaymentModal/ConfirmPaymentModal';
 import formateDate from '../../../../../../../utils/FormateDate';
 

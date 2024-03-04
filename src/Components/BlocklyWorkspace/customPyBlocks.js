@@ -175,4 +175,9 @@ export const customizePythonGenerator = () => {
         var newValue = pythonGenerator.valueToCode(block, 'VALUE', PY_Order.MEMBER) || ''; // Updated 'NEW_VALUE' to 'VALUE'
         return `${object} = {}\n${object}[${key}] = ${newValue};\n`; // Added semicolon to end the statement
     };
+
+    pythonGenerator['environment_variable'] = function (block) {
+        var variableName = block.getFieldValue('VARIABLE_NAME');
+        return [`{{ env['${variableName}'] }}`, PY_Order.MEMBER];
+    };      
 }

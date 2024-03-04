@@ -1,8 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
-import { Col, Row, Container } from "reactstrap";
+import { Col, Row, Container} from "reactstrap";
 import classes from "./AddFunction.module.css";
 import axios from "../../../../../../utils/axios";
-import { isNotBlank } from "../../../../../../utils/common";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import TextField from '@mui/material/TextField';
@@ -11,18 +10,19 @@ import Translate from 'react-translate-component';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
-import { Fab } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 import IOSSwitch from '../../../../../../utils/iosswitch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { OutlinedInput, MenuItem, Select } from '@material-ui/core';
 import BlocklyWorkspace from '../../../../../../Components/BlocklyWorkspace/BlocklyWorkspace';
-import EditorModal from '../../../../../../Components/EditorModal/EditorModal';
-import BlocklyModal from '../../../../../../Components/BlocklyModal/BlocklyModal';
+import EditorModal from '../../../../../../Components/Modal/EditorModal';
+import BlocklyModal from '../../../../../../Components/Modal/BlocklyModal';
 import getSelectedProgrammingLanguage from '../../../../../../utils/language';
 import EditorBox from '../../../../../../Components/EditorBox/EditorBox';
-import WarningModal from '../../../../../../Components/WarningModal/WarningModal';
+import WarningModal from '../../../../../../Components/Modal/WarningModal';
+import EnvModal from '../../../../../../Components/Modal/EnvVarModal';
+import ArgModal from '../../../../../../Components/Modal/ArgModal';
+import EnvTable from '../../../../../../Components/Table/EnvTable';
+import ArgTable from '../../../../../../Components/Table/ArgTable';
 
 function AddFunction() {
     const context = useContext(GlobalContext);
@@ -30,11 +30,22 @@ function AddFunction() {
     const [loading, setLoading] = useState(false)
     const [loadingSubmit, setLoadingSubmit] = useState(false)
     const [withBlockly, setWithBlockly] = useState(false)
+
     const [showEditorFullScreen, setShowEditorFullScreen] = useState(false)
     const [showBlocklyFullScreen, setShowBlocklyFullScreen] = useState(false)
-    const [isPublic, setIsPublic] = useState(false)
     const [changesAreSaved, setChangesAreSaved] = useState(true)
     const [showWarningModal, setShowWarningModal] = useState(false)
+    const [showAddNewEnvModal, setShowAddNewEnvModal] = useState(false)
+    const [showEditEnvModal, setShowEditEnvModal] = useState(false)
+    const [showAddNewArgModal, setShowAddNewArgModal] = useState(false)
+    const [showEditArgModal, setShowEditArgModal] = useState(false)
+
+    const [selectedEnvVar, setSelectedEnvVar] = useState("")
+    const [selectedEnvVarIndex, setSelectedEnvVarIndex] = useState(0)
+    const [selectedArg, setSelectedArg] = useState("")
+    const [selectedArgIndex, setSelectedArgIndex] = useState(0)
+    
+    const [isPublic, setIsPublic] = useState(false)
     const [currentCode, setCurrentCode] = useState('')
     const [currentState, setCurrentState] = useState(null)
     const [languages, setLanguages] = useState([])
@@ -46,7 +57,8 @@ function AddFunction() {
     const [callback_authorization_header, setCallback_authorization_header] = useState('')
     const [regexp, setRegexp] = useState('')
     const [args, setArgs] = useState([])
-    const [finalArgs, setFinalArgs] = useState([])
+    const [envVars, setEnvVars] = useState([])
+
     const navigate = useNavigate()
     const location = useLocation()
     const nextPath = location.pathname === '/function/add' ? '/function/overview': '/admin/function'
@@ -91,6 +103,10 @@ function AddFunction() {
     }
 
     const handleClickButton = () => {
+        const env = {};
+        envVars.forEach(obj => {
+            env[obj.name] = obj.value;
+        });
         setLoadingSubmit(true)
         axios.post(`/faas/function`, {
             is_public: isPublic,
@@ -102,7 +118,8 @@ function AddFunction() {
                 callback_url: callback_url,
                 callback_authorization_header: callback_authorization_header,
                 regexp: regexp,
-                args: args
+                args: args,
+                env: env
             }
         }).then(response => {
             setLoadingSubmit(false)
@@ -137,25 +154,54 @@ function AddFunction() {
         }
     };
 
-    const updateArgHandler = (index, value) => {
+    const handleChangeArg = (index, value) => {
         const updatedArgs = [...args];
         updatedArgs[index] = value;
         setArgs(updatedArgs);
-    };
+    }
 
-    const handleTypingFinished = () => {
-        setFinalArgs(args.filter(arg => isNotBlank(arg)));
-    };
+    const handleAddNewArg = () => {
+        setArgs([...args, ''])
+        setShowAddNewArgModal(true)
+    }
 
     const handleDeleteArg = (index) => {
         const updatedArgs = [...args];
         updatedArgs.splice(index, 1);
         setArgs(updatedArgs);
-
-        const updatedFinalArgs = [...finalArgs];
-        updatedFinalArgs.splice(index, 1);
-        setFinalArgs(updatedFinalArgs);
     };
+
+    const handleEditArg = (index) => {
+        var selectedArg = args[index]
+        setShowEditArgModal(true)
+        setSelectedArg(selectedArg)
+        setSelectedArgIndex(index)
+    }
+
+    const handlAddNewEnvVariable = () => {
+        setEnvVars([...envVars, { name: "", value: ""}])
+        setShowAddNewEnvModal(true)
+    }
+
+    const handleDeleteEnvVariable = (index) => {
+        const updatedEnvVars = [...envVars];
+        updatedEnvVars.splice(index, 1);
+        setEnvVars(updatedEnvVars);
+    }
+
+    const handleEditEnvVariable = (index) => {
+        var selectedVariable = envVars[index]
+        setShowEditEnvModal(true)
+        setSelectedEnvVar(selectedVariable)
+        setSelectedEnvVarIndex(index)
+    }
+
+    const handleChangeEnvVar = (index, key, value) => {
+        const updatedEnvVars = [...envVars];
+        updatedEnvVars[index].name = key;
+        updatedEnvVars[index].value = value;
+        setEnvVars(updatedEnvVars);
+    }
 
     const handleCodeAndStateChange = (newCode, newState) => {
         setCurrentCode(newCode)
@@ -169,6 +215,10 @@ function AddFunction() {
     else
         return (
             <div>
+                <ArgModal title="dashboard.function.inputs.args.addModalTitle" isOpen={showAddNewArgModal} toggle={() => setShowAddNewArgModal(!showAddNewArgModal)} variable={args[args.length-1]} index={args.length-1} onClick={handleChangeArg} />
+                <ArgModal title="dashboard.function.inputs.args.editModalTitle" isOpen={showEditArgModal} toggle={() => setShowEditArgModal(!showEditArgModal)} variable={selectedArg} index={selectedArgIndex} onClick={handleChangeArg} />
+                <EnvModal title="dashboard.function.inputs.env_vars.addModalTitle" isOpen={showAddNewEnvModal} toggle={() => setShowAddNewEnvModal(!showAddNewEnvModal)} variable={envVars[envVars.length-1]} index={envVars.length-1} onClick={handleChangeEnvVar} />
+                <EnvModal title="dashboard.function.inputs.env_vars.editModalTitle" isOpen={showEditEnvModal} toggle={() => setShowEditEnvModal(!showEditEnvModal)} variable={selectedEnvVar} index={selectedEnvVarIndex} onClick={handleChangeEnvVar}/>
                 <WarningModal isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} title="common.message.warning" message={message} buttonTitle="common.button.save" cancelbuttonTitle="common.button.return" onClick={handleWarningModalClickButton} loading={loadingSubmit} />
                 <Row>
                     <Col>
@@ -278,36 +328,6 @@ function AddFunction() {
                             </Row>
                         </Col>
                     </Row>
-                    <Row style={{ display: "flex", alignItems: "center", margin: "30px 0px" }}>
-                        <Col md="4">
-                            <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
-                                <Translate content="dashboard.function.inputs.args.title" />
-                            </h5>
-                            <Fab color="primary" aria-label="add" onClick={() => setArgs([...args, ''])} style={{ transform: 'scale(0.7)' }} >
-                                <AddIcon className="whiteIcon" />
-                            </Fab>
-                        </Col>
-                        <Col md="6">
-                            {args?.map((arg, index) => (
-                                <Row key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Col>
-                                        <TextField
-                                            style={{ marginTop: '10px' }}
-                                            value={arg}
-                                            onChange={(e) => updateArgHandler(index, e.target.value)}
-                                            onBlur={handleTypingFinished}
-                                            label={context.counterpart('dashboard.function.inputs.args.placeholder')}
-                                            fullWidth />
-                                    </Col>
-                                    <Col xs="1">
-                                        <Fab aria-label="delete" color='primary' onClick={() => handleDeleteArg(index)} style={{ transform: 'scale(0.7)' }} >
-                                            <DeleteIcon className="whiteIcon" />
-                                        </Fab>
-                                    </Col>
-                                </Row>
-                            ))}
-                        </Col>
-                    </Row>
                     <Row style={{ margin: "30px 0px" }}>
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>
@@ -329,6 +349,18 @@ function AddFunction() {
                             </Row>
                         </Col>
                     </Row>
+                    <ArgTable
+                        args={args}
+                        addNewArg={handleAddNewArg}
+                        editArg={handleEditArg}
+                        deleteArg={handleDeleteArg}
+                    />
+                    <EnvTable
+                        envVars={envVars}
+                        addNewEnvVar={handlAddNewEnvVariable}
+                        editEnvVar={handleEditEnvVariable}
+                        deleteEnvVar={handleDeleteEnvVariable}
+                    />
                     {
                        (selectedLanguage === "blockly" ) && (
                         <Row style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "20px", marginTop: "10px" }}>
@@ -364,7 +396,7 @@ function AddFunction() {
                                         key={`blockly-workspace-${showBlocklyFullScreen}`}
                                         code={currentCode}
                                         state={currentState}
-                                        args={finalArgs}
+                                        args={args}
                                         _mode={_mode}
                                         onWorkspaceChange={ (generatedCode, state) => {
                                                setChangesAreSaved(false);

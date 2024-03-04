@@ -11,10 +11,18 @@ import { TextField } from "@mui/material";
 import Translate from 'react-translate-component';
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 import SuggestionsAutoComplete from "../../../../../Components/SuggestionsAutoComplete/SuggestionsAutoComplete";
+import { Box } from "@mui/material";
+import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
+
+const projectType = [
+    'vm',
+    'k8s'
+]
 
 function AdminAddProject(props) {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
+    const [type, setType] = useState(projectType[0])
     const [project, setProject] = useState({})
     const [invalid, setInvalid] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -83,6 +91,28 @@ function AdminAddProject(props) {
                                 </FormText>
                             </FormGroup>
                         </Form>
+                    </CardComponent>
+                    <CardComponent 
+                        containerStyles={props.containerStyles}
+                        title={context.counterpart('dashboard.addProject.inputs.type.title')} 
+                        >
+                        <Box style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            width: 'fit-content',
+                        }}>
+                            <SimpleDropdown
+                                items={projectType}
+                                selectedItem={type}
+                                onChange={(e) => {
+                                    setType(e.target.value)
+                                    setProject({ ...project, type: e.target.value })
+                                }}
+                            />
+                            <FormText>
+                                <Translate content="dashboard.addProject.inputs.type.subtitle" />
+                            </FormText>
+                        </Box>
                     </CardComponent>
                     <CardComponent
                         containerStyles={props.containerStyles}

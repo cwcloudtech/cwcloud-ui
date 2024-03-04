@@ -11,7 +11,7 @@ import { Download } from "@mui/icons-material";
 import Translate from "react-translate-component"
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
-import DataTable from '../../../../../Components/DataTable/DataTable';
+import DataTable from '../../../../../Components/Table/DataTable';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Autocomplete } from '@mui/material';
@@ -253,7 +253,7 @@ function AdminInvoicesOverview() {
                     <Row>
                         <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <LoadingButton icon="fa-solid fa-magnifying-glass" loading={loadingSearch} className={classes.buttonStyle} onClick={searchInvoiceHandler} >
-                                <Translate content="dashboard.invoicesPage.buttons.search" />
+                                <Translate content="common.button.search" />
 
                             </LoadingButton>
                         </Col>

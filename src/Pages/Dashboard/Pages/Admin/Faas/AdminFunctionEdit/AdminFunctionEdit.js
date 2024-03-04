@@ -11,22 +11,23 @@ import LoadingSpinner from '../../../../../../Components/LoadingSpinner/LoadingS
 import Translate from 'react-translate-component';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
-import { Fab } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import IOSSwitch from '../../../../../../utils/iosswitch';
 import formateDate from '../../../../../../utils/FormateDate';
 import { OutlinedInput, MenuItem, Select } from '@material-ui/core';
 import SuggestionsAutoComplete from '../../../../../../Components/SuggestionsAutoComplete/SuggestionsAutoComplete';
-import EditorModal from '../../../../../../Components/EditorModal/EditorModal';
+import EditorModal from '../../../../../../Components/Modal/EditorModal';
 import BlocklyWorkspace from "../../../../../../Components/BlocklyWorkspace/BlocklyWorkspace"
-import BlocklyModal from '../../../../../../Components/BlocklyModal/BlocklyModal';
+import BlocklyModal from '../../../../../../Components/Modal/BlocklyModal';
 import { saveAs } from 'file-saver';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import getSelectedProgrammingLanguage from '../../../../../../utils/language';
 import EditorBox from '../../../../../../Components/EditorBox/EditorBox';
-import WarningModal from '../../../../../../Components/WarningModal/WarningModal';
+import WarningModal from '../../../../../../Components/Modal/WarningModal';
+import EnvModal from '../../../../../../Components/Modal/EnvVarModal';
+import EnvTable from '../../../../../../Components/Table/EnvTable';
+import ArgModal from '../../../../../../Components/Modal/ArgModal';
+import ArgTable from '../../../../../../Components/Table/ArgTable';
 
 function AdminFunctionEdit() {
     const context = useContext(GlobalContext);
@@ -39,6 +40,16 @@ function AdminFunctionEdit() {
     const [functionIsPublic, setFunctionIsPublic] = useState(false)
     const [changesAreSaved, setChangesAreSaved] = useState(true)
     const [showWarningModal, setShowWarningModal] = useState(false)
+    const [showAddNewEnvModal, setShowAddNewEnvModal] = useState(false)
+    const [showEditEnvModal, setshowEditEnvModal] = useState(false)
+    const [showAddNewArgModal, setShowAddNewArgModal] = useState(false)
+    const [showEditArgModal, setShowEditArgModal] = useState(false)
+
+    const [selectedEnvVar, setSelectedEnvVar] = useState("")
+    const [selectedEnvVarIndex, setSelectedEnvVarIndex] = useState(0)
+    const [selectedArg, setSelectedArg] = useState("")
+    const [selectedArgIndex, setSelectedArgIndex] = useState(0)
+
     const [functionCode, setFunctionCode] = useState('')
     const [functionName, setFunctionName] = useState('')
     const [functionCallbackUrl, setFunctionCallbackUrl] = useState('')
@@ -48,8 +59,8 @@ function AdminFunctionEdit() {
     const [functionCreatedAt, setFunctionCreatedAt] = useState('')
     // eslint-disable-next-line
     const [functionUpdatedAt, setFunctionUpdatedAt] = useState('')
+    const [envVars, setEnvVars] = useState([])
     const [args, setArgs] = useState([])
-    const [finalArgs, setFinalArgs] = useState([])
     const [languages, setLanguages] = useState([])
     const [users, setUsers] = useState([])
     const [selectedLanguage, setSelectedLanguage] = useState('')
@@ -82,8 +93,11 @@ function AdminFunctionEdit() {
                         setFunctionUpdatedAt(res.data.updated_at)
                         setCurrentCode(res.data.content.code)
                         setArgs(res.data.content.args)
-                        setFinalArgs(res.data.content.args)
                         setSelectedLanguage(res.data.content.language)
+                        if (isNotBlank(res.data.content.env)) {
+                            var envVars = createEnvironmentVariablesArray(res.data.content.env)
+                            setEnvVars(envVars)
+                        }
                         if (isNotBlank(res.data.content.blockly)) {
                             setWithBlockly(true)
                             setOpenedBlockly(true)
@@ -130,8 +144,11 @@ function AdminFunctionEdit() {
     }
 
     const handleClickButton = () => {
+        const env = {};
+        envVars.forEach(obj => {
+            env[obj.name] = obj.value;
+        });
         setLoadingSubmit(true)
-
         axios.put(`/faas/function/${id}`, {
             id: id,
             is_public: functionIsPublic,
@@ -144,7 +161,8 @@ function AdminFunctionEdit() {
                 callback_url: functionCallbackUrl,
                 callback_authorization_header: functionCallbackAuthorizationHeader,
                 regexp: functionRegexp,
-                args: args
+                args: args,
+                env: env
             }
         }).then(response => {
             setLoadingSubmit(false)
@@ -161,24 +179,28 @@ function AdminFunctionEdit() {
         handleClickButton()
     }
 
-    const updateArgHandler = (index, value) => {
+    const handleChangeArg = (index, value) => {
         const updatedArgs = [...args];
         updatedArgs[index] = value;
         setArgs(updatedArgs);
+    }
+
+    const handleEditArg = (index) => {
+        const selectedArg = args[index]
+        setShowEditArgModal(true)
+        setSelectedArg(selectedArg)
+        setSelectedArgIndex(index)
     };
 
-    const handleTypingFinished = () => {
-        setFinalArgs(args.filter(arg => isNotBlank(arg)));
-    };
+    const handleAddNewArg = () => {
+        setArgs([...args, ''])
+        setShowAddNewArgModal(true)
+    }
 
     const handleDeleteArg = (index) => {
         const updatedArgs = [...args];
         updatedArgs.splice(index, 1);
         setArgs(updatedArgs);
-
-        const updatedFinalArgs = [...finalArgs];
-        updatedFinalArgs.splice(index, 1);
-        setFinalArgs(updatedFinalArgs);
     };
 
     const handleCodeAndStateChange = (newCode, newState) => {
@@ -208,11 +230,48 @@ function AdminFunctionEdit() {
             })
     }
 
+    const createEnvironmentVariablesArray = (env) => {
+        const envVarsArray = []
+        for (const [name, value] of Object.entries(env)) {
+            envVarsArray.push({ name: name, value: value, isHidden: true })
+        }
+        return envVarsArray
+    }
+
+    const handlAddNewEnvVariable = () => {
+        setEnvVars([...envVars, { name: "", value: ""}])
+        setShowAddNewEnvModal(true)
+    }
+
+    const handleDeleteEnVar = (index) => {
+        const updatedEnvVars = [...envVars];
+        updatedEnvVars.splice(index, 1);
+        setEnvVars(updatedEnvVars);
+    }
+
+    const handleEditEnVar = (index) => {
+        var selectedVariable = envVars[index]
+        setshowEditEnvModal(true)
+        setSelectedEnvVar(selectedVariable)
+        setSelectedEnvVarIndex(index)
+    }
+
+    const handleChangeEnvVar = (index, key, value) => {
+        const updatedEnvVars = [...envVars];
+        updatedEnvVars[index].name = key;
+        updatedEnvVars[index].value = value;
+        setEnvVars(updatedEnvVars);
+    }
+
     if (loading)
         return <LoadingSpinner />
     else
         return (
             <div>
+                <ArgModal title="dashboard.function.inputs.args.addModalTitle" isOpen={showAddNewArgModal} toggle={() => setShowAddNewArgModal(!showAddNewArgModal)} variable={args[args.length-1]} index={args.length-1} onClick={handleChangeArg} />
+                <ArgModal title="dashboard.function.inputs.args.editModalTitle" isOpen={showEditArgModal} toggle={() => setShowEditArgModal(!showEditArgModal)} variable={selectedArg} index={selectedArgIndex} onClick={handleChangeArg} />
+                <EnvModal title="dashboard.function.inputs.env_vars.addModalTitle" isOpen={showAddNewEnvModal} toggle={() => setShowAddNewEnvModal(!showAddNewEnvModal)} variable={envVars[envVars.length-1]} index={envVars.length-1} onClick={handleChangeEnvVar} />
+                <EnvModal title="dashboard.function.inputs.env_vars.editModalTitle" isOpen={showEditEnvModal} toggle={() => setshowEditEnvModal(!showEditEnvModal)} variable={selectedEnvVar} index={selectedEnvVarIndex} onClick={handleChangeEnvVar}/>
                 <WarningModal isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} title="common.message.warning" message={message} buttonTitle="common.button.save" cancelbuttonTitle="common.button.return" onClick={handleWarningModalClickButton} loading={loadingSubmit} />
                 <Row>
                     <Col>
@@ -358,36 +417,6 @@ function AdminFunctionEdit() {
                             </Row>
                         </Col>
                     </Row>
-                    <Row style={{ display: "flex", alignItems: "center" }}>
-                        <Col md="4">
-                            <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
-                                <Translate content="dashboard.function.inputs.args.title" />
-                            </h5>
-                            <Fab color="primary" aria-label="add" onClick={() => setArgs([...args, ''])} style={{ transform: 'scale(0.7)' }} >
-                                <AddIcon className="whiteIcon" />
-                            </Fab>
-                        </Col>
-                        <Col md="6">
-                            {args?.map((arg, index) => (
-                                <Row key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Col>
-                                        <TextField
-                                            style={{ marginTop: '10px' }}
-                                            value={arg}
-                                            onChange={(e) => updateArgHandler(index, e.target.value)}
-                                            onBlur={handleTypingFinished}
-                                            label={context.counterpart('dashboard.function.inputs.args.placeholder')}
-                                            fullWidth />
-                                    </Col>
-                                    <Col xs="1">
-                                        <Fab aria-label="delete" color='primary' onClick={() => handleDeleteArg(index)} style={{ transform: 'scale(0.7)' }} >
-                                            <DeleteIcon className="whiteIcon" />
-                                        </Fab>
-                                    </Col>
-                                </Row>
-                            ))}
-                        </Col>
-                    </Row>
                     <Row style={{ margin: "30px 0px" }}>
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>
@@ -407,6 +436,18 @@ function AdminFunctionEdit() {
                             </Row>
                         </Col>
                     </Row>
+                    <ArgTable
+                        args={args}
+                        addNewArg={handleAddNewArg}
+                        editArg={handleEditArg}
+                        deleteArg={handleDeleteArg}
+                    />
+                    <EnvTable
+                        envVars={envVars}
+                        addNewEnvVar={handlAddNewEnvVariable}
+                        deleteEnvVar={handleDeleteEnVar}
+                        editEnvVar={handleEditEnVar} 
+                    />
                     {
                        (selectedLanguage === "blockly") && (
                         <Row style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "20px" }}>
@@ -442,7 +483,7 @@ function AdminFunctionEdit() {
                                         key={`blockly-workspace-${showBlocklyFullScreen}`}
                                         code={currentCode}
                                         state={currentState}
-                                        args={finalArgs}
+                                        args={args}
                                         _mode={_mode}
                                         onWorkspaceChange={
                                             (generatedCode, newState) => {

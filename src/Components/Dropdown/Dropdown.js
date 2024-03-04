@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-const DropdownComponent = ({ inputLabelId, name, selectLabelId, selectId, selectedItem, onChange, input, items }) => {
+const DropdownComponent = ({ inputLabelId, name, selectLabelId, selectId, selectedItem, onChange, input, items, fullWidth }) => {
     return (
-        <FormControl sx={{ m: 1, width: 300 }}>
+        <FormControl sx={{ m: 1, width: fullWidth ? '100%' : 300 }}>
             <InputLabel id={inputLabelId}>{name}</InputLabel>
             <Select
                 labelId={selectLabelId}

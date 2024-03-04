@@ -4,10 +4,10 @@ import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import { Col, Container, Row } from 'reactstrap';
 import classes from './Credentials.module.css';
-import DataTable from '../../../../../Components/DataTable/DataTable';
+import DataTable from '../../../../../Components/Table/DataTable';
 import { toast } from 'react-toastify';
-import CustomDeleteIcon from '../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
-import DeleteModal from '../../../../../Components/DeleteModal/DeleteModal';
+import CustomDeleteIcon from '../../../../../Components/CustomIcon/CustomDeleteIcon';
+import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import formateDate from '../../../../../utils/FormateDate';
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import AddApiKeyModal from './AddApiKeyModal/AddApiKeyModal';
@@ -19,7 +19,7 @@ import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import CardComponent from '../../../../../Components/Cards/CardComponent/CardComponent';
-import CustomDownloadIcon from '../../../../../Components/CustomDownloadIcon/CustomDeleteIcon';
+import CustomDownloadIcon from '../../../../../Components/CustomIcon/CustomDownloadIcon';
 
 function Credentials() {
     const _mode = useContext(GlobalContext).mode;

@@ -4,11 +4,11 @@ import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import { Col, Container, Row } from 'reactstrap';
 import classes from './Support.module.css';
-import DataTable from '../../../../../Components/DataTable/DataTable';
+import DataTable from '../../../../../Components/Table/DataTable';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 import { Link } from 'react-router-dom';
 import formateDate from '../../../../../utils/FormateDate';
-import AddTicketModal from '../../../../../Components/AddTicketModal/AddTicketModal';
+import AddTicketModal from '../../../../../Components/Modal/AddTicketModal';
 import { Add } from '@mui/icons-material';
 import Translate from "react-translate-component";
 

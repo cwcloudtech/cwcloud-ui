@@ -5,7 +5,7 @@ import { Col, Container, Row } from 'reactstrap';
 import classes from './Settings.module.css';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 import { toast } from 'react-toastify';
-import DeleteModal from '../../../../../Components/DeleteModal/DeleteModal';
+import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';

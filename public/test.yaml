@@ -1,0 +1,18 @@
+name: ayoo
+namespace: default
+annotations: {}
+labels: {}
+type: LoadBalancer
+ports:
+  - port: 1000
+    # name: string
+    protocol: TCP
+    targetPort: 1000
+
+selector:
+  app: string
+
+sessionAffinity: None
+affinityConfig_clientIP_timeout: 222
+externalIPs:
+  - 1.1.1.1

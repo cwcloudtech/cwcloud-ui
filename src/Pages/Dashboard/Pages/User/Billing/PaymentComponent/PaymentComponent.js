@@ -7,14 +7,14 @@ import colors from '../../../../../../Context/Colors';
 import { Col, Container, Row } from 'reactstrap';
 import Translate from "react-translate-component";
 import classes from './PaymentComponent.module.css';
-import DataTable from '../../../../../../Components/DataTable/DataTable';
+import DataTable from '../../../../../../Components/Table/DataTable';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import PaymentInfoModal from './PaymentInfoModal/PaymentInfoModal';
 import { toast } from 'react-toastify';
 import Invoices from './Invoices/Invoices';
 import Checkbox from '@mui/material/Checkbox';
-import CustomDeleteIcon from '../../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
-import DeleteModal from '../../../../../../Components/DeleteModal/DeleteModal';
+import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
+import DeleteModal from '../../../../../../Components/Modal/DeleteModal';
 import { Tooltip } from '@mui/material';
 import { saveAs } from 'file-saver';
 
@@ -30,6 +30,7 @@ function PaymentComponent() {
     const [loadingDeletion, setLoadingDeletion] = useState(false)
     const [loadingPaymentInvoice, setLoadingPaymentInvoice] = useState(null)
     const [invoices, setInvoices] = useState([])
+    // eslint-disable-next-line no-unused-vars
     const [iframeSrc, setIframeSrc] = useState('');
     const stripe = useStripe();
     const elements = useElements();

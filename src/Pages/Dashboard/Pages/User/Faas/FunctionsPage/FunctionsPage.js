@@ -10,19 +10,19 @@ import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import GlobalContext from '../../../../../../Context/GlobalContext';
-import CustomDeleteIcon from '../../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
+import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
 import Translate from 'react-translate-component';
 import AddIcon from '@mui/icons-material/Add';
 import PublishOutlinedIcon from '@mui/icons-material/PublishOutlined';
-import DataTable from '../../../../../../Components/DataTable/DataTable';
+import DataTable from '../../../../../../Components/Table/DataTable';
 import { toast } from 'react-toastify'
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import DeleteModal from "../../../../../../Components/DeleteModal/DeleteModal";
+import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import CustomCopyIcon from '../../../../../../Components/CustomCopyIcon /CustomCopyIcon';
+import CustomCopyIcon from '../../../../../../Components/CustomIcon/CustomCopyIcon';
 import formateDate from '../../../../../../utils/FormateDate';
 
 function FunctionsPage(props) {

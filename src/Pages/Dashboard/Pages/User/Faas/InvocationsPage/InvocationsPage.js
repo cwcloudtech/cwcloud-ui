@@ -6,8 +6,8 @@ import { Row, Col } from "reactstrap";
 import { TextField } from "@mui/material";
 import axios from "../../../../../../utils/axios"
 import GlobalContext from '../../../../../../Context/GlobalContext';
-import CustomDeleteIcon from '../../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
-import DataTable from '../../../../../../Components/DataTable/DataTable';
+import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
+import DataTable from '../../../../../../Components/Table/DataTable';
 import { toast } from 'react-toastify';
 import Translate from 'react-translate-component';
 import Tooltip from '@mui/material/Tooltip';
@@ -16,11 +16,11 @@ import Fab from '@mui/material/Fab';
 import InputAdornment from '@mui/material/InputAdornment';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import DeleteModal from "../../../../../../Components/DeleteModal/DeleteModal";
+import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import sliceIfNeeded from "../../../../../../utils/stringSlice";
-import CustomCopyIcon from '../../../../../../Components/CustomCopyIcon /CustomCopyIcon';
-import CustomRerunIcon from '../../../../../../Components/CustomRerunIcon/CustomRerunIcon';
+import CustomCopyIcon from '../../../../../../Components/CustomIcon/CustomCopyIcon';
+import CustomRerunIcon from '../../../../../../Components/CustomIcon/CustomRerunIcon';
 import { FaHourglassEnd } from "react-icons/fa";
 
 function InvocationsPage(props) {

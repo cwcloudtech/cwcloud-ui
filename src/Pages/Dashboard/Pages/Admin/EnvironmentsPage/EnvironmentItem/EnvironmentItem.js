@@ -4,12 +4,12 @@ import classes from "./EnvironmentItem.module.css"
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import formateDate from '../../../../../utils/FormateDate';
-import DeleteModal from "../../../../../Components/DeleteModal/DeleteModal"
+import DeleteModal from "../../../../../Components/Modal/DeleteModal"
 import { toast } from 'react-toastify';
 import axios from "../../../../../utils/axios"
 import Skeleton from 'react-loading-skeleton'
 import GlobalContext from '../../../../../Context/GlobalContext';
-import CustomDeleteIcon from '../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
+import CustomDeleteIcon from '../../../../../Components/CustomIcon/CustomDeleteIcon';
 import colors from '../../../../../../Context/Colors';
 
 function EnvironmentItem(props) {

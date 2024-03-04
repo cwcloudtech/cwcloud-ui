@@ -6,8 +6,8 @@ import { Row, Col } from "reactstrap";
 import { TextField } from "@mui/material";
 import axios from "../../../../../../utils/axios"
 import GlobalContext from '../../../../../../Context/GlobalContext';
-import CustomDeleteIcon from '../../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
-import DataTable from '../../../../../../Components/DataTable/DataTable';
+import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
+import DataTable from '../../../../../../Components/Table/DataTable';
 import { toast } from 'react-toastify';
 import Translate from 'react-translate-component';
 import Tooltip from '@mui/material/Tooltip';
@@ -16,7 +16,7 @@ import Fab from '@mui/material/Fab';
 import InputAdornment from '@mui/material/InputAdornment';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import DeleteModal from "../../../../../../Components/DeleteModal/DeleteModal";
+import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import sliceIfNeeded from "../../../../../../utils/stringSlice";
 
@@ -32,8 +32,8 @@ function TriggersPage(props) {
     const columns = [
         { field: 'id', headerName: context.counterpart("dashboard.table.id"), width: 330, renderCell: (params) => (params.id) },
         { field: 'function_id', headerName: context.counterpart("dashboard.table.function"), width: 330, renderCell: (params) => (<Link to={`/function/${params.row.content.function_id}`}>{params.row.content.function_id}</Link>) },
-        { field: 'kind', headerName: context.counterpart("dashboard.trigger.table.kind"), width: 70, renderCell: (params) => (params.row.content.kind) },
-        { field: 'name', headerName: context.counterpart("dashboard.trigger.table.name"), width: 200, renderCell: (params) => (params.row.content.name) },
+        { field: 'kind', headerName: context.counterpart("dashboard.trigger.table.kind"), width: 100, renderCell: (params) => (params.row.content.kind) },
+        { field: 'name', headerName: context.counterpart("dashboard.trigger.table.name"), width: 100, renderCell: (params) => (params.row.content.name) },
         { field: 'cron_expr', headerName: context.counterpart("dashboard.trigger.table.cronExpr"), width: 90, renderCell: (params) => (params.row.content.cron_expr ? params.row.content.cron_expr : 'not a cron') },
         { field: 'actions', headerName: context.counterpart("dashboard.table.actions"), width: 70, renderCell: (params) => {
                 const onClick = (e) => {
@@ -92,7 +92,7 @@ function TriggersPage(props) {
                 setTriggers(filteredListWithoutRemovedElement(triggerId, triggers))
                 setFilteredTriggers(filteredListWithoutRemovedElement(triggerId, filteredTriggers))
                 setLoadingDelete(false)
-                setShowConfirmTruncateModal(false)
+                setShowConfirmDeleteModal(false)
             })
             .catch(err => {
                 setLoadingDelete(false)

@@ -2,18 +2,31 @@ body {
     background-color: #31373d !important;
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
     background-color: #41474d !important;
 }
 
-.btn-info, 
-.MuiFab-root, 
-.css-113qkos-MuiSwitch-root .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track  {
+.btn-info,
+.MuiFab-root,
+.MuiButton-containedPrimary,
+.css-113qkos-MuiSwitch-root .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track {
     background-color: #4ea8f7 !important;
 }
 
-.MuiButton-outlinedPrimary, a{
+.MuiButton-textPrimary,
+.MuiButton-outlinedPrimary,
+a {
     color: #4ea8f7 !important;
+}
+
+/* Active tab style */
+.MuiTabs-flexContainer .MuiTab-root.Mui-selected {
+    color: #4ea8f7 !important;
+}
+
+/* Inactive tab style */
+.MuiTabs-flexContainer .MuiTab-root:not(.Mui-selected) {
+    color: white;
 }
 
 .MuiSvgIcon-root {
@@ -86,47 +99,47 @@ body {
 .whiteIcon,
 .whiteIcon:hover,
 .whiteIcon:active,
-.whiteIcon:focus{
+.whiteIcon:focus {
     color: white !important;
 }
 
 .MuiDataGrid-columnSeparator,
 .MuiDataGrid-columnSeparator>.MuiSvgIcon-root,
-.MuiDataGrid-columnSeparator>.MuiSvgIcon-root:hover{
+.MuiDataGrid-columnSeparator>.MuiSvgIcon-root:hover {
     color: #aab8c5 !important;
 }
 
 .Mui-disabled,
 .Mui-disabled:hover>.MuiSvgIcon-root,
 .Mui-disabled>.MuiSvgIcon-root,
-.Mui-disabled>.MuiSvgIcon-root:hover{
-    color : #8f99a3 !important;
+.Mui-disabled>.MuiSvgIcon-root:hover {
+    color: #8f99a3 !important;
     cursor: not-allowed !important;
 }
 
 .MuiDataGrid-cell,
 .MuiDataGrid-columnHeaders,
-.css-1nitb7c{
+.css-1nitb7c {
     border-bottom: 1px solid #51575d !important;
 }
 
 .MuiDataGrid-footerContainer,
-.css-1yy0dv2{
+.css-1yy0dv2 {
     border-top: 1px solid #51575d !important;
 }
 
 .form-text,
 .invalid-feedback,
 .MuiTablePagination-toolbar,
-.css-8nphli{
+.css-8nphli {
     color: #aab8c5 !important;
 }
 
-.CustomDeleteIcon_deleteIcon__KT7k5{
+.CustomDeleteIcon_deleteIcon__KT7k5 {
     color: #de4452 !important;
 }
 
-.DataTable_selectionDeleteContainer__LvaIB{
+.DataTable_selectionDeleteContainer__LvaIB {
     background-color: #37404a !important;
     color: white !important;
     box-shadow: none !important;
@@ -134,22 +147,26 @@ body {
     border: 1px solid #41474d !important;
 }
 
-.blackableInput{
+.blackableInput {
     transition: border 0.2s ease-in-out, outline 0.2s ease-in-out;
     color: #bbd6e0 !important;
     background-color: #47505a !important;
     border: 1px solid #51575d !important;
 }
 
+.blackableInput::placeholder {
+    color: #9ba1a6 !important;
+}
+
 .blackableInput:active,
-.blackableInput:focus{
+.blackableInput:focus {
     transition: border 0.2s ease-in-out, outline 0.2s ease-in-out;
     border: 1px solid #4ea8f7 !important;
     outline: 1px solid #4ea8f7 !important;
     box-shadow: none !important;
 }
 
-.miniContainer:hover{
+.miniContainer:hover {
     border-color: #4ea8f7 !important;
     color: #4ea8f7 !important;
 }
@@ -163,7 +180,7 @@ body {
 .MuiSelect-outlined,
 .MuiInputBase-input,
 .MuiOutlinedInput-input,
-.css-qiwgdb{
+.css-qiwgdb {
     color: #aab8c5 !important;
 }
 
@@ -175,13 +192,13 @@ fieldset,
 .MuiInputBase-root>*>.MuiOutlinedInput-notchedOutline,
 .MuiInputBase-root>*>.css-igs3ac,
 .MuiFormControl-root>*>.MuiOutlinedInput-notchedOutline,
-.MuiFormControl-root>*>.css-igs3ac{
+.MuiFormControl-root>*>.css-igs3ac {
     border: 1px solid #aab8c5 !important;
 }
 
 .MuiFormControl-root>label,
 .css-1mzc8>label,
-.css-u9osun{
+.css-u9osun {
     color: #aab8c5 !important;
 }
 
@@ -192,13 +209,13 @@ fieldset,
 .MuiInputBase-root:hover>*>.MuiOutlinedInput-notchedOutline,
 .MuiInputBase-root:hover>*>.css-igs3ac,
 .MuiFormControl-root:hover>*>.MuiOutlinedInput-notchedOutline,
-.MuiFormControl-root:hover>*>.css-igs3ac{
+.MuiFormControl-root:hover>*>.css-igs3ac {
     border: 1px solid white !important;
 }
 
 .MuiFormControl-root:hover>label,
 .css-1mzc8:hover>label,
-.css-u9osun{
+.css-u9osun {
     color: white !important;
 }
 
@@ -217,7 +234,7 @@ fieldset,
 .MuiFormControl-root:active>*>.MuiOutlinedInput-notchedOutline,
 .MuiFormControl-root:active>*>.css-igs3ac,
 .MuiFormControl-root:focus>*>.MuiOutlinedInput-notchedOutline,
-.MuiFormControl-root:focus>*>.css-igs3ac{
+.MuiFormControl-root:focus>*>.css-igs3ac {
     border: 1px solid #4ea8f7 !important;
 }
 
@@ -225,14 +242,14 @@ fieldset,
 .css-1mzc8:focus>label,
 .MuiFormControl-root:active>label,
 .css-1mzc8:active>label,
-.css-u9osun.Mui-focused{
+.css-u9osun.Mui-focused {
     color: #4ea8f7 !important;
 }
 
 .MuiInput-underline:before,
 .MuiInput-underline::before,
 .css-1vv4lmi::before,
-.css-1yf1g2m::before{
+.css-1yf1g2m::before {
     transition: border 0.1s ease-in-out;
     border-bottom: 1px solid #aab8c5 !important;
 }
@@ -240,7 +257,7 @@ fieldset,
 .MuiInput-underline:hover:before,
 .MuiInput-underline:hover::before,
 .css-1vv4lmi:hover::before,
-.css-1yf1g2m:hover::before{
+.css-1yf1g2m:hover::before {
     transition: border 0.1s ease-in-out;
     border-bottom: 2px solid white !important;
 }
@@ -252,48 +269,48 @@ fieldset,
 .css-1vv4lmi:focus::before,
 .css-1yf1g2m:focus::before,
 .css-1vv4lmi:active::before,
-.css-1yf1g2m:active::before{
+.css-1yf1g2m:active::before {
     transition: border 0.15s ease-in-out;
     border-bottom: 2px solid #4ea8f7 !important;
 }
 
 ::placeholder,
 ::-ms-input-placeholder,
-:-ms-input-placeholder{
+:-ms-input-placeholder {
     color: #aab8c5 !important;
     outline: none !important;
 }
 
 .MuiTypography-root,
 .MuiFormControlLabel-label,
-.css-9l3uo3{
+.css-9l3uo3 {
     color: white !important;
 }
 
 .MuiFormHelperText-root,
-.css-v7esy{
+.css-v7esy {
     color: #aab8c5 !important;
 }
 
-.modal-content{
+.modal-content {
     background-color: #37404a !important;
     color: white !important;
 }
 
-.modal-header{
+.modal-header {
     border-bottom: 1px solid #51575d;
 }
 
-.modal-footer{
+.modal-footer {
     border-top: 1px solid #51575d;
 }
 
-.btn-close{
+.btn-close {
     filter: brightness(0) invert(1);
 }
 
 .MuiPaper-root,
-.MuiDrawer-paper{
+.MuiDrawer-paper {
     background-color: #37404a !important;
     color: #aab8c5 !important;
 }
@@ -301,60 +318,61 @@ fieldset,
 .css-hpjz40,
 .css-1b49ddv,
 .css-hpjz40>*>.MuiSvgIcon-root:hover,
-.css-1b49ddv>*>.MuiSvgIcon-root:hover{
+.css-1b49ddv>*>.MuiSvgIcon-root:hover {
     color: white !important;
 }
 
-.css-hpjz40{
+.css-hpjz40 {
     background-color: #c58a37 !important;
 }
 
-.css-1b49ddv{
+.css-1b49ddv {
     background-color: #2d7dc2 !important;
 }
 
-.css-hpjz40>*>.css-p6lc9q{
+.css-hpjz40>*>.css-p6lc9q {
     color: white !important;
     border-color: white !important;
     transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 }
 
-.css-hpjz40>*>.css-p6lc9q:hover{
+.css-hpjz40>*>.css-p6lc9q:hover {
     color: #e3914f !important;
     background-color: white !important;
     transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 }
 
-.css-ub1r1{
+.css-ub1r1 {
     background-color: #37404a !important;
     color: white !important;
 }
 
-.css-ub1r1:hover{
+.css-ub1r1:hover {
     border: 1px solid #4ea8f7 !important;
 }
 
 .orangeBtn,
 .greenBtn,
-.blueBtn
-.orangeBtn:hover,
+.blueBtn .orangeBtn:hover,
 .greenBtn:hover,
-.blueBtn:hover{
+.blueBtn:hover {
     transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 }
 
 .orangeBtn,
 .greenBtn,
-.blueBtn{
+.blueBtn {
     cursor: pointer;
     background-color: transparent !important;
     min-height: 33px !important;
 }
 
-.orangeBtn{
+.orangeBtn {
+    border: 1px solid #c58a37 !important;
     color: #c58a37 !important;
 }
-.greenBtn{
+
+.greenBtn {
     border: 1px solid #22c8a2 !important;
     color: #22c8a2 !important;
 }
@@ -375,26 +393,27 @@ fieldset,
     color: #22c8a2 !important;
 }
 
-.blueBtn{
+.blueBtn {
     color: #4ea8f7 !important;
+    border: 1px solid #4ea8f7 !important;
 }
 
 .orangeBtn:hover,
 .orangeBtn:active,
 .orangeBtn:focus{
-    color: #c58a37 !important;
+    background-color: #c58a37 !important;
 }
 
 .greenBtn:hover,
 .greenBtn:active,
-.greenBtn:focus{
+.greenBtn:focus {
     background-color: #22c8a2 !important;
 }
 
 .blueBtn:hover,
 .blueBtn:active,
 .blueBtn:focus{
-    color: #4ea8f7 !important;
+    background-color: #4ea8f7 !important;
 }
 
 .orangeBtn:active,
@@ -411,47 +430,70 @@ fieldset,
 .greenBtn:hover,
 .blueBtn:hover,
 .blueBtn:hover>a,
-.blueBtn:hover>a:hover{
+.blueBtn:hover>a:hover {
     color: white !important;
 }
 
 .gadientIcon {
     background-color: #4ea8f7 !important;
-    background-image: linear-gradient(48deg, rgba(227,145,79,1) 0%, rgba(78,168,247,1) 100%) !important;
+    background-image: linear-gradient(48deg, rgba(227, 145, 79, 1) 0%, rgba(78, 168, 247, 1) 100%) !important;
     background-size: 100% !important;
     background-clip: text !important;
     -webkit-background-clip: text !important;
     -moz-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important; 
+    -webkit-text-fill-color: transparent !important;
     -moz-text-fill-color: transparent !important;
     color: transparent !important;
 }
 
-.blueIcon{
+.blueIcon {
     color: #4ea8f7 !important;
 }
 
-.greyText{
+.greyText {
     color: #aab8c5 !important;
 }
 
-.bm-menu{
+.bm-menu {
     background-color: #31373d !important;
 }
 
-@media screen and (max-width: 1080px){
-    .bm-menu{
+@media screen and (max-width: 1080px) {
+    .bm-menu {
         background-color: #37404a !important;
     }
 }
 
-.ql-toolbar.ql-snow {
-    background-color: #31373D;
+.MuiLinearProgress-colorPrimary {
+    background-color: #60676f !important
 }
-.ql-toolbar.ql-snow .ql-picker-label,
-.ql-toolbar.ql-snow .ql-picker-item {
-    color: #fff;
+
+.MuiLinearProgress-bar1Determinate {
+    background-color: #4ea8f7 !important
 }
-.ql-snow .ql-stroke {
-    stroke: #fff;
+
+.MuiDivider-root {
+    background-color: #6c6c76 !important;
+}
+
+.MuiFab {
+    background-color: #4ea8f7 !important;
+    color: white
+}
+
+.errorText {
+    color: #DE4452;
+
+    .ql-toolbar.ql-snow {
+        background-color: #31373D;
+    }
+
+    .ql-toolbar.ql-snow .ql-picker-label,
+    .ql-toolbar.ql-snow .ql-picker-item {
+        color: #fff;
+    }
+
+    .ql-snow .ql-stroke {
+        stroke: #fff;
+    }
 }

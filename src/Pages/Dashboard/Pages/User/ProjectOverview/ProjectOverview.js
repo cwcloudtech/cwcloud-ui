@@ -6,7 +6,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom"
 import axios from "../../../../../utils/axios"
 import { toast } from 'react-toastify'
 import { Tooltip } from '@mui/material';
-import DeleteModal from '../../../../../Components/DeleteModal/DeleteModal'
+import DeleteModal from '../../../../../Components/Modal/DeleteModal'
 import Fade from '@mui/material/Fade';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton'
@@ -101,13 +101,20 @@ function ProjectOverview() {
                                 <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{!loading ? 'Available' : <Skeleton width={100} style={{opacity: colors.opacity[_mode]}} />}</h6>
                             </div>
                         </Col>
+                        <Col xs="12" md="4" className={classes.row}>
+                            <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.projectOverview.fields.type" />:</h5>
+                            <div style={{ display: "flex", alignItems: 'center' }}>
+                                <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{!loading ? project.type : <Skeleton width={100} style={{opacity: colors.opacity[_mode]}} />}</h6>
+                            </div>
+                        </Col>
                     </Row>
                     <Row>
                         <Col>
                             <hr className={classes.separator} ></hr>
                         </Col>
                     </Row>
-                    <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
+                    {project.type === "vm" ? <>
+                        <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
                         <Col xs="12" md="6" className={classes.row}>
                             <div className={classes.colinline}>
                                 <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.projectOverview.fields.activeInstances" />:</h5>
@@ -206,6 +213,31 @@ function ProjectOverview() {
                             <hr className={classes.separator} ></hr>
                         </Col>
                     </Row>
+                    </> :                         
+                    <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
+                        <Col xs="12" md="12" className={classes.row}>
+                            <div >
+                                <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.projectOverview.fields.numberDeployments" />:</h5>
+                                {!loading ? 
+                                        project.deployments?.length > 0 ?
+                                            project.deployments.map(deployment => (
+                                            <h6 key={deployment.id} className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>
+                                                {deployment.name}
+                                            </h6>
+                                        ))
+                                    :
+                                    <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>
+                                        <Translate content="dashboard.projectOverview.fields.emptyDeployments" />{' '}
+                                    </h6>
+                                : [1, 2, 3, 4].map(index => (
+                                        <h6 key={index} className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>
+                                            <Skeleton width={150} style={{opacity: colors.opacity[_mode]}} />
+                                        </h6>
+                                    ))
+                                }
+                            </div>
+                        </Col>
+                    </Row>}
                     <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
                         <Col xs="12" md="12" className={classes.row}>
                             <Row>

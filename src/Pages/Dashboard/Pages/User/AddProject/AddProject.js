@@ -10,11 +10,19 @@ import colors from "../../../../../Context/Colors";
 import { Container } from 'reactstrap';
 import Translate from 'react-translate-component';
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
+import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
+import { Box } from "@mui/material";
+
+const projectType = [
+    'vm',
+    'k8s'
+]
 
 function AddProject(props) {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
-    const [project, setProject] = useState("")
+    const [type, setType] = useState(projectType[0])
+    const [project, setProject] = useState({type})
     const [disabled, setdisabled] = useState(false)
     const [loading, setLoading] = useState(false)
     const [isOpenOptions, setIsOpenOptions] = useState(false)
@@ -78,7 +86,33 @@ function AddProject(props) {
                     </CardComponent>
                 </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
+            <Row>
+                <Col>
+                    <CardComponent 
+                        containerStyles={props.containerStyles}
+                        title={context.counterpart('dashboard.addProject.inputs.type.title')} 
+                        >
+                        <Box style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            width: 'fit-content',
+                        }}>
+                            <SimpleDropdown
+                                items={projectType}
+                                selectedItem={type}
+                                onChange={(e) => {
+                                    setType(e.target.value)
+                                    setProject({ ...project, type: e.target.value })
+                                }}
+                            />
+                            <FormText>
+                                <Translate content="dashboard.addProject.inputs.type.subtitle" />
+                            </FormText>
+                        </Box>
+                    </CardComponent>
+                </Col>
+            </Row>
+            <Row>
                 <Col>
                     <CardComponent
                         containerStyles={props.containerStyles}
@@ -147,7 +181,7 @@ function AddProject(props) {
                     </LoadingButton>
                 </Col>
             </Row>
-        </Container >
+        </Container>
     )
 }
 

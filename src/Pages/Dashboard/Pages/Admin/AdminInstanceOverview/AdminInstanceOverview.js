@@ -7,10 +7,10 @@ import srcimage from '../../../../../utils/regions';
 import axios from "../../../../../utils/axios";
 import { toast } from 'react-toastify';
 import { Tooltip } from '@mui/material';
-import DeleteModal from '../../../../../Components/DeleteModal/DeleteModal';
+import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import GlobalContext from '../../../../../Context/GlobalContext';
-import PowerModal from '../../../../../Components/PowerModal/PowerModal';
-import RebootModal from '../../../../../Components/RebootModal/RebootModal';
+import PowerModal from '../../../../../Components/Modal/PowerModal';
+import RebootModal from '../../../../../Components/Modal/RebootModal';
 import Skeleton from 'react-loading-skeleton';
 import Translate from 'react-translate-component';
 import colors from '../../../../../Context/Colors';
@@ -20,6 +20,7 @@ import OpenInBrowserOutlinedIcon from '@mui/icons-material/OpenInBrowserOutlined
 import CachedOutlinedIcon from '@mui/icons-material/CachedOutlined';
 import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
 import counterpart from 'counterpart';
+import CustomCopyIcon from '../../../../../Components/CustomIcon/CustomCopyIcon';
 
 function AdminInstanceOverview() {
     const { instanceId } = useParams()
@@ -54,6 +55,12 @@ function AdminInstanceOverview() {
     const onPreDeleteHandler = () => {
         setShowConfirmDeleteModal(true)
     }
+
+    const copyPublicIp = (e) => {
+        e.stopPropagation();
+        navigator.clipboard.writeText(instance.ip_address);
+        toast.success(counterpart('dashboard.function.message.successCopyIp'));
+    };
 
     const onPowerHandler = () => {
         const updateStatus = instance.status === "active" ? "Power Off" : "Power On"
@@ -330,11 +337,14 @@ function AdminInstanceOverview() {
                     </Row>
                     <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
                         <Col xs="12" md="12" className={classes.row}>
-                            <div className={classes.colinline} >
+                            <div className={classes.colinline} style={{ display: 'flex', alignItems: 'center' }}>
                                 <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.instanceOverview.fields.publicIp" />:</h5>
                                 {!loading ?
                                     instance.ip_address !== "Null" ?
-                                        <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{instance.ip_address}</h6>
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode], marginRight: '10px'}}>{instance.ip_address}</h6>
+                                            <CustomCopyIcon onClick={copyPublicIp} title={counterpart("dashboard.function.actions.copyPublicIp")} />
+                                        </div>    
                                         :
                                         <Skeleton style={{opacity: colors.opacity[_mode]}} width={100} />
                                     :

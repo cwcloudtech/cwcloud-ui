@@ -115,6 +115,25 @@ export const englishLanguage = {
         "1207": "Missing informations",
         "1300": "A default payment method must be set and selected",
         "333333": "Invalid otp code",
+        "1400": "Please verify the kubeconfig file",
+        "1401": "Couldn't connect to the cluster, verify if the cluster is running and accessible",
+        "1404": "Cluster not found",
+        "1414": "Service not found",
+        "1424": "Ingress not found",
+        "1434": "Horizontal pod autoscaler not found",
+        "1444": "Deployment not found",
+        "1454": "Service account not found",
+        "1464": "Config map not found",
+        "1474": "PV not found",
+        "1484": "Secret not found",
+        "1494": "Error has occured while creating the object",
+        "1500": "Environment name already used",
+        "1503": "You dont have permission to access this resource",
+        "1504": "Environment not found",
+        "1603": "You dont have permission to delete this deployment",
+        "1604": "Deployment not found",
+        "1605": "Couldn't delete deployment from the cluster",
+        "1606": "Can't select a different environment for this project",
         "incomplete_zip": "Your postal code is incomplete",
         "invalid_expiry_year_past": "Your card's expiration year is in the past",
         "incomplete_cvc": "Your card's security code is incomplete",
@@ -168,6 +187,7 @@ export const englishLanguage = {
             delete: "Delete",
             update: "Update",
             save: "Save",
+            search: "Search",
             return: "Return",
             send: "Send",
             generate: "Generate",
@@ -184,7 +204,10 @@ export const englishLanguage = {
             deleteU2f: "Delete your 2FA usb device",
             activateU2f: "Add 2FA usb device",
             run: "Run",
-            goFullScreen: "Go full screen"
+            goFullScreen: "Go full screen",
+            goBack: "Go back",
+            browseFiles: "Browse files",
+            cancel: "Cancel"
         },
         state: {
             copied: "Copied",
@@ -193,7 +216,9 @@ export const englishLanguage = {
             userEmail: "User email",
         },
         word: {
-            or: "Or"
+            or: "Or",
+            key: "Key",
+            value: "Value",
         },
         message: {
             thisFieldIsRequired: "This field is required",
@@ -361,6 +386,7 @@ export const englishLanguage = {
         dashboard: "Dashboard",
         projects: "Projects",
         instances: "Instances",
+        k8sApplications: "K8s applications",
         invoices: "Invoices",
         buckets: "Buckets",
         registries: "Registries",
@@ -426,6 +452,11 @@ export const englishLanguage = {
             title: "Manage registries",
             overview: "Overview",
             add: "Add"
+        },
+        kubernetes: {
+            title: "Kubernetes",
+            clusters: "Clusters",
+            environments: "Environments",
         }
     },
     dashboard: {
@@ -512,7 +543,10 @@ export const englishLanguage = {
                 },
                 subdomains: {
                     title: "Sub Domains",
-                    placeholder: "Put a subdomain name"
+                    placeholder: "Put a subdomain name",
+                    addModalTitle: "Add subdomain",
+                    editModalTitle: "Edit subdomain",
+                    noSubdomains: "There are no subdomains yet."
                 },
                 mainRole: {
                     title: "Main role",
@@ -552,6 +586,9 @@ export const englishLanguage = {
                 emptyMessage: "No triggers available"
             },
             inputs: {
+                triggerKind: {
+                    title: "Trigger kind"
+                },
                 name: {
                     title: "Name",
                     placeholder: "Put the trigger's name"
@@ -559,6 +596,9 @@ export const englishLanguage = {
                 cronExpr: {
                     title: "Cron expr",
                     placeholder: "Put the triggers's crontab expr"
+                },
+                executionTime: {
+                    title: "Execution time"
                 }
             },
             table: {
@@ -641,7 +681,19 @@ export const englishLanguage = {
                 },
                 args: {
                     title: "Arguments",
-                    placeholder: "Put the arg's name"
+                    name: "Argment name",
+                    placeholder: "Put the arg's name",
+                    addModalTitle: "Add argument",
+                    editModalTitle: "Edit argument",
+                    noArgs: "There are no arguments yet."
+                },
+                env_vars: {
+                    title: "Environment variables",
+                    addModalTitle: "Add environment variable",
+                    editModalTitle: "Edit environment variable",
+                    envVarName: "Name of the variable",
+                    envVarValue: "Value of the variable",
+                    noEnvVars: "There are no variables yet.",
                 },
                 callback_url: {
                     title: "Callback's URL",
@@ -655,7 +707,7 @@ export const englishLanguage = {
                     title: "Regexp validation",
                     placeholder: "Put the regexp for argument's validation here"
                 },
-                callFunction:{
+                callFunction: {
                     title: "Call a function",
                     placeholder: "Select a function"
                 }
@@ -668,15 +720,17 @@ export const englishLanguage = {
                 successExport: "Function successfully exported",
                 successImport: "Function successfully imported",
                 successCopyId: "Function id copied with success",
+                successCopyIp: "Public IP copied with success",
                 errorImport: "An error occured while importing the function",
                 emptyMessage: "No functions available",
                 createMessage: "Create your first function",
                 blocklyWarning: "Beware! Once you click below, you will override your code with code generated from blockly.",
-                searchbartip : "Tip: you can filter the functions by their language by writing ':' before the name of the language in the search bar",
+                searchbartip: "Tip: you can filter the functions by their language by writing ':' before the name of the language in the search bar",
                 unsavedChangesWarning: "You have unsaved changes, do you want to leave the page?"
             },
             actions: {
                 copyFunctionId: "Copy function id",
+                copyPublicIp: "Copy public IP"
             },
             table: {
                 name: "Name",
@@ -884,6 +938,10 @@ export const englishLanguage = {
                     title: "Choose your project name",
                     subtitle: "You must enter your project name.",
                     placeholder: "Project name"
+                },
+                type: {
+                    title: "Select a Type",
+                    subtitle: "Choose your project type, vm for instance or k8s for kubernetes clusters management",
                 },
                 email: {
                     title: "Enter user email address",
@@ -1153,14 +1211,21 @@ export const englishLanguage = {
             closedTickets: "Closed",
             selectSeverity: "Select severity",
             createdBy: "Created by",
+            back: "Back to tickets",
+            description: "Description",
+            reply: "Reply",
+            awaitCustomer: "Await customer",
+            awaitAgent: "Await agent",
+            successDelete: "Ticket successfully deleted",
+            successMultiDelete: "Tickets successfully deleted",
+            updateFromKeyboardTip: "Quick tip: Press Ctrl + Enter to reply directly from the keyboard",
+            closed: "Closed",
+            enterMessage: "Enter your message",
             severity: {
                 low: 'Low',
                 medium: 'Medium',
                 high: 'High'
             },
-            back: "Back to tickets",
-            description: "Description",
-            reply: "Reply",
             table: {
                 id: "Ticket ID",
                 subject: "Title",
@@ -1168,12 +1233,6 @@ export const englishLanguage = {
                 selected_product: "Product",
                 last_update: "Last update",
             },
-            awaitCustomer: "Await customer",
-            awaitAgent: "Await agent",
-            successDelete: "Ticket successfully deleted",
-            successMultiDelete: "Tickets successfully deleted",
-            updateFromKeyboardTip: "Quick tip: Press Ctrl + Enter to reply directly from the keyboard",
-            closed: "Closed"
         },
         adminVouchersPage: {
             title: "Vouchers",
@@ -1265,6 +1324,496 @@ export const englishLanguage = {
                 successMultiDelete: "Instances successfully deleted"
             }
         },
+        k8sApplications: {
+            explore: {
+                title: "Deployed Applications",
+                description: "Below here is a list of your kubernetes cluster's deployed application. You can deploy a complete application with custom resources with few clicks.",
+                deployApplication: "Deploy an application",
+                learnMore: "Learn more",
+                emptyMessage: "There is no deployed applications to display right now",
+                searchLabel: "Deployed Application name",
+                searchPlaceholder: "Search for a deployed application by name",
+                table: {
+                    id: "ID",
+                    name: "Name",
+                    namespace: "Selected namespace",
+                    description: "Description",
+                    totalResources: "Total resources",
+                    creationDate: "Creation date",
+                    actions: "Actions",
+                    noDescription: "No description found"
+                },
+                successDelete: "Deployed Application deleted successfully",
+                successDeleteAll: "All selected deployed application deleted successfully",
+                deleteDepApplication: "deployed application",
+                delete: "Delete",
+                edit: "Edit general info"
+            },
+            form: {
+                backToExplore: "Back to exploring",
+                title: "Deploy an application",
+                generalInfo: "Enter general information about your application",
+                nameLabel: "Name",
+                namePlaceHolder: "Enter a name that describes this application",
+                descriptionLabel: "Description",
+                descriptionPlaceholder: "Enter description about this application",
+                namespaceLabel: "Namespace",
+                namespacePlaceHolder: "Enter a namespace for this application",
+                autoGenerateNamespace: "Auto generate namespace",
+                versionLabel: "Version",
+                versionPlaceHolder: "Enter a version for this application",
+                selectProject: "Select project",
+                selectProjectSubtitle: "Choose a project that will be associated with this application",
+                project: "Project",
+                addNewProject: "Add new project",
+                selectCluster: "Select cluster",
+                selectClusterSubtitle: "Choose a cluster that will be associated with this application",
+                cluster: "Cluster",
+                selectEnvironement: "Select environment",
+                selectEnvironementSubtitle: "Choose an environment",
+                selectedProjectEnv: "The selected Project is used with this environment: ",
+                selectedProjectEnvWarn: "If you want to change the environment, please select another project.",
+                selectedEnvironment: {
+                    title: "Selected environment",
+                    subtitle: "General information about selected environment",
+                    description: "Description : ",
+                    charts: "Charts included : ",
+                    createdAt: "Created at : ",
+                },
+                chartsYaml: {
+                    title: "Chart YAML",
+                    subtitle: "Metadata about the Helm chart",
+                },
+                valuesYaml: {
+                    title: "Values YAML",
+                    subtitle: "Configuration values for the Helm chart",
+                },
+                errors: {
+                    couldntCreate: "Couldn't deploy the application, please check your inputs",
+                }
+            }
+        },
+        k8sEnvironments: {
+            explore: {
+                title: "Kubernetes Environments",
+                description: "Below here is a list of your kubernetes Environments.",
+                addEnvironement: "Add a Kubernetes Environment",
+                learnMore: "Learn more",
+                emptyMessage: "There is no kubernetes environments to display",
+                searchPlaceholder: "Search for a kubernetes Environment by name",
+                table: {
+                    id: "ID",
+                    name: "Name",
+                    description: "Description",
+                    createdBy: "Created By",
+                    creationDate: "Creation date",
+                    isPrivate: "Private",
+                    actions: "Actions"
+                },
+                noDescription: "No description found",
+                successDelete: "Kubernetes Environment deleted successfully",
+                successDeleteAll: "All selected kubernetes Environments deleted successfully",
+                delete: "Delete",
+            },
+            externalChartModal: {
+                title: "Add External Chart",
+                name: "Name",
+                namePlaceholder: "Enter a name for this chart",
+                version: "Version",
+                versionPlaceholder: "Enter a version for this chart",
+                repository: "Repository",
+                repositoryPlaceholder: "Enter a repository for this chart",
+            },
+            form: {
+                backToExplore: "Back to exploring",
+                title: "Create Kubernetes environment",
+                generalInfo: "Enter general information about your k8s environement",
+                nameLabel: "Name",
+                namePlaceHolder: "Enter a name that describes this k8s environement",
+                descriptionLabel: "Description",
+                descriptionPlaceholder: "Enter description about this k8s environement",
+                logoUrlLabel: "Logo URL",
+                logoUrlPlaceholder: "Enter logo URL for this k8s environement",
+                isPrivate: "Do you want to keep it private ?",
+                selectCharts: "Charts for your environment",
+                createSuccess: "Kubernetes environment created successfully",
+                updateSuccess: "Kubernetes environment updated successfully",
+                externalChartAlreadyExist: "Chart with this name already exist",
+                errors: {
+                    couldntCreate: "Couldn't create the k8s environement, please check your inputs",
+                    couldntUpdate: "Couldn't update the k8s environement, please check your inputs",
+                    mustSelectChart: "Please select at least one chart"
+                }
+            }
+        },
+        kubernetesDashboardPages: {
+            sidebar: {
+                clusters: "Clusters",
+                deployments: {
+                    title: "Deployed Apps",
+                },
+                clusterOverview: {
+                    title: "Cluster Overview",
+                },
+                serviceDiscovery: {
+                    title: "Service Discovery",
+                    services: "Services",
+                    ingress: "Ingress",
+                    horizontalPodAutoscaler: "HPod Autoscaler",
+                },
+                storage: {
+                    title: "Storage",
+                    persistentVolume: "Persistent Volume",
+                    configMap: "Config Map",
+                    secrets: "Secrets",
+                },
+                workloads: {
+                    title: "Workloads",
+                    deployments: "Deployments",
+                },
+            },
+            common: {
+                editYaml: "Edit YAML",
+                updateYaml: "Update YAML",
+                backToForm: "Back to Form",
+                confirmDiscard: "By clicking confirm you will not be able recover any changes you have made to this yaml file",
+                deletedResourceSuccess: "Deleted resource successfully",
+                deletedAllResourcesSuccess: "Deleted all selected resources successfully",
+                invalidForm: "Required data must be filled",
+                form: {
+                    remove: "Remove",
+                    key: "Key",
+                    keyHolder: "e.g. key",
+                    value: "Value",
+                    valueHolder: "e.g. value",
+                    addSelector: "Selector",
+                    label: "Label",
+                    labels: "Labels",
+                    annotation: "Annotation",
+                    annotations: "Annotations",
+                    name: "Name",
+                    nameHolder: "Enter a unique name",
+                    namespace: "Namespace",
+                    namespaceHolder: "Select namespace",
+                    description: "Description",
+                    descriptionHolder: "Enter description about this resource",
+                    metadata: "Metadata",
+                },
+                table: {
+                    name: "Name",
+                    namespace: "Namespace",
+                    age: "Age",
+                    actions: "Actions",
+                }
+            },
+            k8sObjectMenuActions: {
+                edit: "Edit",
+                editYaml: "Edit YAML",
+                download: "Download YAML",
+                delete: "Delete",
+            },
+            clusterOverview: {
+                title: "Cluster Dashboard",
+                podsTitle: "Pods",
+                totalNamespaces: "Namespaces",
+                totalNodes: "Nodes",
+                deploymentsTitle: "Deployments",
+                kubernetesVersion: "Kubernetes Version",
+                platform: "Platform",
+                name: "Name",
+                namespace: "Namespace",
+                pods: {
+                    title: "Cluster Pods",
+                    placeholder: "Search for a pod by name",
+                    ip: "IP",
+                    status: "Status",
+                    emptyMessage: "There is no pods to display right now",
+                },
+                deployments: {
+                    title: "Cluster Deployments",
+                    placeholder: "Search for a deployment by name",
+                    ready: "Ready",
+                    upToDate: "Up-to-date",
+                    age: "Age",
+                    emptyMessage: "There is no deployments to display right now",
+                },
+                cpu: "CPU",
+                memory: "Memory",
+                used: "Used",
+                unknown: "Unknown"
+            },
+            deployedApplications: {
+                explore: {
+                    title: "Deployed Applications",
+                    description: "Below here is a list of your kubernetes cluster's deployed application. You can deploy a complete application with custom resources with few clicks.",
+                    deployApplication: "Deploy an application",
+                    learnMore: "Learn more",
+                    emptyMessage: "There is no deployed applications to display right now",
+                    searchLabel: "Deployed Application name",
+                    searchPlaceholder: "Search for a deployed application by name",
+                    table: {
+                        id: "ID",
+                        name: "Name",
+                        version: "Version",
+                        namespace: "Namespace",
+                        description: "Description",
+                        totalResources: "Total resources",
+                        creationDate: "Creation date",
+                        actions: "Actions",
+                        noDescription: "No description found"
+                    },
+                    successDelete: "Deployed Application deleted successfully",
+                    successDeleteAll: "All selected deployed application deleted successfully",
+                    deleteDepApplication: "deployed application",
+                    delete: "Delete",
+                },
+                form: {
+                    backToExplore: "Back to app deployments",
+                    title: "Create a new app deployment",
+                    objectsList: "Chose your objects",
+                    valuesYamlFile: "Values for your deployment",
+
+                    createSuccess: "Application deployed successfully",
+                    updateSuccess: "Deployed application updated successfully",
+                    errors: {
+                        couldntCreate: "Couldn't deploy application, please check your inputs",
+                    }
+                },
+                resources: {
+                    update: "Update",
+                    delete: "Delete",
+                    namespace: "Namespace: ",
+                    totalResources: "Total resources: ",
+                    title: "Resources: ",
+                    successDelete: "Resource successfully deleted"
+                }
+            },
+            k8sAppOverview: {
+                back: "Back to k8s apps",
+                pods: "Pods",
+                containers: "Containers",
+                fields: {
+                    title: "Kubernetes Application informations",
+                    name: "Name",
+                    namespace: "Namespace",
+                    environment: "Environment",
+                    project: "Project",
+                },
+                tableContainers: {
+                    name: "Name",
+                    image: "Image",
+                    isStarted: "Is started",
+                    restartCount: "Restart count",
+                    state: "State",
+                    port: "Port",
+                },
+                tablePods: {
+                    name: "Name",
+                    ip: "IP",
+                    startTime: "Start time",
+                    state: "State",
+                },
+                emptyContainerMessage: "There is no containers to display right now",
+            },
+            serviceDisovery: {
+                services: {
+                    explore: {
+                        title: "Services",
+                        description: "Below here is a list of your kubernetes cluster's services. You can directly create, update or delete services from your cluster.",
+                        createServiceDescription: "Create a new Service",
+                        learnMore: "Learn more",
+                        emptyMessage: "There is no services to display right now",
+                        searchLabel: "Service name",
+                        searchPlaceholder: "Search for a service by name",
+                        table: {
+                            name: "Name",
+                            namespace: "Namespace",
+                            target: "Target",
+                            selector: "Selector",
+                            type: "Type",
+                            age: "Age",
+                            actions: "Actions",
+                            pods: "Pods",
+                        },
+                        successDelete: "Service deleted successfully",
+                    },
+                    form: {
+                        backToExplore: "Back to exploring services",
+                        title: "Create Service",
+                        serviceDescription: " Services allow you to define a logical set of Pods that can be accessed with a single IP address and port.",
+                        updateTitle: "Update Service: ",
+
+                        form: {
+                            portName: "Port Name",
+                            portNameHolder: "myport",
+                            listPort: "Listening Port",
+                            listPortHolder: "e.g. 8080",
+                            protocol: "Protocol",
+                            targetPort: "Target Port",
+                            targetPortHolder: "e.g. 80",
+                            remove: "Remove",
+                            addPort: "Add Port",
+                            ipAddresses: "IP Addresses",
+                            ipAddressesHolder: "e.g. xxx.xxx.xxx.xxx",
+                            externalIps: "External Ips",
+                            externalIpsHolder: "e.g. xxx.xxx.xxx.xxx",
+                            addExternalIp: "External Ip",
+                            affinityDisabled: "Disabled",
+                            affinityEnabled: "Enabled (ClientIP)",
+                            sessionStickyTime: "Session Sticky Time",
+                            sessionStickyTimeHolder: "e.g. 1000"
+                        },
+                        successCreate: "Service created successfully"
+                    }
+                },
+                ingresses: {
+                    explore: {
+                        title: "Ingresses",
+                        description: "Below here is a list of your kubernetes cluster's ingresses. You can directly create, update or delete ingresses from your cluster.",
+                        createIngressDescription: "Create a new Ingress",
+                        learnMore: "Learn more",
+                        emptyMessage: "There is no ingresses right now.",
+                        searchLabel: "Ingress name",
+                        searchPlaceholder: "Search for a ingress by name",
+                        table: {
+                            name: "Name",
+                            namespace: "Namespace",
+                            ingressClassName: "Ingress Class Name",
+                            host: "Host",
+                            path: "Path",
+                            target: "Target",
+                            age: "Age",
+                            actions: "Actions",
+                        },
+                        successDelete: "Ingress deleted successfully",
+                    },
+                    form: {
+                        title: "Create Ingress",
+                        updateTitle: "Update Ingress: ",
+
+                        rules: "Rules",
+                        defaultBackend: "Default Backend",
+                        Certificates: "Certificates",
+                        ingressClass: "Ingress Class",
+
+                        requestHost: "Request Host",
+                        requestHostHolder: "e.g. example.com",
+                        path: "Path",
+                        pathHolder: "e.g. /",
+                        targetService: "Target Service",
+                        targetServiceHolder: "Select a service",
+                        port: "Port",
+                        portHolder: "e.g. 80",
+                        certificate: "Certificate",
+                        certificateHolder: "Select a certificate",
+                        host: "Host",
+                        hostHolder: "e.g. example.com",
+                        addPort: "Add Port",
+                        remove: "Remove",
+                        addRule: "Add Rule",
+                        addHost: "Add Host",
+                        addCertificate: "Add Certificate",
+
+                        backToExplore: "Back to exploring ingresses",
+                        successCreate: "Ingress created successfully"
+                    }
+                },
+            },
+            storage: {
+                secrets: {
+                    explore: {
+                        title: "Secrets",
+                        updateTitle: "Update Secret: ",
+                        description: "Below here is a list of your kubernetes cluster's secrets. You can directly create, update or delete secrets from your cluster.",
+                        createIngressDescription: "Create a new Secret",
+                        learnMore: "Learn more",
+                        emptyMessage: "There is no secrets right now.",
+                        searchLabel: "Secret name",
+                        searchPlaceholder: "Search for a secret by name",
+                        successDelete: "Secret deleted successfully",
+                        addNewSecret: "Create a new Secret",
+                        table: {
+                            name: "Name",
+                            namespace: "Namespace",
+                            type: "Type",
+                        },
+                    },
+                    form: {
+                        title: "Create Secret",
+                        data: "Data",
+                        key: "Key",
+                        keyHolder: "e.g. key",
+                        value: "Value",
+                        valueHolder: "e.g. value",
+                        backToExplore: "Back to exploring secrets",
+                        addData: "Add",
+                        updateTitle: "Update Secret: ",
+                        successCreate: "Secret created successfully"
+                    }
+                },
+                configMaps: {
+                    explore: {
+                        title: "ConfigMaps",
+                        description: "Below here is a list of your kubernetes cluster's ConfigMaps. You can directly create, update or delete ConfigMap from your cluster.",
+                        createServiceDescription: "Create a new ConfigMap",
+                        learnMore: "Learn more",
+                        emptyMessage: "There is no ConfigMaps right now.",
+                        searchLabel: "ConfigMap name",
+                        searchPlaceholder: "Search for a ConfigMap by name",
+                        table: {
+                            name: "Name",
+                            namespace: "Namespace",
+                            type: "Data type",
+                            age: "Age",
+                            actions: "Actions",
+                        },
+                        successDelete: "ConfigMap deleted successfully"
+                    },
+                    form: {
+                        data: "Data",
+                        binaryData: "Binary Data",
+                        title: "Create ConfigMap",
+                        backToExplore: "Back to exploring ConfigMaps",
+                        addData: "Add",
+                        updateTitle: "Update ConfigMap: ",
+                        successCreate: "ConfigMap created successfully"
+                    }
+                }
+            },
+        },
+        kubernetesMainPage: {
+            title: "Kubernetes Clusters",
+            description: "Below here's a list of your kubernetes clusters. You can poweroff, reboot, stop or delete each cluster.",
+            importExisting: "Import existing cluster with kubeconfig",
+            searchPlaceholder: "Search for a kubernetes cluster by name",
+            learnMore: "Learn more",
+            emptyMessage: "There is no clusters right now.",
+            deleteSuccess: "Linked Cluster deleted successfully",
+            multipleDeleteSuccess: "Linked Clusters deleted successfully",
+            table: {
+                id: "ID",
+                name: "Nom",
+                created: "Created",
+                actions: "Actions",
+                provider: "Provider",
+                version: "Version",
+                cpu: "CPU",
+                memory: "Memory",
+                pods: "Pods",
+            },
+            addKubeConfig: {
+                message: {
+                    successAdd: "Kubeconfig successfully added",
+                    errorAdd: "Kubeconfig couldn't be added, please check your file"
+                },
+                inputs: {
+                    file: "Select your kubeconfig file",
+                    project: {
+                        subtitle: "Choose your project that will be used to manage your clusters",
+                    }
+                }
+            }
+        },
         invoicesPage: {
             inputs: {
                 email: {
@@ -1301,10 +1850,12 @@ export const englishLanguage = {
             fields: {
                 title: "Project informations",
                 status: "Status",
+                type: "Type",
                 owner: "Owner",
                 availabilityZone: "Availability Zone",
                 activeInstances: "Active instances",
                 numberPlaybooks: "Number of playbooks",
+                numberDeployments: "Number of deployments",
                 playbooks: "Playbooks",
                 regenerateDeletedInstances: "Regenerate deleted instances",
                 instances: {
@@ -1322,6 +1873,7 @@ export const englishLanguage = {
                 warning: "Warning",
                 emptyInstances: "No active instances are attached to this project.",
                 emptyPlaybook: "No playbooks are attached to this project.",
+                emptyDeployments: "No deployments are attached to this project.",
                 deleteDescription: "This action will delete your Gitlab project and any changes you made on the project will be lost. Note that this is not reversible.",
                 transferDescription: "Transfering the project will make it inaccessible in the future. Note that all the instances under this project will get transfered as well"
             },
@@ -1338,7 +1890,7 @@ export const englishLanguage = {
         },
         projectsPage: {
             title: "Projects",
-            description: "Below here's a list of your git projects which contains your instances ansible configuration.",
+            description: "Below here's a list of your git projects which contains your instances ansible configuration or your k8s cluster charts deployment",
             createProject: "Create a new project",
             addProject: "Add new project",
             learnMore: "Learn more",
@@ -1348,6 +1900,8 @@ export const englishLanguage = {
                 id: "ID",
                 name: "Name",
                 numberOfInstances: "N instances",
+                numberOfClusters: "N clusters",
+                type: "Type",
                 actions: "Actions"
             }
         },
@@ -1542,6 +2096,25 @@ export const frenchLanguage = {
         "1207": "Informations manquantes",
         "1300": "Une méthode de paiement doit être selectionnée par défaut",
         "333333": "Code otp invalide",
+        "1400": "Veuillez vérifier le fichier kubeconfig",
+        "1401": "Impossible de se connecter au cluster, verifier si le cluster est accessible",
+        "1404": "Cluster introuvable",
+        "1414": "Service introuvable",
+        "1424": "Ingress introuvable",
+        "1434": "Horizontal pod autoscaler introuvable",
+        "1444": "Déploiement introuvable",
+        "1454": "Compte de service introuvable",
+        "1464": "Carte de configuration introuvable",
+        "1474": "PV introuvable",
+        "1484": "Secret introuvable",
+        "1494": "Une erreur s'est produite lors de la création de l'objet",
+        "1500": "Le nom de l'environnement est déjà utilisé",
+        "1503": "Vous n'avez pas la permission d'accéder à cette ressource",
+        "1504": "Environnement introuvable",
+        "1603": "Vous n'avez pas la permission de supprimer ce déploiement",
+        "1604": "Déploiement introuvable",
+        "1605": "Impossible de supprimer le déploiement du cluster",
+        "1606": "Vous ne pouvez pas sélectionner un environnement différent pour ce projet",
         "incomplete_zip": "Votre code postal est incomplet",
         "invalid_expiry_year_past": "L'année d'expiration de votre carte est dans le passé",
         "incomplete_cvc": "Votre code de sécurité de votre carte est incomplet",
@@ -1566,7 +2139,7 @@ export const frenchLanguage = {
         "instance_name_invalid": "Le nom de l'instance est invalid (ne peut contenir que des lettres non accentuées, chiffres et '-')",
         "bad_invoice_ref": "La référence de la facture est incorrect (elle doit contenir au moins 5 chiffres)",
         "user_id_or_email_mandatory": "Il faut obligatoirement préciser l'id de l'utilisateur ou son email",
-        "user_not_found": "L'utilisateur n'existe pas", 
+        "user_not_found": "L'utilisateur n'existe pas",
         "file_not_found": "Fichier non trouvé",
         "invalid_api_key": "Veuillez fournir un nom approprié pour la clé api",
         "faas_invalid_parameters": "Paramètres invalides",
@@ -1595,6 +2168,7 @@ export const frenchLanguage = {
             delete: "Supprimer",
             update: "Modifier",
             save: "Enregistrer",
+            search: "Rechercher",
             generate: "Générer",
             edition: "Edition",
             return: "Retour",
@@ -1611,6 +2185,9 @@ export const frenchLanguage = {
             activateU2f: "Ajouter une clef usb 2FA",
             run: "Exécuter",
             goFullScreen: "Plein écran",
+            goBack: "Retour",
+            browseFiles: "Parcourir",
+            cancel: "Annuler"
         },
         state: {
             copied: "Copié",
@@ -1619,7 +2196,9 @@ export const frenchLanguage = {
             userEmail: "Email de l'utilisateur",
         },
         word: {
-            or: "Ou"
+            or: "Ou",
+            key: "Clef",
+            value: "Valeur"
         },
         message: {
             thisFieldIsRequired: "Ce champ est obligatoire",
@@ -1787,6 +2366,7 @@ export const frenchLanguage = {
         dashboard: "Tableau de bord",
         projects: "Projets",
         instances: "Instances",
+        k8sApplications: "Applications k8s",
         invoices: "Factures",
         buckets: "Buckets",
         registries: "OCI registries",
@@ -1852,6 +2432,11 @@ export const frenchLanguage = {
             title: "Gérer les registries",
             overview: "Aperçu",
             add: "Ajouter"
+        },
+        kubernetes: {
+            title: "Kubernetes",
+            clusters: "Clusters",
+            environments: "Environnements"
         }
     },
     dashboard: {
@@ -1938,7 +2523,10 @@ export const frenchLanguage = {
                 },
                 subdomains: {
                     title: "Sous domaines",
-                    placeholder: "Mettre un sous domaine"
+                    placeholder: "Mettre un sous domaine",
+                    addModalTitle: "Ajouter un sous domaine",
+                    editModalTitle: "Editer un sous domaine",
+                    noSubdomains: "Il n'y a pas encore de sous-domaines."
                 },
                 mainRole: {
                     title: "Rôle principal",
@@ -1978,6 +2566,9 @@ export const frenchLanguage = {
                 emptyMessage: "Aucun trigger disponible"
             },
             inputs: {
+                triggerKind: {
+                    title: "Type de trigger"
+                },
                 name: {
                     title: "Nom",
                     placeholder: "Mettre le nom du trigger"
@@ -1985,6 +2576,9 @@ export const frenchLanguage = {
                 cronExpr: {
                     title: "Cron expr",
                     placeholder: "Mettre l'expression crontab"
+                },
+                executionTime: {
+                    title: "Temps d'exécution"
                 }
             },
             table: {
@@ -1993,7 +2587,7 @@ export const frenchLanguage = {
                 cronExpr: "Cron expr"
             },
             cronExpr: {
-                everyMinute: "Chaque minute" ,
+                everyMinute: "Chaque minute",
                 everyHour: "Chaque heure",
                 everyDay: "Chaque jour",
                 everyWeek: "Chaque semaine",
@@ -2067,7 +2661,18 @@ export const frenchLanguage = {
                 },
                 args: {
                     title: "Arguments",
-                    placeholder: "Mettre le nom de l'argument"
+                    addModalTitle: "Ajouter un argument",
+                    editModalTitle: "Editer un argument",
+                    name: "Nom de l'argument",
+                    noArgs: "Il n'y a pas encore d'arguments."
+                },
+                env_vars: {
+                    title: "Variables d'environnement",
+                    addModalTitle: "Ajouter une variable d'environnement",
+                    editModalTitle: "Editer les variables d'environnement",
+                    envVarName: "Nom de la variable",
+                    envVarValue: "Valeur de la variable",
+                    noEnvVars: "Il n'y a pas encore de variables"
                 },
                 callback_url: {
                     title: "Callback URL",
@@ -2095,6 +2700,7 @@ export const frenchLanguage = {
                 successImport: "Fonction importée avec succès",
                 errorImport: "Erreur lors de l'import de la fonction",
                 successCopyId: "Id de la fonction copié avec succès",
+                successCopyIp: "Adresse IP copiée avec",
                 emptyMessage: "Aucune fonction disponible",
                 createMessage: "Créer une fonction",
                 blocklyWarning: "Attention ! Une fois que vous aurez cliqué ci-dessous, vous remplacerez votre code par le code généré par blockly.",
@@ -2103,6 +2709,7 @@ export const frenchLanguage = {
             },
             actions: {
                 copyFunctionId: "Copier l'id de la fonction",
+                copyPublicIp: "Copier l'ip public"
             },
             table: {
                 name: "Nom",
@@ -2304,6 +2911,10 @@ export const frenchLanguage = {
                     title: "Choisissez le nom de votre projet",
                     subtitle: "Vous devez saisir le nom de votre projet.",
                     placeholder: "Nom du projet"
+                },
+                type: {
+                    title: "Sélectionnez un type",
+                    subtitle: "Choisissez votre type de projet vm pour un instance ou k8s pour gérer des clusters kubernetes"
                 },
                 email: {
                     title: "Entrez l'adresse e-mail de l'utilisateur",
@@ -2575,14 +3186,21 @@ export const frenchLanguage = {
             closedTickets: "Fermés",
             createdBy: "Créé par",
             selectSeverity: "Sélectionner la gravité",
+            back: "Retour aux tickets",
+            description: "Description",
+            reply: "Répondre",
+            successDelete: "Ticket supprimées avec succès",
+            successMultiDelete: "Tickets supprimées avec succès",
+            updateFromKeyboardTip: "Astuce : appuyez sur Ctrl + Entrée pour répondre directement à partir du clavier",
+            awaitCustomer: "Attente du client",
+            awaitAgent: "Attente de l'agent",
+            closed: "fermé",
+            enterMessage: "Entrez votre message ici",
             severity: {
                 low: 'Bas',
                 medium: 'Moyen',
                 high: 'Elevé'
             },
-            back: "Retour aux tickets",
-            description: "Description",
-            reply: "Répondre",
             table: {
                 id: "Ticket ID",
                 subject: "Titre",
@@ -2590,12 +3208,6 @@ export const frenchLanguage = {
                 selected_product: "Produit",
                 last_update: "Dernière modification",
             },
-            successDelete: "Ticket supprimées avec succès",
-            successMultiDelete: "Tickets supprimées avec succès",
-            updateFromKeyboardTip: "Astuce : appuyez sur Ctrl + Entrée pour répondre directement à partir du clavier",
-            awaitCustomer: "Attente du client",
-            awaitAgent: "Attente de l'agent",
-            closed: "fermé"
         },
         adminVouchersPage: {
             title: "Vouchers",
@@ -2687,6 +3299,481 @@ export const frenchLanguage = {
                 successMultiDelete: "Instances supprimées avec succès"
             }
         },
+        k8sApplications: {
+            explore: {
+                title: "Applications Déployées",
+                description: "Ci-dessous se trouve la liste des applications déployées sur votre cluster Kubernetes. Vous pouvez déployer une application complète avec des ressources personnalisées en quelques clics.",
+                deployApplication: "Déployer une application",
+                learnMore: "En savoir plus",
+                emptyMessage: "Il n'y a aucune application déployée à afficher pour le moment",
+                searchLabel: "Nom de l'application déployée",
+                searchPlaceholder: "Rechercher une application déployée par nom",
+                table: {
+                    id: "ID",
+                    name: "Nom",
+                    namespace: "Espace de noms sélectionné",
+                    description: "Description",
+                    totalResources: "Ressources totales",
+                    creationDate: "Date de création",
+                    actions: "Actions",
+                    noDescription: "Aucune description trouvée"
+                },
+                successDelete: "Application déployée supprimée avec succès",
+                successDeleteAll: "Toutes les applications déployées sélectionnées ont été supprimées avec succès",
+                deleteDepApplication: "application déployée",
+                delete: "Supprimer",
+                edit: "Modifier les informations générales"
+            },
+            form: {
+                backToExplore: "Retour à l'exploration",
+                title: "Déployer une application",
+                generalInfo: "Entrez des informations générales sur votre application",
+                nameLabel: "Nom",
+                namePlaceHolder: "Entrez un nom qui décrit cette application",
+                autoGenerateNamespace: "Générer un namespace automatiquement",
+                descriptionLabel: "Description",
+                namespaceLabel: "Namespace",
+                namespacePlaceHolder: "Entrez un namespace pour cette application",
+                versionLabel: "Version",
+                versionPlaceHolder: "Entrez une version pour cette application",
+                descriptionPlaceholder: "Entrez une description de cette application",
+                selectProject: "Sélectionner un projet",
+                selectProjectSubtitle: "Choisissez un projet qui sera associé à cette application",
+                project: "Projet",
+                addNewProject: "Ajouter un nouveau projet",
+                selectCluster: "Sélectionner un cluster",
+                selectClusterSubtitle: "Choisissez un cluster qui sera associé à cette application",
+                cluster: "Cluster",
+                selectEnvironement: "Sélectionner un environnement",
+                selectEnvironementSubtitle: "Choisissez un environnement",
+                selectedProjectEnv: "Le projet sélectionné est utilisé avec cet environnement :",
+                selectedProjectEnvWarn: "Si vous souhaitez de choising un autre environnement, vous devez changer le projet.",
+                selectedEnvironment: {
+                    title: "Environnement sélectionné",
+                    subtitle: "Informations générales sur l'environnement sélectionné",
+                    description: "Description : ",
+                    charts: "Graphiques inclus : ",
+                    createdAt: "Créé le : ",
+                },
+                chartsYaml: {
+                    title: "Chart YAML",
+                    subtitle: "Métadonnées sur le chart Helm",
+                },
+                valuesYaml: {
+                    title: "Valeurs YAML",
+                    subtitle: "Valeurs de configuration pour le chart Helm",
+                },
+                errors: {
+                    couldntCreate: "Impossible de déployer l'application, veuillez vérifier vos saisies",
+                }
+            }
+        },
+        k8sEnvironments: {
+            explore: {
+                title: "Environnements Kubernetes",
+                description: "Ci-dessous se trouve la liste de vos environnements Kubernetes.",
+                addEnvironement: "Ajouter un environnement Kubernetes",
+                learnMore: "En savoir plus",
+                emptyMessage: "Il n'y a aucun environnement Kubernetes à afficher",
+                searchPlaceholder: "Rechercher un environnement Kubernetes par nom",
+                table: {
+                    id: "ID",
+                    name: "Nom",
+                    description: "Description",
+                    createdBy: "Créé par",
+                    creationDate: "Date de création",
+                    isPrivate: "Privé",
+                    actions: "Actions"
+                },
+                noDescription: "Aucune description trouvée",
+                successDelete: "Environnement Kubernetes supprimé avec succès",
+                successDeleteAll: "Tous les environnements Kubernetes sélectionnés ont été supprimés avec succès",
+                delete: "Supprimer",
+            },
+            externalChartModal: {
+                title: "Add external chart",
+                name: "Name",
+                namePlaceholder: "Enter a name for this chart",
+                version: "Version",
+                versionPlaceholder: "Enter a version for this chart",
+                repository: "Repository",
+                repositoryPlaceholder: "Enter a repository for this chart",
+            },
+            form: {
+                backToExplore: "Retour à l'exploration",
+                title: "Créer un environnement Kubernetes",
+                generalInfo: "Entrez des informations générales sur votre environnement Kubernetes",
+                nameLabel: "Nom",
+                namePlaceHolder: "Entrez un nom qui décrit cet environnement Kubernetes",
+                descriptionLabel: "Description",
+                descriptionPlaceholder: "Entrez une description de cet environnement Kubernetes",
+                logoUrlLabel: "URL du logo",
+                logoUrlPlaceholder: "Entrez l'URL du logo pour cet environnement Kubernetes",
+                isPrivate: "Voulez-vous le garder privé ?",
+                selectCharts: "Charts pour votre environnement",
+                createSuccess: "Environnement Kubernetes créé avec succès",
+                updateSuccess: "Environnement Kubernetes mis à jour avec succès",
+                externalChartAlreadyExist: "Chart avec ce nom existe déjà",
+                errors: {
+                    couldntCreate: "Impossible de créer l'environnement Kubernetes, veuillez vérifier vos saisies",
+                    couldntUpdate: "Impossible de mettre à jour l'environnement Kubernetes, veuillez vérifier vos saisies",
+                    mustSelectChart: "Veuillez sélectionner au moins un graphique"
+                }
+            }
+        },
+        kubernetesDashboardPages: {
+            sidebar: {
+                clusters: "Clusters",
+                deployments: {
+                    title: "Déploiements",
+                    explore: "Explorer",
+                    add: "Ajouter",
+                },
+                clusterOverview: {
+                    title: "Vue d'ensemble du cluster",
+                },
+                serviceDiscovery: {
+                    title: "Découverte de services",
+                    services: "Services",
+                    ingress: "Ingress",
+                    horizontalPodAutoscaler: "HPod Autoscaler",
+                },
+                storage: {
+                    title: "Stockage",
+                    persistentVolume: "Volume persistant",
+                    configMap: "Config Map",
+                    secrets: "Secrets",
+                },
+                workloads: {
+                    title: "Charges de travail",
+                    deployments: "Déploiements",
+                },
+            },
+            common: {
+                editYaml: "Éditer YAML",
+                updateYaml: "Mettre à jour YAML",
+                backToForm: "Retour au formulaire",
+                form: {
+                    remove: "Supprimer",
+                    key: "Clé",
+                    keyHolder: "par exemple clé",
+                    value: "Valeur",
+                    valueHolder: "par exemple valeur",
+                    addSelector: "Sélecteur",
+                    label: "Étiquette",
+                    labels: "Étiquettes",
+                    annotation: "Annotation",
+                    annotations: "Annotations",
+                    name: "Nom",
+                    nameHolder: "Entrer un nom unique",
+                    namespace: "Espace de noms",
+                    namespaceHolder: "Sélectionner un espace de noms",
+                    description: "Description",
+                    descriptionHolder: "Entrer une description",
+                    metadata: "Métadonnées",
+                },
+                table: {
+                    name: "Nom",
+                    namespace: "Espace de noms",
+                    age: "Âge",
+                    actions: "Actions",
+                }
+            },
+            k8sObjectMenuActions: {
+                edit: "Modifier",
+                editYaml: "Modifier YAML",
+                download: "Télécharger YAML",
+                delete: "Supprimer",
+            },
+            clusterOverview: {
+                title: "Tableau de bord du cluster",
+                podsTitle: "Pods",
+                totalNamespaces: "Espaces de noms",
+                totalNodes: "Nœuds",
+                deploymentsTitle: "Déploiements",
+                kubernetesVersion: "Version de Kubernetes",
+                platform: "Plateforme",
+                name: "Nom",
+                namespace: "Namespace",
+                clusterPods: "Pods du cluster",
+                cpu: "CPU",
+                memory: "Mémoire",
+                used: "Utilisé",
+                unknown: "Inconnu",
+                emptyPodsMessage: "Il n'y a aucun pod à afficher pour le moment",
+                pods: {
+                    title: "Pods du cluster",
+                    placeholder: "Rechercher un pod par nom",
+                    ip: "IP",
+                    status: "Statut",
+                    emptyMessage: "Il n'y a aucun pod à afficher pour le moment",
+                },
+                deployments: {
+                    title: "Deploiments du cluster",
+                    placeholder: "Rechercher un déploiement par nom",
+                    ready: "Prêt",
+                    upToDate: "A jour",
+                    age: "Age",
+                    emptyMessage: "Il n'y a aucun déploiement à afficher pour le moment",
+                },
+            },
+            deployedApplications: {
+                explore: {
+                    title: "Déploiement de l'application",
+                    description: "Ci-dessous se trouve la liste des applications déployées sur votre cluster Kubernetes. Vous pouvez déployer une application complète avec des ressources personnalisées en quelques clics.",
+                    deployApplication: "Déployer une application",
+                    learnMore: "En savoir plus",
+                    emptyMessage: "Il n'y a aucune application déployée à afficher pour le moment",
+                    searchLabel: "Nom de l'application déployée",
+                    searchPlaceholder: "Rechercher une application déployée par nom",
+                    table: {
+                        id: "ID",
+                        name: "Nom",
+                        version: "Version",
+                        namespace: "Namespace",
+                        description: "Description",
+                        totalResources: "Ressources totales",
+                        creationDate: "Date de création",
+                        actions: "Actions",
+                        noDescription: "Aucune description trouvée"
+                    },
+                    successDelete: "Application déployée supprimée avec succès",
+                    successDeleteAll: "Toutes les applications déployées sélectionnées ont été supprimées avec succès",
+                    deleteDepApplication: "application déployée",
+                    delete: "Supprimer"
+                },
+                form: {
+                    backToExplore: "Retour à l'exploration des déploiements",
+                    title: "Créer un nouveau déploiement d'application ou service",
+                    objectsList: "Choisir des objets",
+                    valuesYamlFile: "Fichier values pour l'application",
+                },
+                createSuccess: "Application déployée avec succès",
+                updateSuccess: "Application mise à jour avec succès",
+                errors: {
+                    couldntCreate: "Impossible de créer l'application, veuillez vérifier vos entrées",
+                }
+            },
+            k8sAppOverview: {
+                back: "Retour à l'exploration des applications",
+                pods: "Pods",
+                containers: "Conteneurs",
+                fields: {
+                    title: "Informations sur l'application Kubernetes",
+                    name: "Nom",
+                    namespace: "Namespace",
+                    environment: "Environnement",
+                    project: "Projet",
+                },
+                tableContainers: {
+                    name: "Nom",
+                    image: "Image",
+                    isStarted: "Démarré",
+                    restartCount: "Compteur de redémarrage",
+                    state: "État",
+                    port: "Port",
+                },
+                tablePods: {
+                    name: "Name",
+                    ip: "IP",
+                    startTime: "Heure de début",
+                    state: "État",
+                },
+                emptyContainerMessage: "Il n'y a aucun conteneur à afficher pour le moment",
+            },
+            serviceDisovery: {
+                services: {
+                    explore: {
+                        title: "Services",
+                        description: "Ci-dessous, voici une liste des services de votre cluster Kubernetes. Vous pouvez créer, mettre à jour ou supprimer directement des services de votre cluster.",
+                        createServiceDescription: "Ajouter un nouveau service",
+                        learnMore: "En savoir plus",
+                        emptyMessage: "Il n'y a pas de services pour le moment.",
+                        searchLabel: "Nom du service",
+                        searchPlaceholder: "Rechercher un service par nom",
+                        table: {
+                            name: "Nom",
+                            namespace: "Namespaces",
+                            target: "Cible",
+                            selector: "Sélecteur",
+                            type: "Type",
+                            age: "Âge",
+                            actions: "Actions",
+                            pods: "Pods",
+                        },
+                        successDelete: "Service supprimé avec succès",
+                    },
+                    form: {
+                        backToExplore: "Retour à l'exploration des services",
+                        title: "Créer un nouveau service",
+                        updateTitle: "Mettre à jour le service: ",
+                        serviceDescription: "Les services vous permettent de définir un ensemble logique de pods auxquels on peut accéder avec une seule adresse IP et un seul port.",
+                        form: {
+                            portName: "Nom du port",
+                            portNameHolder: "monport",
+                            listPort: "Port d'écoute",
+                            listPortHolder: "par exemple 8080",
+                            protocol: "Protocole",
+                            targetPort: "Port cible",
+                            targetPortHolder: "par exemple 80",
+                            remove: "Supprimer",
+                            addPort: "Ajouter un port",
+                            ipAddresses: "Adresses IP",
+                            ipAddressesHolder: "par exemple xxx.xxx.xxx.xxx",
+                            externalIps: "IP externes",
+                            externalIpsHolder: "par exemple xxx.xxx.xxx.xxx",
+                            addExternalIp: "IP externe",
+                            affinityDisabled: "Désactivé",
+                            affinityEnabled: "Activé (ClientIP)",
+                            sessionStickyTime: "Durée de persistance de session",
+                            sessionStickyTimeHolder: "par exemple 1000"
+                        },
+                        successCreate: "Service créé avec succès"
+                    }
+                },
+                ingresses: {
+                    explore: {
+                        title: "Ingress",
+                        description: "Ci-dessous, voici une liste des ingress de votre cluster Kubernetes. Vous pouvez créer, mettre à jour ou supprimer directement des ingress de votre cluster.",
+                        createIngressDescription: "Ajouter un nouveau ingress",
+                        learnMore: "En savoir plus",
+                        emptyMessage: "Il n'y a pas d'ingress pour le moment.",
+                        searchLabel: "Nom de l'ingress",
+                        searchPlaceholder: "Rechercher un ingress par nom",
+                        table: {
+                            name: "Nom",
+                            namespace: "Namespaces",
+                            ingressClassName: "Nom de la classe Ingress",
+                            host: "Hôte",
+                            path: "Chemin",
+                            target: "Cible",
+                            age: "Âge",
+                            actions: "Actions",
+                        },
+                        successDelete: "Ingress supprimé avec succès",
+                        successCreate: "Ingress créé avec succès",
+                    },
+                    form: {
+                        title: "Créer un nouveau ingress",
+                        updateTitle: "Mettre à jour l'ingress: ",
+                        rules: "Règles",
+                        defaultBackend: "Backend par défaut",
+                        Certificates: "Certificats",
+                        ingressClass: "Classe Ingress",
+                        requestHost: "Hôte de la requête",
+                        requestHostHolder: "par exemple example.com",
+                        path: "Chemin",
+                        pathHolder: "par exemple /",
+                        targetService: "Service cible",
+                        targetServiceHolder: "Sélectionner un service",
+                        port: "Port",
+                        portHolder: "par exemple 80",
+                        certificate: "Certificat",
+                        certificateHolder: "Sélectionner un certificat",
+                        host: "Hôte",
+                        hostHolder: "par exemple example.com",
+                        addPort: "Ajouter un port",
+                        remove: "Retirer",
+                        addRule: "Ajouter une règle",
+                        addHost: "Ajouter un hôte",
+                        addCertificate: "Ajouter un certificat",
+                        backToExplore: "Retour à l'exploration des ingress"
+                    }
+                },
+
+            },
+            storage: {
+                secrets: {
+                    explore: {
+                        title: "Secrets",
+                        description: "Ci-dessous, voici une liste des secrets de votre cluster Kubernetes. Vous pouvez créer, mettre à jour ou supprimer directement des secrets de votre cluster.",
+                        createSecretsDescription: "Ajouter un nouveau secret",
+                        learnMore: "En savoir plus",
+                        emptyMessage: "Il n'y a pas de secrets pour le moment.",
+                        searchLabel: "Nom du secret",
+                        searchPlaceholder: "Rechercher un secret par nom",
+                        successDelete: "Secret supprimé avec succès",
+                        addNewSecret: "Ajouter un nouveau secret",
+                        table: {
+                            name: "Nom",
+                            namespace: "Namespaces",
+                            type: "Type",
+                        },
+                    },
+                    form: {
+                        title: "Créer un nouveau secret",
+                        updateTitle: "Mettre à jour le secret: ",
+                        data: "Données",
+                        key: "Clé",
+                        keyHolder: "par exemple clé",
+                        value: "Valeur",
+                        valueHolder: "par exemple valeur",
+                        backToExplore: "Retour à l'exploration des secrets",
+                        addData: "Ajouter"
+                    }
+                },
+                configMaps: {
+                    explore: {
+                        title: "ConfigMaps",
+                        description: "Ci-dessous se trouve la liste des ConfigMaps de votre cluster Kubernetes. Vous pouvez créer, mettre à jour ou supprimer directement des ConfigMaps de votre cluster.",
+                        createServiceDescription: "Créer une nouvelle ConfigMap",
+                        learnMore: "En savoir plus",
+                        emptyMessage: "Il n'y a aucune ConfigMap pour le moment.",
+                        searchLabel: "Nom de la ConfigMap",
+                        searchPlaceholder: "Rechercher une ConfigMap par nom",
+                        table: {
+                            name: "Nom",
+                            namespace: "Espace de noms",
+                            type: "Type de données",
+                            age: "Âge",
+                            actions: "Actions",
+                        },
+                        successDelete: "ConfigMap supprimée avec succès"
+                    },
+                    form: {
+                        data: "Data",
+                        binaryData: "Data Binaires",
+                        backToExplore: "Retour à l'exploration des ConfigMaps",
+                        title: "Créer une ConfigMap",
+                        updateTitle: "Mettre à jour la ConfigMap : ",
+                        successCreate: "ConfigMap créée avec succès",
+                    }
+                }
+            },
+        },
+        kubernetesMainPage: {
+            title: "Clusters Kubernetes",
+            description: "Ci-dessous se trouve la liste de vos clusters Kubernetes. Vous pouvez éteindre, redémarrer, arrêter ou supprimer chaque cluster.",
+            importExisting: "Importer un cluster existant avec kubeconfig",
+            searchPlaceholder: "Rechercher un cluster Kubernetes par nom",
+            learnMore: "En savoir plus",
+            emptyMessage: "Il n'y a aucun cluster pour le moment.",
+            deleteSuccess: "Cluster lié supprimé avec succès",
+            multipleDeleteSuccess: "Clusters liés supprimés avec succès",
+            table: {
+                id: "ID",
+                name: "Nom",
+                created: "Créé",
+                actions: "Actions",
+                provider: "Fournisseur",
+                version: "Version",
+                cpu: "CPU",
+                memory: "Mémoire",
+                pods: "Pods",
+            },
+            addKubeConfig: {
+                message: {
+                    successAdd: "Kubeconfig ajouté avec succès",
+                    errorAdd: "Kubeconfig couldn't be added, please check your file"
+                },
+                inputs: {
+                    file: "Sélectionnez votre fichier kubeconfig",
+                    project: {
+                        subtitle: "Choisissez votre projet qui sera utilisé pour gérer vos clusters",
+                    }
+                }
+            }
+        },
         invoicesPage: {
             inputs: {
                 email: {
@@ -2720,10 +3807,12 @@ export const frenchLanguage = {
             fields: {
                 title: "Informations sur le projet",
                 status: "Statut",
+                type: "Type",
                 owner: "Propriétaire",
                 availabilityZone: "Zone de disponibilité",
                 activeInstances: "Instances actives",
                 numberPlaybooks: "Nombre de playbooks",
+                numberDeployments: "Nombre de déploiements",
                 playbooks: "Playbooks",
                 regenerateDeletedInstances: "Régénérer les instances supprimées",
                 instances: {
@@ -2741,6 +3830,7 @@ export const frenchLanguage = {
                 warning: "Avertissement",
                 emptyInstances: "Aucune instance active n'est attachée à ce projet.",
                 emptyPlaybooks: "Aucun playbook n'est attaché à ce projet.",
+                emptyDeployments: "Aucun déploiement n'est attaché à ce projet.",
                 deleteDescription: "Cette action supprimera votre projet Gitlab et toutes les modifications que vous avez apportées au projet seront perdues. Notez que ce n'est pas réversible.",
                 transferDescription: "Le transfert du projet le rendra inaccessible à l'avenir. Notez que toutes les instances de ce projet seront également transférées"
             },
@@ -2757,7 +3847,7 @@ export const frenchLanguage = {
         },
         projectsPage: {
             title: "Projets",
-            description: "Ci-dessous, voici une liste de vos projets git qui contiennent la configuration ansible de vos instances.",
+            description: "Ci-dessous, voici une liste de vos projets git qui contiennent la configuration ansible de vos instances ou le déploiement des charts de votre cluster k8s.",
             createProject: "Créer un nouveau projet",
             addProject: "Ajouter un nouveau projet",
             learnMore: "En savoir plus",
@@ -2767,6 +3857,8 @@ export const frenchLanguage = {
                 id: "ID",
                 name: "Nom",
                 numberOfInstances: "N instances",
+                numberOfClusters: "N clusters",
+                type: "Type",
                 actions: "Actions"
             }
         },

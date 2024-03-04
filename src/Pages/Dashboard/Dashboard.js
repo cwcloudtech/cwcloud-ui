@@ -69,6 +69,23 @@ import AdminTriggersPage from "./Pages/Admin/Faas/AdminTriggersPage/AdminTrigger
 import CwaiChat from "./Pages/User/CwaiChat/Chat";
 import AdminCustomInvoice from "./Pages/Admin/AdminCustomInvoice/AdminCustomInvoice";
 import AdminEditionInvoice from "./Pages/Admin/AdminEditionInvoice/AdminEditionInvoice";
+import ClusterOverview from "./Pages/Admin/Kubernetes/ClusterManagement/Cluster/ClusterOverview";
+import ClusterManagementContainer from "./Pages/Admin/Kubernetes/ClusterManagement/ClusterContainer/ClusterManagementContainer";
+import Services from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Services/Services";
+import ServiceForm from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Services/ServiceForm";
+import Ingress from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Ingresses/Ingresses";
+import HorizontalPodAutoscaler from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/HorizontalPodAutoscaler";
+import Secrets from "./Pages/Admin/Kubernetes/ClusterManagement/Storage/Secrets/Secrets";
+import IngressForm from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Ingresses/IngressForm";
+import ConfigMapForm from "./Pages/Admin/Kubernetes/ClusterManagement/Storage/ConfigMaps/ConfigMapForm";
+import ConfigMaps from "./Pages/Admin/Kubernetes/ClusterManagement/Storage/ConfigMaps/ConfigMaps";
+import SecretsForm from "./Pages/Admin/Kubernetes/ClusterManagement/Storage/Secrets/SecretsForm";
+import K8sAppsPage from "./Pages/User/K8sApplications/Page/K8sAppsPage";
+import AddK8sApplication from "./Pages/User/K8sApplications/Create/AddK8sApplication";
+import K8sEnvironements from "./Pages/Admin/Kubernetes/Environments/K8sEnvironements";
+import K8sClusters from "./Pages/Admin/Kubernetes/Clusters/K8sClusters";
+import K8sEnvironmentForm from "./Pages/Admin/Kubernetes/K8sEnvironmentForm/K8sEnvironmentForm";
+import K8sAppOverview from "./Pages/User/K8sApplications/Overview/K8sOverview";
 
 function Dashboard() {
     const _mode = useContext(GlobalContext).mode;
@@ -76,14 +93,14 @@ function Dashboard() {
     const state = useLocation()
     useEffect(() => {
         state && toast.success(state.state)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
     return (
         <SidebarContext>
-            <Row className={classes.container} style={{background: colors.mainBackground[_mode]}}>
+            <Row className={classes.container} style={{ background: colors.mainBackground[_mode] }}>
                 <Sidebar />
                 <Column flexGrow={1} className={classes.mainBlock}>
                     <IndexNavbar />
@@ -138,6 +155,39 @@ function Dashboard() {
                             <Route exact path="/instances/create" element={<AddInstance />} />
                             <Route exact path="/instances/attach/:projectId" element={<AttachInstance />} />
                             <Route exact path="/instance/:instanceId" element={<InstanceOverview />} />
+                            <Route exact path="/k8s-applications">
+                                <Route exact path="" element={<K8sAppsPage />} />
+                                <Route exact path="app/:appId" element={<K8sAppOverview />} />
+                                <Route exact path="create" element={<AddK8sApplication />} />
+                            </Route>
+                            <Route exact path="/kubernetes/environments" element={<K8sEnvironements />} />
+                            <Route exact path="/kubernetes/environment/create" element={<K8sEnvironmentForm />} />
+                            <Route exact path="/kubernetes/environment/:envId/edit" element={<K8sEnvironmentForm />} />
+                            <Route exact path="/kubernetes/clusters" element={<K8sClusters />} />
+                            <Route exact path="/kubernetes/cluster/:clusterId" element={<ClusterManagementContainer />} >
+                                <Route exact path="" element={<ClusterOverview />} />
+                                <Route exact path="serviceDiscovery">
+                                    <Route exact path="services">
+                                        <Route exact path="explore" element={<Services />} />
+                                        <Route exact path="create" element={<ServiceForm />} />
+                                    </Route>
+                                    <Route exact path="ingresses" >
+                                        <Route exact path="explore" element={<Ingress />} />
+                                        <Route exact path="create" element={<IngressForm />} />
+                                    </Route>
+                                    <Route exact path="horizontalPodAutoscaler" element={<HorizontalPodAutoscaler />} />
+                                </Route>
+                                <Route exact path="storage">
+                                    <Route exact path="configMaps">
+                                        <Route exact path="explore" element={<ConfigMaps />} />
+                                        <Route exact path="create" element={<ConfigMapForm />} />
+                                    </Route>
+                                    <Route exact path="secrets">
+                                        <Route exact path="explore" element={<Secrets />} />
+                                        <Route exact path="create" element={<SecretsForm />} />
+                                    </Route>
+                                </Route>
+                            </Route>
                             <Route exact path="/project/:projectId" element={<ProjectOverview />} />
                             <Route exact path="/environment/overview" element={<EnvironmentsPage />} />
                             <Route exact path="/environment/add" element={<AddEnvironment />} />
@@ -152,8 +202,8 @@ function Dashboard() {
                                     <Route exact path="/billing" element={<Billing />} />
                                     <Route exact path="/admin/invoice/generate" element={<AdminGenerateInvoice />} />
                                     <Route exact path="/admin/invoice/overview" element={<AdminInvoicesOverview />} />
-                                    <Route exact path="/admin/invoice/custom" element={<AdminCustomInvoice /> } />
-                                    <Route exact path="/admin/invoice/edition" element={<AdminEditionInvoice /> } />
+                                    <Route exact path="/admin/invoice/custom" element={<AdminCustomInvoice />} />
+                                    <Route exact path="/admin/invoice/edition" element={<AdminEditionInvoice />} />
                                 </React.Fragment>
                             }
                             <Route path="*" element={<Error />} />

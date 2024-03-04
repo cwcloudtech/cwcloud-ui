@@ -8,8 +8,8 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Col } from 'react
 import Translate from 'react-translate-component';
 import { useLocation, useNavigate } from 'react-router-dom';
 import srcimage from '../../../utils/regions'
-import SelectDropdown from '../../../Components/SelectDropdown/SelectDropdown';
-import LanguageDropdown from '../../../Components/LanguageDropdown/LanguageDropdown';
+import SelectDropdown from '../../../Components/Dropdown/SelectDropdown';
+import LanguageDropdown from '../../../Components/Dropdown/LanguageDropdown';
 import Identicon from 'react-identicons';
 
 function IndexNavbar() {
@@ -21,6 +21,10 @@ function IndexNavbar() {
     const { pathname } = useLocation();
     const navigate = useNavigate()
     let title = pathname.split("/")[1].charAt(0).toUpperCase(0) + pathname.split("/")[1].slice(1)
+    if (title.search('-') !== -1){
+        title = title.split("-")[0].charAt(0).toUpperCase(0) + title.split("-")[0].slice(1) + " " + title.split("-")[1].charAt(0).toUpperCase(0) + title.split("-")[1].slice(1)
+    }
+
     const handleLogout = () => {
         localStorage.clearToken()
         window.location.href = "/"

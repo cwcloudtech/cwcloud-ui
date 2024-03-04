@@ -1,0 +1,20 @@
+.removeButton {
+    margin-top: 11px !important;
+}
+
+.addButton {
+    margin-top: 11px !important;
+}
+
+.title {
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.titleContainer {
+    padding-bottom: 15px;
+}

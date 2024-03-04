@@ -4,7 +4,7 @@ import classes from "./AdminTicket.module.css";
 import { Row, Col } from "reactstrap";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios";
-import { MenuItem, Select, TextareaAutosize } from '@mui/material';
+import { MenuItem, Select, TextField } from '@mui/material';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import TicketReply from '../../../../../Components/TicketReply/TicketReply';
@@ -12,6 +12,7 @@ import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton
 import Translate from 'react-translate-component';
 import formateDate from '../../../../../utils/FormateDate';
 import { isBlank } from '../../../../../utils/common';
+import { BarLoader } from 'react-spinners';
 
 function AdminTicket() {
     const context = useContext(GlobalContext)
@@ -92,29 +93,44 @@ function AdminTicket() {
                     </h5>
                 </Col>
             </Row>
+            <hr style={{ width: '100%', border: '1px solid #E5E5E5' }} />
             <Row style={{ marginTop: '30px', marginBottom: '30px' }}>
                 <Col>
-                <   TicketReply key={'first1'} reply={{ ...ticket, change_date: ticket.created_at }} />
+                    <TicketReply key={'first1'} reply={{ ...ticket, change_date: ticket.created_at }} />
                     {ticket.replies?.map(reply => (
                         <TicketReply key={reply.id} reply={reply} />
                     ))}
+                    {
+                        loadingReply &&
+                            <div style={{display: "flex", justifyContent: "center", alignItems: "center", paddingTop: "20px"}}>
+                                <BarLoader
+                                    color={colors.title[_mode]}
+                                    loading={loadingReply}
+                                    size={10}
+                                    aria-label="Loading Spinner"
+                                    data-testid="loader"
+                                />
+                            </div>
+                    }
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <Row>
                         <Col>
-                            <TextareaAutosize
+                            <TextField
+                                label={context.counterpart("dashboard.support.enterMessage")}
                                 placeholder={context.counterpart("dashboard.support.updateFromKeyboardTip")}
+                                multiline
                                 minRows={3}
-                                style={{ width: '100%', padding: '10px 15px', backgroundColor: colors.secondBackground[_mode], color: colors.menuText[_mode], border: "1px solid "+ colors.textAreaBorder[_mode], borderRadius: "5px" }}
+                                style={{ width: '100%', color: colors.mainText[_mode]}}
                                 value={replyMessage}
                                 onChange={(e) => setReplyMessage(e.target.value)}
                                 onKeyDown={handleKeyDown}
                             />
                         </Col>
                     </Row>
-                    <Row style={{ marginTop: '15px' }}>
+                    <Row style={{ marginTop: '20px' }}>
                         <Col>
                             <Select value={replyStatus} onChange={(e) => setReplyStatus(e.target.value)}>
                                 <MenuItem value={'await agent'}>

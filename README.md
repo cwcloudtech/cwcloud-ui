@@ -50,4 +50,45 @@ You can use a localhost version of this API following the `README.md` of this re
 And updating this environment variable: `REACT_APP_APIURL=http://localhost:5002`
 
 * Login: `sre-devops@comwork.io`
-* Password: `Cloud.456`
+* Password: `cloud456`
+
+## Project architecture
+
+```shell
+├── src
+│ └── assets
+│ └── Components
+│     ├── AllowCookiesFooter
+│     ├── BlocklyWorkspace
+│     ├── Cards
+│     ├── ChaMessage
+│     ├── CollapsibleContent
+│     ├── CustomIcon
+│     ├── DoughnutChart
+│     ├── DragDropList
+│     ├── Dropdown
+│     ├── EditorBox
+│     ├── Kubernetes
+│     ├── LoadingButton
+│     ├── LoadingComponent
+│     ├── LoadingSpinner
+│     ├── Modal
+│     ├── PieChart
+│     ├── ServiceNotAvailable
+│     ├── Sidebar
+│     ├── SidebarMenuItem
+│     ├── SuggestionsAutoComplete
+│     ├── Table
+│     ├── TicketReply
+│ └── Context
+│ └── Hooks
+│ └── Pages
+│     ├── Dashboard
+│     ├── Public
+│ └── Themes
+│ └── utils
+│ └── App.js
+│ └── index.js
+│ └── reportWebVitals.js
+│ └── setupTests.js
+```

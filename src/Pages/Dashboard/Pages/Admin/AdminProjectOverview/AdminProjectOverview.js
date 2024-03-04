@@ -6,7 +6,7 @@ import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios"
 import { toast } from 'react-toastify'
 import { Tooltip } from '@mui/material';
-import DeleteModal from '../../../../../Components/DeleteModal/DeleteModal';
+import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import Fade from '@mui/material/Fade';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton';

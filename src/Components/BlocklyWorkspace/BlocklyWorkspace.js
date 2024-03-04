@@ -133,7 +133,7 @@ function BlocklyWorkspace(props) {
           </div>
         }
         {!props.showBlocklyFullScreen &&
-          <div style={{ background: "#2C3139", padding: "10px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", borderTopLeftRadius: "10px", borderTopRightRadius: "10px"  }}>
+          <div style={{ background: _mode === "dark" ? "#2C3139" : "#0861AF", padding: "10px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", borderTopLeftRadius: "10px", borderTopRightRadius: "10px"  }}>
             <div><Translate content="dashboard.function.inputs.blockly.title" /></div>
             <Tooltip title={context.counterpart('common.button.goFullScreen')}>
                 <FullscreenOutlinedIcon className='fullscreenbtn' onClick={props.handleFullScreen} style={{ height: "30px" }} />
@@ -192,6 +192,9 @@ function BlocklyWorkspace(props) {
         <category name="Variables" custom="VARIABLE" colour="#A55B80">
           <block type="variables_get"></block>
           <block type="variables_set"></block>  
+        </category>
+        <category name="Environment variables" colour="#A55B5B">
+          <block type="environment_variable"></block>
         </category>
         <category name="Functions" colour="#995BA5">
           <block type="procedures_defreturn">

@@ -9,6 +9,7 @@ const LoadingButton = (props) => {
             variant={props.variant || 'outlined'}
             color={props.color}
             disabled={props.disabled}
+            type={props.type}
             className={`${classes.buttonStyle} ${props.className}`}
             style={props.style}
             onClick={!props.loading ? props.onClick: null}>

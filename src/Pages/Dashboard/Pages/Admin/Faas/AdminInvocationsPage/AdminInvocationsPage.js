@@ -6,14 +6,14 @@ import { Row, Col } from "reactstrap";
 import { TextField, Tooltip, Fade } from "@mui/material";
 import axios from "../../../../../../utils/axios"
 import GlobalContext from '../../../../../../Context/GlobalContext';
-import CustomDeleteIcon from '../../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
-import CustomCopyIcon from '../../../../../../Components/CustomCopyIcon /CustomCopyIcon';
-import CustomRerunIcon from '../../../../../../Components/CustomRerunIcon/CustomRerunIcon'
-import DataTable from '../../../../../../Components/DataTable/DataTable';
+import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
+import CustomCopyIcon from '../../../../../../Components/CustomIcon/CustomCopyIcon';
+import CustomRerunIcon from '../../../../../../Components/CustomIcon/CustomRerunIcon'
+import DataTable from '../../../../../../Components/Table/DataTable';
 import { toast } from 'react-toastify';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import DeleteModal from "../../../../../../Components/DeleteModal/DeleteModal";
+import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import sliceIfNeeded from "../../../../../../utils/stringSlice";
 import { FaHourglassEnd } from "react-icons/fa";

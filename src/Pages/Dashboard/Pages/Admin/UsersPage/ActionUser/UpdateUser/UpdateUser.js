@@ -232,6 +232,20 @@ function Drawer(props) {
                                     })}
                                 />
                             </ListItem>
+                            <ListItem >
+                                <FormControlLabel
+                                    label={"Kubernetes API"}
+                                    control={<Switch sx={{ m: 1 }} checked={props.user.enabled_features.k8sapi}
+                                    />}
+                                    onChange={(e) => props.setUser({
+                                        ...props.user,
+                                        enabled_features: {
+                                            ...props.user.enabled_features,
+                                            k8sapi: e.target.checked
+                                        }
+                                    })}
+                                />
+                            </ListItem>
                             </>
                         }
                         <ListItem style={{ display: "block" }}>

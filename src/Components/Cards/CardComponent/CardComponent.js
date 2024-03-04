@@ -10,24 +10,27 @@ function CardComponent(props) {
     const _mode = context.mode;
     const docUrl = process.env.REACT_APP_DOCURL;
     return (
-        <Row>
-            <Col className={[classes.container, props.containerStyles].join(" ")} style={{backgroundColor: colors.secondBackground[_mode], border: '1px solid '+ colors.border[_mode], borderRadius: "7px", marginTop: "3px", boxShadow: colors.shadow[_mode]}}>
+        <Row style={props.style}>
+            <Col className={[classes.container, props.containerStyles].join(" ")} style={{ backgroundColor: colors.secondBackground[_mode], border: '1px solid ' + colors.border[_mode], borderRadius: "7px", marginTop: props.customMarginTop ?? "3px", boxShadow: colors.shadow[_mode], padding: "23px 20px" }}>
                 <Row >
                     <Col>
                         <div style={{ display: "flex", justifyContent: "space-between" }} >
-                            <span className={classes.title} style={{color: colors.mainText[_mode]}}>{props.title}</span>
-                            <span className={classes.link} style={{color: colors.blue}}>
+                            <span className={classes.title} style={{ color: colors.mainText[_mode] }}>{props.title}</span>
+                            <span className={classes.link} style={{ color: colors.blue }}>
                                 <a href={docUrl} target="_blank" rel="noreferrer" >{props.link}</a>
                             </span>
                         </div>
-                        <Row style={{ marginBottom: 16 }}>
-                            <span className={classes.subtitle} style={{color: colors.secondText[_mode]}}>{props.subtitle}</span>
+                        <Row>
+                            <span className={classes.subtitle} style={{ color: colors.secondText[_mode] }}>{props.subtitle}</span>
                             {props.subtitleTwo && (
-                                <span className={[classes.subtitle, classes.subtitle2].join(" ")} style={{color: colors.secondText[_mode]}}>
+                                <span className={[classes.subtitle, classes.subtitle2].join(" ")} style={{ color: colors.secondText[_mode] }}>
                                     {props.subtitleTwo}
                                 </span>
                             )}
                         </Row>
+                        {
+                            props.title || props.subtitle ? <div style={{ marginTop: 16 }}></div> : null
+                        }
                     </Col>
                 </Row>
                 <Row>

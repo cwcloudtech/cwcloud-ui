@@ -5,7 +5,7 @@ import { Row, Col, Button } from "reactstrap";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios";
 import { toast } from 'react-toastify';
-import DeleteModal from '../../../../../Components/DeleteModal/DeleteModal';
+import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton';
 import Translate from 'react-translate-component';

@@ -1,14 +1,14 @@
 import { useContext, useState } from 'react';
 import axios from '../../../../../../utils/axios';
 import { toast } from 'react-toastify';
-import DeleteModal from '../../../../../../Components/DeleteModal/DeleteModal';
+import DeleteModal from '../../../../../../Components/Modal/DeleteModal';
 import { Dropdown} from 'reactstrap';
-import RebootModal from '../../../../../../Components/RebootModal/RebootModal';
-import PowerModal from '../../../../../../Components/PowerModal/PowerModal';
+import RebootModal from '../../../../../../Components/Modal/RebootModal';
+import PowerModal from '../../../../../../Components/Modal/PowerModal';
 import GlobalContext from '../../../../../../Context/GlobalContext';
-import CustomDeleteIcon from '../../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
-import CustomRerunIcon from '../../../../../../Components/CustomRerunIcon/CustomRerunIcon';
-import CustomPowerIcon from '../../../../../../Components/CustomPowerIcon/CustomPowerIcon';
+import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
+import CustomRerunIcon from '../../../../../../Components/CustomIcon/CustomRerunIcon';
+import CustomPowerIcon from '../../../../../../Components/CustomIcon/CustomPowerIcon';
 
 function ActionComponent(props) {
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)

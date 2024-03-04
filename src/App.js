@@ -1,19 +1,19 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import LoginForm from "./Pages/Traveler/Login/LoginForm";
-import SignUpForm from "./Pages/Traveler/SignUp/SignUpForm";
+import LoginForm from "./Pages/Public/Login/LoginForm";
+import SignUpForm from "./Pages/Public/SignUp/SignUpForm";
 import Dashboard from "./Pages/Dashboard/Dashboard"
 import AppContext from "./Context/AppContext";
 import LocalStorageService from "./utils/localStorageService";
-import ResetPassword from "./Pages/Traveler/ResetPassword/ResetPassword"
-import ForgetPassword from "./Pages/Traveler/ForgetPassword/ForgetPassword"
-import Confirm from "./Pages/Traveler/Confirm/Confirm";
-import Confirmation from "./Pages/Traveler/Confirmation/Confirmation";
+import ResetPassword from "./Pages/Public/ResetPassword/ResetPassword"
+import ForgetPassword from "./Pages/Public/ForgetPassword/ForgetPassword"
+import Confirm from "./Pages/Public/Confirm/Confirm";
+import Confirmation from "./Pages/Public/Confirmation/Confirmation";
 import { ToastContainer } from "react-toastify";
-import MultiFactorAuth from "./Pages/Traveler/MultiFactorAuth/MultiFactorAuth";
-import SetMultiFactor from "./Pages/Traveler/SetMultiFactor/SetMultiFactor";
-import SetSecurityKey from "./Pages/Traveler/SetSecurityKey/SetSecurityKey";
-import U2fAuthentification from "./Pages/Traveler/U2fAuthentification/U2fAuthentification";
-import Contact from "./Pages/Traveler/Contact/Contact";
+import MultiFactorAuth from "./Pages/Public/MultiFactorAuth/MultiFactorAuth";
+import SetMultiFactor from "./Pages/Public/SetMultiFactor/SetMultiFactor";
+import SetSecurityKey from "./Pages/Public/SetSecurityKey/SetSecurityKey";
+import U2fAuthentification from "./Pages/Public/U2fAuthentification/U2fAuthentification";
+import Contact from "./Pages/Public/Contact/Contact";
 function App() {
     return (
         <AppContext>

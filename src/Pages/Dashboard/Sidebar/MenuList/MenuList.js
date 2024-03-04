@@ -54,6 +54,7 @@ function MenuComponent({ children, isMobile }) {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <Menu
+            id="main-sidebar"
             isOpen={!isMobile || isOpen}
             noOverlay={!isMobile}
             disableCloseOnEsc

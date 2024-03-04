@@ -12,14 +12,14 @@ import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Translate from 'react-translate-component';
-import DeleteModal from "../../../../../Components/DeleteModal/DeleteModal";
+import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import formateDate from "../../../../../utils/FormateDate";
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import { toast } from 'react-toastify';
-import DataTable from "../../../../../Components/DataTable/DataTable";
+import DataTable from "../../../../../Components/Table/DataTable";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import CustomDeleteIcon from "../../../../../Components/CustomDeleteIcon/CustomDeleteIcon";
+import CustomDeleteIcon from "../../../../../Components/CustomIcon/CustomDeleteIcon";
 
 function AdminBucketsPage(props) {
     const context = useContext(GlobalContext);

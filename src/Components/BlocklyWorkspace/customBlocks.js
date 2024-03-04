@@ -285,3 +285,15 @@ export const customizeBlocks = () => {
     }
   };
 };
+
+Blockly.Blocks['environment_variable'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('environment variable')
+      .appendField(new Blockly.FieldTextInput('variable_name'), 'VARIABLE_NAME');
+    this.setOutput(true, null);
+    this.setColour("#A55B80");
+    this.setTooltip('Represents an environment variable.');
+    this.setHelpUrl('https://example.com');
+  }
+};

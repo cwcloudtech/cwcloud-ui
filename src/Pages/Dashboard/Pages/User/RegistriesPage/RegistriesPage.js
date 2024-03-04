@@ -4,24 +4,26 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import GlobalContext from "../../../../../Context/GlobalContext";
-import ActionComponent from "./ActionComponent/ActionComponent";
-import DeleteModal from "../../../../../Components/DeleteModal/DeleteModal";
+import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import formateDate from "../../../../../utils/FormateDate";
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import { toast } from 'react-toastify';
-import DataTable from "../../../../../Components/DataTable/DataTable";
+import DataTable from "../../../../../Components/Table/DataTable";
 import { TextField } from "@mui/material";
 import { Col, Row } from "reactstrap";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import CustomDeleteIcon from "../../../../../Components/CustomIcon/CustomDeleteIcon";
 
 function RegistriesPage(props) {
     const context = useContext(GlobalContext);
     const [registries, setRegistries] = useState([]);
     const [filtredRegistries, setFiltredRegistries] = useState([]);
-    const { selectedProvider, region, counterpart, setIsGlobal, user } = useContext(GlobalContext)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [selectedDeletionItems, setSelectedDeletionItems] = useState([])
+    const [selectedRegistry, setSelectedRegistry] = useState(null)
+    const [multiSelection, setMultiSelection] = useState(false)
+    const { selectedProvider, region, counterpart, setIsGlobal, user } = useContext(GlobalContext)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -35,16 +37,9 @@ function RegistriesPage(props) {
                 if (params.row.user_id === user.id) {
                     const onClick = (e) => {
                         e.stopPropagation();
+                        preDeleteHandler(params.id)
                     };
-                    const registryIndex = registries.findIndex(b => b.id === params.id)
-                    return (
-                        <ActionComponent
-                            item={registries[registryIndex]}
-                            provider={selectedProvider.name}
-                            region={region.name}
-                            onClick={onClick}
-                            deleteBucket={(e) => { onClick(e); deleteRegistryHandler(params.row.id) }} />
-                    )
+                    return <CustomDeleteIcon onClick={onClick} />
                 }
                 return null
             }
@@ -66,15 +61,33 @@ function RegistriesPage(props) {
             })
     }, [region.name, navigate, selectedProvider.name, showConfirmDeleteModal])
 
-    const deleteRegistryHandler = (registryId) => {
-        setRegistries(filteredListWithoutRemovedElement(registryId, registries))
-        setFiltredRegistries(filteredListWithoutRemovedElement(registryId, filtredRegistries))
+    const preDeleteHandler = (registryId) => {
+        setMultiSelection(false)
+        const registryIndex = registries.findIndex(b => b.id === registryId)
+        setSelectedRegistry(registries[registryIndex])
+        setShowConfirmDeleteModal(true)
+    }
+
+    const deleteRegistryHandler = (selectedItems) => {
+        setLoading(true)
+        var registryId = selectedRegistry.id
+        axios.delete(`/registry/${selectedProvider.name}/${region.name}/${registryId}`)
+            .then(res => {
+                setRegistries(filteredListWithoutRemovedElement(registryId, registries))
+                setFiltredRegistries(filteredListWithoutRemovedElement(registryId, filtredRegistries))
+                toast.success(counterpart('dashboard.registryOverview.message.successDelete'))
+                setShowConfirmDeleteModal(false)
+                setLoading(false)
+            }).catch(err => {
+                setShowConfirmDeleteModal(false)
+                setLoading(false)
+            })
     }
 
     const preDeleteSelectionHandler = (selectedItems) => {
+        setMultiSelection(true)
         setShowConfirmDeleteModal(true)
-        const allowedRegistries = [...registries.filter(r => r.user_id === user.id).map(r => r.id)]
-        setSelectedDeletionItems(selectedItems.filter(registryId => allowedRegistries.includes(registryId)))
+        setSelectedDeletionItems(selectedItems)
     }
 
     const deleteRegistriesHandler = async () => {
@@ -82,7 +95,7 @@ function RegistriesPage(props) {
         new Promise((r, j) => {
             const deletedRegistries = []
             selectedDeletionItems.forEach((registryId, index) => {
-                axios.delete(`/registry/${registryId}`)
+                axios.delete(`/registry/${selectedProvider.name}/${region.name}/${registryId}`)
                     .then(() => {
                         deletedRegistries.push(registryId)
                         if (index === selectedDeletionItems.length - 1) {
@@ -121,10 +134,12 @@ function RegistriesPage(props) {
             subtitle={counterpart('dashboard.adminRegistriesPage.description')}
             link={counterpart('dashboard.adminRegistriesPage.learnMore')}>
             <DeleteModal resourceName={'registry'}
-                multi={true}
+                multi={multiSelection}
                 isOpen={showConfirmDeleteModal}
                 toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)}
                 onMultiDelete={deleteRegistriesHandler}
+                onDelete={deleteRegistryHandler}
+                name={selectedRegistry?.name}
                 loading={loading} />
             <Row >
                 <Col md="12">
@@ -148,10 +163,10 @@ function RegistriesPage(props) {
                 noCreate
                 icon={'fa-brands fa-docker'}
                 emptyMessage={counterpart('dashboard.adminRegistriesPage.emptyMessage')}
-                createMessage={counterpart('dashboard.adminRegistriesPage.createMessage')}
                 checkboxSelection
                 columns={columns}
                 rows={filtredRegistries}
+                setMultiSelection={setMultiSelection}
                 onDeleteSelection={preDeleteSelectionHandler} />
         </CardComponent>
     );

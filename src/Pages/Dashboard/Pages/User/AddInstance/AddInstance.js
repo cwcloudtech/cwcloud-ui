@@ -77,7 +77,7 @@ function AddInstance(props) {
             setInstancesTypesAvailability(responseInstanceAvailibility.data.availability[availabilityIndex].zones)
 
             const parsedQuery = queryString.parse(location.search);
-            const responseProjects = await axios.get(`/project`)
+            const responseProjects = await axios.get(`/project?type=vm`)
             setProjects(responseProjects.data)
             const responseEnvironments = await axios.get("/environment/all")
             setEnvironments(responseEnvironments.data)

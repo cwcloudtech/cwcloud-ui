@@ -10,12 +10,12 @@ import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Translate from "react-translate-component";
-import DeleteModal from "../../../../../Components/DeleteModal/DeleteModal";
+import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import { toast } from 'react-toastify';
-import DataTable from "../../../../../Components/DataTable/DataTable";
+import DataTable from "../../../../../Components/Table/DataTable";
 import formateDate from "../../../../../utils/FormateDate";
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
-import CustomDeleteIcon from "../../../../../Components/CustomDeleteIcon/CustomDeleteIcon";
+import CustomDeleteIcon from "../../../../../Components/CustomIcon/CustomDeleteIcon";
 import colors from "../../../../../Context/Colors";
 
 const AdminVouchersPage = (props) => {
@@ -190,7 +190,7 @@ const AdminVouchersPage = (props) => {
                 </div>
             </Row>
             <DataTable
-                icon={'fa-solid fa-microchip'}
+                icon={'fa-solid fa-ticket'}
                 createUrl='/admin/vouchers/create'
                 emptyMessage={counterpart('dashboard.adminVouchersPage.emptyMessage')}
                 createMessage={counterpart('dashboard.adminVouchersPage.createMessage')}

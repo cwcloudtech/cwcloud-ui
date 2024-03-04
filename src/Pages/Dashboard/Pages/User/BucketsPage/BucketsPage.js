@@ -5,26 +5,27 @@ import { TextField } from "@mui/material";
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import GlobalContext from "../../../../../Context/GlobalContext";
-import ActionComponent from "./ActionComponent/ActionComponent";
-import DeleteModal from "../../../../../Components/DeleteModal/DeleteModal";
+import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import formateDate from "../../../../../utils/FormateDate";
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import { toast } from 'react-toastify';
-import DataTable from "../../../../../Components/DataTable/DataTable";
+import DataTable from "../../../../../Components/Table/DataTable";
 import { Col, Row } from "reactstrap";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import CustomDeleteIcon from "../../../../../Components/CustomIcon/CustomDeleteIcon";
 
 function BucketsPage(props) {
 
     const context = useContext(GlobalContext);
     const [buckets, setBuckets] = useState([]);
     const [filtredBuckets, setFiltredBuckets] = useState([]);
-    const { selectedProvider, region, counterpart, setIsGlobal, user } = useContext(GlobalContext)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [selectedDeletionItems, setSelectedDeletionItems] = useState([])
+    const [selectedBucket, setSelectedBucket] = useState(null)
+    const [multiSelection, setMultiSelection] = useState(false)
     const [loading, setLoading] = useState(false)
-
+    const { selectedProvider, region, counterpart, setIsGlobal, user } = useContext(GlobalContext)
     const navigate = useNavigate()
 
     const columns = [
@@ -40,16 +41,9 @@ function BucketsPage(props) {
                 }
                 const onClick = (e) => {
                     e.stopPropagation();
+                    preDeleteHandler(params.id)
                 };
-                const bucketIndex = buckets.findIndex(b => b.id === params.id)
-                return (
-                    <ActionComponent
-                        item={buckets[bucketIndex]}
-                        provider={selectedProvider.name}
-                        region={region.name}
-                        onClick={onClick}
-                        deleteBucket={(e) => { onClick(e); deleteBucketHandler(params.row.id) }} />
-                )
+                return <CustomDeleteIcon onClick={onClick} />
             }
         }
     ];
@@ -69,15 +63,33 @@ function BucketsPage(props) {
             })
     }, [region.name, navigate, selectedProvider.name, showConfirmDeleteModal])
 
-    const deleteBucketHandler = (bucketId) => {
-        setBuckets(filteredListWithoutRemovedElement(bucketId, buckets))
-        setFiltredBuckets(filteredListWithoutRemovedElement(bucketId, filtredBuckets))
+    const preDeleteHandler = (bucketId) => {
+        setMultiSelection(false)
+        const bucketIndex = buckets.findIndex(b => b.id === bucketId)
+        setSelectedBucket(buckets[bucketIndex])
+        setShowConfirmDeleteModal(true)
+    }
+
+    const deleteBucketHandler = () => {
+        setLoading(true)
+        var bucketId = selectedBucket.id
+        axios.delete(`/bucket/${selectedProvider.name}/${region.name}/${bucketId}`)
+            .then(res => {
+                setBuckets(filteredListWithoutRemovedElement(bucketId, buckets))
+                setFiltredBuckets(filteredListWithoutRemovedElement(bucketId, filtredBuckets))
+                toast.success(counterpart('dashboard.bucketOverview.message.successDelete'))
+                setShowConfirmDeleteModal(false)
+                setLoading(false)
+            }).catch(err => {
+                setShowConfirmDeleteModal(false)
+                setLoading(false)
+            })
     }
 
     const preDeleteSelectionHandler = (selectedItems) => {
+        setMultiSelection(true)
         setShowConfirmDeleteModal(true)
-        const allowedBuckets = [...buckets.filter(b => b.user_id === user.id).map(b => b.id)]
-        setSelectedDeletionItems(selectedItems.filter(bucketId => allowedBuckets.includes(bucketId)))
+        setSelectedDeletionItems(selectedItems)
     }
 
     const deleteBucketsHandler = async () => {
@@ -85,7 +97,7 @@ function BucketsPage(props) {
         new Promise((r, j) => {
             const deletedBuckets = []
             selectedDeletionItems.forEach((bucketId, index) => {
-                axios.delete(`/bucket/${bucketId}`)
+                axios.delete(`/bucket/${selectedProvider.name}/${region.name}/${bucketId}`)
                     .then(() => {
                         deletedBuckets.push(bucketId)
                         if (index === selectedDeletionItems.length - 1) {
@@ -125,10 +137,12 @@ function BucketsPage(props) {
             subtitle={counterpart('dashboard.adminBucketsPage.description')}
             link={counterpart('dashboard.adminBucketsPage.learnMore')}>
             <DeleteModal resourceName={'bucket'}
-                multi={true}
+                multi={multiSelection}
                 isOpen={showConfirmDeleteModal}
                 toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)}
                 onMultiDelete={deleteBucketsHandler}
+                onDelete={deleteBucketHandler}
+                name={selectedBucket?.name}
                 loading={loading} />
             <Row>
                 <Col md="12">
@@ -149,13 +163,13 @@ function BucketsPage(props) {
                 </Col>
             </Row>
             <DataTable
+                noCreate
                 icon={'fa-solid fa-cube'}
                 emptyMessage={counterpart('dashboard.adminBucketsPage.emptyMessage')}
-                createMessage={counterpart('dashboard.adminBucketsPage.createMessage')}
-                noCreate
                 checkboxSelection
                 columns={columns}
                 rows={filtredBuckets}
+                setMultiSelection={setMultiSelection}
                 onDeleteSelection={preDeleteSelectionHandler} />
         </CardComponent>
     );

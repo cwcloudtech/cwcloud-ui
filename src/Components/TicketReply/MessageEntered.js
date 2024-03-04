@@ -3,8 +3,11 @@ import GlobalContext from '../../Context/GlobalContext';
 import Identicon from 'react-identicons';
 import { useNavigate } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
+import { Row, Col } from 'reactstrap';
+import Linkify from 'linkify-react';
+import colors from '../../Context/Colors';
 
-const MessageEntered = ({ text, user }) => {
+const MessageEntered = ({ text, user, dateTime }) => {
   const context = useContext(GlobalContext);
   const _mode = context.mode;
   const navigate = useNavigate();
@@ -18,15 +21,21 @@ const MessageEntered = ({ text, user }) => {
   const messageEntered = {
     backgroundColor: _mode === "dark" ? '#2c3139' : '#dae8f7',
     color: _mode === "dark" ? 'white' : '#2775ba',
-    borderRadius: '5px',
+    borderRadius: '15px',
+    borderBottomRightRadius: '0px',
     padding: '15px',
     marginBottom: '5px',
     maxWidth: '100%',
+    fontSize: '20px',
+    wordWrap: 'break-word',
+    overflowWrap: 'break-word'
+  };    
+
+  const message = {
     display: 'flex',
     alignItems: 'center',
-    fontSize: '20px',
     flexDirection: 'row-reverse',
-  };
+  }
 
   const iconEntered = {
     marginRight: '5px',
@@ -36,14 +45,24 @@ const MessageEntered = ({ text, user }) => {
   };
 
   return (
-    <Tooltip placement="right" title={user.email}>
-      <div style={messageEntered}>
-        <div onClick={redirectUserHandler}>
-          <Identicon string={user.email} size="28" style={iconEntered} />
+    <div>
+      <Tooltip placement="right" title={user.email}>
+        <div style={message}>
+          <div onClick={redirectUserHandler}>
+            <Identicon string={user.email} size="28" style={iconEntered} />
+          </div>
+          <div style={{width: '10px'}}></div>
+          <div style={messageEntered} className='container-fluid'>
+            <Row style={{ paddingRight: "10px", paddingLeft: "20px" }}>
+              <Col md="12">
+                <p style={{ margin: '0', paddingRight: "20px", direction: 'rtl' }}><Linkify>{text}</Linkify></p>
+              </Col>
+            </Row>
+          </div>
         </div>
-        <p style={{ margin: '0', paddingRight: "20px" }}>{text}</p>
-      </div>
-    </Tooltip>
+      </Tooltip>
+      <p style={{ paddingTop: "2px", fontStyle: "italic", fontSize: '12px', color: colors.title[_mode]}} >{dateTime}</p>
+    </div>
   );
 };
 

@@ -11,7 +11,7 @@ import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Translate from "react-translate-component"
-import DataTable from "../../../../../Components/DataTable/DataTable"
+import DataTable from "../../../../../Components/Table/DataTable"
 import formateDate from "../../../../../utils/FormateDate"
 import AddVoucherModal from "./AddVoucherModal/AddVoucherModal"
 import { toast } from "react-toastify"

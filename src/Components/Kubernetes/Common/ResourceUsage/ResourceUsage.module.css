@@ -1,0 +1,75 @@
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 15px 10px 15px;
+    margin: 4px !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.mainContainer:hover {
+    transition: all 0.2s ease-in-out;
+    border-color: #0861AF !important;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+}
+
+.iconContainer {
+    background-color: #1368b22e;
+    height: 35px;
+    width: 35px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 18px;
+}
+
+.countText {
+    font-size: 14px;
+    margin: 0;
+}
+
+.progressLabel {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.leftMostItem {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0px !important
+}
+
+.resourceNameContainer {
+    display: flex;
+    align-items: center;
+    padding: 0px !important
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%
+}
+
+.progressHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 15px 0px 10px 0px !important;
+}
+
+.resourceNameText {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    margin-left: 10px;
+}

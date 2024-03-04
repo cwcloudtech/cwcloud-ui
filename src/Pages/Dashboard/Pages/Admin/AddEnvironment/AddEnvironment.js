@@ -7,19 +7,17 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Fab } from '@mui/material';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 import DragDropList from '../../../../../Components/DragDropList/DragDropList';
 import LoadingSpinner from '../../../../../Components/LoadingSpinner/LoadingSpinner';
 import Translate from 'react-translate-component';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 import IOSSwitch from '../../../../../utils/iosswitch';
-import EditorModal from '../../../../../Components/EditorModal/EditorModal';
+import EditorModal from '../../../../../Components/Modal/EditorModal';
 import EditorBox from '../../../../../Components/EditorBox/EditorBox';
+import SubdomainTable from '../../../../../Components/Table/SubdomainTable';
+import SubdomainModal from '../../../../../Components/Modal/SubdomainModal';
 
 function AddEnvironment() {
     const context = useContext(GlobalContext);
@@ -31,6 +29,7 @@ function AddEnvironment() {
         name: "",
         path: ""
     })
+    const [subdomains, setSubdomains] = useState([])
     const [unselectedRoles, setUnselectedRoles] = useState([])
     const [selectedRoles, setSelectedRoles] = useState([])
     const [nameInputError, setNameInputError] = useState(false)
@@ -38,6 +37,10 @@ function AddEnvironment() {
     const navigate = useNavigate()
     const [showFirstEditorFullScreen, setShowFirstEditorFullScreen] = useState(false)
     const [showSecondEditorFullScreen, setShowSecondEditorFullScreen] = useState(false)
+    const [showAddNewSubdomain, setShowAddNewSubdomain] = useState(false)
+    const [showEditSubdomain, setShowEditSubdomain] = useState(false)
+    const [selectedSubdomain, setSelectedSubdomain] = useState('')
+    const [selectedSubdomainIndex, setSelectedSubdomainIndex] = useState(0)
 
     useEffect(() => {
         context.setIsGlobal(true)
@@ -51,7 +54,7 @@ function AddEnvironment() {
                 setRoles(res.data.roles)
                 setUnselectedRoles(res.data.roles)
                 setLoadingRoles(false)
-                setEnvironment({ "is_private": false, subdomains: [''] })
+                setEnvironment({ "is_private": false})
             })
     }, [])
 
@@ -77,10 +80,30 @@ function AddEnvironment() {
             })
     }
 
-    const updateSubdomainHandler = (index, value) => {
-        const _environment = { ...environment }
-        _environment.subdomains[index] = value
-        setEnvironment({ ..._environment })
+    const handleChangeSubdomain = (index, value) => {
+        const updatedSubdomains = [...subdomains]
+        updatedSubdomains[index] = value
+        setSubdomains(updatedSubdomains)
+        const joinedSubdomains = subdomains.join(';')
+        setEnvironment({ ...environment, subdomains: joinedSubdomains })
+    }
+
+    const handleAddNewSubdomain = () => {
+        setSubdomains([...subdomains, ''])
+        setShowAddNewSubdomain(true)
+    }
+
+    const handleEditSubdomain = (index) => {
+        var selectedSubdomain = subdomains[index]
+        setShowEditSubdomain(true)
+        setSelectedSubdomain(selectedSubdomain)
+        setSelectedSubdomainIndex(index)
+    }
+
+    const handleDeleteSubdomain = (index) => {
+        const updatedSubdomains = [...subdomains]
+        updatedSubdomains.splice(index, 1)
+        setSubdomains(updatedSubdomains)
     }
 
     if (loadingRoles)
@@ -88,6 +111,8 @@ function AddEnvironment() {
     else
         return (
             <div>
+                <SubdomainModal title="dashboard.addEnvironement.inputs.subdomains.addModalTitle" isOpen={showAddNewSubdomain} toggle={() => setShowAddNewSubdomain(!showAddNewSubdomain)} variable={subdomains[subdomains.length-1]} index={subdomains.length-1} onClick={handleChangeSubdomain} />
+                <SubdomainModal title="dashboard.addEnvironement.inputs.subdomains.editModalTitle" isOpen={showEditSubdomain} toggle={() => setShowEditSubdomain(!showEditSubdomain)} variable={selectedSubdomain} index={selectedSubdomainIndex} onClick={handleChangeSubdomain} />
                 <Row>
                     <Col>
                         <div className={classes.goBack}>
@@ -165,46 +190,15 @@ function AddEnvironment() {
                             </h5>
                         </Col>
                         <Col md="6" style={{ margin: "0" }}>
-                            <TextareaAutosize
-                                minRows={3}
+                            <TextField
+                                id='description'
+                                label={context.counterpart('dashboard.addEnvironement.inputs.description.placeholder')}
                                 value={environment.description}
-                                style={{ width: "100% ", padding: "10px", backgroundColor: colors.mainBackground[_mode], color: colors.menuText[_mode], border: "1px solid "+ colors.textAreaBorder[_mode], borderRadius: "3px" }}
-                                placeholder={context.counterpart('dashboard.addEnvironement.inputs.description.placeholder')}
                                 onChange={e => setEnvironment({ ...environment, description: e.target.value })}
+                                fullWidth
+                                multiline
+                                rows={4}
                             />
-                        </Col>
-                    </Row>
-                    <Row style={{ margin: "30px 0px" }}>
-                        <Col>
-                            <Row style={{ display: "flex", alignItems: "center" }}>
-                                <Col md="4">
-                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
-                                        <Translate content="dashboard.addEnvironement.inputs.subdomains.title" />
-                                    </h5>
-                                    <Fab color="primary" aria-label="add" onClick={() => setEnvironment({ ...environment, subdomains: [...environment.subdomains, ''] })} style={{ transform: 'scale(0.7)' }} >
-                                        <AddIcon className="whiteIcon" />
-                                    </Fab>
-                                </Col>
-                                <Col md="6">
-                                    {environment.subdomains?.map((subdomain, index) => (
-                                        <Row key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                                            <Col>
-                                                <TextField
-                                                    style={{ marginTop: '10px' }}
-                                                    value={subdomain}
-                                                    onChange={(e) => updateSubdomainHandler(index, e.target.value)}
-                                                    label={context.counterpart('dashboard.addEnvironement.inputs.subdomains.placeholder')}
-                                                    fullWidth />
-                                            </Col>
-                                            <Col xs="1">
-                                                <Fab aria-label="delete" color='primary' onClick={() => setEnvironment({ ...environment, subdomains: [...environment.subdomains.filter((s, i) => i !== index)] })} style={{ transform: 'scale(0.7)' }} >
-                                                    <DeleteIcon className="whiteIcon" />
-                                                </Fab>
-                                            </Col>
-                                        </Row>
-                                    ))}
-                                </Col>
-                            </Row>
                         </Col>
                     </Row>
                     <Row style={{ marginTop: "30px", marginBottom: "90px", marginLeft: "0", marginRight: "0" }}>
@@ -216,23 +210,24 @@ function AddEnvironment() {
                             />
                         </Col>
                     </Row>
-                    <Row style={{ margin: "30px 0px" }}>
-                        <Col md="4">
-                            <h5 className={classes.labelName} style={{ color: colors.title[_mode] }}>
-                                <Translate content="dashboard.addEnvironement.inputs.roles.title" />
-                            </h5>
-                        </Col>
-                    </Row>
                     <Row style={{ marginBottom: '20px' }}>
-                        <Col md={{ offset: 2, size: 8 }}>
+                        <Col>
                             <DragDropList
+                                title="dashboard.addEnvironement.inputs.roles.title"
                                 roles={roles}
                                 setUnselectedRoles={setUnselectedRoles}
                                 unselectedRoles={unselectedRoles}
                                 setSelectedRoles={setSelectedRoles}
-                                selectedRoles={selectedRoles} />
+                                selectedRoles={selectedRoles} 
+                                externalRolesEnabled={false} /> 
                         </Col>
                     </Row>
+                    <SubdomainTable
+                        subdomains={subdomains}
+                        addNewSubdomain={handleAddNewSubdomain}
+                        editSubdomain={handleEditSubdomain}
+                        deleteSubdomain={handleDeleteSubdomain}
+                    />
                     <Row className={classes.rowContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: '20px' }}>
                         <Col md="12" >
                             <EditorBox

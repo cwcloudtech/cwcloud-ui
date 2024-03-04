@@ -11,10 +11,10 @@ import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Translate from "react-translate-component";
-import CustomDeleteIcon from '../../../../../Components/CustomDeleteIcon/CustomDeleteIcon';
-import DeleteModal from "../../../../../Components/DeleteModal/DeleteModal";
+import CustomDeleteIcon from '../../../../../Components/CustomIcon/CustomDeleteIcon';
+import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import { toast } from 'react-toastify';
-import DataTable from "../../../../../Components/DataTable/DataTable";
+import DataTable from "../../../../../Components/Table/DataTable";
 import { TextField } from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -34,7 +34,8 @@ function ProjectsPage(props) {
     const columns = [
         { field: 'id', headerName: counterpart("dashboard.projectsPage.table.id"), width: 300, renderCell: (params) => (<Link to={`/project/${params.id}`}>{params.id}</Link>) },
         { field: 'name', headerName: counterpart("dashboard.projectsPage.table.name"), width: 200 },
-        { field: 'instances', headerName: counterpart("dashboard.projectsPage.table.numberOfInstances"), width: 200 },
+        { field: 'instances', headerName: counterpart("dashboard.projectsPage.table.numberOfInstances"), width: 200, renderCell: (params) => (params.row.type === 'vm' ? params.instances : 'N/A')},
+        { field: 'type', headerName: counterpart("dashboard.projectsPage.table.type"), width: 200 },
         {
             field: 'action', headerName: counterpart("dashboard.projectsPage.table.actions"), width: 200, renderCell: (params) => {
                 if (params.row.userid === user.id) {

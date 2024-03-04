@@ -2,9 +2,9 @@ import { useState, useContext } from 'react';
 import classes from "./ActionComponent.module.css"
 import axios from '../../../../../../utils/axios';
 import { toast } from 'react-toastify';
-import DeleteModal from '../../../../../../Components/DeleteModal/DeleteModal';
-import PowerHandler from "../../../../../../Components/PowerModal/PowerModal"
-import RebootModal from "../../../../../../Components/RebootModal/RebootModal"
+import DeleteModal from '../../../../../../Components/Modal/DeleteModal';
+import PowerHandler from "../../../../../../Components/Modal/PowerModal"
+import RebootModal from "../../../../../../Components/Modal/RebootModal"
 import Tooltip from '@mui/material/Tooltip';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import GlobalContext from '../../../../../../Context/GlobalContext';

@@ -13,6 +13,10 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import classes from "./DragDropList.module.css"
 import GlobalContext from '../../Context/GlobalContext';
 import colors from "../../Context/Colors";
+import { IconButton, Tooltip } from '@mui/material';
+import { Col, Row } from 'reactstrap';
+import AddIcon from '@mui/icons-material/Add';
+import Translate from 'react-translate-component';
 
 const not = (a, b) => {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -29,9 +33,11 @@ const union = (a, b) => {
 const DragDropList = (props) => {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
+    const backgroundColor = _mode === "dark" ? "#2C3139" : "#0861AF";
     const [checked, setChecked] = useState([]);
     const leftChecked = intersection(checked, props.unselectedRoles);
     const rightChecked = intersection(checked, props.selectedRoles);
+    const [dragStarted, setDragStarted] = useState(false);
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
@@ -67,6 +73,7 @@ const DragDropList = (props) => {
     };
 
     const handleOnDragEndSelectedRoles = (result) => {
+        setDragStarted(false);
         if (!result.source || !result.destination) return;
         if (result.destination.droppableId === 'Chosen' && result.source.droppableId === "Chosen") {
             const item = Array.from(props.selectedRoles)
@@ -81,9 +88,36 @@ const DragDropList = (props) => {
         }
     }
 
+    const isExternalRole = (roleName) => {
+        if (props.externalRolesEnabled)
+            return props.externalRoles.find(role => role.name === roleName)
+        return false;
+    }
+
+    const handleOnBeforeDragStart = () => {
+        setDragStarted(true);
+    }
+
+    const showDeleteButton = (value) => {
+        if (!isExternalRole(value) || dragStarted)
+            return null;
+
+        const handleDelete = () => {
+            props.removeExternalRole(value);
+        }
+
+        return (
+            <Col className={classes.delExternalRole} xs={2} md={2} lg={1}>
+                <IconButton onClick={handleDelete}>
+                    <i className={`fa-solid fa-trash ${classes.trashIcon} ${classes.delButton}`}></i>
+                </IconButton>
+            </Col>
+        );
+    }
+
     const customList = (title, items) => (
         <Card>
-            <CardHeader style={{backgroundColor: colors.secondBackground[_mode]}}
+            <CardHeader style={{ backgroundColor: colors.secondBackground[_mode] }}
                 sx={{ px: 2, py: 1 }}
                 avatar={
                     <Checkbox
@@ -102,14 +136,15 @@ const DragDropList = (props) => {
                 subheader={`${numberOfChecked(items)}/${items.length} selected`}
             />
             <Divider style={{ backgroundColor: colors.secondText[_mode] }} />
-            <DragDropContext onDragEnd={handleOnDragEndSelectedRoles}>
+            <DragDropContext onDragEnd={handleOnDragEndSelectedRoles} onBeforeDragStart={handleOnBeforeDragStart}>
                 <Droppable droppableId={title}>
                     {provided => (<List {...provided.droppableProps} ref={provided.innerRef}
                         sx={{
-                            width: 400,
+                            width: "100%",
                             height: 430,
                             bgcolor: colors.secondBackground[_mode],
-                            overflow: 'auto',
+                            overflow: "auto",
+                            overflowX: "hidden",
                         }}
                         dense
                         component="div"
@@ -118,81 +153,129 @@ const DragDropList = (props) => {
                         {items.map((value, index) => {
                             const labelId = `transfer-list-all-item-${value}-label`;
                             return (
-                                <Draggable key={value} draggableId={value} index={index}>
-                                    {(provided) => (
-                                        <ListItem {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
-                                            key={value}
-                                            role="listitem"
-                                            button
-                                            onClick={handleToggle(value)}
-                                        >
-                                            <ListItemIcon>
-                                                <Checkbox
-                                                    checked={checked.indexOf(value) !== -1}
-                                                    tabIndex={-1}
-                                                    disableRipple
-                                                    inputProps={{
-                                                        'aria-labelledby': labelId,
-                                                    }}
-                                                />
-                                            </ListItemIcon>
-                                            <ListItemText id={labelId} primary={`${value}`} />
-                                            {title === "Chosen" && value !== items[0] && value !== items[items.length - 1] ?
-                                                <ListItemIcon className={classes.listIconArrowUpDown}>
-                                                    <i className={["fa-solid fa-caret-up", classes.arrowUpDown].join(' ')}></i>
-                                                    <i className={["fa-solid fa-caret-down", classes.arrowUpDown].join(' ')}></i>
-                                                </ListItemIcon> : title === "Chosen" && value === items[0] ?
-                                                    <ListItemIcon className={classes.listIconArrowUpDown}>
-                                                        <i className={["fa-solid fa-caret-down", classes.arrowUpDown].join(' ')}></i>
-                                                    </ListItemIcon> : title === "Chosen" && value === items[items.length - 1] ?
+                                <Row>
+                                    <Col xs={8} md={9} lg={10}>
+                                        <Draggable key={value} draggableId={value} index={index}>
+                                            {(provided) => (
+                                                <ListItem {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
+                                                    key={value}
+                                                    role="listitem"
+                                                    button
+                                                    onClick={handleToggle(value)}
+                                                >
+                                                    <ListItemIcon>
+                                                        <Checkbox
+                                                            checked={checked.indexOf(value) !== -1}
+                                                            tabIndex={-1}
+                                                            disableRipple
+                                                            inputProps={{
+                                                                'aria-labelledby': labelId,
+                                                            }}
+                                                        />
+                                                    </ListItemIcon>
+                                                    <ListItemText id={labelId} primary={`${value}`}
+                                                        primaryTypographyProps={{ fontWeight: "bold" }}
+                                                        secondary={isExternalRole(value) ? "External" : null}
+                                                        secondaryTypographyProps={{ fontStyle: "italic", color: colors.secondText[_mode], fontSize: "13px" }} />
+                                                    {title === "Chosen" && value !== items[0] && value !== items[items.length - 1] ?
                                                         <ListItemIcon className={classes.listIconArrowUpDown}>
-                                                            <i className={["fa-solid fa-caret-up", classes.arrowUpDown].join(' ')} ></i>
-                                                        </ListItemIcon>
-                                                        : null
-                                            }
-                                        </ListItem>
-                                    )}
-                                </Draggable>
+                                                            <i className={["fa-solid fa-caret-up", classes.arrowUpDown].join(' ')}></i>
+                                                            <i className={["fa-solid fa-caret-down", classes.arrowUpDown].join(' ')}></i>
+                                                        </ListItemIcon> : title === "Chosen" && value === items[0] ?
+                                                            <ListItemIcon className={classes.listIconArrowUpDown}>
+                                                                <i className={["fa-solid fa-caret-down", classes.arrowUpDown].join(' ')}></i>
+                                                            </ListItemIcon> : title === "Chosen" && value === items[items.length - 1] ?
+                                                                <ListItemIcon className={classes.listIconArrowUpDown}>
+                                                                    <i className={["fa-solid fa-caret-up", classes.arrowUpDown].join(' ')} ></i>
+                                                                </ListItemIcon>
+                                                                : null
+                                                    }
+                                                </ListItem>
+                                            )}
+                                        </Draggable>
+                                    </Col>
+                                    {showDeleteButton(value)}
+                                </Row>
                             );
                         })}
                         {provided.placeholder}
                     </List>)}
                 </Droppable>
-            </DragDropContext >
-        </Card >
+            </DragDropContext>
+        </Card>
     );
 
     return (
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
-            <Grid xs={5} item>{customList('Choices', props.unselectedRoles)}</Grid>
-            <Grid item>
-                <Grid container direction="column" alignItems="center">
-                    <MButton
-                        sx={{ my: 0.5 }}
-                        variant="outlined"
-                        className="blueBtn"
-                        size="small"
-                        onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
-                        aria-label="move selected right"
-                    >
-                        &gt;
-                    </MButton>
-                    <MButton
-                        sx={{ my: 0.5 }}
-                        variant="outlined"
-                        className="blueBtn"
-                        size="small"
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
-                        aria-label="move selected left"
-                    >
-                        &lt;
-                    </MButton>
+        <Row className="d-flex align-items justify-content-center align-items-center">
+            <Col className="col-md-12 col-lg-12 mb-2">
+                <Grid container alignItems={"center"} justifyContent={"center"}
+                    style={{
+                        borderTop: `1px solid ${backgroundColor}`,
+                        borderLeft: `1px solid ${backgroundColor}`,
+                        borderRight: `1px solid ${backgroundColor}`,
+                        borderTopLeftRadius: "14px",
+                        borderTopRightRadius: "14px"
+                    }}
+                >
+                    <Grid xs={12} item alignItems="center">
+                        <div 
+                            style={{ 
+                                background:backgroundColor,
+                                padding: "10px",
+                                color: "#fff",
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                width: "100%",
+                                borderTopLeftRadius: "10px",
+                                borderTopRightRadius: "10px"
+                            }}
+                        >
+                            <Translate content={props.title} />
+                            {
+                                props.externalRolesEnabled
+                                ? <Tooltip title={context.counterpart('common.button.add')}>
+                                    <div onClick={props.addExternalRole}>
+                                        <AddIcon className="whiteIcon" />
+                                    </div>
+                                </Tooltip>
+                                : null
+                            }
+                        </div>
+                    </Grid>
+                    <Grid xs={5} item>{customList('Choices', props.unselectedRoles)}</Grid>
+                    <Grid xs={2} item >
+                        <Grid container direction="column" alignItems="center">
+                            <MButton
+                                sx={{ my: 0.5 }}
+                                variant="outlined"
+                                className="blueBtn"
+                                size="small"
+                                onClick={handleCheckedRight}
+                                disabled={leftChecked.length === 0}
+                                aria-label="move selected right"
+                            >
+                                &gt;
+                            </MButton>
+                        </Grid>
+                        <Grid container direction="column" alignItems="center">
+                            <MButton
+                                sx={{ my: 0.5 }}
+                                variant="outlined"
+                                className="blueBtn"
+                                size="small"
+                                onClick={handleCheckedLeft}
+                                disabled={rightChecked.length === 0}
+                                aria-label="move selected left"
+                            >
+                                &lt;
+                            </MButton>
+                        </Grid>
+                    </Grid>
+                    <Grid xs={5} item>{customList('Chosen', props.selectedRoles)}</Grid>
                 </Grid>
-            </Grid>
-            <Grid xs={5} item>{customList('Chosen', props.selectedRoles)}</Grid>
-        </Grid>
+            </Col>
+        </Row>
     );
 }
 

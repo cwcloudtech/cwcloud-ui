@@ -4,7 +4,7 @@ import UpdateUser from './UpdateUser/UpdateUser';
 import axios from "../../../../../../utils/axios"
 import { toast } from "react-toastify";
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import DeleteModal from '../../../../../../Components/DeleteModal/DeleteModal';
+import DeleteModal from '../../../../../../Components/Modal/DeleteModal';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 
 function ActionUser(props) {

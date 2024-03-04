@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton';
 import Translate from 'react-translate-component';
-import DeleteModal from '../../../../../Components/DeleteModal/DeleteModal';
+import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 import TransferBucketModal from './TransferBucketModal/TransferBucketModal';
 import colors from '../../../../../Context/Colors';
