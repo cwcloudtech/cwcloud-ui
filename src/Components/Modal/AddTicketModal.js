@@ -71,11 +71,14 @@ const AddTicketModal = (props) => {
                                 <Translate content="dashboard.support.selectProduct" />
                             </MenuItem>
                             {props.envs?.map(env => (
-
-                                <MenuItem value={env.name} key={env.id}> {env.name}</MenuItem>
+                                <MenuItem value={env.name} key={env.id}>{env.name}</MenuItem>
                             ))}
                             <MenuItem value={'registry'}>Registry</MenuItem>
                             <MenuItem value={'bucket'}>Bucket</MenuItem>
+                            <MenuItem value={'emailapi'}>Email API</MenuItem>
+                            <MenuItem value={'faasapi'}>FaaS API</MenuItem>
+                            <MenuItem value={'k8sapi'}>Kubernetes</MenuItem>
+                            <MenuItem value={'cwai'}>CW AI</MenuItem>
                         </Select>
                     </Col>
                 </Row>
