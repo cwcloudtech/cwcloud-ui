@@ -368,7 +368,6 @@ fieldset,
 }
 
 .orangeBtn {
-    border: 1px solid #c58a37 !important;
     color: #c58a37 !important;
 }
 
@@ -395,25 +394,24 @@ fieldset,
 
 .blueBtn {
     color: #4ea8f7 !important;
-    border: 1px solid #4ea8f7 !important;
 }
 
 .orangeBtn:hover,
 .orangeBtn:active,
 .orangeBtn:focus{
-    background-color: #c58a37 !important;
+    color: #c58a37 !important;
 }
 
 .greenBtn:hover,
 .greenBtn:active,
 .greenBtn:focus {
-    background-color: #22c8a2 !important;
+    color: #22c8a2 !important;
 }
 
 .blueBtn:hover,
 .blueBtn:active,
 .blueBtn:focus{
-    background-color: #4ea8f7 !important;
+    color: #4ea8f7 !important;
 }
 
 .orangeBtn:active,
