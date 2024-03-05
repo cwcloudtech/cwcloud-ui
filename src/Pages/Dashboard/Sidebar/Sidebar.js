@@ -67,15 +67,14 @@ function Sidebar() {
                     icon={<i className="fa-solid fa-microchip" style={{ fontSize: "18px" }}></i>}
                     onClick={() => onClick("/instances")}
                 />
-                {
-                    context.user.enabled_features.k8sapi &&
-                        <SidebarMenuItem
-                            id="/k8s-applications"
-                            items={["/k8s-applications"]}
-                            title={context.counterpart('sidebar.k8sApplications')}
-                            icon={<i className="fa-solid fa-dharmachakra" style={{ fontSize: "18px" }}></i>}
-                            onClick={() => onClick("/k8s-applications")}
-                        />
+                {context.user.enabled_features.k8sapi &&
+                    <SidebarMenuItem
+                        id="/k8s-applications"
+                        items={["/k8s-applications"]}
+                        title={context.counterpart('sidebar.k8sApplications')}
+                        icon={<i className="fa-solid fa-dharmachakra" style={{ fontSize: "18px" }}></i>}
+                        onClick={() => onClick("/k8s-applications")}
+                    />
                 }
                 {context.user.enabled_features.faasapi && <SidebarMenuItem
                     id="/function"
@@ -171,28 +170,25 @@ function Sidebar() {
                                 onClick={() => onClick("/environment/add")}
                             />
                         </SidebarMenuItem>
-                        {
-                            context.user.enabled_features.k8sapi &&
-                                <SidebarMenuItem
-                                    id="/kubernetes"
-                                    items={["/kubernetes/clusters", "/kubernetes/environments"]}
-                                    title={context.counterpart('sidebar.kubernetes.title')}
-                                    icon={<i className="fa-solid fa-dharmachakra" style={{ fontSize: "18px" }}></i>}
-                                >
-                                    <SidebarMenuItem
-                                        id="/kubernetes/clusters"
-                                        title={context.counterpart('sidebar.kubernetes.clusters')}
-                                        level={2}
-                                        onClick={() => onClick("/kubernetes/clusters")}
-                                    />
-                                    <SidebarMenuItem
-                                        id="/kubernetes/environments"
-                                        title={context.counterpart('sidebar.kubernetes.environments')}
-                                        level={2}
-                                        onClick={() => onClick("kubernetes/environments")}
-                                    />
-                                </SidebarMenuItem>
-                        }
+                        <SidebarMenuItem
+                            id="/kubernetes"
+                            items={["/kubernetes/clusters", "/kubernetes/environments"]}
+                            title={context.counterpart('sidebar.kubernetes.title')}
+                            icon={<i className="fa-solid fa-dharmachakra" style={{ fontSize: "18px" }}></i>}
+                        >
+                            <SidebarMenuItem
+                                id="/kubernetes/clusters"
+                                title={context.counterpart('sidebar.kubernetes.clusters')}
+                                level={2}
+                                onClick={() => onClick("/kubernetes/clusters")}
+                            />
+                            <SidebarMenuItem
+                                id="/kubernetes/environments"
+                                title={context.counterpart('sidebar.kubernetes.environments')}
+                                level={2}
+                                onClick={() => onClick("kubernetes/environments")}
+                            />
+                        </SidebarMenuItem>
                         <SidebarMenuItem
                             id="/admin/projects"
                             items={["/admin/projects", "/admin/projects/create"]}
