@@ -184,6 +184,6 @@ export const customizePythonGenerator = () => {
 
     pythonGenerator['env'] = function (block) {
         var key = block.getFieldValue('KEY');
-        return [`{{ env['${key}'] }}`, PY_Order.MEMBER];
+        return [`"{{ env['${key}'] }}"`, PY_Order.MEMBER];
     };      
 }
