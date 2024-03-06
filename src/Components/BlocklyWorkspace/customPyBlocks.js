@@ -109,6 +109,12 @@ export const customizePythonGenerator = () => {
         var body = `{ 'content': {"function_id": ${functionId},"args": ${args}} }`;
         var request = `requests.post(url, headers=headers, json=body)`;
         var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
+        if (functionId.startsWith('{{ env[')) {
+            functionId = functionId.replace('{{ env[\'', '');
+            functionId = functionId.replace('\'] }}', '');
+        } else {
+            functionId = functionId.replace(/'/g, '');
+        }
         var trimmedFunctionId = "_"+functionId.replace(/-/g, '_');
         var resultLine = resultVariable ? `${resultVariable} = ${trimmedFunctionId}()` : `${trimmedFunctionId}()`;
         return `def ${trimmedFunctionId}():\n`
