@@ -150,8 +150,10 @@ export const customizeBlocks = () => {
           ['async', 'async'],
           ['sync', 'sync']
         ]), 'EXECUTION_TYPE')
-        .appendField('serverless function with ID')
-        .appendField(new Blockly.FieldTextInput('function_id'), 'FUNCTION_ID');
+        .appendField('serverless function')
+      this.appendValueInput('FUNCTION_ID') 
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('with ID');
       this.appendValueInput('ARGUMENTS')
         .setAlign(Blockly.ALIGN_LEFT)
         .appendField('and arguments');
@@ -286,13 +288,13 @@ export const customizeBlocks = () => {
   };
 };
 
-Blockly.Blocks['environment_variable'] = {
+Blockly.Blocks['env'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField('environment variable')
-      .appendField(new Blockly.FieldTextInput('variable_name'), 'VARIABLE_NAME');
+      .appendField('env')
+      .appendField(new Blockly.FieldTextInput('key'), 'KEY');
     this.setOutput(true, null);
-    this.setColour("#A55B80");
+    this.setColour("#9F5B92");
     this.setTooltip('Represents an environment variable.');
     this.setHelpUrl('https://example.com');
   }

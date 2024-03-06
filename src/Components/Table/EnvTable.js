@@ -18,7 +18,7 @@ const EnvTable = (props) => {
     const handleCopyEnvVariable = (index) => {
         var selectedVariable = props.envVars[index]
         setSelecteVariableIndex(index)
-        navigator.clipboard.writeText(`${selectedVariable.name}=${selectedVariable.value}`)
+        navigator.clipboard.writeText(`${selectedVariable.value}`)
         setEnvVarCopied(true)
         setTimeout(() => {
             setEnvVarCopied(false)

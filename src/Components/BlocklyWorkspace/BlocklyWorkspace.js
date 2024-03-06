@@ -193,8 +193,8 @@ function BlocklyWorkspace(props) {
           <block type="variables_get"></block>
           <block type="variables_set"></block>  
         </category>
-        <category name="Environment variables" colour="#A55B5B">
-          <block type="environment_variable"></block>
+        <category name="Environment" colour="#9F5B92">
+          <block type="env"></block>
         </category>
         <category name="Functions" colour="#995BA5">
           <block type="procedures_defreturn">

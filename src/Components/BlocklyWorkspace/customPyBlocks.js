@@ -98,7 +98,7 @@ export const customizePythonGenerator = () => {
 
     // Update the Python generator for the "call_serverless_function" block
     pythonGenerator['call_serverless_function'] = function (block) {
-        var functionId = block.getFieldValue('FUNCTION_ID') || '';
+        var functionId = pythonGenerator.valueToCode(block, 'FUNCTION_ID', PY_Order.MEMBER) || '';
         var executionType = block.getFieldValue('EXECUTION_TYPE') || '';
         var args = pythonGenerator.valueToCode(block, 'ARGUMENTS', PY_Order.MEMBER) || '[]';
         const apiHost = process.env.REACT_APP_APIURL;
@@ -106,7 +106,7 @@ export const customizePythonGenerator = () => {
         var url = `${apiHost}/${apiVersion}/faas/invocation`;
         var syncUrlAddition = executionType === 'sync' ? '/sync' : '';
         var headers = `{"accept": "application/json", "Content-Type": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
-        var body = `{ 'content': {"function_id": "${functionId}","args": ${args}} }`;
+        var body = `{ 'content': {"function_id": ${functionId},"args": ${args}} }`;
         var request = `requests.post(url, headers=headers, json=body)`;
         var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
         var trimmedFunctionId = "_"+functionId.replace(/-/g, '_');
@@ -176,8 +176,8 @@ export const customizePythonGenerator = () => {
         return `${object} = {}\n${object}[${key}] = ${newValue};\n`; // Added semicolon to end the statement
     };
 
-    pythonGenerator['environment_variable'] = function (block) {
-        var variableName = block.getFieldValue('VARIABLE_NAME');
-        return [`{{ env['${variableName}'] }}`, PY_Order.MEMBER];
+    pythonGenerator['env'] = function (block) {
+        var key = block.getFieldValue('KEY');
+        return [`{{ env['${key}'] }}`, PY_Order.MEMBER];
     };      
 }
