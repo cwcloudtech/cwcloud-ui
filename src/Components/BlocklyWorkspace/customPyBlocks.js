@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { isValidUUID, generateUUID } from '../../utils/uuid';
+import generateUUID from '../../utils/uuid';
 import { Order as PY_Order, pythonGenerator } from 'blockly/python';
 
 export const customizePythonGenerator = () => {
