@@ -1,4 +1,5 @@
 import React, { useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import Translate from "react-translate-component";
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
@@ -14,6 +15,8 @@ import LoadingButton from "../LoadingButton/LoadingButton";
 
 const WarningModal = (props) => {
     const _mode = useContext(GlobalContext).mode;
+    const navigate = useNavigate()
+
     return (
         <Modal centered isOpen={props.isOpen} toggle={props.toggle}>
             <ModalHeader toggle={props.toggle}>
@@ -25,7 +28,7 @@ const WarningModal = (props) => {
                 <Row>
                     <Col>
                         <Row>
-                            <div style={{ marginBottom: "10%", marginTop: "10px", color: colors.smallTitle[_mode] }}>
+                            <div className="text-center" style={{ marginBottom: "10%", marginTop: "10px", color: colors.smallTitle[_mode] }}>
                                 {props.message}
                             </div>
                         </Row>
@@ -44,9 +47,9 @@ const WarningModal = (props) => {
                 <LoadingButton
                     loading={props.loading}
                     icon="fa-solid fa-x"
-                    onClick={() => props.toggle()}
+                    onClick={() => navigate(props.nextPath)}
                 >
-                    <Translate content={props.cancelbuttonTitle} />
+                    <Translate content={props.secondButtonTitle} />
                 </LoadingButton>
             </ModalFooter>
         </Modal>

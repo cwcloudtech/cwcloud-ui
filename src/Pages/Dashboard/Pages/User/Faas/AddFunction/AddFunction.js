@@ -63,6 +63,7 @@ function AddFunction() {
     const location = useLocation()
     const nextPath = location.pathname === '/function/add' ? '/function/overview': '/admin/function'
     const message = context.counterpart("dashboard.function.message.unsavedChangesWarning")
+    const defaultBlock= {"blocks":{"languageVersion":0,"blocks":[{"type":"procedures_defreturn","id":"|U:JxK,WwHD$^.P_JKyp","x":10,"y":10,"icons":{"comment":{"text":"Describe this function...","pinned":false,"height":80,"width":160}},"fields":{"NAME":"handle"},"inputs":{"RETURN":{"block":{"type":"text","id":"[zf7d#G}*e9tM4;qKep[","fields":{"TEXT":""}}}}}]}}
 
     useEffect(() => {
         context.setIsGlobal(true)
@@ -76,7 +77,7 @@ function AddFunction() {
     }, [])
 
     useEffect(() => {
-        selectedLanguage !== "blockly" ? handleTemplate() : setWithBlockly(true)
+        selectedLanguage !== "blockly" ? handleTemplate() : handleBlocklyTemplate()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [args, selectedLanguage]);
 
@@ -154,6 +155,11 @@ function AddFunction() {
         }
     };
 
+    const handleBlocklyTemplate = () => {
+        setWithBlockly(true)
+        setCurrentState(defaultBlock)
+    }
+
     const handleChangeArg = (index, value) => {
         const updatedArgs = [...args];
         updatedArgs[index] = value;
@@ -219,7 +225,7 @@ function AddFunction() {
                 <ArgModal title="dashboard.function.inputs.args.editModalTitle" isOpen={showEditArgModal} toggle={() => setShowEditArgModal(!showEditArgModal)} variable={selectedArg} index={selectedArgIndex} onClick={handleChangeArg} />
                 <EnvModal title="dashboard.function.inputs.env_vars.addModalTitle" isOpen={showAddNewEnvModal} toggle={() => setShowAddNewEnvModal(!showAddNewEnvModal)} variable={envVars[envVars.length-1]} index={envVars.length-1} onClick={handleChangeEnvVar} />
                 <EnvModal title="dashboard.function.inputs.env_vars.editModalTitle" isOpen={showEditEnvModal} toggle={() => setShowEditEnvModal(!showEditEnvModal)} variable={selectedEnvVar} index={selectedEnvVarIndex} onClick={handleChangeEnvVar}/>
-                <WarningModal isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} title="common.message.warning" message={message} buttonTitle="common.button.save" cancelbuttonTitle="common.button.return" onClick={handleWarningModalClickButton} loading={loadingSubmit} />
+                <WarningModal title="common.message.warning" isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} message={message} loading={loadingSubmit} nextPath={nextPath} buttonTitle="common.button.save" secondButtonTitle="common.button.unsave" onClick={handleWarningModalClickButton} />
                 <Row>
                     <Col>
                         <div onClick={navigateToNextPath} className={classes.goBack}>

@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import Blockly from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
 import {pythonGenerator} from 'blockly/python';
 import { customizeBlocks } from './customBlocks';
 import { customizePythonGenerator } from './customPyBlocks';
-import { Alert, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
 import Translate from 'react-translate-component';
 import GlobalContext from '../../Context/GlobalContext';
@@ -16,7 +16,6 @@ function BlocklyWorkspace(props) {
   const blocklyDivRef = useRef(null);
   const workspaceRef = useRef(null);
   const height = props.workspaceHeight ? props.workspaceHeight : '500px';
-  const [alertHandled, setAlertHandled] = useState(false);
 
   useEffect(() => {
     if (blocklyDivRef.current) {
@@ -31,27 +30,6 @@ function BlocklyWorkspace(props) {
 
       if (props.state) {
         Blockly.serialization.workspaces.load(props.state, workspaceRef.current);
-      } else {
-        // Add a default function block if no state is provided
-        const addDefaultBlocks = () => {
-          const defaultBlocks = `
-            <xml xmlns="http://www.w3.org/1999/xhtml">
-              <block type="procedures_defreturn">
-                <field name="NAME">handle</field>
-                <value name="RETURN">
-                  <block type="text">
-                    <field name="TEXT"></field>
-                  </block>
-                </value>
-              </block>
-            </xml>
-          `;
-          const xml = new DOMParser().parseFromString(defaultBlocks, 'text/xml');
-          Blockly.Xml.domToWorkspace(xml.documentElement, workspaceRef.current);
-          workspaceRef.current.removeChangeListener(addDefaultBlocks);
-        }
-  
-        workspaceRef.current.addChangeListener(addDefaultBlocks);
       }
     }
 
@@ -124,14 +102,7 @@ function BlocklyWorkspace(props) {
 
   return (
     <div>
-      <div onClick={() => setAlertHandled(true)}>
-        {!alertHandled && 
-          <div style={{ marginBottom: "10px" }}>
-            <Alert severity="warning" variant='outlined'>
-              <Translate content="dashboard.function.message.blocklyWarning" />
-            </Alert>
-          </div>
-        }
+      <div>
         {!props.showBlocklyFullScreen &&
           <div style={{ background: _mode === "dark" ? "#2C3139" : "#0861AF", padding: "10px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", borderTopLeftRadius: "10px", borderTopRightRadius: "10px"  }}>
             <div><Translate content="dashboard.function.inputs.blockly.title" /></div>

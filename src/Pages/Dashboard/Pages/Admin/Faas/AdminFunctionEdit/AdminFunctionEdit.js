@@ -38,7 +38,7 @@ function AdminFunctionEdit() {
     const [openedBlockly, setOpenedBlockly] = useState(false)
     const [functionOwnerUsername, setFunctionOwnerUsername] = useState('')
     const [functionIsPublic, setFunctionIsPublic] = useState(false)
-    const [changesAreSaved, setChangesAreSaved] = useState(true)
+    const [changesAreSaved, setChangesAreSaved] = useState(false)
     const [showWarningModal, setShowWarningModal] = useState(false)
     const [showAddNewEnvModal, setShowAddNewEnvModal] = useState(false)
     const [showEditEnvModal, setshowEditEnvModal] = useState(false)
@@ -105,6 +105,7 @@ function AdminFunctionEdit() {
                             setCurrentState(JSON.parse(res.data.content.blockly))
                         }
                         setLoading(false)
+                        setChangesAreSaved(true)
                     })
             })
         axios.get(`/admin/faas/function/${id}/owner`)
@@ -204,6 +205,9 @@ function AdminFunctionEdit() {
     };
 
     const handleCodeAndStateChange = (newCode, newState) => {
+        if (JSON.stringify(newState) === JSON.stringify(currentState)) {
+            setChangesAreSaved(true)
+        }
         setCurrentCode(newCode)
         setCurrentState(newState)
         setFunctionCode(newCode)
@@ -272,7 +276,7 @@ function AdminFunctionEdit() {
                 <ArgModal title="dashboard.function.inputs.args.editModalTitle" isOpen={showEditArgModal} toggle={() => setShowEditArgModal(!showEditArgModal)} variable={selectedArg} index={selectedArgIndex} onClick={handleChangeArg} />
                 <EnvModal title="dashboard.function.inputs.env_vars.addModalTitle" isOpen={showAddNewEnvModal} toggle={() => setShowAddNewEnvModal(!showAddNewEnvModal)} variable={envVars[envVars.length-1]} index={envVars.length-1} onClick={handleChangeEnvVar} />
                 <EnvModal title="dashboard.function.inputs.env_vars.editModalTitle" isOpen={showEditEnvModal} toggle={() => setshowEditEnvModal(!showEditEnvModal)} variable={selectedEnvVar} index={selectedEnvVarIndex} onClick={handleChangeEnvVar}/>
-                <WarningModal isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} title="common.message.warning" message={message} buttonTitle="common.button.save" cancelbuttonTitle="common.button.return" onClick={handleWarningModalClickButton} loading={loadingSubmit} />
+                <WarningModal title="common.message.warning" isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} message={message} loading={loadingSubmit} nextPath="/admin/function" buttonTitle="common.button.save" secondButtonTitle="common.button.unsave" onClick={handleWarningModalClickButton} />
                 <Row>
                     <Col>
                         <div onClick={navigateBack} className={classes.goBack}>
@@ -487,7 +491,6 @@ function AdminFunctionEdit() {
                                         _mode={_mode}
                                         onWorkspaceChange={
                                             (generatedCode, newState) => {
-                                                setChangesAreSaved(false);
                                                 handleCodeAndStateChange(generatedCode, newState)
                                             }
                                         }
@@ -500,7 +503,6 @@ function AdminFunctionEdit() {
                                         state={currentState}
                                         _mode={_mode}
                                         onWorkspaceChange={ (generatedCode, state) => {
-                                               setChangesAreSaved(false);
                                                handleCodeAndStateChange(generatedCode, state)
                                             }
                                         }
@@ -517,7 +519,8 @@ function AdminFunctionEdit() {
                                             language={getSelectedProgrammingLanguage(selectedLanguage)}
                                             value={currentCode}
                                             defaultValue=""
-                                            onChange={v => {setFunctionCode(v);setCurrentCode(v);setChangesAreSaved(false)}} />
+                                            onChange={v => {setFunctionCode(v);setCurrentCode(v);setChangesAreSaved(false)}}
+                                        />
                                         <EditorModal
                                             isOpen={showEditorFullScreen}
                                             toggle={() => setShowEditorFullScreen(!showEditorFullScreen)}

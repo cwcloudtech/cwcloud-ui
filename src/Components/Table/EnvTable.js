@@ -1,15 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Translate from "react-translate-component";
 import GlobalContext from "../../Context/GlobalContext";
 import { Tooltip } from '@material-ui/core';
 import {Row, Col, Table} from "reactstrap";
 import AddIcon from '@mui/icons-material/Add';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const EnvTable = (props) => {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
+    const [envVarCopied, setEnvVarCopied] = useState(false)
+    const [selectedVariableIndex, setSelecteVariableIndex] = useState(0)
+
+    const handleCopyEnvVariableKey = (index) => {
+        var selectedVariable = props.envVars[index]
+        setSelecteVariableIndex(index)
+        navigator.clipboard.writeText(`${selectedVariable.name}`)
+        setEnvVarCopied(true)
+        setTimeout(() => {
+            setEnvVarCopied(false)
+        } , 1000)
+    }
 
     return (
         <Row>
@@ -47,6 +61,13 @@ const EnvTable = (props) => {
                                     { props.envVars?.length > 0 && 
                                         <td>
                                             <div style={{ display: 'flex', justifyContent: "center" }}>
+                                                <div onClick={() => handleCopyEnvVariableKey(index)} style={{ marginRight: '5px' }}>
+                                                    {
+                                                        envVarCopied && selectedVariableIndex === index 
+                                                        ? <CheckIcon className="whiteIcon" />
+                                                        : <ContentPasteIcon className="whiteIcon" />
+                                                    }
+                                                </div>
                                                 <div onClick={() => props.editEnvVar(index)} style={{ marginRight: '5px' }}>
                                                     <EditIcon className="whiteIcon" />
                                                 </div>
