@@ -584,6 +584,8 @@ export const englishLanguage = {
                 successDelete: "Trigger successfuly deleted",
                 successMultiDelete: "Triggers successfully deleted",
                 successTruncate: "All triggers cleared with success",
+                invalidExecutionTime: "Invalid execution time",
+                executionTimeInThePast: "Execution time is in the past",
                 emptyMessage: "No triggers available"
             },
             inputs: {
@@ -2565,6 +2567,8 @@ export const frenchLanguage = {
                 successDelete: "Trigger supprimé avec succès",
                 successMultiDelete: "Triggers supprimés avec succès",
                 successTruncate: "Triggers supprimées avec succès",
+                invalidExecutionTime: "Le temps d'exécution est invalide",
+                executionTimeInThePast: "Le temps d'exécution est dans le passé",
                 emptyMessage: "Aucun trigger disponible"
             },
             inputs: {

@@ -26,6 +26,7 @@ function AddCronFunction() {
     const triggerKinds = ["cron", "schedule"]
     const [selectedTriggerKind, setSelectedTriggerKind] = useState(triggerKinds[0]) 
     const [executionTime, setExecutionTime] = useState(new Date().toISOString())
+    const [executionTimeFormatIsValid, setExecutionTimeFormatIsValid] = useState(true)
     const [cronExprs, setCronExprs] = useState([
         {
             name: "dashboard.trigger.cronExpr.everyMinute",
@@ -85,6 +86,15 @@ function AddCronFunction() {
             content["cron_expr"] = trigger.cronExpr
         } else if (selectedTriggerKind === "schedule") {
             content["execution_time"] = executionTime
+            var time =  new Date(executionTime)
+            if (!executionTimeFormatIsValid) {
+                setLoadingSubmit(false)
+                return toast.error(context.counterpart('dashboard.trigger.message.invalidExecutionTime'))
+            }
+            if (time < new Date()) {
+                setLoadingSubmit(false)
+                return toast.error(context.counterpart('dashboard.trigger.message.executionTimeInThePast'))
+            }
         }
         axios.post(`/faas/trigger`, {
             kind: selectedTriggerKind,
@@ -219,15 +229,23 @@ function AddCronFunction() {
                                         </h5>
                                     </Col>
                                     <Col md="6">
-                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                            <DateTimePicker
-                                                value={new Date(executionTime)}
-                                                onChange={(newValue) => setExecutionTime(newValue.toISOString())}
-                                                renderInput={(params) => (
-                                                    <TextField {...params} helperText={params?.inputProps?.placeholder} sx={{ width: '100%' }} />
-                                                )}
-                                            />
-                                        </LocalizationProvider>
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                        <DateTimePicker
+                                            value={new Date(executionTime)}
+                                            onChange={(newValue) => {
+                                                const date = new Date(newValue);
+                                                if (!isNaN(date)) {
+                                                    setExecutionTime(date.toISOString());
+                                                    setExecutionTimeFormatIsValid(true);
+                                                } else {
+                                                    setExecutionTimeFormatIsValid(false);
+                                                }
+                                            }}
+                                            renderInput={(params) => (
+                                                <TextField {...params} helperText={params?.inputProps?.placeholder} sx={{ width: '100%' }} />
+                                            )}
+                                        />
+                                    </LocalizationProvider>
                                     </Col>
                                 </Row>
                             </Col>
