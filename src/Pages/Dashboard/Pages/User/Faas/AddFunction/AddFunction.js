@@ -23,6 +23,8 @@ import EnvModal from '../../../../../../Components/Modal/EnvVarModal';
 import ArgModal from '../../../../../../Components/Modal/ArgModal';
 import EnvTable from '../../../../../../Components/Table/EnvTable';
 import ArgTable from '../../../../../../Components/Table/ArgTable';
+import CallbackModal from '../../../../../../Components/Modal/CallbackModal';
+import CallbackTable from '../../../../../../Components/Table/CallbackTable';
 
 function AddFunction() {
     const context = useContext(GlobalContext);
@@ -39,11 +41,15 @@ function AddFunction() {
     const [showEditEnvModal, setShowEditEnvModal] = useState(false)
     const [showAddNewArgModal, setShowAddNewArgModal] = useState(false)
     const [showEditArgModal, setShowEditArgModal] = useState(false)
+    const [showAddNewCallbackModal, setShowAddNewCallbackModal] = useState(false)
+    const [showEditCallbackModal, setShowEditCallbackModal] = useState(false)
 
-    const [selectedEnvVar, setSelectedEnvVar] = useState("")
+    const [selectedEnvVar, setSelectedEnvVar] = useState(null)
     const [selectedEnvVarIndex, setSelectedEnvVarIndex] = useState(0)
     const [selectedArg, setSelectedArg] = useState("")
     const [selectedArgIndex, setSelectedArgIndex] = useState(0)
+    const [selectedCallback, setSelectedCallback] = useState(null)
+    const [selectedCallbackIndex, setSelectedCallbackIndex] = useState(0)
     
     const [isPublic, setIsPublic] = useState(false)
     const [currentCode, setCurrentCode] = useState('')
@@ -53,9 +59,8 @@ function AddFunction() {
     const [code, setCode] = useState('')
     const [blockly, setBlockly] = useState('')
     const [name, setName] = useState('')
-    const [callback_url, setCallback_url] = useState('')
-    const [callback_authorization_header, setCallback_authorization_header] = useState('')
     const [regexp, setRegexp] = useState('')
+    const [callbacks, setCallbacks] = useState([])
     const [args, setArgs] = useState([])
     const [envVars, setEnvVars] = useState([])
 
@@ -116,9 +121,8 @@ function AddFunction() {
                 blockly: blockly,
                 name: name,
                 language: getSelectedProgrammingLanguage(selectedLanguage),
-                callback_url: callback_url,
-                callback_authorization_header: callback_authorization_header,
                 regexp: regexp,
+                callbacks: callbacks,
                 args: args,
                 env: env
             }
@@ -209,6 +213,30 @@ function AddFunction() {
         setEnvVars(updatedEnvVars);
     }
 
+    const handleAddNewCallback = () => {
+        setCallbacks([...callbacks, { endpoint: "", type: "http"}])
+        setShowAddNewCallbackModal(true)
+    }
+
+    const handleDeleteCallback = (index) => {
+        const updatedCallbacks = [...callbacks]
+        updatedCallbacks.splice(index, 1)
+        setCallbacks(updatedCallbacks)
+    }
+
+    const handleEditCallback = (index) => {
+        var selectedCallback = callbacks[index]
+        setShowEditCallbackModal(true)
+        setSelectedCallback(selectedCallback)
+        setSelectedCallbackIndex(index)
+    }
+
+    const handleChangeCallback = (index, callback) => {
+        const updatedCallbacks = [...callbacks]
+        updatedCallbacks[index] = callback
+        setCallbacks(updatedCallbacks)
+    }
+
     const handleCodeAndStateChange = (newCode, newState) => {
         setCurrentCode(newCode)
         setCurrentState(newState)
@@ -225,6 +253,8 @@ function AddFunction() {
                 <ArgModal title="dashboard.function.inputs.args.editModalTitle" isOpen={showEditArgModal} toggle={() => setShowEditArgModal(!showEditArgModal)} variable={selectedArg} index={selectedArgIndex} onClick={handleChangeArg} />
                 <EnvModal title="dashboard.function.inputs.env_vars.addModalTitle" isOpen={showAddNewEnvModal} toggle={() => setShowAddNewEnvModal(!showAddNewEnvModal)} variable={envVars[envVars.length-1]} index={envVars.length-1} onClick={handleChangeEnvVar} />
                 <EnvModal title="dashboard.function.inputs.env_vars.editModalTitle" isOpen={showEditEnvModal} toggle={() => setShowEditEnvModal(!showEditEnvModal)} variable={selectedEnvVar} index={selectedEnvVarIndex} onClick={handleChangeEnvVar}/>
+                <CallbackModal title="dashboard.function.inputs.callbacks.addModalTitle" isOpen={showAddNewCallbackModal} toggle={() => setShowAddNewCallbackModal(!showAddNewCallbackModal)} callback={callbacks[callbacks.length-1]} index={callbacks.length-1} onClick={handleChangeCallback} />
+                <CallbackModal title="dashboard.function.inputs.callbacks.editModalTitle" isOpen={showEditCallbackModal} toggle={() => setShowEditCallbackModal(!showEditCallbackModal)} callback={selectedCallback} index={selectedCallbackIndex} onClick={handleChangeCallback} />
                 <WarningModal title="common.message.warning" isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} message={message} loading={loadingSubmit} nextPath={nextPath} buttonTitle="common.button.save" secondButtonTitle="common.button.unsave" onClick={handleWarningModalClickButton} />
                 <Row>
                     <Col>
@@ -309,34 +339,6 @@ function AddFunction() {
                     <Row style={{ margin: "30px 0px" }}>
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>
-                                <Col md="4">
-                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
-                                        <Translate content="dashboard.function.inputs.callback_url.title" />
-                                    </h5>
-                                </Col>
-                                <Col md="6">
-                                    <TextField id="callback_url" label={context.counterpart('dashboard.function.inputs.callback_url.placeholder')} onChange={(e) => setCallback_url(e.target.value)} fullWidth />
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                    <Row style={{ margin: "30px 0px" }}>
-                        <Col>
-                            <Row style={{ display: "flex", alignItems: "center" }}>
-                                <Col md="4">
-                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
-                                        <Translate content="dashboard.function.inputs.callback_header.title" />
-                                    </h5>
-                                </Col>
-                                <Col md="6">
-                                    <TextField id="callback_authorization_header" label={context.counterpart('dashboard.function.inputs.callback_header.placeholder')} onChange={(e) => setCallback_authorization_header(e.target.value)} fullWidth />
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                    <Row style={{ margin: "30px 0px" }}>
-                        <Col>
-                            <Row style={{ display: "flex", alignItems: "center" }}>
                                 <Col md={{ size: 2 }}>
                                     <Row>
                                         <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
@@ -355,6 +357,12 @@ function AddFunction() {
                             </Row>
                         </Col>
                     </Row>
+                    <CallbackTable
+                        callbacks={callbacks}
+                        addNewCallback={handleAddNewCallback}
+                        editCallback={handleEditCallback}
+                        deleteCallback={handleDeleteCallback}
+                    />
                     <ArgTable
                         args={args}
                         addNewArg={handleAddNewArg}

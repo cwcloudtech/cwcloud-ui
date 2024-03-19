@@ -197,6 +197,7 @@ export const englishLanguage = {
             download: "Download",
             upload: "Upload",
             showOptions: "Show options",
+            advancedConfigurations: "Advanced configurations",
             copy: "Copy",
             reboot: "Reboot",
             delete2Fa: "Disable MFA/2FA",
@@ -212,6 +213,7 @@ export const englishLanguage = {
         },
         state: {
             copied: "Copied",
+            uploaded: "Uploaded",
         },
         fields: {
             userEmail: "User email",
@@ -698,13 +700,26 @@ export const englishLanguage = {
                     envVarValue: "Value of the variable",
                     noEnvVars: "There are no variables yet.",
                 },
-                callback_url: {
-                    title: "Callback's URL",
-                    placeholder: "Put the callback's URL here"
-                },
-                callback_header: {
-                    title: "Callback's header",
-                    placeholder: "Put the Authorization header value here"
+                callbacks: {
+                    title: "Callbacks",
+                    addModalTitle: "Add callback",
+                    editModalTitle: "Edit callback",
+                    callbackType: "Type",
+                    callbackEndpoint: "Callback's endpoint",
+                    callbackPort: "Port",
+                    callbackToken: "Callback's token",
+                    callbackClientId: "Client id",
+                    callbackUserData: "User data",
+                    callbackUsername: "Username",
+                    callbackPassword: "Password",
+                    callbackSubscription: "Subscription",
+                    callbackTopic: "Topic",
+                    callbackQos: "QoS",
+                    certificatesRequiredQuestion: "Do you want to add certificates?",
+                    callbackIotHubCertificate: "IoT Hub certificate",
+                    callbackDeviceCertificate: "Device certificate",
+                    callbackDeviceKeyCertificate: "Device key certificate",
+                    noCallbacks: "There are no callbacks yet."
                 },
                 regexp: {
                     title: "Regexp validation",
@@ -2180,6 +2195,7 @@ export const frenchLanguage = {
             download: "Télécharger",
             upload: "Uploader",
             showOptions: "Afficher les options",
+            advancedConfigurations: "Configurations avancées",
             copy: "Copier",
             reboot: "Redémarrer",
             delete2Fa: "Désactiver MFA/2FA",
@@ -2195,6 +2211,7 @@ export const frenchLanguage = {
         },
         state: {
             copied: "Copié",
+            uploaded: "Uploadé",
         },
         fields: {
             userEmail: "Email de l'utilisateur",
@@ -2680,13 +2697,26 @@ export const frenchLanguage = {
                     envVarValue: "Valeur de la variable",
                     noEnvVars: "Il n'y a pas encore de variables"
                 },
-                callback_url: {
-                    title: "Callback URL",
-                    placeholder: "Mettre l'URL de la callback"
-                },
-                callback_header: {
-                    title: "Callback header",
-                    placeholder: "Mettre la valeur du header Authorization"
+                callbacks: {
+                    title: "Callbacks",
+                    addModalTitle: "Ajouter un callback",
+                    editModalTitle: "Editer un callback",
+                    callbackType: "Type",
+                    callbackEndpoint: "Endpoint du callback",
+                    callbackPort: "Port du callback",
+                    callbackHeader: "Header du callback",
+                    callbackClientId: "L'id du client",
+                    callbackUserData: "Données utilisateur",
+                    callbackUsername: "Nom d'utilisateur",
+                    callbackPassword: "Mot de passe",
+                    callbackSubscription: "Souscription",
+                    callbackTopic: "Topic",
+                    callbackQos: "QoS",
+                    certificatesRequiredQuestion: "Certificats requis ?",
+                    callbackIotHubCertificate: "Certificat iot hub",
+                    callbackDeviceCertificate: "Certificat du device",
+                    callbackDeviceKeyCertificate: "Clé du certificat du device",
+                    noCallbacks: "Il n'y a pas encore de callbacks"
                 },
                 regexp: {
                     title: "Regexp validation",

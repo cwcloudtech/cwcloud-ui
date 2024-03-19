@@ -12,6 +12,7 @@ const LoadingButton = (props) => {
             type={props.type}
             className={`${classes.buttonStyle} ${props.className}`}
             style={props.style}
+            component={props.component}
             onClick={!props.loading ? props.onClick: null}>
             {props.loading ? <Spinner className={classes.spinner} size="sm" />:
                 props.icon && <i className={`${classes.icon} ${props.icon}`}></i>}
