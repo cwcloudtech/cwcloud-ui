@@ -6,6 +6,7 @@ import { Tooltip } from '@mui/material';
 import { Row, Col } from 'reactstrap';
 import Linkify from 'linkify-react';
 import colors from '../../Context/Colors';
+import ReactMarkdown from 'react-markdown';
 
 const ChatMessageEntered = ({ text, user, dateTime }) => {
   const context = useContext(GlobalContext);
@@ -54,7 +55,9 @@ const ChatMessageEntered = ({ text, user, dateTime }) => {
           <div style={messageResponse} className='container-fluid'>
             <Row style={{ paddingRight: "20px", paddingLeft: "10px" }}>
               <Col md="12">
-                <p style={{ margin: '0', paddingLeft: "20px", direction: 'ltr' }}><Linkify>{text}</Linkify></p>
+                <p style={{ margin: '0', paddingLeft: "20px", direction: 'ltr' }}>
+                    <ReactMarkdown>{text}</ReactMarkdown>
+                </p>
               </Col>
             </Row>
           </div>

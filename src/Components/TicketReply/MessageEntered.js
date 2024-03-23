@@ -6,6 +6,7 @@ import { Tooltip } from '@material-ui/core';
 import { Row, Col } from 'reactstrap';
 import Linkify from 'linkify-react';
 import colors from '../../Context/Colors';
+import ReactMarkdown from 'react-markdown';
 
 const MessageEntered = ({ text, user, dateTime }) => {
   const context = useContext(GlobalContext);
@@ -55,7 +56,9 @@ const MessageEntered = ({ text, user, dateTime }) => {
           <div style={messageEntered} className='container-fluid'>
             <Row style={{ paddingRight: "10px", paddingLeft: "20px" }}>
               <Col md="12">
-                <p style={{ margin: '0', paddingRight: "20px", direction: 'rtl' }}><Linkify>{text}</Linkify></p>
+                <p style={{ margin: '0', paddingRight: "20px", direction: 'rtl' }}>
+                   <ReactMarkdown>{text}</ReactMarkdown>
+                </p>
               </Col>
             </Row>
           </div>

@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import SuggestionsAutoComplete from "../SuggestionsAutoComplete/SuggestionsAutoComplete";
+import ReactMarkdown from 'react-markdown';
 
 const AddTicketModal = (props) => {
     const _mode = useContext(GlobalContext).mode;
@@ -131,8 +132,12 @@ const AddTicketModal = (props) => {
                 </Row>
                 <Row>
                     <Col>
-                        <TextareaAutosize style={{ width: '100%', backgroundColor: colors.secondBackground[_mode], color: colors.menuText[_mode], border: "1px solid "+ colors.textAreaBorder[_mode], borderRadius: "5px" }} minRows={3} value={ticket.message || ''} onChange={(e) => setTicket({ ...ticket, message: e.target.value })} />
-                    </Col>
+                        <textarea
+                            style={{ width: '100%', backgroundColor: colors.secondBackground[_mode], color: colors.menuText[_mode], border: "1px solid "+ colors.textAreaBorder[_mode], borderRadius: "5px", padding: '10px' }}
+                            value={ticket.message || ''}
+                            onChange={(e) => setTicket({ ...ticket, message: e.target.value })}
+                        />
+                    </Col>                    
                 </Row>
             </ModalBody>
             <ModalFooter>

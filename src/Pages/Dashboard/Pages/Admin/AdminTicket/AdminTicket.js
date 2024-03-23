@@ -13,6 +13,7 @@ import Translate from 'react-translate-component';
 import formateDate from '../../../../../utils/FormateDate';
 import { isBlank } from '../../../../../utils/common';
 import { BarLoader } from 'react-spinners';
+import ReactMarkdown from 'react-markdown';
 
 function AdminTicket() {
     const context = useContext(GlobalContext)
@@ -98,7 +99,11 @@ function AdminTicket() {
                 <Col>
                     <TicketReply key={'first1'} reply={{ ...ticket, change_date: ticket.created_at }} />
                     {ticket.replies?.map(reply => (
-                        <TicketReply key={reply.id} reply={reply} />
+                        <div key={reply.id}>
+                           
+                            <TicketReply key={reply.id} reply={reply} />
+
+                        </div>
                     ))}
                     {
                         loadingReply &&

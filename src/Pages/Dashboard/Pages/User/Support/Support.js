@@ -11,6 +11,7 @@ import formateDate from '../../../../../utils/FormateDate';
 import AddTicketModal from '../../../../../Components/Modal/AddTicketModal';
 import { Add } from '@mui/icons-material';
 import Translate from "react-translate-component";
+import ReactMarkdown from 'react-markdown';
 
 function Support() {
     const context = useContext(GlobalContext);
@@ -51,6 +52,7 @@ function Support() {
         { field: 'selected_product', headerName: context.counterpart("dashboard.support.table.selected_product"), width: 200 },
         { field: 'created_at', headerName: context.counterpart("dashboard.support.table.created_at"), width: 200, renderCell: (params) => formateDate(params.row.created_at) },
         { field: 'last_update', headerName: context.counterpart("dashboard.support.table.last_update"), width: 200, renderCell: (params) => formateDate(params.row.created_at) },
+        { field: 'content', headerName: context.counterpart("dashboard.support.table.content"), width: 300, renderCell: (params) => (<ReactMarkdown>{params.row.content}</ReactMarkdown>),},
         {
             field: 'status', headerName: 'Status', width: 200, renderCell: (params) => {
                 if (params.row.status === "await customer")
