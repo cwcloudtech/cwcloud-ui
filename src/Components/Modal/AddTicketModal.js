@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { MenuItem, Select, TextareaAutosize } from "@material-ui/core";
+import { MenuItem, Select } from "@material-ui/core";
 import { TextField } from "@mui/material";
 import Translate from "react-translate-component";
 import GlobalContext from '../../Context/GlobalContext'; 
@@ -15,7 +15,6 @@ import {
 } from "reactstrap";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import SuggestionsAutoComplete from "../SuggestionsAutoComplete/SuggestionsAutoComplete";
-import ReactMarkdown from 'react-markdown';
 
 const AddTicketModal = (props) => {
     const _mode = useContext(GlobalContext).mode;

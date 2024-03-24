@@ -5,6 +5,7 @@ import { Row, Col, Button } from "reactstrap";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios";
 import srcimage from '../../../../../utils/regions';
+import cloudResourceName from '../../../../../utils/cloudResourceName';
 import { toast } from 'react-toastify';
 import { Tooltip } from '@mui/material';
 import DeleteModal from '../../../../../Components/Modal/DeleteModal';
@@ -168,7 +169,7 @@ function InstanceOverview() {
                                 ?
                                 <div className={classes.colElement}>
                                     <Tooltip title={counterpart("dashboard.instanceOverview.buttons.open")} placement="bottom">
-                                        <a href={`https://${instance.name}-${instance.hash}.${instance.path}.${instance.root_dns_zone}`} target="_blank" rel='noreferrer' style={{ textDecoration: "none", color: "inherit" }}>
+                                        <a href={`https://${cloudResourceName(instance)}.${instance.path}.${instance.root_dns_zone}`} target="_blank" rel='noreferrer' style={{ textDecoration: "none", color: "inherit" }}>
                                             <OpenInBrowserOutlinedIcon className='orangeBtn' style={{ fontSize: "30px", marginLeft: "10px" }} />
                                         </a>
                                     </Tooltip>

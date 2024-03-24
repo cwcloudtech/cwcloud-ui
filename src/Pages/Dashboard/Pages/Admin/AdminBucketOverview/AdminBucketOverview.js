@@ -5,6 +5,7 @@ import classes from "./AdminBucketOverview.module.css";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios";
 import srcimage from '../../../../../utils/regions';
+import cloudResourceName from '../../../../../utils/cloudResourceName';
 import { toast } from 'react-toastify';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton';
@@ -247,10 +248,7 @@ function AdminBucketOverview() {
                         <Col xs="12" md="8" className={classes.row}>
                             <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}>Bucket ID:</h5>
                             <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{
-                                !loading ?
-                                    `${bucket.name}-${bucket.hash}`
-                                    :
-                                    <Skeleton style={{opacity: colors.opacity[_mode]}}  />
+                                !loading ? cloudResourceName(bucket.name) : <Skeleton style={{opacity: colors.opacity[_mode]}}  />
                             }</h6>
                         </Col>
                         <Col xs="12" md="8" className={classes.row}>

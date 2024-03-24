@@ -5,6 +5,7 @@ import { Row, Col, Button, Input } from "reactstrap";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios";
 import srcimage from '../../../../../utils/regions';
+import cloudResourceName from '../../../../../utils/cloudResourceName';
 import { toast } from 'react-toastify';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton';
@@ -191,10 +192,7 @@ function RegistryOverview() {
                                 <Translate content="dashboard.registryOverview.labels.registryId" />:
                             </h5>
                             <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{
-                                !loading ?
-                                    `${registry.name}-${registry.hash}`
-                                    :
-                                    <Skeleton style={{opacity: colors.opacity[_mode]}} />
+                                !loading ? cloudResourceName(registry) : <Skeleton style={{opacity: colors.opacity[_mode]}} />
                             }</h6>
                         </Col>
                         <Col xs="12" md="8" className={classes.row}>

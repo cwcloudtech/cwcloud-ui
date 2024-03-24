@@ -4,7 +4,6 @@ import Identicon from 'react-identicons';
 import { useNavigate } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
 import { Row, Col } from 'reactstrap';
-import Linkify from 'linkify-react';
 import colors from '../../Context/Colors';
 import ReactMarkdown from 'react-markdown';
 
