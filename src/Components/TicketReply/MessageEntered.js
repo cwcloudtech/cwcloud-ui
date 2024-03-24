@@ -55,7 +55,7 @@ const MessageEntered = ({ text, user, dateTime }) => {
           <div style={messageEntered} className='container-fluid'>
             <Row style={{ paddingRight: "10px", paddingLeft: "20px" }}>
               <Col md="12">
-                <p style={{ margin: '0', paddingRight: "20px", direction: 'rtl' }}>
+                <p style={{ margin: '0', paddingRight: "20px", direction: 'ltr' }}>
                    <ReactMarkdown>{text}</ReactMarkdown>
                 </p>
               </Col>
