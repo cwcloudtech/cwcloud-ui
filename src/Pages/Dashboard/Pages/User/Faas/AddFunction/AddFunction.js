@@ -66,11 +66,18 @@ function AddFunction() {
 
     const navigate = useNavigate()
     const location = useLocation()
-    const nextPath = location.pathname === '/function/add' ? '/function/overview': '/admin/function'
+    const [nextPath, setNextPath] = useState("/function/overview")
     const message = context.counterpart("dashboard.function.message.unsavedChangesWarning")
     const defaultBlock= {"blocks":{"languageVersion":0,"blocks":[{"type":"procedures_defreturn","id":"|U:JxK,WwHD$^.P_JKyp","x":10,"y":10,"icons":{"comment":{"text":"Describe this function...","pinned":false,"height":80,"width":160}},"fields":{"NAME":"handle"},"inputs":{"RETURN":{"block":{"type":"text","id":"[zf7d#G}*e9tM4;qKep[","fields":{"TEXT":""}}}}}]}}
 
+    const getNextPath = () => {
+        if (location.pathname === '/admin/function/add') {
+            setNextPath('/admin/function/overview')
+        }
+    }
+
     useEffect(() => {
+        getNextPath()
         context.setIsGlobal(true)
         setLoading(true)
         axios.get('/faas/languages')

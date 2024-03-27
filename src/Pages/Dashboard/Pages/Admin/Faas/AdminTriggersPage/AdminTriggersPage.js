@@ -14,6 +14,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import sliceIfNeeded from "../../../../../../utils/stringSlice";
+import CustomCopyIcon from '../../../../../../Components/CustomIcon/CustomCopyIcon';
 
 function TriggersPage(props) {
     const context = useContext(GlobalContext);
@@ -36,8 +37,15 @@ function TriggersPage(props) {
                     e.stopPropagation();
                     predeleteTriggerHandler(params.id)
                 };
+                const copyTriggerId = (e) => {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(params.id)
+                    toast.success(counterpart('dashboard.trigger.message.successCopyTriggerId'))
+                }
                 return (
                     <React.Fragment>
+                        <CustomCopyIcon onClick={copyTriggerId} title={context.counterpart('dashboard.trigger.actions.copyTriggerId')} />
+                        &nbsp;
                         <CustomDeleteIcon onClick={onClick} />
                     </React.Fragment>
                 )

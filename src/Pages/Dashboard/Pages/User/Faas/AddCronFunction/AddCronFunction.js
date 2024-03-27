@@ -57,10 +57,18 @@ function AddCronFunction() {
     const [loading, setLoading] = useState(false)
     const [loadingSubmit, setLoadingSubmit] = useState(false)
     const { id } = useParams()
-    const previousPath = location.pathname === `/schedule/${id}` ? '/function/overview' : '/admin/function'
-    const nextPath = location.pathname === `/schedule/${id}` ? '/triggers/overview' : '/admin/triggers'
+    const [previousPath, setPreviousPath] = useState('/function/overview')
+    const [nextPath, setNextPath] = useState('/triggers')
+
+    const getPaths = () => {
+        if (location.pathname === `/admin/schedule/${id}`) {
+            setPreviousPath('/admin/function/overview')
+            setNextPath('/admin/triggers')
+        }
+    }
 
     useEffect(() => {
+        getPaths()
         context.setIsGlobal(true)
         setLoading(true)
         axios.get(`/faas/function/${id}`)

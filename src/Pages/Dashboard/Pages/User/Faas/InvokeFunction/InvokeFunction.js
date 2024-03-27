@@ -21,10 +21,18 @@ function InvokeFunction() {
     const [loading, setLoading] = useState(false)
     const [loadingSubmit, setLoadingSubmit] = useState(false)
     const { id } = useParams()
-    const previousPath = location.pathname === `/invoke/${id}` ? '/function/overview' : '/admin/function'
-    const nextPath = location.pathname === `/invoke/${id}` ? '/invoke/overview' : '/admin/invoke'
+    const [previousPath, setPreviousPath] = useState('/function/overview')
+    const [nextPath, setNextPath] = useState('/invocations')
+
+    const getPaths = () => {
+        if (location.pathname === `/admin/invoke/${id}`) {
+            setPreviousPath('/admin/function/overview')
+            setNextPath('/admin/invocations')
+        }
+    }
 
     useEffect(() => {
+        getPaths()
         context.setIsGlobal(true)
         setLoading(true)
         axios.get(`/faas/function/${id}`)

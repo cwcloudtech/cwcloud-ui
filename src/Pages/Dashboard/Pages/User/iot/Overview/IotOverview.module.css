@@ -1,0 +1,42 @@
+.envCreation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.itemTitle {
+    font-weight: 500;
+    color: rgb(74, 79, 98);
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+}
+.tootltipValue {
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    margin: 0;
+    line-height: 28px;
+
+}
+.addButton {
+    font-size: 40px !important;
+    cursor: pointer;
+}
+.sendButton {
+    color: #4EA8F7 !important;
+    padding: 0px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.scheduleButton {
+    color: #f1c40f !important;
+    padding: 0px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.sendButton:hover {
+    color: #8abdf9 !important;
+}
+.scheduleButton:hover {
+    color: #f1c40f !important;
+}

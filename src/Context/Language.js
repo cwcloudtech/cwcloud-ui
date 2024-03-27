@@ -60,9 +60,9 @@ export const englishLanguage = {
         "313": "Invalid jwt token",
         "314": "Unexpected exception",
         "400": "Invalid parameter(s)",
-        "401": "Bucket successfully deleted",
+        "401": "Unauthorized: Access to the requested resource requires authentication",
         "402": "Bucket successfully updated",
-        "404": "Bucket not found",
+        "404": "The requested resource could not be found on the server",
         "405": "Bucket successfully refreshed",
         "504": "Provider does not exist",
         "604": "Invoice not found",
@@ -181,6 +181,14 @@ export const englishLanguage = {
         "faas_trigger_kind_not_supported": "The trigger's kind is invalid",
         "cron_expr_invalid": "Not a valid crontab expr",
         "faas_function_name_missing": "Function name is required",
+        "object_type_created": "Object type successfully created",
+        "object_type_updated": "Object type successfully updated",
+        "object_type_deleted": "Object type successfully deleted",
+        "object_type_not_found": "Object type not found",
+        "decoding_function_id_invalid": "The decoding function id is invalid",
+        "decoding_function_id_not_found": "The decoding function id is not found",
+        "trigger_id_invalid": "The trigger id is invalid",
+        "trigger_not_found": "The trigger id is not found",
     },
     common: {
         ok: "OK",
@@ -229,6 +237,7 @@ export const englishLanguage = {
         message: {
             thisFieldIsRequired: "This field is required",
             pleaseEnterAnEmail: "Please enter an email",
+            invalidEmail: "Invalid email",
             copied: "Copied",
             warning: "Warning",
         },
@@ -403,7 +412,7 @@ export const englishLanguage = {
         functions: {
             title: "Serverless",
             overview: "Overview",
-            add: "Add"
+            add: "Add new function"
         },
         invocations: {
             overview: "Invocations"
@@ -463,6 +472,11 @@ export const englishLanguage = {
             title: "Kubernetes",
             clusters: "Clusters",
             environments: "Environments",
+        },
+        iot: {
+            title: "IoT",
+            overview: "Overview",
+            addObjectType: "Add object type",
         }
     },
     dashboard: {
@@ -589,6 +603,7 @@ export const englishLanguage = {
                 successDelete: "Trigger successfuly deleted",
                 successMultiDelete: "Triggers successfully deleted",
                 successTruncate: "All triggers cleared with success",
+                successCopyTriggerId: "Trigger Id is copied successfully",
                 invalidExecutionTime: "Invalid execution time",
                 executionTimeInThePast: "Execution time is in the past",
                 emptyMessage: "No triggers available"
@@ -620,6 +635,9 @@ export const englishLanguage = {
                 everyDay: "Every day",
                 everyWeek: "Every week",
                 everyMonth: "Every month"
+            },
+            actions: {
+                copyTriggerId: "Copy trigger id"
             }
         },
         invocation: {
@@ -790,6 +808,64 @@ export const englishLanguage = {
             templated: "Using the comwork cloud template?",
             success: "Email successfully sent",
             send: "Send"
+        },
+        iot: {
+            back: "Back to IoT overview",
+            objectTypesOverview: {
+                mainTitle: "Object types",
+            },
+            addObjectType: {
+                mainTitle: "Create new object type",
+            },
+            updateObjectType: {
+                mainTitle: "Update object type",
+            },
+            state: {
+                graphicMode: {
+                    title: "Graphic mode"
+                },
+                editorMode: {
+                    title: "Editor mode"
+                }
+            },
+            message: {
+                createObjectTypeMessage: "Create your first object type",
+                objectTypeEmptyMessage: "No object types available",
+                successAddObjectType: "Object type successfully created",
+                successCopyObjectTypeId: "Object type id copied with success",
+                successDeleteObjectType: "Object type successfully deleted",
+                successDeleteObjectTypes: "Object types successfully deleted",
+                successUpdateObjectType: "Object type successfully updated",
+                errorDeleteObjectType: "An error occured while deleting the object type",
+                errorUpdateObjectType: "An error occured while updating the object type",
+            },
+            inputs: {
+                is_public: "Public",
+                decodingFunction: {
+                    title: "Decoding function",
+                    placeholder: "Put the serverless function id"
+                },
+                triggers: {
+                    title: "Triggers",
+                    noTriggers: "There are no triggers yet.",
+                    triggerId: {
+                        name: "Trigger id",
+                        placeholder: "Put the trigger id"
+                    },
+                    addModalTitle: "Add trigger",
+                    editModalTitle: "Edit trigger",
+                },
+                ownerEmail: {
+                    title: "Owner email",
+                    placeholder: "Put the owner email"
+                },
+            },
+            table: {
+                decodingFunctionId: "Decoding function id",
+            },
+            actions: {
+                copyObjectTypeId: "Copy object type id"
+            }
         },
         environmentOverview: {
             mainTitle: "Update New Environment",
@@ -2062,9 +2138,9 @@ export const frenchLanguage = {
         "313": "Token jwt invalide",
         "314": "Erreur inattendue",
         "400": "Paramètres invalides",
-        "401": "Bucket supprimé avec succès",
+        "401": "Non autorisé : L'accès à la ressource demandée nécessite une authentification",
         "402": "Bucket mis à jour avec succès",
-        "404": "Bucket introuvable",
+        "404": "La ressource demandée n'a pas pu être trouvée sur le serveur",
         "405": "Bucket rafraichit avec succès",
         "504": "Le fournisseur n'existe pas",
         "604": "facture introuvable",
@@ -2183,6 +2259,14 @@ export const frenchLanguage = {
         "faas_trigger_kind_not_supported": "Le type de trigger est invalide",
         "cron_expr_invalid": "L'expression cron est invalide",
         "faas_function_name_missing": "Le nom de la fonction est obligatoire",
+        "object_type_created": "Type d'objet créé avec succès",
+        "object_type_updated": "Type d'objet mis à jour avec succès",
+        "object_type_deleted": "Type d'objet supprimé avec succès",
+        "object_type_not_found": "Type d'objet introuvable",
+        "decoding_function_id_invalid": "L'id de la fonction de décodage est invalide",
+        "decoding_function_id_not_found": "L'id de la fonction de décodage est introuvable",
+        "trigger_id_invalid": "L'id du trigger est invalide",
+        "trigger_not_found": "Le trigger est introuvable",
     },
     common: {
         ok: "OK",
@@ -2229,6 +2313,7 @@ export const frenchLanguage = {
         },
         message: {
             thisFieldIsRequired: "Ce champ est obligatoire",
+            invalidEmail: "Email invalide",
             pleaseEnterAnEmail: "Veuillez entrer un email",
             copied: "Copié",
             warning: "Attention",
@@ -2404,7 +2489,7 @@ export const frenchLanguage = {
         functions: {
             title: "Serverless",
             overview: "Aperçu",
-            add: "Ajouter"
+            add: "Ajouter nouvelle fonction",
         },
         invocations: {
             overview: "Invocations"
@@ -2464,6 +2549,11 @@ export const frenchLanguage = {
             title: "Kubernetes",
             clusters: "Clusters",
             environments: "Environnements"
+        },
+        iot: {
+            title: "IoT",
+            overview: "Aperçu",
+            addObjectType: "Ajouter un type d'objet",
         }
     },
     dashboard: {
@@ -2590,6 +2680,7 @@ export const frenchLanguage = {
                 successDelete: "Trigger supprimé avec succès",
                 successMultiDelete: "Triggers supprimés avec succès",
                 successTruncate: "Triggers supprimées avec succès",
+                successCopyTriggerId: "L'identifiant du déclencheur est copié avec succès",
                 invalidExecutionTime: "Le temps d'exécution est invalide",
                 executionTimeInThePast: "Le temps d'exécution est dans le passé",
                 emptyMessage: "Aucun trigger disponible"
@@ -2621,6 +2712,9 @@ export const frenchLanguage = {
                 everyDay: "Chaque jour",
                 everyWeek: "Chaque semaine",
                 everyMonth: "Chaque mois"
+            },
+            actions: {
+                copyTriggerId: "Copier l'id du trigger"
             }
         },
         invocation: {
@@ -2790,6 +2884,64 @@ export const frenchLanguage = {
             templated: "Utiliser le template de comwork cloud ?",
             success: "L'email a bien été envoyé",
             send: "Envoyer"
+        },
+        iot: {
+            back: "Retour à l'aperçu IoT",
+            objectTypesOverview: {
+                mainTitle: "Types d'objets",
+            },
+            addObjectType: {
+                mainTitle: "Ajouter un type d'objet",
+            },
+            updateObjectType: {
+                mainTitle: "Mettre à jour le type d'objet",
+            },
+            state: {
+                graphicMode: {
+                    title: "Mode graphique"
+                },
+                editorMode: {
+                    title: "Mode éditeur"
+                }
+            },
+            message: {
+                createObjectTypeMessage: "Créer un type d'objet",
+                objectTypeEmptyMessage: "Il n'y a pas encore de types d'objets",
+                successAddObjectType: "Type d'objet ajouté avec succès",
+                successCopyObjectTypeId: "Id du type d'objet copié avec succès",
+                successDeleteObjectType: "Type d'objet supprimé avec succès",
+                successDeleteObjectTypes: "Types d'objets supprimés avec succès",
+                successUpdateObjectType: "Type d'objet mis à jour avec succès",
+                errorDeleteObjectType: "An error occured while deleting the object type",
+                errorUpdateObjectType: "An error occured while updating the object type",
+            },
+            inputs: {
+                is_public: "Public",
+                decodingFunction: {
+                    title: "Fonction de décodage",
+                    placeholder: "Mettre l'id de la fonction serverless"
+                },
+                triggers: {
+                    title: "Déclencheurs",
+                    noTriggers: "Il n'y a pas encore de déclencheurs",
+                    triggerId: {
+                        name: "Id du déclencheur",
+                        placeholder: "Mettre l'id du déclencheur"
+                    },
+                    addModalTitle: "Ajouter un déclencheur",
+                    editModalTitle: "Editer un déclencheur"
+                },
+                ownerEmail: {
+                    title: "Email du propriétaire",
+                    placeholder: "Mettre l'email du propriétaire"
+                },
+            },
+            table: {
+                decodingFunctionId: "Id de la fonction de décodage",
+            },
+            actions: {
+                copyObjectTypeId: "Copier l'id du type d'objet"
+            }
         },
         environmentOverview: {
             mainTitle: "Mettre à jour le nouvel environnement",

@@ -13,3 +13,7 @@ export const isBlank = (val) => {
 export const isNotBlank = (val) => {
     return !isBlank(val);
 }
+
+export const isValidEmail = (val) => {
+    return /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i.test(val);
+}

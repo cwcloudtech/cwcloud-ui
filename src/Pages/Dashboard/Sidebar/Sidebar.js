@@ -78,7 +78,7 @@ function Sidebar() {
                 }
                 {context.user.enabled_features.faasapi && <SidebarMenuItem
                     id="/function"
-                    items={["/function/overview", "/function/add", `/function/${id}`, "/invoke/overview", "/triggers/overview"]}
+                    items={["/function/overview", "/function/add", `/function/${id}`, "/invocations", "/triggers"]}
                     title={context.counterpart('sidebar.functions.title')}
                     icon={<i className="fa-solid fa-code" style={{ fontSize: "18px" }}></i>}
                 >
@@ -95,16 +95,35 @@ function Sidebar() {
                         onClick={() => onClick("/function/add")}
                     />
                     <SidebarMenuItem
-                        id="/invoke/overview"
+                        id="/invocations"
                         title={context.counterpart('sidebar.invocations.overview')}
                         level={2}
-                        onClick={() => onClick("/invoke/overview")}
+                        onClick={() => onClick("/invocations")}
                     />
                     <SidebarMenuItem
-                        id="/triggers/overview"
+                        id="/triggers"
                         title={context.counterpart('sidebar.triggers.overview')}
                         level={2}
-                        onClick={() => onClick("/triggers/overview")}
+                        onClick={() => onClick("/triggers")}
+                    />
+                </SidebarMenuItem>}
+                {context.user.enabled_features.iotapi && <SidebarMenuItem
+                    id="/iot"
+                    items={["/iot/overview", "/iot/add/object-type", `/iot/object-type/${id}`]}
+                    title={context.counterpart('sidebar.iot.title')}
+                    icon={<i className="fa-solid fa-wifi" style={{ fontSize: "18px" }}></i>}
+                >
+                    <SidebarMenuItem
+                        id="/iot/overview"
+                        title={context.counterpart('sidebar.iot.overview')}
+                        level={2}
+                        onClick={() => onClick("/iot/overview")}
+                    />
+                    <SidebarMenuItem
+                        id="/iot/add/object-type"
+                        title={context.counterpart('sidebar.iot.addObjectType')}
+                        level={2}
+                        onClick={() => onClick("iot/add/object-type")}
                     />
                 </SidebarMenuItem>}
                 {context.user.enabled_features.emailapi && <SidebarMenuItem
@@ -266,28 +285,53 @@ function Sidebar() {
                             />
                         </SidebarMenuItem>
                         <SidebarMenuItem
-                            id="/admin/function"
-                            items={["/admin/function", "/admin/triggers", "/admin/invoke"]}
+                            id="/admin/function/overview"
+                            items={["/admin/function/overview", "/admin/function/add", "/admin/triggers", "/admin/invocations"]}
                             title={context.counterpart('sidebar.manageFunctions.title')}
                             icon={<i className="fa-solid fa-code" style={{ fontSize: "18px" }}></i>}
                         >
                             <SidebarMenuItem
-                                id="/admin/function"
+                                id="/admin/function/overview"
                                 title={context.counterpart('sidebar.functions.overview')}
                                 level={2}
-                                onClick={() => onClick("/admin/function")}
+                                onClick={() => onClick("/admin/function/overview")}
                             />
                             <SidebarMenuItem
-                                id="/admin/invoke"
+                                id="/admin/function/add"
+                                title={context.counterpart('sidebar.functions.add')}
+                                level={2}
+                                onClick={() => onClick("/admin/function/add")}
+                            />
+                            <SidebarMenuItem
+                                id="/admin/invocations"
                                 title={context.counterpart('sidebar.invocations.overview')}
                                 level={2}
-                                onClick={() => onClick("/admin/invoke")}
+                                onClick={() => onClick("/admin/invocations")}
                             />
                             <SidebarMenuItem
                                 id="/admin/triggers"
                                 title={context.counterpart('sidebar.triggers.overview')}
                                 level={2}
                                 onClick={() => onClick("/admin/triggers")}
+                            />
+                        </SidebarMenuItem>
+                        <SidebarMenuItem
+                            id="/admin/iot"
+                            items={["/admin/iot/overview", "/admin/iot/add/object-type", `/admin/iot/object-type/${id}`]}
+                            title={context.counterpart('sidebar.iot.title')}
+                            icon={<i className="fa-solid fa-wifi" style={{ fontSize: "18px" }}></i>}
+                        >
+                            <SidebarMenuItem
+                                id="/admin/iot/overview"
+                                title={context.counterpart('sidebar.iot.overview')}
+                                level={2}
+                                onClick={() => onClick("/admin/iot/overview")}
+                            />
+                            <SidebarMenuItem
+                                id="/admin/iot/add/object-type"
+                                title={context.counterpart('sidebar.iot.addObjectType')}
+                                level={2}
+                                onClick={() => onClick("/admin/iot/add/object-type")}
                             />
                         </SidebarMenuItem>
                         <SidebarMenuItem

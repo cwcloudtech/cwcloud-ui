@@ -11,7 +11,6 @@ import formateDate from '../../../../../utils/FormateDate';
 import AddTicketModal from '../../../../../Components/Modal/AddTicketModal';
 import { Add } from '@mui/icons-material';
 import Translate from "react-translate-component";
-import ReactMarkdown from 'react-markdown';
 
 function Support() {
     const context = useContext(GlobalContext);

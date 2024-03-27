@@ -136,7 +136,7 @@ const CallbackModal = (props) => {
                             </Select>
                         </FormControl>
                     </Col>
-                    <Col md={type === "mqtt" ? "6" : "12"}>
+                    <Col md={type === "mqtt" || type === "websocket" ? "6" : "12"}>
                         <TextField
                             style={{ marginTop: '15px' }}
                             value={endpoint}
@@ -164,7 +164,7 @@ const CallbackModal = (props) => {
                         </Col>
                     }
                     {
-                        type === "mqtt" &&
+                        (type === "mqtt" || type === "websocket") &&
                         <>
                             <Col md="3">
                                 <TextField
@@ -245,100 +245,105 @@ const CallbackModal = (props) => {
                                     fullWidth
                                 />
                             </Col>
-                            <Col md="12" style={{ marginTop: "15px"}}>
-                                <LoadingButton
-                                    variant="contained"
-                                    icon={advancedOptions ? "fa-solid fa-minus" : "fa-solid fa-plus"}
-                                    style={{ textTransform: 'none', width: "100%" }}
-                                    onClick={() => setAdvancedOptions(!advancedOptions)}>
-                                        <Translate content="common.button.advancedConfigurations" />
-                                </LoadingButton>
-                            </Col>
-                            <Collapse isOpen={advancedOptions} toggle={() => setAdvancedOptions(!advancedOptions)}>
-                                <Row>
-                                    <Col md="6">
-                                        <TextField
-                                            style={{ marginTop: '15px' }}
-                                            value={client_id}
-                                            onChange={(e) => {
-                                                setClient_id(e.target.value)
-                                                setCallback({ ...callback, client_id: e.target.value })
-                                            }}
-                                            label={context.counterpart('dashboard.function.inputs.callbacks.callbackClientId')}
-                                            fullWidth
-                                        />
-                                    </Col>
-                                    <Col md="6">
-                                        <TextField
-                                            style={{ marginTop: '15px' }}
-                                            value={user_data}
-                                            onChange={(e) => {
-                                                setUserData(e.target.value)
-                                                setCallback({ ...callback, user_data: e.target.value })
-                                            }}
-                                            label={context.counterpart('dashboard.function.inputs.callbacks.callbackUserData')}
-                                            fullWidth
-                                        />
-                                    </Col>
-                                    <Col style={{ marginTop: "15px"}}>
+                            {
+                                type === "mqtt" &&
+                                <>
+                                    <Col md="12" style={{ marginTop: "15px"}}>
                                         <LoadingButton
-                                            icon={certificatesAreRequired ? "fa-solid fa-minus" : "fa-solid fa-plus"}
-                                            style={{ textTransform: 'none', width: "100%"}}
-                                            onClick={() => setCertificatesAreRequired(!certificatesAreRequired) }>
-                                                <Translate content="dashboard.function.inputs.callbacks.certificatesRequiredQuestion" />
+                                            variant="contained"
+                                            icon={advancedOptions ? "fa-solid fa-minus" : "fa-solid fa-plus"}
+                                            style={{ textTransform: 'none', width: "100%" }}
+                                            onClick={() => setAdvancedOptions(!advancedOptions)}>
+                                                <Translate content="common.button.advancedConfigurations" />
                                         </LoadingButton>
                                     </Col>
-                                    <Collapse isOpen={certificatesAreRequired} toggle={() => setCertificatesAreRequired(!certificatesAreRequired)}>
+                                    <Collapse isOpen={advancedOptions} toggle={() => setAdvancedOptions(!advancedOptions)}>
                                         <Row>
-                                            <Col md="4" style={{ marginTop: "25px"}}>
+                                            <Col md="6">
+                                                <TextField
+                                                    style={{ marginTop: '15px' }}
+                                                    value={client_id}
+                                                    onChange={(e) => {
+                                                        setClient_id(e.target.value)
+                                                        setCallback({ ...callback, client_id: e.target.value })
+                                                    }}
+                                                    label={context.counterpart('dashboard.function.inputs.callbacks.callbackClientId')}
+                                                    fullWidth
+                                                />
+                                            </Col>
+                                            <Col md="6">
+                                                <TextField
+                                                    style={{ marginTop: '15px' }}
+                                                    value={user_data}
+                                                    onChange={(e) => {
+                                                        setUserData(e.target.value)
+                                                        setCallback({ ...callback, user_data: e.target.value })
+                                                    }}
+                                                    label={context.counterpart('dashboard.function.inputs.callbacks.callbackUserData')}
+                                                    fullWidth
+                                                />
+                                            </Col>
+                                            <Col style={{ marginTop: "15px"}}>
                                                 <LoadingButton
-                                                    variant="contained"
-                                                    component="label"
-                                                    color="secondary"
-                                                    icon={isEmpty(certificates.iot_hub_certificate) ? "fa-solid fa-file-upload" : "fa-solid fa-check"}
-                                                    style={{width: "100%"}}>
-                                                    {
-                                                        isEmpty(certificates.iot_hub_certificate) 
-                                                        ? <Translate content="dashboard.function.inputs.callbacks.callbackIotHubCertificate" />
-                                                        : <Translate content="common.state.uploaded" />
-                                                    }
-                                                    <VisuallyHiddenInput type="file" onChange={(e) => handleFileUpload(e, 'iot_hub_certificate')}/>
+                                                    icon={certificatesAreRequired ? "fa-solid fa-minus" : "fa-solid fa-plus"}
+                                                    style={{ textTransform: 'none', width: "100%"}}
+                                                    onClick={() => setCertificatesAreRequired(!certificatesAreRequired) }>
+                                                        <Translate content="dashboard.function.inputs.callbacks.certificatesRequiredQuestion" />
                                                 </LoadingButton>
                                             </Col>
-                                            <Col md="4" style={{ marginTop: "25px"}}>
-                                                <LoadingButton
-                                                    variant="contained"
-                                                    component="label"
-                                                    color="secondary"
-                                                    icon={isEmpty(certificates.device_certificate) ? "fa-solid fa-file-upload" : "fa-solid fa-check"}
-                                                    style={{width: "100%"}}>
-                                                    {
-                                                        isEmpty(certificates.device_certificate)
-                                                        ? <Translate content="dashboard.function.inputs.callbacks.callbackDeviceCertificate" />
-                                                        : <Translate content="common.state.uploaded" />
-                                                    }
-                                                    <VisuallyHiddenInput type="file" onChange={(e) => handleFileUpload(e, 'device_certificate')}/>
-                                                </LoadingButton>
-                                            </Col>
-                                            <Col md="4" style={{ marginTop: "25px"}}>
-                                                <LoadingButton
-                                                    variant="contained"
-                                                    component="label"
-                                                    color="secondary"
-                                                    icon={isEmpty(certificates.device_key_certificate) ? "fa-solid fa-file-upload" : "fa-solid fa-check"}
-                                                    style={{width: "100%"}}>
-                                                    {
-                                                        isEmpty(certificates.device_key_certificate) 
-                                                        ? <Translate content="dashboard.function.inputs.callbacks.callbackDeviceKeyCertificate" />
-                                                        : <Translate content="common.state.uploaded" />
-                                                    }
-                                                    <VisuallyHiddenInput type="file" onChange={(e) => handleFileUpload(e, 'device_key_certificate')}/>
-                                                </LoadingButton>
-                                            </Col>
+                                            <Collapse isOpen={certificatesAreRequired} toggle={() => setCertificatesAreRequired(!certificatesAreRequired)}>
+                                                <Row>
+                                                    <Col md="4" style={{ marginTop: "25px"}}>
+                                                        <LoadingButton
+                                                            variant="contained"
+                                                            component="label"
+                                                            color="secondary"
+                                                            icon={isEmpty(certificates.iot_hub_certificate) ? "fa-solid fa-file-upload" : "fa-solid fa-check"}
+                                                            style={{width: "100%"}}>
+                                                            {
+                                                                isEmpty(certificates.iot_hub_certificate) 
+                                                                ? <Translate content="dashboard.function.inputs.callbacks.callbackIotHubCertificate" />
+                                                                : <Translate content="common.state.uploaded" />
+                                                            }
+                                                            <VisuallyHiddenInput type="file" onChange={(e) => handleFileUpload(e, 'iot_hub_certificate')}/>
+                                                        </LoadingButton>
+                                                    </Col>
+                                                    <Col md="4" style={{ marginTop: "25px"}}>
+                                                        <LoadingButton
+                                                            variant="contained"
+                                                            component="label"
+                                                            color="secondary"
+                                                            icon={isEmpty(certificates.device_certificate) ? "fa-solid fa-file-upload" : "fa-solid fa-check"}
+                                                            style={{width: "100%"}}>
+                                                            {
+                                                                isEmpty(certificates.device_certificate)
+                                                                ? <Translate content="dashboard.function.inputs.callbacks.callbackDeviceCertificate" />
+                                                                : <Translate content="common.state.uploaded" />
+                                                            }
+                                                            <VisuallyHiddenInput type="file" onChange={(e) => handleFileUpload(e, 'device_certificate')}/>
+                                                        </LoadingButton>
+                                                    </Col>
+                                                    <Col md="4" style={{ marginTop: "25px"}}>
+                                                        <LoadingButton
+                                                            variant="contained"
+                                                            component="label"
+                                                            color="secondary"
+                                                            icon={isEmpty(certificates.device_key_certificate) ? "fa-solid fa-file-upload" : "fa-solid fa-check"}
+                                                            style={{width: "100%"}}>
+                                                            {
+                                                                isEmpty(certificates.device_key_certificate) 
+                                                                ? <Translate content="dashboard.function.inputs.callbacks.callbackDeviceKeyCertificate" />
+                                                                : <Translate content="common.state.uploaded" />
+                                                            }
+                                                            <VisuallyHiddenInput type="file" onChange={(e) => handleFileUpload(e, 'device_key_certificate')}/>
+                                                        </LoadingButton>
+                                                    </Col>
+                                                </Row>
+                                            </Collapse>
                                         </Row>
                                     </Collapse>
-                                </Row>
-                            </Collapse>
+                                </>
+                            }
                         </>
                     }
                 </Row>
