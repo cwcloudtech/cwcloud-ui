@@ -31,7 +31,7 @@ const AdminVouchersPage = (props) => {
     const [loading, setLoading] = useState(true)
     const [multiSelection, setMultiSelection] = useState(false)
     const [isActiveVoucher, setIsActiveVoucher] = useState(true)
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT
+    const priceUnit = process.env.REACT_APP_PRICE_UNIT === null ? "" : process.env.REACT_APP_PRICE_UNIT;
 
     const navigate = useNavigate()
 
@@ -40,8 +40,8 @@ const AdminVouchersPage = (props) => {
         { field: 'created_at', headerName: counterpart("dashboard.adminVouchersPage.table.created"), width: 200, renderCell: (params) => (formateDate(params.row.created_at)) },
         { field: 'code', headerName: counterpart("dashboard.adminVouchersPage.table.code"), width: 200 },
         { field: 'user_id', headerName: counterpart("dashboard.adminVouchersPage.table.user"), width: 100 },
-        { field: 'price', headerName: counterpart("dashboard.adminVouchersPage.table.price"), width: 100, renderCell: (params) => <span>{`${params.row.price} ${priceUnit}`}</span> },
-        { field: 'credit', headerName: counterpart("dashboard.adminVouchersPage.table.credit"), width: 100, renderCell: (params) => <span>{`${params.row.user_id === 0 ? '-' : ` ${params.row.credit} ${priceUnit}`}`}</span> },
+        { field: 'price', headerName: counterpart("dashboard.adminVouchersPage.table.price"), width: 100, renderCell: (params) => <span>{`${params.row.price === null ? "" : params.row.price } ${priceUnit}`}</span> },
+        { field: 'credit', headerName: counterpart("dashboard.adminVouchersPage.table.credit"), width: 100, renderCell: (params) => <span>{`${params.row.user_id === 0 ? '-' : ` ${params.row.credit === null ? "" : params.row.credit } ${priceUnit}`}`}</span> },
         { field: 'validity', headerName: counterpart("dashboard.adminVouchersPage.table.validity"), width: 100, renderCell: (params) => <span>{`${params.row.validity} Days`}</span> },
         {
             field: 'action', headerName: counterpart("dashboard.adminVouchersPage.table.actions"), width: 100, renderCell: (params) => {

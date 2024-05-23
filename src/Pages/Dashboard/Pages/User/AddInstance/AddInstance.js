@@ -20,6 +20,7 @@ import MiniCardComponent from "../../../../../Components/Cards/MiniCardComponent
 import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
 import DropdownComponent from "../../../../../Components/Dropdown/Dropdown";
 import DropdownComponentWithoutId from "../../../../../Components/Dropdown/DropdownWithoutItemId";
+import { getPriceWithUnit } from "../../../../../utils/common";
 
 function AddInstance(props) {
     const context = useContext(GlobalContext);
@@ -40,7 +41,6 @@ function AddInstance(props) {
     const [serviceNotAvailable, setServiceNotAvailable] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT
 
     useEffect(() => {
         context.setIsGlobal(false)
@@ -168,7 +168,7 @@ function AddInstance(props) {
                     {prices.map(price =>
                         <MiniCardComponent
                             instancetitle={price.name}
-                            value={priceUnit + ' ' + price.price}
+                            value={getPriceWithUnit(price)}
                             key={price.name}
                             checked={instanceInfo.type === price.name}
                             onClick={() => setInstanceInfo({ ...instanceInfo, type: price.name })} />

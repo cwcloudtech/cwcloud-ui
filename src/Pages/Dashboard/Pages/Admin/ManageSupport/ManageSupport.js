@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from '../../../../../utils/axios';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
@@ -18,7 +18,8 @@ import { Add } from '@mui/icons-material';
 import { TextField } from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-
+import CustomEditIcon from '../../../../../Components/CustomIcon/CustomEditIcon';
+import TicketModal from '../../../../../Components/Modal/TicketModal';
 
 function ManageSupport() {
     const context = useContext(GlobalContext);
@@ -32,7 +33,9 @@ function ManageSupport() {
     const [loadingDelete, setLoadingDelete] = useState(false)
     const [closedTickets, setClosedTickets] = useState(false)
     const [loadingSubmit, setLoadingSubmit] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [showAddTicketModal, setShowAddTicketModal] = useState(false)
+    const [showTicketModal, setShowTicketModal] = useState(false)
     const [environments, setEnvironments] = useState([])
     const [users, setUsers] = useState([])
 
@@ -54,7 +57,7 @@ function ManageSupport() {
     useEffect(() => {
         fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showConfirmDeleteModal])
+    }, [showConfirmDeleteModal, showAddTicketModal, showTicketModal])
 
     useEffect(() => {
         if (!tickets)
@@ -105,23 +108,47 @@ function ManageSupport() {
         },
         {
             field: 'action', headerName: context.counterpart("dashboard.projectsPage.table.actions"), width: 200, renderCell: (params) => {
-                const onClick = (e) => {
+                const onDelete = (e) => {
                     e.stopPropagation();
                     onPreDeleteHandler(params.id)
                 };
-                return <CustomDeleteIcon onClick={onClick} />
+                const onUpdate = (e) => {
+                    e.stopPropagation();
+                    onPreUpdateHandler(params.id)
+                };
+                return (
+                    <React.Fragment>
+                        <CustomDeleteIcon onClick={onDelete} />
+                        <CustomEditIcon onClick={onUpdate} />
+                    </React.Fragment>
+                )
             }
         }
-
-
     ];
-
+    const onPreUpdateHandler = (ticketId) => {
+        const ticketIndex = tickets.findIndex(p => p.id === ticketId)
+        setSelectedTicket(tickets[ticketIndex])
+        setShowTicketModal(true)
+    }
+    const onUpdateHandler = (ticket) => {
+        setLoading(true)
+        var body = {
+            severity: ticket.severity,
+            product: ticket.selected_product,
+            subject: ticket.subject,
+            message: ticket.message
+        }
+        axios.patch(`/admin/support/${ticket.id}`, body)
+            .then(res => {
+                setLoading(false)
+                setShowTicketModal(false)
+            })
+    }
     const onPreDeleteHandler = (ticketId) => {
         const ticketIndex = tickets.findIndex(p => p.id === ticketId)
         setSelectedTicket(tickets[ticketIndex])
         setShowConfirmDeleteModal(true)
     }
-
     const onDeleteHandler = () => {
         setLoadingDelete(true)
         axios.delete(`/admin/support/${selectedTicket.id}`).then(response => {
@@ -136,13 +163,11 @@ function ManageSupport() {
 
         })
     }
-
     const preDeleteSelectionHandler = (selectedItems) => {
         setMultiSelection(true)
         setShowConfirmDeleteModal(true)
         setSelectedDeletionItems(selectedItems)
     }
-
     const onDeleteSelectionHandler = async () => {
         setLoadingDelete(true)
         new Promise((r, j) => {
@@ -169,7 +194,6 @@ function ManageSupport() {
                 setShowConfirmDeleteModal(false)
             })
     }
-
     const addTicketHandler = async (ticket) => {
         setLoadingSubmit(true)
         axios.post('/admin/support', ticket)
@@ -179,7 +203,6 @@ function ManageSupport() {
                 setShowAddTicketModal(false)
             })
     }
-
     const filtreTickets = (e) => {
         const searchQuery = e.target.value
         if (searchQuery === "") {
@@ -196,7 +219,6 @@ function ManageSupport() {
             setFilteredTickets(filtered)
         }
     }
-
     return (
         <Container fluid className={classes.container} style={{ padding: "0px 20px 20px 20px" }} >
             <DeleteModal resourceName={'ticket'}
@@ -208,13 +230,9 @@ function ManageSupport() {
                 name={selectedTicket?.id.toString()}
                 loading={loadingDelete} />
             <AddTicketModal isAdmin={true} isOpen={showAddTicketModal} envs={environments} users={users} toggle={() => setShowAddTicketModal(!showAddTicketModal)} onSave={addTicketHandler} loading={loadingSubmit} />
-            <Row style={{ marginTop: '10px', }}>
-                <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                    <LoadingButton style={{ width: '35px' }} onClick={() => setShowAddTicketModal(true)}>
-                        <Add />
-                    </LoadingButton>
-                </Col>
-            </Row>
+            {
+                selectedTicket && <TicketModal isOpen={showTicketModal} ticket={selectedTicket} nvs={environments} users={users} onUpdate={onUpdateHandler} loading={loading} toggle={() => setShowTicketModal(!showTicketModal)} />
+            }
             <Row style={{ marginTop: '10px', marginBottom: '20px' }}>
                 <Col>
                     <h1 className={classes.mainTitleText} style={{color: colors.mainText[_mode]}}>
@@ -223,24 +241,31 @@ function ManageSupport() {
                 </Col>
             </Row>
             <Row>
-                <div style={{width: "fit-content"}}>
-                    <div className="toggleContainer" style={{ backgroundColor: colors.secondBackground[_mode], border: "1px solid "+colors.border[_mode], color: colors.mainText[_mode] }}>
-                        <div
-                            className={!closedTickets? "activeToggleItemContainer": "toggleItemContainer"}
-                            onClick={() => setClosedTickets(false)}>
-                            <h5 className="toggleItemText">
-                                <Translate content="dashboard.support.openedTickets" />
-                            </h5>
-                        </div>
-                        <div
-                            className={closedTickets? "activeToggleItemContainer": "toggleItemContainer"}
-                            onClick={() => setClosedTickets(true)}>
-                            <h5 className="toggleItemText">
-                                <Translate content="dashboard.support.closedTickets" />
-                            </h5>
+                <Col>
+                    <div style={{width: "fit-content"}}>
+                        <div className="toggleContainer" style={{ backgroundColor: colors.secondBackground[_mode], border: "1px solid "+colors.border[_mode], color: colors.mainText[_mode] }}>
+                            <div
+                                className={!closedTickets? "activeToggleItemContainer": "toggleItemContainer"}
+                                onClick={() => setClosedTickets(false)}>
+                                <h5 className="toggleItemText">
+                                    <Translate content="dashboard.support.openedTickets" />
+                                </h5>
+                            </div>
+                            <div
+                                className={closedTickets? "activeToggleItemContainer": "toggleItemContainer"}
+                                onClick={() => setClosedTickets(true)}>
+                                <h5 className="toggleItemText">
+                                    <Translate content="dashboard.support.closedTickets" />
+                                </h5>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Col>
+                <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <LoadingButton style={{ width: '35px' }} onClick={() => setShowAddTicketModal(true)}>
+                        <Add />
+                    </LoadingButton>
+                </Col>
             </Row>
             <Row style={{ marginTop: '20px' }}>
             <Col>

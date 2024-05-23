@@ -20,6 +20,7 @@ import SuggestionsAutoComplete from "../../../../../Components/SuggestionsAutoCo
 import DropdownComponent from "../../../../../Components/Dropdown/Dropdown";
 import DropdownComponentWithoutId from "../../../../../Components/Dropdown/DropdownWithoutItemId";
 import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
+import { getPriceWithUnit } from "../../../../../utils/common";
 
 function AdminAddInstance(props) {
     const context = useContext(GlobalContext);
@@ -40,7 +41,6 @@ function AdminAddInstance(props) {
     const [zone, setZone] = useState(null)
     const [instancesTypesAvailability, setInstancesTypesAvailability] = useState([])
     const [serviceNotAvailable, setServiceNotAvailable] = useState(false)
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT
 
     const navigate = useNavigate()
 
@@ -191,7 +191,7 @@ function AdminAddInstance(props) {
                     {prices.map(price =>
                         <MiniCardComponent
                             instancetitle={price.name}
-                            value={priceUnit + ' ' + price.price}
+                            value={getPriceWithUnit(price)}
                             key={price.name}
                             checked={instanceInfo.type === price.name}
                             onClick={() => setInstanceInfo({ ...instanceInfo, type: price.name })} />

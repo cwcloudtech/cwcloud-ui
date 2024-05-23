@@ -5,7 +5,7 @@ import { Tooltip } from '@mui/material';
 import counterpart from 'counterpart';
 
 const CustomDeleteIcon = (props) => {
-    return <Tooltip title={counterpart("common.button.delete")} placement='right'>
+    return <Tooltip title={counterpart("common.button.delete")} placement='bottom'>
         <DeleteIcon className={classes.deleteIcon + ' deleteBtn'} onClick={props.onClick} />
     </Tooltip>
     

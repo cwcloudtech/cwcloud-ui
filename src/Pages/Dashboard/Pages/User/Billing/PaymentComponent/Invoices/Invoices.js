@@ -28,7 +28,7 @@ function Invoices(props) {
     const [selectedInvoiceRef, setSelectedInvoiceRef] = useState(null)
     const [loadingDownload, setLoadingDownload] = useState(null)
     const [loadingDownloadReceipt, setLoadingDownloadReceipt] = useState(null)
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT
+    const priceUnit = process.env.REACT_APP_PRICE_UNIT === null ? "" : process.env.REACT_APP_PRICE_UNIT;
 
     const columns = [
         { field: 'ref', headerName: counterpart("dashboard.invoicesPage.table.reference"), width: 150 },
@@ -58,7 +58,7 @@ function Invoices(props) {
                 )
             }
         },
-        { field: 'total_price', headerName: counterpart("dashboard.invoicesPage.table.totalPrice"), width: 100, renderCell: (params) => (`${params.row.total_price} ${priceUnit}`) },
+        { field: 'total_price', headerName: counterpart("dashboard.invoicesPage.table.totalPrice"), width: 100, renderCell: (params) => (`${params.row.total_price === null ? "" : params.row.total_price} ${priceUnit}`) },
         {
             field: 'download', headerName: counterpart("dashboard.invoicesPage.table.download"), width: 100, renderCell: (params) => {
                 const onClick = (e) => {

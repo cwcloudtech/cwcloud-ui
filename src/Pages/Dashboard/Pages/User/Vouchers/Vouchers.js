@@ -23,12 +23,12 @@ const Vouchers = (props) => {
     const [loading, setLoading] = useState(false)
     const [showAddVoucherModal, setShowAddVoucherModal] = useState(false)
     const navigate = useNavigate()
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT
+    const priceUnit = process.env.REACT_APP_PRICE_UNIT === null ? "" : process.env.REACT_APP_PRICE_UNIT;
     const columns = [
         { field: 'id', headerName: counterpart("dashboard.adminVouchersPage.table.id"), width: 200, renderCell: (params) => (<Link to={`/admin/instance/${params.id}`}>{params.id}</Link>) },
         { field: 'created_at', headerName: counterpart("dashboard.adminVouchersPage.table.created"), width: 200, renderCell: (params) => (formateDate(params.row.created_at)) },
         { field: 'code', headerName: counterpart("dashboard.adminVouchersPage.table.code"), width: 200 },
-        { field: 'credit', headerName: counterpart("dashboard.adminVouchersPage.table.price"), width: 100, renderCell: (params) => <span>{`${params.row.credit} ${priceUnit}`}</span> },
+        { field: 'credit', headerName: counterpart("dashboard.adminVouchersPage.table.price"), width: 100, renderCell: (params) => <span>{`${params.row.credit === null ? params.row.credit : params.row.credit} ${priceUnit}`}</span> },
         { field: 'validity', headerName: counterpart("dashboard.adminVouchersPage.table.validity"), width: 100, renderCell: (params) => <span>{`${params.row.validity} Days`}</span> },
     ];
 

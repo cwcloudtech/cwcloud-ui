@@ -20,7 +20,7 @@ function AdminVoucherPage() {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
     const navigate = useNavigate();
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT;
+    const priceUnit = process.env.REACT_APP_PRICE_UNIT === null ? "" : process.env.REACT_APP_PRICE_UNIT;
 
     useEffect(() => {
         context.setIsGlobal(true)
@@ -111,13 +111,13 @@ function AdminVoucherPage() {
                         <Col xs="12" md="3" className={classes.row}>
                             <div className={classes.colinline}>
                                 <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.adminVouchersPage.table.price" />: </h5>
-                                <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{!loading ? `${voucher.price} ${priceUnit}` : <Skeleton width={100} />}</h6>
+                                <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{!loading ? `${voucher.price === null ? "" : voucher.price } ${priceUnit}` : <Skeleton width={100} />}</h6>
                             </div>
                         </Col>
                         {!loading && voucher.user_id !== 0 && <Col xs="12" md="3" className={classes.row}>
                             <div className={classes.colinline}>
                                 <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.adminVouchersPage.table.credit" />: </h5>
-                                <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{!loading ? `${voucher.credit} ${priceUnit}` : <Skeleton width={100} />}</h6>
+                                <h6 className={classes.colInlineValue} style={{color: colors.smallTitle[_mode]}}>{!loading ? `${voucher.credit === null ? "" : voucher.credit } ${priceUnit}` : <Skeleton width={100} />}</h6>
                             </div>
                         </Col>}
                     </Row>

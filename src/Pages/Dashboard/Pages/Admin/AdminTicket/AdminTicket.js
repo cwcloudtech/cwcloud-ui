@@ -11,8 +11,9 @@ import TicketReply from '../../../../../Components/TicketReply/TicketReply';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 import Translate from 'react-translate-component';
 import formateDate from '../../../../../utils/FormateDate';
-import { isBlank } from '../../../../../utils/common';
+import { isBlank, sortObjectsByDate } from '../../../../../utils/common';
 import { BarLoader } from 'react-spinners';
+import TicketDescription from '../../../../../Components/TicketReply/TicketDescription';
 
 function AdminTicket() {
     const context = useContext(GlobalContext)
@@ -20,6 +21,7 @@ function AdminTicket() {
     const { ticketId } = useParams()
     const [ticket, setTicket] = useState(null)
     const [loadingReply, setLoadingReply] = useState(false)
+    const [replies, setReplies] = useState([])
     const [replyMessage, setReplyMessage] = useState('')
     const [replyStatus, setReplyStatus] = useState('await customer')
 
@@ -28,6 +30,8 @@ function AdminTicket() {
         axios.get(`/admin/support/${ticketId}`)
             .then(res => {
                 setTicket(res.data)
+                var replies = sortObjectsByDate(res.data.replies)
+                setReplies(replies)
             })
     }, [context, ticketId, loadingReply])
     const getStatusIcon = () => {
@@ -93,12 +97,12 @@ function AdminTicket() {
                     </h5>
                 </Col>
             </Row>
+            <TicketDescription reply={{ ...ticket, change_date: ticket.created_at }} />
             <hr style={{ width: '100%', border: '1px solid #E5E5E5' }} />
             <Row style={{ marginTop: '30px', marginBottom: '30px' }}>
                 <Col>
-                    <TicketReply key={'first1'} reply={{ ...ticket, change_date: ticket.created_at }} />
-                    {ticket.replies?.map(reply => (
-                        <TicketReply key={reply.id} reply={reply} />
+                    {replies?.map(reply => (
+                        <TicketReply ticket_id={ticket.id} key={reply.id} reply={reply} />
                     ))}
                     {
                         loadingReply &&

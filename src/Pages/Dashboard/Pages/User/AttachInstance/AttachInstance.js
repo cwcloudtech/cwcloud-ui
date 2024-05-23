@@ -11,6 +11,7 @@ import Translate from 'react-translate-component';
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 import colors from "../../../../../Context/Colors";
 import MiniCardComponent from "../../../../../Components/Cards/MiniCardComponent/MiniCardComponent";
+import { getPriceWithUnit } from "../../../../../utils/common";
 
 function AttachInstance(props) {
     const [instanceInfo, setInstanceInfo] = useState({ type: "" })
@@ -22,7 +23,6 @@ function AttachInstance(props) {
     const [zone, setZone] = useState(null)
     const { projectId } = useParams()
     const navigate = useNavigate()
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT
 
     useEffect(() => {
         context.setIsGlobal(false)
@@ -128,7 +128,7 @@ function AttachInstance(props) {
                     {prices.map(price =>
                         <MiniCardComponent
                             instancetitle={price.name}
-                            value={priceUnit + ' ' + price.price}
+                            value={getPriceWithUnit(price)}
                             key={price.name}
                             checked={instanceInfo.type === price.name}
                             onClick={() => setInstanceInfo({ ...instanceInfo, type: price.name })} />

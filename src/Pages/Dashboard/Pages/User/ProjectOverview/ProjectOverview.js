@@ -202,7 +202,7 @@ function ProjectOverview() {
                                 <LoadingButton
                                     color="warning"
                                     onClick={() => navigate(`/instances/attach/${project.id}`)}
-                                    style={{ width: '300px', height: '40px', marginLeft: '10px', marginTop: "20px"}}>
+                                    style={{ width: '200px', height: '40px', marginLeft: '10px', marginTop: "20px"}}>
                                     <Translate content="dashboard.projectOverview.buttons.attachInstance" />
                                 </LoadingButton>
                             </Col>

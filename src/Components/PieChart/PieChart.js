@@ -11,7 +11,7 @@ const PieChart = (props) => {
     const { options } = configs();
     const context = useContext(GlobalContext);
     const _mode = context.mode;
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT;
+    const priceUnit = process.env.REACT_APP_PRICE_UNIT === null ? " " : process.env.REACT_APP_PRICE_UNIT;
     options.plugins.legend.labels.color = colors.secondText[_mode];
     
     return (
@@ -24,7 +24,7 @@ const PieChart = (props) => {
             <Row>
                 <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div>
-                        <h5 className={classes.TotalConsumptionsText} style={{color: colors.title[_mode]}}>{`Total: ${props.totalConsumptions} ${priceUnit}`}</h5>
+                        <h5 className={classes.TotalConsumptionsText} style={{color: colors.title[_mode]}}>{`Total: ${props.totalConsumptions === null ? "" : props.totalConsumptions} ${priceUnit}`}</h5>
                     </div>
                 </Col>
                 {!props.loading ?

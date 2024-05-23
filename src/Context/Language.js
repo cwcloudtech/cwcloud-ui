@@ -189,6 +189,20 @@ export const englishLanguage = {
         "decoding_function_id_not_found": "The decoding function id is not found",
         "trigger_id_invalid": "The trigger id is invalid",
         "trigger_not_found": "The trigger id is not found",
+        "invalid_email": "The username (email) is invalid",
+        "device_created": "Device successfully created",
+        "decoding_function_key_should_be_named_data": "The decoding function key should be named 'data'",
+        "decoding_function_has_more_than_one_argument": "The decoding function has more than one argument",
+        "decoding_function_data_argument_not_found": "The decoding function 'data' argument is not found",
+        "support_ticket_updated_successfully": "Support ticket updated successfully",
+        "support_ticket_updated_failed": "Support ticket updated failed",
+        "reply_not_found": "Reply not found",
+        "user_not_allowed_to_update_reply": "User not allowed to update reply",
+        "support_ticket_reply_deleted_successfully": "Support ticket reply deleted successfully",
+        "support_ticket_reply_deleted_failed": "Support ticket reply deleted failed",
+        "gitlab_url_not_available": "Gitlab url not available",
+        "can_not_delete_instance_protected": "Can not delete a protected instance",
+        "can_not_reboot_instance_protected": "Can not reboot a protected instance",
     },
     common: {
         ok: "OK",
@@ -203,7 +217,8 @@ export const englishLanguage = {
             return: "Return",
             send: "Send",
             generate: "Generate",
-            edition: "Edit",
+            edition: "Edition",
+            edit: "Edit",
             preview: "Preview",
             download: "Download",
             upload: "Upload",
@@ -225,6 +240,7 @@ export const englishLanguage = {
         state: {
             copied: "Copied",
             uploaded: "Uploaded",
+            edited: "Edited",
         },
         fields: {
             userEmail: "User email",
@@ -315,7 +331,8 @@ export const englishLanguage = {
     confirm: {
         messageSent: "The confirmation email has been sent with success",
         inputEmail: "Enter your email",
-        successMessage: "User successfully confirmed"
+        successMessage: "User successfully confirmed",
+        successConfirmDeviceMessage: "Device successfully confirmed",
     },
     cookies: {
         why: "This website uses cookies to ensure you get the best experience.",
@@ -476,7 +493,10 @@ export const englishLanguage = {
         iot: {
             title: "IoT",
             overview: "Overview",
+            devices: "Devices",
             addObjectType: "Add object type",
+            addDevice: "Add device",
+            addData: "Add data",
         }
     },
     dashboard: {
@@ -509,6 +529,15 @@ export const englishLanguage = {
                 message: "Are you sure you want to Reboot your instance",
                 button: "Reboot"
             },
+            protectionModal: {
+                title: "Instance protection",
+                protectMessage: "Are you sure you want to protect",
+                unprotectMessage: "Are you sure you want to unprotect",
+                buttons: {
+                    protect: "Protect",
+                    unprotect: "Unprotect"
+                }
+            },
             delete: {
                 resource: "Are you sure you want to delete your",
                 all: "Are you sure you want to delete all selected resources?"
@@ -523,8 +552,16 @@ export const englishLanguage = {
             run: "Run",
             schedule: "Schedule",
             function: "Function",
+            objectType: "Object type",
+            device: "Device",
             args: "Args",
-            owner: "Owner"
+            owner: "Owner",
+            state: "State",
+            visibility: "Visibility",
+            public: "Public",
+            private: "Private",
+            active: "Active",
+            inactive: "Inactive",
         },
         userDashboard: {
             resourceOverview: {
@@ -814,11 +851,23 @@ export const englishLanguage = {
             objectTypesOverview: {
                 mainTitle: "Object types",
             },
+            devicesOverview: {
+                mainTitle: "Devices",
+            },
             addObjectType: {
                 mainTitle: "Create new object type",
             },
             updateObjectType: {
                 mainTitle: "Update object type",
+            },
+            addDevice: {
+                mainTitle: "Create new device",
+            },
+            addData: {
+                mainTitle: "Add data",
+            },
+            importObjectType: {
+                mainTitle: "Import object type",
             },
             state: {
                 graphicMode: {
@@ -830,17 +879,33 @@ export const englishLanguage = {
             },
             message: {
                 createObjectTypeMessage: "Create your first object type",
+                createDeviceMessage: "Create your first device",
                 objectTypeEmptyMessage: "No object types available",
+                deviceEmptyMessage: "No devices available",
                 successAddObjectType: "Object type successfully created",
                 successCopyObjectTypeId: "Object type id copied with success",
                 successDeleteObjectType: "Object type successfully deleted",
                 successDeleteObjectTypes: "Object types successfully deleted",
                 successUpdateObjectType: "Object type successfully updated",
+                successAddDevice: "Device successfully created",
+                successCopyDeviceId: "Device id copied with success",
+                successDeleteDevice: "Device successfully deleted",
+                successAddData: "Data successfully added",
+                successImportObjectType: "Object type successfully imported",
+                successExportObjectType: "Object type successfully exported",
+                confirmationEmailSent: "A confirmation email has been sent to the device owner (username address) to activate the device",
                 errorDeleteObjectType: "An error occured while deleting the object type",
                 errorUpdateObjectType: "An error occured while updating the object type",
+                errorDeleteDevice: "An error occured while deleting the device",
+                errorImportObjectType: "An error occured while importing the object type",
+                errorExportObjectType: "An error occured while exporting the object type",
             },
             inputs: {
                 is_public: "Public",
+                name: {
+                    title: "Name",
+                    placeholder: "Put the object type name"
+                },
                 decodingFunction: {
                     title: "Decoding function",
                     placeholder: "Put the serverless function id"
@@ -859,12 +924,24 @@ export const englishLanguage = {
                     title: "Owner email",
                     placeholder: "Put the owner email"
                 },
+                objectTypeId: {
+                    title: "Object type id",
+                    placeholder: "Put the object type id"
+                },
+                username: {
+                    title: "Username",
+                    placeholder: "Put the the owner email"
+                }
             },
             table: {
+                name: "Name",
                 decodingFunctionId: "Decoding function id",
+                objectTypeId: "Object type id",
             },
             actions: {
-                copyObjectTypeId: "Copy object type id"
+                copyObjectTypeId: "Copy object type id",
+                copyDeviceId: "Copy device id",
+                pairDevice: "Pair device",
             }
         },
         environmentOverview: {
@@ -1220,10 +1297,13 @@ export const englishLanguage = {
                 powerOn: "Power on instance",
                 powerOff: "Power off instance",
                 successRefresh: "Instance state successfully refreshed",
+                protect: "Protect instance",
+                unprotect: "Unprotect instance"
             },
             message: {
                 successDelete: "Instance successfully deleted",
-                successUpdate: "Instance successfully updated"
+                successUpdate: "Instance successfully updated",
+                successRefresh: "Instance state successfully refreshed"
             }
         },
         registryOverview: {
@@ -1300,6 +1380,8 @@ export const englishLanguage = {
         },
         support: {
             addNewTicket: "Open a new support ticket",
+            editTicket: "Edit ticket",
+            editTicketReply: "Edit ticket reply",
             selectedProduct: "Selected Product",
             selectProduct: "Select Product",
             severityText: "Severity",
@@ -1330,6 +1412,9 @@ export const englishLanguage = {
                 selected_product: "Product",
                 last_update: "Last update",
             },
+            message: {
+                message_deleted: "This message has been deleted",
+            }
         },
         adminVouchersPage: {
             title: "Vouchers",
@@ -1375,7 +1460,12 @@ export const englishLanguage = {
                 size: "Size",
                 status: "Status",
                 created: "Created",
-                actions: "Actions"
+                actions: "Actions",
+                protection: "Protection",
+                states: {
+                    protected: "Protected",
+                    unprotected: "Unprotected"
+                },
             },
             message: {
                 successMultiDelete: "Registries successfully deleted"
@@ -2267,6 +2357,20 @@ export const frenchLanguage = {
         "decoding_function_id_not_found": "L'id de la fonction de décodage est introuvable",
         "trigger_id_invalid": "L'id du trigger est invalide",
         "trigger_not_found": "Le trigger est introuvable",
+        "invalid_email": "Nom d'utilisateur (Email) invalide",
+        "device_created": "Device créé avec succès",
+        "decoding_function_key_should_be_named_data": "La clef de l'argument de la fonction de décodage doit être nommée 'data'",
+        "decoding_function_has_more_than_one_argument": "La fonction de décodage a plus d'un argument",
+        "decoding_function_data_argument_not_found": "L'argument 'data' n'a pas été trouvé dans la fonction de décodage",
+        "support_ticket_updated_successfully": "Ticket de support mis à jour avec succès",
+        "support_ticket_updated_failed": "Mise à jour du ticket de support échouée",
+        "reply_not_found": "Réponse introuvable",
+        "user_not_allowed_to_update_reply": "L'utilisateur n'est pas autorisé à mettre à jour la réponse",
+        "support_ticket_reply_deleted_successfully": "Réponse au ticket de support supprimée avec succès",
+        "support_ticket_reply_deleted_failed": "La suppression de la réponse au ticket de support a échoué",
+        "can_not_delete_instance_protected": "Impossible de supprimer un instance protégée",
+        "can_not_reboot_instance_protected": "Impossible de redémarrer un instance protégée",
+        "gitlab_url_not_available": "L'url de gitlab n'est pas disponible",
     },
     common: {
         ok: "OK",
@@ -2280,6 +2384,7 @@ export const frenchLanguage = {
             search: "Rechercher",
             generate: "Générer",
             edition: "Edition",
+            edit: "Editer",
             return: "Retour",
             send: "Envoyer",
             download: "Télécharger",
@@ -2302,6 +2407,7 @@ export const frenchLanguage = {
         state: {
             copied: "Copié",
             uploaded: "Uploadé",
+            edited: "Edité",
         },
         fields: {
             userEmail: "Email de l'utilisateur",
@@ -2392,7 +2498,8 @@ export const frenchLanguage = {
     confirm: {
         messageSent: "L'email de confirmation a été envoyé avec succès",
         inputEmail: "Tapez votre email",
-        successMessage: "Utilisateur confirmé avec succès"
+        successMessage: "Utilisateur confirmé avec succès",
+        successConfirmDeviceMessage: "Device confirmé avec succès",
     },
     cookies: {
         why: "Ce site web utilise des cookies pour assurer la meilleure expérience utilisateur possible.",
@@ -2553,7 +2660,10 @@ export const frenchLanguage = {
         iot: {
             title: "IoT",
             overview: "Aperçu",
+            devices: "Devices",
             addObjectType: "Ajouter un type d'objet",
+            addDevice: "Ajouter un device",
+            addData: "Ajouter des données",
         }
     },
     dashboard: {
@@ -2586,6 +2696,15 @@ export const frenchLanguage = {
                 message: "Êtes-vous sûr de vouloir redémarrer votre instance",
                 button: "Redémarrer"
             },
+            protectionModal: {
+                title: "Protection de l'instance",
+                protectMessage: "Êtes-vous sûr de vouloir protéger votre instance",
+                unprotectMessage: "Êtes-vous sûr de vouloir déprotéger votre instance",
+                buttons: {
+                    protect: "Protéger",
+                    unprotect: "Déprotéger"
+                }
+            },
             delete: {
                 resource: "Êtes-vous sûr de vouloir supprimer votre",
                 all: "Êtes-vous sûr de vouloir supprimer toutes les ressources sélectionnées ?"
@@ -2600,8 +2719,16 @@ export const frenchLanguage = {
             run: "Lancer",
             schedule: "Programmer",
             function: "Fonction",
+            objectType: "Type d'objet",
+            device: "Device",
             args: "Arguments",
-            owner: "Propriétaire"
+            owner: "Propriétaire",
+            state: "Etat",
+            visibility: "Visibilité",
+            public: "Public",
+            private: "Privé",
+            active: "Actif",
+            inactive: "Inactif",
         },
         userDashboard: {
             resourceOverview: {
@@ -2890,11 +3017,23 @@ export const frenchLanguage = {
             objectTypesOverview: {
                 mainTitle: "Types d'objets",
             },
+            devicesOverview: {
+                mainTitle: "Devices",
+            },
             addObjectType: {
                 mainTitle: "Ajouter un type d'objet",
             },
             updateObjectType: {
                 mainTitle: "Mettre à jour le type d'objet",
+            },
+            addDevice: {
+                mainTitle: "Ajouter un nouveau device"
+            },
+            addData: {
+                mainTitle: "Ajouter des données",
+            },
+            importObjectType: {
+                mainTitle: "Importer un type d'objet"
             },
             state: {
                 graphicMode: {
@@ -2906,17 +3045,33 @@ export const frenchLanguage = {
             },
             message: {
                 createObjectTypeMessage: "Créer un type d'objet",
+                createDeviceMessage: "Créer un device",
                 objectTypeEmptyMessage: "Il n'y a pas encore de types d'objets",
+                deviceEmptyMessage: "Il n'y a pas encore de devices",
                 successAddObjectType: "Type d'objet ajouté avec succès",
                 successCopyObjectTypeId: "Id du type d'objet copié avec succès",
                 successDeleteObjectType: "Type d'objet supprimé avec succès",
                 successDeleteObjectTypes: "Types d'objets supprimés avec succès",
                 successUpdateObjectType: "Type d'objet mis à jour avec succès",
+                successAddDevice: "Device ajouté avec succès.",
+                successCopyDeviceId: "Id du device copié avec succès",
+                successDeleteDevice: "Device supprimé avec succès",
+                successAddData: "Données ajoutées avec succès",
+                successImportObjectType: "Type d'objet importé avec succès",
+                successExportObjectType: "Type d'objet exporté avec succès",
+                confirmationEmailSent: "Un email a été envoyé au propriétaire de device (adresse du nom d'utilisateur) pour activer le device",
                 errorDeleteObjectType: "An error occured while deleting the object type",
                 errorUpdateObjectType: "An error occured while updating the object type",
+                errorDeleteDevice: "An error occured while deleting the device",
+                errorImportObjectType: "An error occured while importing the object type",
+                errorExportObjectType: "An error occured while exporting the object type",
             },
             inputs: {
                 is_public: "Public",
+                name: {
+                    title: "Nom",
+                    placeholder: "Mettre le nom du type d'objet"
+                },
                 decodingFunction: {
                     title: "Fonction de décodage",
                     placeholder: "Mettre l'id de la fonction serverless"
@@ -2935,12 +3090,24 @@ export const frenchLanguage = {
                     title: "Email du propriétaire",
                     placeholder: "Mettre l'email du propriétaire"
                 },
+                objectTypeId: {
+                    title: "Type d'objet",
+                    placeholder: "Mettre l'id du type d'objet"
+                },
+                username: {
+                    title: "Nom d'utilisateur",
+                    placeholder: "Mettre le nom d'utilisateur"
+                }
             },
             table: {
+                name: "Nom",
                 decodingFunctionId: "Id de la fonction de décodage",
+                objectTypeId: "Id du type d'objet",
             },
             actions: {
-                copyObjectTypeId: "Copier l'id du type d'objet"
+                copyObjectTypeId: "Copier l'id du type d'objet",
+                copyDeviceId: "Copier l'id du device",
+                pairDevice: "Pairer un device",
             }
         },
         environmentOverview: {
@@ -3292,6 +3459,8 @@ export const frenchLanguage = {
                 refreshInProgress: "Rafraîchissement en cours",
                 powerOn: "Allumer l'instance",
                 powerOff: "Éteindre l'instance",
+                protect: "Protéger l'instance",
+                unprotect: "Déprotéger l'instance",
             },
             message: {
                 successDelete: "Instance supprimée avec succès",
@@ -3372,6 +3541,8 @@ export const frenchLanguage = {
         },
         support: {
             addNewTicket: "Ouvrir un nouveau ticket d'assistance",
+            editTicket: "Modifier le ticket",
+            editTicketReply: "Modifier la réponse du ticket",
             selectedProduct: "Produit sélectionné",
             selectProduct: "Sélectionner un produit",
             severityText: "Gravité",
@@ -3402,6 +3573,9 @@ export const frenchLanguage = {
                 selected_product: "Produit",
                 last_update: "Dernière modification",
             },
+            message: {
+                message_deleted: "Ce message a été supprimé",
+            }
         },
         adminVouchersPage: {
             title: "Vouchers",
@@ -3447,7 +3621,12 @@ export const frenchLanguage = {
                 size: "Taille",
                 status: "État",
                 created: "Créé",
-                actions: "Actions"
+                actions: "Actions",
+                protection: "Protection",
+                states: {
+                    protected: "Protégé",
+                    unprotected: "Non protégé"
+                }
             },
             message: {
                 successMultiDelete: "Registries supprimées avec succès"

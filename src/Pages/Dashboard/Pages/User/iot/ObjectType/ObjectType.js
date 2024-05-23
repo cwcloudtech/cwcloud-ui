@@ -8,6 +8,7 @@ import { NavLink, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { FormControlLabel, TextField } from '@mui/material';
 import EditorBox from '../../../../../../Components/EditorBox/EditorBox';
 import EditorModal from '../../../../../../Components/Modal/EditorModal';
+import { saveAs } from 'file-saver';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import IOSSwitch from '../../../../../../utils/iosswitch';
 import TriggersTable from '../../../../../../Components/Table/TriggersTable';
@@ -30,6 +31,7 @@ function ObjectType() {
     const is_admin = currentPath.includes("admin")
     const [loading, setLoading] = useState(false)
     const [loadingSubmit, setLoadingSubmit] = useState(false)
+    const [loadingExport, setLoadingExport] = useState(false)
     const [withEditor, setWithEditor] = useState(false)
     const [showEditorFullScreen, setShowEditorFullScreen] = useState(false)
     const [showAddNewTriggerModal, setShowAddNewTriggerModal] = useState(false)
@@ -40,6 +42,7 @@ function ObjectType() {
     const [triggerIndex, setTriggerIndex] = useState(0)
 
     const [isPublic, setIsPublic] = useState(false)
+    const [name, setName] = useState("")
     const [decodingFunction, setDecodingFunction] = useState("")
     const [triggers, setTriggers] = useState([])
     const [selectedUserEmail, setSelectedUserEmail] = useState("")
@@ -48,6 +51,7 @@ function ObjectType() {
     const [objectType, setObjectType] = useState({
         content: {
             "public": false,
+            "name": "",
             "decoding_function": "",
             "triggers": [],
         }
@@ -59,12 +63,12 @@ function ObjectType() {
                 ...prevState,
                 user_id: context.user.id
             }));
+            context.setIsGlobal(true)
+            axios.get("/admin/user/all")
+                .then(res => {
+                    setUsers(res.data.result) 
+                })
         }
-        context.setIsGlobal(true)
-        axios.get("/admin/user/all")
-            .then(res => {
-                setUsers(res.data.result) 
-            })
         setLoading(true)
         axios.get(`/iot/object-type/${id}`)
             .then(res => {
@@ -77,6 +81,7 @@ function ObjectType() {
                     delete result.user_id
                 } 
                 setObjectType(result)
+                setName(res.data.content.name)
                 setDecodingFunction(res.data.content.decoding_function)
                 setIsPublic(res.data.content.public)
                 setTriggers(res.data.content.triggers)
@@ -161,6 +166,27 @@ function ObjectType() {
         navigate(nextPath)
     }
 
+    const exportObjectTypeHandler = () => {
+        setLoadingExport(true)
+        axios.get(`/iot/object-type/${id}/export`)
+            .then(res => {
+                const byteCharacters = atob(res.data.blob.toString('base64'));
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const jsonBlob = new Blob([byteArray], { type: 'application/json' });
+                saveAs(jsonBlob, `${id}.json`);
+                toast.success(context.counterpart('dashboard.iot.message.successExportObjectType'))
+                setLoadingExport(false)
+            })
+            .catch(err => {
+                setLoadingExport(false)
+                toast.error(context.counterpart("dashboard.iot.message.errorExportObjectType"))
+            })
+    }
+
     if (loading)
         return <LoadingSpinner />
     else
@@ -188,6 +214,11 @@ function ObjectType() {
                                 is_admin &&
                                 <h4 className={classes.createdStyle} style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.table.updatedAt" /> : {formateDate(lastUpdate)}</h4>
                             }
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+                            <LoadingButton loading={loadingExport} onClick={exportObjectTypeHandler}>Export</LoadingButton>
                         </Col>
                     </Row>
                     <Row style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "20px", marginTop: "10px" }}>
@@ -218,6 +249,24 @@ function ObjectType() {
                                         customMarginTop={"20px"}>
                                         <Form>
                                             <FormGroup>
+                                                <Label style={{ color: colors.title[_mode] }}>
+                                                    {context.counterpart('dashboard.iot.inputs.name.title')}
+                                                </Label>
+                                                <Input className="blackableInput"
+                                                    placeholder={context.counterpart('dashboard.iot.inputs.name.placeholder')}
+                                                    value={name}
+                                                    onChange={(e) => {
+                                                        setName(e.target.value);
+                                                        setObjectType(prevState => ({
+                                                            ...prevState,
+                                                            content: {
+                                                                ...prevState.content,
+                                                                name: e.target.value
+                                                            }
+                                                        }));
+                                                    }}
+                                                />
+                                                <div style={{ paddingBottom: "20px" }}/>
                                                 <Label style={{ color: colors.title[_mode] }}>
                                                     {context.counterpart('dashboard.iot.inputs.decodingFunction.title')}
                                                 </Label>

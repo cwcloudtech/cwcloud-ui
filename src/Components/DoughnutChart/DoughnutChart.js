@@ -14,13 +14,13 @@ const DoughnutChart = (props) => {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
     options.plugins.legend.labels.color = colors.secondText[_mode];
-    const priceUnit = process.env.REACT_APP_PRICE_UNIT;
+    const priceUnit = process.env.REACT_APP_PRICE_UNIT === null ? " " : process.env.REACT_APP_PRICE_UNIT;
     return (
         <Container className={classes.mainContainer} fluid>
             <Row>
                 <div style={{width: "25%", margin:"5px"}}>
                     <h2 className={classes.chartTitle} style={{color: colors.title[_mode]}}>{props.title}</h2>
-                    <h5 className={classes.TotalConsumptionsText} style={{color: colors.secondText[_mode], marginTop: "10px"}}>{`Total: ${props.totalConsumptions} ${priceUnit}`}</h5>
+                    <h5 className={classes.TotalConsumptionsText} style={{color: colors.secondText[_mode], marginTop: "10px"}}>{`Total: ${props.totalConsumptions === null ? "" : props.totalConsumptions} ${priceUnit}`}</h5>
                 </div>
                 {!props.loading ?
                     <div style={{width: "50%", margin:"5px", textAlign: "right"}}>

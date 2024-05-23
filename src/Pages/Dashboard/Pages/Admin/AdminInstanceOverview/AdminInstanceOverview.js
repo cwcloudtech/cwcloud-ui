@@ -22,6 +22,9 @@ import CachedOutlinedIcon from '@mui/icons-material/CachedOutlined';
 import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
 import counterpart from 'counterpart';
 import CustomCopyIcon from '../../../../../Components/CustomIcon/CustomCopyIcon';
+import ProtectionModal from '../../../../../Components/Modal/ProtectionModal';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 
 function AdminInstanceOverview() {
     const { instanceId } = useParams()
@@ -32,6 +35,8 @@ function AdminInstanceOverview() {
     const [showConfirmPowerModal, setshowConfirmPowerModal] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [showConfirmRebootModal, setshowConfirmRebootModal] = useState(false)
+    const [showProtectionModal, setShowProtectionModal] = useState(false)
+    const [protectionAction, setProtectionAction] = useState('')
     const [instanceInfo, setinstanceInfo] = useState([])
     const fetchInstanceInterval = useRef(null)
     const [isInstanceStarting, setIsInstanceStarting] = useState(false)
@@ -55,6 +60,11 @@ function AdminInstanceOverview() {
 
     const onPreDeleteHandler = () => {
         setShowConfirmDeleteModal(true)
+    }
+
+    const onPreUpdateInstanceProtection = (action) => {
+        setShowProtectionModal(true)
+        setProtectionAction(action)
     }
 
     const copyPublicIp = (e) => {
@@ -135,6 +145,22 @@ function AdminInstanceOverview() {
                 clearInterval(fetchInstanceInterval.current)
             })
     }
+    const onUpdateInstanceProtectionHandler = (action) => {
+        var is_protected = protectionAction === 'protect' ? true : false
+        const payload = {
+            is_protected: is_protected
+        }
+        setloadingRequest(true)
+        axios.patch(`/admin/instance/${instance.id}`, payload).then(response => {
+            toast.success(context.counterpart('dashboard.instanceOverview.message.successUpdate'))
+            setShowProtectionModal(false)
+            setloadingRequest(false)
+            instance.is_protected === true ? setInstance({ ...instance, is_protected: false }) : setInstance({ ...instance, is_protected: true })
+        }).catch(err => {
+            setShowProtectionModal(false)
+            setloadingRequest(false)
+        })
+    }
     useEffect(() => {
         if (fetchInstanceInterval.current)
             clearInterval(fetchInstanceInterval.current)
@@ -156,6 +182,7 @@ function AdminInstanceOverview() {
             <PowerModal isOpen={showConfirmPowerModal} toggle={() => setshowConfirmPowerModal(!showConfirmPowerModal)} onPower={onPowerHandler} name={instance.name} loading={loadingRequest} status={instance.status} />
             <RebootModal isOpen={showConfirmRebootModal} toggle={() => setshowConfirmRebootModal(!showConfirmRebootModal)} onReboot={onRebootHandler} name={instance.name} loading={loadingRequest} />
             <DeleteModal resourceName="instance" isOpen={showConfirmDeleteModal} toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)} onDelete={onDeleteHandler} name={instance.name} loading={loadingRequest} />
+            <ProtectionModal isOpen={showProtectionModal} toggle={() => setShowProtectionModal(!showProtectionModal)} onUpdateInstanceProtection={onUpdateInstanceProtectionHandler} name={instance.name} loading={loadingRequest} action={protectionAction} />
             <div className={classes.goBack} >
                 <NavLink to='/admin/instances' className={classes.link} style={{color: colors.blue[_mode]}}>
                     <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")} style={{color: colors.blue[_mode]}}></i>
@@ -188,18 +215,29 @@ function AdminInstanceOverview() {
                             }</h6>
                         </div>
                     </Col>
-                    <Col className={classes.colElement}>
-                        {localProvider !== ('gcp' || 'aws') &&
-                            <Tooltip title={ loadingRefresh ? counterpart("dashboard.instanceOverview.buttons.refreshInProgress") : counterpart("dashboard.instanceOverview.buttons.refresh")} placement="bottom">
+                    {!loading && 
+                            <Col style={{ paddingRight: "30px"}} className={classes.colElement}>
                                 {
-                                    loadingRefresh 
-                                    ? <PendingOutlinedIcon className='blueBtn' style={{ fontSize: "30px", marginLeft: "10px" }} />
-                                    : <CachedOutlinedIcon className='blueBtn' style={{ fontSize: "30px", marginLeft: "10px" }} onClick={refreshInstanceStateHandler} />
+                                    localProvider !== ('gcp' || 'aws') &&
+                                        <Tooltip title={ loadingRefresh ? counterpart("dashboard.instanceOverview.buttons.refreshInProgress") : counterpart("dashboard.instanceOverview.buttons.refresh")} placement="bottom">
+                                            {
+                                                loadingRefresh 
+                                                ? <PendingOutlinedIcon className='blueBtn' style={{ fontSize: "30px", marginLeft: "10px" }} />
+                                                : <CachedOutlinedIcon className='blueBtn' style={{ fontSize: "30px", marginLeft: "10px" }} onClick={refreshInstanceStateHandler} />
+                                            }
+                                        </Tooltip>
                                 }
-                            </Tooltip>
-                        }
-                        {!loading && 
-                            <div>
+                                {
+                                    instance.is_protected
+                                        ?
+                                        <Tooltip title={counterpart("dashboard.instanceOverview.buttons.unprotect")} placement="bottom">
+                                            <LockOutlinedIcon className={["successBtn", classes.toggleOff].join(' ')} style={{ fontSize: "30px"}} onClick={() => onPreUpdateInstanceProtection("unprotect")} />
+                                        </Tooltip>
+                                        :
+                                        <Tooltip title={counterpart("dashboard.instanceOverview.buttons.protect")} placement="bottom">
+                                            <LockOpenOutlinedIcon className={[classes.toggleOn].join(' ')} style={{ fontSize: "30px"}} onClick={() => onPreUpdateInstanceProtection("protect")} />
+                                        </Tooltip>
+                                }
                                 {instance.status === "active"
                                     ?
                                     <div className={classes.colElement}>
@@ -222,9 +260,8 @@ function AdminInstanceOverview() {
                                         </Tooltip>
                                     </div>
                                 }
-                            </div>
+                            </Col>
                         }
-                    </Col>
                 </Row>
             </div>
             <Row className={classes.blocMargin}>

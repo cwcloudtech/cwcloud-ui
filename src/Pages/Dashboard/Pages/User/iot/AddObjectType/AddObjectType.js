@@ -37,6 +37,7 @@ function AddObjectType() {
     const [triggerIndex, setTriggerIndex] = useState(0)
 
     const [isPublic, setIsPublic] = useState(false)
+    const [name, setName] = useState("")
     const [decodingFunction, setDecodingFunction] = useState("")
     const [triggers, setTriggers] = useState([])
     const [selectedUserEmail, setSelectedUserEmail] = useState("")
@@ -44,6 +45,7 @@ function AddObjectType() {
     const [objectType, setObjectType] = useState({
         content: {
             "public": false,
+            "name": "",
             "decoding_function": "",
             "triggers": [],
         }
@@ -55,12 +57,12 @@ function AddObjectType() {
                 ...prevState,
                 user_id: context.user.id
             }));
+            context.setIsGlobal(true)
+            axios.get("/admin/user/all")
+                .then(res => {
+                    setUsers(res.data.result) 
+                })
         }
-        context.setIsGlobal(true)
-        axios.get("/admin/user/all")
-            .then(res => {
-                setUsers(res.data.result) 
-            })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -199,6 +201,24 @@ function AddObjectType() {
                                     customMarginTop={"20px"}>
                                     <Form>
                                         <FormGroup>
+                                            <Label style={{ color: colors.title[_mode] }}>
+                                                {context.counterpart('dashboard.iot.inputs.name.title')}
+                                            </Label>
+                                            <Input className="blackableInput"
+                                                placeholder={context.counterpart('dashboard.iot.inputs.name.placeholder')}
+                                                value={name}
+                                                onChange={(e) => {
+                                                    setName(e.target.value);
+                                                    setObjectType(prevState => ({
+                                                        ...prevState,
+                                                        content: {
+                                                            ...prevState.content,
+                                                            name: e.target.value
+                                                        }
+                                                    }));
+                                                }}
+                                            />
+                                            <div style={{ paddingBottom: "20px" }}/>
                                             <Label style={{ color: colors.title[_mode] }}>
                                                 {context.counterpart('dashboard.iot.inputs.decodingFunction.title')}
                                             </Label>

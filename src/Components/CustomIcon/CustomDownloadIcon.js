@@ -5,7 +5,7 @@ import { Tooltip } from '@mui/material';
 import counterpart from 'counterpart';
 
 const CustomDownloadIcon = (props) => {
-    return <Tooltip title={counterpart("common.button.download")} placement='right'>
+    return <Tooltip title={counterpart("common.button.download")} placement='bottom'>
         <DownloadIcon className={classes.downloadIcon + ' downloadBtn'} onClick={props.onClick} />
     </Tooltip>
     

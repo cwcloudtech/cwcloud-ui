@@ -2,11 +2,12 @@ import { Autocomplete } from "@mui/material";
 import Translate from "react-translate-component";
 import { Form, FormFeedback, FormGroup, FormText } from "reactstrap";
 
-const SuggestionsAutoComplete = ({ id, onChange, options, renderInput, feedbackMessage, hint, length, value }) => {
+const SuggestionsAutoComplete = ({ id, onChange, options, renderInput, feedbackMessage, hint, length, value, defaultValue }) => {
     return (
         <Form>
             <FormGroup>
                 <Autocomplete
+                    defaultValue={ defaultValue ? defaultValue : ""}
                     value={value ? value : ""}
                     disablePortal
                     id={id}

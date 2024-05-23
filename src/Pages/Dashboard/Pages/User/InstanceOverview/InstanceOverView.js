@@ -18,6 +18,9 @@ import colors from '../../../../../Context/Colors';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
 import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';
 import OpenInBrowserOutlinedIcon from '@mui/icons-material/OpenInBrowserOutlined';
+import ProtectionModal from '../../../../../Components/Modal/ProtectionModal';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import counterpart from 'counterpart';
 
 function InstanceOverview() {
@@ -28,6 +31,8 @@ function InstanceOverview() {
     const [showConfirmPowerModal, setshowConfirmPowerModal] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [showConfirmRebootModal, setshowConfirmRebootModal] = useState(false)
+    const [showProtectionModal, setShowProtectionModal] = useState(false)
+    const [protectionAction, setProtectionAction] = useState('')
     const [instanceInfo, setinstanceInfo] = useState([])
     const fetchInstanceInterval = useRef(null)
     const [isInstanceStarting, setIsInstanceStarting] = useState(false)
@@ -47,6 +52,10 @@ function InstanceOverview() {
     }
     const onPreDeleteHandler = () => {
         setShowConfirmDeleteModal(true)
+    }
+    const onPreUpdateInstanceProtection = (action) => {
+        setShowProtectionModal(true)
+        setProtectionAction(action)
     }
     const onPowerHandler = () => {
         const payload = {
@@ -105,6 +114,24 @@ function InstanceOverview() {
                 clearInterval(fetchInstanceInterval.current)
             })
     }
+
+    const onUpdateInstanceProtectionHandler = () => {
+        var is_protected = protectionAction === 'protect' ? true : false
+        const payload = {
+            is_protected: is_protected
+        }
+        setloadingRequest(true)
+        axios.patch(`/instance/${context.selectedProvider.name}/${context.region.name}/${instance.id}`, payload).then(response => {
+            toast.success(context.counterpart('dashboard.instanceOverview.message.successUpdate'))
+            setShowProtectionModal(false)
+            setloadingRequest(false)
+            instance.is_protected === true ? setInstance({ ...instance, is_protected: false }) : setInstance({ ...instance, is_protected: true })
+        }).catch(err => {
+            setShowProtectionModal(false)
+            setloadingRequest(false)
+        })
+    }
+    
     useEffect(() => {
         if (fetchInstanceInterval.current)
             clearInterval(fetchInstanceInterval.current)
@@ -131,6 +158,7 @@ function InstanceOverview() {
             <PowerModal isOpen={showConfirmPowerModal} toggle={() => setshowConfirmPowerModal(!showConfirmPowerModal)} onPower={onPowerHandler} name={instance.name} loading={loadingRequest} status={instance.status} />
             <RebootModal isOpen={showConfirmRebootModal} toggle={() => setshowConfirmRebootModal(!showConfirmRebootModal)} onReboot={onRebootHandler} name={instance.name} loading={loadingRequest} />
             <DeleteModal resourceName="instance" isOpen={showConfirmDeleteModal} toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)} onDelete={onDeleteHandler} name={instance.name} loading={loadingRequest} />
+            <ProtectionModal isOpen={showProtectionModal} toggle={() => setShowProtectionModal(!showProtectionModal)} onUpdateInstanceProtection={onUpdateInstanceProtectionHandler} name={instance.name} loading={loadingRequest} action={protectionAction} />
             <div className={classes.goBack} >
                 <NavLink to='/instances' className={classes.link} style={{color: colors.blue[_mode]}}>
                     <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")} style={{color: colors.blue[_mode]}}></i>
@@ -164,7 +192,18 @@ function InstanceOverview() {
                         </div>
                     </Col>
                     {!loading && 
-                        <Col className={classes.colElement}>
+                         <Col style={{ paddingRight: "30px"}} className={classes.colElement}>
+                            {
+                                instance.is_protected
+                                    ?
+                                    <Tooltip title={counterpart("dashboard.instanceOverview.buttons.unprotect")} placement="bottom">
+                                        <LockOutlinedIcon className={["successBtn", classes.toggleOff].join(' ')} style={{ fontSize: "30px"}} onClick={() => onPreUpdateInstanceProtection("unprotect")} />
+                                    </Tooltip>
+                                    :
+                                    <Tooltip title={counterpart("dashboard.instanceOverview.buttons.protect")} placement="bottom">
+                                        <LockOpenOutlinedIcon className={[classes.toggleOn].join(' ')} style={{ fontSize: "30px"}} onClick={() => onPreUpdateInstanceProtection("protect")} />
+                                    </Tooltip>
+                            }
                             {instance.status === "active"
                                 ?
                                 <div className={classes.colElement}>

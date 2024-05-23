@@ -8,6 +8,7 @@ import ResetPassword from "./Pages/Public/ResetPassword/ResetPassword"
 import ForgetPassword from "./Pages/Public/ForgetPassword/ForgetPassword"
 import Confirm from "./Pages/Public/Confirm/Confirm";
 import Confirmation from "./Pages/Public/Confirmation/Confirmation";
+import DeviceConfirmation from "./Pages/Public/Confirmation/DeviceConfirmation";
 import { ToastContainer } from "react-toastify";
 import MultiFactorAuth from "./Pages/Public/MultiFactorAuth/MultiFactorAuth";
 import SetMultiFactor from "./Pages/Public/SetMultiFactor/SetMultiFactor";
@@ -27,6 +28,7 @@ function App() {
                         <Route exact path="/forget-password" element={<ForgetPassword />} />
                         <Route exact path="/reset-password/:token" element={<ResetPassword />} />
                         <Route exact path="/confirmation/:token" element={<Confirmation />} />
+                        <Route exact path="/device-confirmation/:token" element={<DeviceConfirmation />} />
                         <Route exact path="/confirm" element={<Confirm />} />
                         <Route exact path="/2fa-authentification/:token" element={<MultiFactorAuth />} />
                         <Route exact path="/u2f-authentification/:token" element={<U2fAuthentification />} />

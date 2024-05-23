@@ -4,7 +4,7 @@ import classes from "./Ticket.module.css";
 import { Row, Col } from "reactstrap";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios";
-import { isBlank } from "../../../../../utils/common";
+import { isBlank, sortObjectsByDate } from "../../../../../utils/common";
 import { TextField } from '@mui/material';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import TicketReply from '../../../../../Components/TicketReply/TicketReply'
@@ -13,12 +13,14 @@ import Translate from 'react-translate-component';
 import colors from '../../../../../Context/Colors';
 import formateDate from '../../../../../utils/FormateDate';
 import { BarLoader } from 'react-spinners';
+import TicketDescription from '../../../../../Components/TicketReply/TicketDescription';
 
 function Ticket() {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
     const { ticketId } = useParams()
     const [ticket, setTicket] = useState(null)
+    const [replies, setReplies] = useState([])
     const [replyMessage, setReplyMessage] = useState('')
     const [loadingReply, setLoadingReply] = useState(false)
 
@@ -27,6 +29,8 @@ function Ticket() {
         axios.get(`/support/${ticketId}`)
             .then(res => {
                 setTicket(res.data)
+                var replies = sortObjectsByDate(res.data.replies)
+                setReplies(replies)
             })
     }, [context, ticketId, loadingReply])
 
@@ -83,12 +87,12 @@ function Ticket() {
                     </h5>
                 </Col>
             </Row>
+            <TicketDescription reply={{ ...ticket, change_date: ticket.created_at }} />
             <hr style={{ width: '100%', border: '1px solid #E5E5E5' }} />
             <Row style={{ marginTop: '30px', marginBottom: '30px' }}>
                 <Col>
-                    <TicketReply key={'first1'} reply={{ ...ticket, change_date: ticket.created_at }} />
-                    {ticket.replies.map(reply => (
-                        <TicketReply key={reply.id} reply={reply} />
+                    {replies.map(reply => (
+                        <TicketReply ticket_id={ticket.id} key={reply.id} reply={reply} />
                     ))}
                     {
                         loadingReply &&

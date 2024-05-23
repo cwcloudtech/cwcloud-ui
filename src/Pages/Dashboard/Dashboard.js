@@ -89,6 +89,9 @@ import K8sAppOverview from "./Pages/User/K8sApplications/Overview/K8sOverview";
 import AddObjectType from "./Pages/User/iot/AddObjectType/AddObjectType";
 import IotOverviewPage from "./Pages/User/iot/Overview/IotOverview";
 import ObjectType from "./Pages/User/iot/ObjectType/ObjectType";
+import Device from "./Pages/User/iot/Device/Device";
+import Devices from "./Pages/User/iot/Devices/Devices";
+import AddData from "./Pages/User/iot/AddData/AddData";
 
 function Dashboard() {
     const _mode = useContext(GlobalContext).mode;
@@ -135,8 +138,11 @@ function Dashboard() {
                             <Route exact path="/admin/triggers" element={<AdminTriggersPage />} />
                             <Route exact path="/admin/schedule/:id" element={<AddCronFunction />} />
                             <Route exact path="/admin/iot/overview" element={<IotOverviewPage />} />
+                            <Route exact path="/admin/iot/devices" element={<Devices />} />
                             <Route exact path="/admin/iot/add/object-type" element={<AddObjectType />} />
                             <Route exact path="/admin/iot/object-type/:id" element={<ObjectType />} />
+                            <Route exact path="/admin/iot/add/device" element={<Device />} />
+                            <Route exact path="/admin/iot/add/data" element={<AddData />} />
                             <Route exact path="/admin/support" element={<ManageSupport />} />
                             <Route exact path="/admin/support/:ticketId" element={<AdminTicket />} />
                             <Route exact path="/admin/email" element={<AdminSendEmail />} />
@@ -173,8 +179,11 @@ function Dashboard() {
                             <Route exact path="/triggers" element={<TriggersPage />} />
                             <Route exact path="/schedule/:id" element={<AddCronFunction />} />
                             <Route exact path="/iot/overview" element={<IotOverviewPage />} />
+                            <Route exact path="/iot/devices" element={<Devices />} />
                             <Route exact path="/iot/add/object-type" element={<AddObjectType />} />
                             <Route exact path="/iot/object-type/:id" element={<ObjectType />} />
+                            <Route exact path="/iot/add/device" element={<Device />} />
+                            <Route exact path="/iot/add/data" element={<AddData />} />
                             <Route exact path="/k8s-applications">
                                 <Route exact path="" element={<K8sAppsPage />} />
                                 <Route exact path="app/:appId" element={<K8sAppOverview />} />
