@@ -112,7 +112,7 @@ export default function ServicePorts(props) {
             {
                 servicePorts.map((sp) => <ServicePort key={`servicePort-${sp.id}`} servicePort={sp} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className={classes.addButton} variant="contained" onClick={addServicePort}>
+            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addServicePort}>
                 <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.addPort" />
             </LoadingButton>
         </Form>

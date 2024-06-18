@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Pie } from "react-chartjs-2";
 import { Col, Container, Row } from "reactstrap";
-import classes from './PieChart.module.css';
+import classes from '../Chart.module.css';
 import configs from './configs'
 import Skeleton from "react-loading-skeleton";
-import GlobalContext from '../../Context/GlobalContext';
-import colors from '../../Context/Colors';
+import GlobalContext from '../../../Context/GlobalContext';
+import colors from '../../../Context/Colors';
 
 const PieChart = (props) => {
     const { options } = configs();

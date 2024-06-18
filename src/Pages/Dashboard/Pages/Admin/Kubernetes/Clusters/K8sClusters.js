@@ -221,7 +221,7 @@ export default function K8sClusters(props) {
               TransitionComponent={Fade}
               TransitionProps={{ timeout: 600 }}
               title={
-                <h5 className={classes.tootltipValue}>
+                <h5 className="tootltipValue">
                   <Translate content="dashboard.kubernetesMainPage.importExisting" />
                 </h5>
               }

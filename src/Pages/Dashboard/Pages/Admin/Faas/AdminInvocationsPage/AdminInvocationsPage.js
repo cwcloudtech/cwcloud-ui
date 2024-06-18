@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import { Link } from "react-router-dom";
-import classes from "./AdminInvocationsPage.module.css";
+// import classes from "./AdminInvocationsPage.module.css";
+import '../../../../../../common.css';
 import { Row, Col } from "reactstrap";
 import { TextField, Tooltip, Fade } from "@mui/material";
 import axios from "../../../../../../utils/axios"
@@ -189,7 +190,7 @@ function AdminInvocationsPage(props) {
             />
             <Row>
                 <Col>
-                    <div style={{ paddingBottom: "20px"  }} className={classes.envCreation}>
+                    <div style={{ paddingBottom: "20px"  }} className="envCreation">
                         <TextField
                             style={{ marginRight: "5px" }}
                             onChange={(f) => filterInvocations(f) }

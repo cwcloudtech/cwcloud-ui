@@ -6,7 +6,8 @@ import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
 import { Col, Container, Row } from 'reactstrap';
 import Translate from "react-translate-component";
-import classes from './PaymentComponent.module.css';
+// import classes from './PaymentComponent.module.css';
+import '../../../../../../common.css';
 import DataTable from '../../../../../../Components/Table/DataTable';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import PaymentInfoModal from './PaymentInfoModal/PaymentInfoModal';
@@ -206,26 +207,26 @@ function PaymentComponent() {
             })
     }
     return (
-        <Container fluid className={classes.container} style={{ padding: "0px 20px 20px 20px", }} >
+        <Container fluid style={{ padding: "0px 20px 20px 20px", }} >
             <DeleteModal resourceName={'payment card'} isOpen={showConfirmDeleteModal} toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)} onDelete={deletePaymentMethodHandler} loading={loadingDeletion} />
             <PaymentInfoModal loading={loadingSubmitCard} isOpen={showPaymentInfoModal} onSave={addUserPaymentMethodHandler} toggle={() => setShowPaymentInfoModal(!showPaymentInfoModal)} />
             {context.user.enabled_features.auto_pay ?
-                <div className={classes.colElement}>
+                <div className="colElement">
                     <Tooltip title="disable auto payment" placement="bottom">
-                        <i className={["fa-solid fa-toggle-on", classes.toggleOn].join(' ')} onClick={() => updateUserAutoPaymentHandler(false)}></i>
+                        <i className="fa-solid fa-toggle-on toggleOn" onClick={() => updateUserAutoPaymentHandler(false)}></i>
                     </Tooltip>
                 </div>
                 :
-                <div className={classes.colElement}>
+                <div className="colElement">
                     <Tooltip title="activate auto payment" placement='bottom' onClick={() => updateUserAutoPaymentHandler(true)}>
-                        <i className={["fa-solid fa-toggle-off", classes.toggleOff].join(' ')}></i>
+                        <i className="fa-solid fa-toggle-off toggleOff"></i>
                     </Tooltip>
                 </div>
             }
             {process.env.REACT_APP_DISABLE_STRIPE_FEATURE.includes("false") && <Fragment>
                 <Row style={{ marginTop: '10px', marginBottom: '10px' }}>
                     <Col>
-                        <h2 className={classes.mainTitleText} style={{color: colors.title[_mode]}}>
+                        <h2 className="mainTitleText" style={{color: colors.title[_mode]}}>
                             <Translate content="billing.method" />
                         </h2>
                     </Col>
@@ -250,7 +251,7 @@ function PaymentComponent() {
                 <Fragment>
                     <Row style={{ marginTop: '10px', marginBottom: '10px' }}>
                         <Col>
-                            <h2 className={classes.mainTitleText} style={{color: colors.title[_mode]}}>
+                            <h2 className="mainTitleText" style={{color: colors.title[_mode]}}>
                                 <Translate content="billing.gateway" />
                             </h2>
                         </Col>
@@ -263,7 +264,7 @@ function PaymentComponent() {
 
             <Row style={{ marginTop: '10px', marginBottom: '10px' }}>
                 <Col>
-                    <h2 className={classes.mainTitleText} style={{color: colors.title[_mode]}}>
+                    <h2 className="mainTitleText" style={{color: colors.title[_mode]}}>
                         <Translate content="billing.invoices" />
                     </h2>
                 </Col>

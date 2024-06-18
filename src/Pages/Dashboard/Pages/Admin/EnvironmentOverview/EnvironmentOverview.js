@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Spinner, Col, Row, Container } from "reactstrap"
-import classes from "./EnvironmentOverview.module.css"
+import classes from "./EnvironmentOverview.module.css";
+import '../../../../../common.css';
 import axios from "../../../../../../src/utils/axios";
 import { NavLink, useParams } from "react-router-dom"
 import { toast } from "react-toastify";
@@ -132,21 +133,21 @@ function EnvironmentOverview(props) {
                 <SubdomainModal title="dashboard.addEnvironement.inputs.subdomains.editModalTitle" isOpen={showEditSubdomain} toggle={() => setShowEditSubdomain(!showEditSubdomain)} variable={selectedSubdomain} index={selectedSubdomainIndex} onClick={handleChangeSubdomain} />
                 <Row>
                     <Col>
-                        <div className={classes.goBack}>
-                            <NavLink to='/environment/overview' className={classes.link}>
-                                <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                        <div className="goBack">
+                            <NavLink to='/environment/overview' className="link">
+                                <i className="fa-solid fa-arrow-left iconStyle"></i>
                                 <Translate content="dashboard.environmentOverview.back" />
                             </NavLink>
                         </div>
                     </Col>
                 </Row>
-                <Container className={classes.container} fluid style={{ marginTop: "20px" }}>
+                <Container fluid style={{ marginTop: "20px" }}>
                     <Row>
-                        <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                            <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                        <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                            <h5 className="textTitle" style={{color: colors.title[_mode]}}>
                                 <Translate content="dashboard.environmentOverview.mainTitle" />
                             </h5>
-                            <h4 className={classes.createdStyle} style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.environmentOverview.createdAt" /> : {formateDate(environment.created_at)}</h4>
+                            <h4 className="createdStyle" style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.environmentOverview.createdAt" /> : {formateDate(environment.created_at)}</h4>
                         </Col>
                     </Row>
                     <Row>

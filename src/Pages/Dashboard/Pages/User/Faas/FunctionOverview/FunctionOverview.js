@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Spinner, Col, Row, Container } from "reactstrap";
 import classes from "./FunctionOverview.module.css";
+import '../../../../../../common.css';
 import axios from "../../../../../../utils/axios";
 import { isNotBlank } from "../../../../../../utils/common";
 import { NavLink, useParams, useNavigate } from "react-router-dom"
@@ -293,21 +294,21 @@ function FunctionOverview() {
                 <WarningModal title="common.message.warning" isOpen={showWarningModal} toggle={() => setShowWarningModal(!showWarningModal)} message={message} loading={loadingSubmit} nextPath="/function/overview" buttonTitle="common.button.save" secondButtonTitle="common.button.unsave" onClick={handleWarningModalClickButton} />
                 <Row>
                     <Col>
-                        <div onClick={navigateBack} className={classes.goBack}>
-                            <NavLink className={classes.link}>
-                                <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                        <div onClick={navigateBack} className="goBack">
+                            <NavLink className="link fs-6">
+                                <i className="fa-solid fa-arrow-left iconStyle"></i>
                                 <Translate content="dashboard.function.back" />
                             </NavLink>
                         </div>
                     </Col>
                 </Row>
-                <Container className={classes.container} fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
+                <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
                     <Row >
-                        <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                            <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                        <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                            <h5 className='textTitle' style={{color: colors.title[_mode]}}>
                                 <Translate content="dashboard.function.title.overview" />
                             </h5>
-                            <h4 className={classes.createdStyle} style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.table.createdAt" /> : {formateDate(functionCreatedAt)}</h4>
+                            <h4 className="createdStyle" style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.table.createdAt" /> : {formateDate(functionCreatedAt)}</h4>
                         </Col>
                     </Row>
                     <Row>
@@ -319,7 +320,7 @@ function FunctionOverview() {
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>
                                 <Col md="4">
-                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                    <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                         <Translate content="dashboard.function.inputs.language.title" />
                                         <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
                                 </Col>
@@ -354,7 +355,7 @@ function FunctionOverview() {
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>
                                 <Col md="4">
-                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                    <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                         <Translate content="dashboard.function.inputs.name.title" />
                                         <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
                                 </Col>
@@ -368,7 +369,7 @@ function FunctionOverview() {
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>
                                 <Col md="4">
-                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                    <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                         <Translate content="dashboard.function.inputs.regexp.title" />
                                     </h5>
                                 </Col>
@@ -383,7 +384,7 @@ function FunctionOverview() {
                             <Row style={{ display: "flex", alignItems: "center" }}>
                                 <Col md={{ size: 2 }}>
                                     <Row>
-                                        <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                        <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                             <Translate content="dashboard.function.is_public" />
                                             <span style={{ marginLeft: "2px", color: "red" }}>*</span>
                                         </h5>

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import GlobalContext from '../../Context/GlobalContext';
 import { Col, Row } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
+import convertMarkdownLink from '../../utils/convertMarkdownLink';
 
 const TicketDescription = (props) => {
     const context = useContext(GlobalContext);
@@ -16,8 +17,8 @@ const TicketDescription = (props) => {
         fontSize: '20px',
         wordWrap: 'break-word',
         overflowWrap: 'break-word'
-    };    
-    
+    };
+
     const message = {
         display: 'flex',
         alignItems: 'center',
@@ -31,7 +32,7 @@ const TicketDescription = (props) => {
                         <Row style={{ paddingRight: "10px", paddingLeft: "20px" }}>
                         <Col md="12">
                             <p className='text-center' style={{ fontSize: "20px" }}>
-                                <ReactMarkdown>{props.reply.message}</ReactMarkdown>
+                                <ReactMarkdown>{convertMarkdownLink(props.reply.message)}</ReactMarkdown>
                             </p>
                         </Col>
                         </Row>

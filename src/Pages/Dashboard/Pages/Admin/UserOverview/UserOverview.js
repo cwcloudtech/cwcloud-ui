@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Row, Col } from 'reactstrap';
 import axios from "../../../../../utils/axios";
 import classes from "./UserOverview.module.css";
+import '../../../../../common.css';
 import { Container } from 'reactstrap';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
@@ -120,9 +121,9 @@ function UserOverview() {
     return (
         loading ? <LoadingSpinner /> :
             <Container style={{ padding: "0" }}>
-                <div className={classes.goBack} >
-                    <NavLink to='/users/overview' className={classes.link} style={{color: colors.blue[_mode]}}>
-                        <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")} style={{color: colors.blue[_mode]}}></i>
+                <div className="goBack">
+                    <NavLink to='/users/overview' className="link" style={{color: colors.blue[_mode]}}>
+                        <i className="fa-solid fa-arrow-left iconStyle" style={{color: colors.blue[_mode]}}></i>
                         <Translate content="dashboard.userOverview.back" />
                     </NavLink>
                 </div >
@@ -238,8 +239,8 @@ function UserOverview() {
                                 variant="standard"
                             />
                             <Button className={classes.buttonStyle + " orangeBtn"} onClick={ClickResetPasswordHandler} >
-                                {editPasswordLoading ? <Spinner className={classes.spinner} size="sm" />
-                                    : <i className={["fa-solid fa-floppy-disk", classes.icon].join(' ')}></i>}
+                                {editPasswordLoading ? <Spinner className="spinner" size="sm" />
+                                    : <i className="fa-solid fa-floppy-disk icon"></i>}
                                 {!confirmPassword ? "Reset Password" : "Save"}
                             </Button>
                         </Row>

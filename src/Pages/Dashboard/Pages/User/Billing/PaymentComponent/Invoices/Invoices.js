@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Col, Row, Container, Spinner } from "reactstrap"
-import classes from "./Invoices.module.css"
+// import classes from "./Invoices.module.css"
+import '../../../../../../../common.css'
 import axios from "../../../../../../../utils/axios";
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -145,15 +146,15 @@ function Invoices(props) {
     }
 
     return (
-        <Container fluid className={classes.container} style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
+        <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
             <ConfirmPaymentModal vouchers={vouchers} resourceName="common.payment" isOpen={showConfirmPayModal} toggle={() => setShowConfirmPayModal(!showConfirmPayModal)} onConfirm={(voucherId) => { props.payInvoice(selectedInvoiceRef, voucherId); setShowConfirmPayModal(false) }} message={`Are you sure you want to pay invoice N ${selectedInvoiceRef}`} />
             <Row>
-                <Col className={classes.formContainer} style={{backgroundColor: colors.formBackground[_mode]}}>
+                <Col className="formContainer" style={{backgroundColor: colors.formBackground[_mode]}}>
                     <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
                         <Col md="6" xs="12" >
                             <Row style={{ marginBottom: '10px' }}>
                                 <Col>
-                                    <h4 className={classes.subtitleStyle}>
+                                    <h4 className="subtitleStyle">
                                         <Translate content="dashboard.invoicesPage.inputs.startDate.title" />
                                         <span style={{ marginLeft: "2px", color: "red" }}>*</span></h4>
                                 </Col>
@@ -177,7 +178,7 @@ function Invoices(props) {
                         <Col md="6" xs="12" >
                             <Row style={{ marginBottom: '10px' }} >
                                 <Col>
-                                    <h4 className={classes.subtitleStyle}>
+                                    <h4 className="subtitleStyle">
                                         <Translate content="dashboard.invoicesPage.inputs.endDate.title" />
                                         <span style={{ marginLeft: "2px", color: "red" }}>*</span></h4>
                                 </Col>

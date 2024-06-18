@@ -1,21 +1,6 @@
-.checkboxWrapper {
-  cursor: pointer;
-  margin-right: 16px;
-  opacity: 0.8;
-}
-
 .NameWrapper {
   display: flex;
   align-items: center;
-  cursor: pointer;
-}
-
-.itemTitle {
-  font-weight: 500;
-  margin: 0;
-  font-size: 15px;
-  line-height: 20px;
-  letter-spacing: 0.2;
   cursor: pointer;
 }
 

@@ -14,6 +14,15 @@ const useStyles = createUseStyles({
         cursor: "pointer",
         paddingLeft: ({ level }) => 32 * level,
         transition: "all 0.2s ease-in-out",
+        '&:hover': {
+            backgroundColor: ({ hoverColor }) => hoverColor,
+            '& $title': {
+                fontSize: '15.5px',
+            },
+            '& $iconContainer': {
+                transform: 'scale(1.2)',
+            }
+        },
     },
     leftBar: {
         borderLeft: ({ level, blue }) =>
@@ -25,9 +34,10 @@ const useStyles = createUseStyles({
         letterSpacing: "0.2px",
         color: ({ isActivated, blue, blueText }) => isActivated ? blue: blueText,
         marginLeft: 24,
-        fontWeight: ({ isActivated }) => isActivated ? "600" : "400"
-    }
-});
+        fontWeight: ({ isActivated }) => isActivated ? "600" : "400",
+        transition: 'font-size 0.2s ease-in-out',
+    },
+    });
 
 function MenuItem(props) {
     const theme = useTheme();
@@ -58,7 +68,6 @@ function MenuItem(props) {
             <Row
                 vertical="center"
                 onClick={onItemClicked}
-                className={classes.container}
             >
                 {props.icon && <div style={{ color: `${iconColor}`, width: '30px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>{props.icon}</div>}
                 <span className={classes.title} style={{width: '125px'}}>{props.title}</span>

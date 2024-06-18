@@ -91,8 +91,8 @@ function ConfigMapForm(props) {
                     />
                     <Row>
                         <Col>
-                            <div className={classes.goBack}>
-                                <NavLink to={`/kubernetes/cluster/${clusterId}/storage/configMaps/explore`} className={classes.link}>
+                            <div className="goBack">
+                                <NavLink to={`/kubernetes/cluster/${clusterId}/storage/configMaps/explore`} className="link">
                                     <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
                                     <Translate content="dashboard.kubernetesDashboardPages.storage.configMaps.form.backToExplore" />
                                 </NavLink>

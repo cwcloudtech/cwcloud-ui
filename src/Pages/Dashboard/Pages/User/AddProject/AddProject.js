@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
 import { Input, Form, FormGroup, FormFeedback, FormText, Col, Row, Collapse } from "reactstrap"
-import classes from "./AddProject.module.css"
+// import classes from "./AddProject.module.css";
+import '../../../../../common.css';
 import axios from "../../../../../utils/axios";
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
 import GlobalContext from "../../../../../Context/GlobalContext";
 import colors from "../../../../../Context/Colors";
@@ -13,14 +14,14 @@ import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton
 import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
 import { Box } from "@mui/material";
 
-const projectType = [
-    'vm',
-    'k8s'
-]
+const projectType = []
 
 function AddProject(props) {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath === "/admin/projects/create"
     const [type, setType] = useState(projectType[0])
     const [project, setProject] = useState({type})
     const [disabled, setdisabled] = useState(false)
@@ -31,13 +32,20 @@ function AddProject(props) {
 
     useEffect(() => {
         context.setIsGlobal(true)
+        if (context.user?.enabled_features?.daasapi){
+            projectType.push("vm")
+        }
+        if (context.user?.enabled_features?.k8sapi){
+            projectType.push("k8s")
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const addProjectHandler = () => {
         setLoading(true)
         setdisabled(!project?.name)
-        axios.post(`/project`, project)
+        var api_url = is_admin ? "/admin/project" : "/project"
+        axios.post(api_url, project)
             .then(response => {
                 setLoading(false)
                 toast.success(context.counterpart('dashboard.addProject.message.successAdd'))
@@ -51,9 +59,9 @@ function AddProject(props) {
         <Container style={{ padding: "0" }}>
             <Row>
                 <Col>
-                    <div className={classes.goBack}>
-                        <NavLink to='/projects' className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div className="goBack">
+                        <NavLink to='/projects' className="link fs-6">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.addProject.back" />
                         </NavLink>
                     </div>
@@ -61,13 +69,13 @@ function AddProject(props) {
                 </Col>
             </Row>
             <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
-                <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                    <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                    <h5 className="textTitle" style={{color: colors.title[_mode]}}>
                         <Translate content="dashboard.addProject.mainTitle" />
                     </h5>
                 </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
+            <Row>
                 <Col>
                     <CardComponent
                         containerStyles={props.containerStyles}

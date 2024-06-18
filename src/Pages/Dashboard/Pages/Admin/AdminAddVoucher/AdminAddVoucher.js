@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Col, Row, Container } from "reactstrap"
 import classes from "./AdminAddVoucher.module.css"
+import '../../../../../common.css'
 import axios from "../../../../../utils/axios";
 import { toast } from "react-toastify";
 import TextField from '@mui/material/TextField';
@@ -43,9 +44,9 @@ function AdminAddVoucher() {
     }
 
     return (
-        <Container fluid className={classes.container} style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
+        <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
             <Row>
-                <Col md="6" className={classes.formContainer} style={{backgroundColor: colors.formBackground[_mode]}}>
+                <Col className="formContainer" style={{backgroundColor: colors.formBackground[_mode]}}>
                     <Row style={{ marginTop: "30px", marginBottom: "30px", marginRight: "0", marginLeft: "0", display: "flex", justifyContent: "center" }}>
                         <Col className={classes.estwicol}>
                             <Autocomplete

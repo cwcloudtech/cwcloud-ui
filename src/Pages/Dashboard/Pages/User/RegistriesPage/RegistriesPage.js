@@ -1,47 +1,54 @@
 import { useState, useContext, useEffect } from "react";
+import { Row, Col } from "reactstrap";
+// import classes from "./RegistriesPage.module.css";
+import '../../../../../common.css';
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import GlobalContext from "../../../../../Context/GlobalContext";
+import Tooltip from '@mui/material/Tooltip';
+import Fade from '@mui/material/Fade';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import Translate from 'react-translate-component';
 import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import formateDate from "../../../../../utils/FormateDate";
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import { toast } from 'react-toastify';
 import DataTable from "../../../../../Components/Table/DataTable";
 import { TextField } from "@mui/material";
-import { Col, Row } from "reactstrap";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CustomDeleteIcon from "../../../../../Components/CustomIcon/CustomDeleteIcon";
 
 function RegistriesPage(props) {
     const context = useContext(GlobalContext);
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath.includes('admin')
     const [registries, setRegistries] = useState([]);
     const [filtredRegistries, setFiltredRegistries] = useState([]);
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [selectedDeletionItems, setSelectedDeletionItems] = useState([])
     const [selectedRegistry, setSelectedRegistry] = useState(null)
     const [multiSelection, setMultiSelection] = useState(false)
-    const { selectedProvider, region, counterpart, setIsGlobal, user } = useContext(GlobalContext)
+    const { selectedProvider, region, counterpart, setIsGlobal } = useContext(GlobalContext)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const columns = [
-        { field: 'id', headerName: counterpart("dashboard.adminRegistriesPage.table.id"), width: 200, renderCell: (params) => (<Link to={`/registry/${params.id}`}>{params.id}</Link>) },
+        { field: 'id', headerName: counterpart("dashboard.adminRegistriesPage.table.id"), width: 200, renderCell: (params) => (<Link to={is_admin ? `/admin/registry/${params.id}` : `/registry/${params.id}`}>{params.id}</Link>) },
         { field: 'name', headerName: counterpart("dashboard.adminRegistriesPage.table.name"), width: 200 },
         { field: 'status', headerName: counterpart("dashboard.adminRegistriesPage.table.status"), width: 100 },
         { field: 'created_at', headerName: counterpart("dashboard.adminRegistriesPage.table.created"), width: 200, renderCell: (params) => (formateDate(params.row.created_at)) },
         {
             field: 'action', headerName: counterpart("dashboard.adminRegistriesPage.table.actions"), width: 100, renderCell: (params) => {
-                if (params.row.user_id === user.id) {
-                    const onClick = (e) => {
-                        e.stopPropagation();
-                        preDeleteHandler(params.id)
-                    };
-                    return <CustomDeleteIcon onClick={onClick} />
-                }
-                return null
+                const onClick = (e) => {
+                    e.stopPropagation();
+                    preDeleteHandler(params.id)
+                };
+                return <CustomDeleteIcon onClick={onClick} />
             }
         }
     ];
@@ -50,15 +57,18 @@ function RegistriesPage(props) {
         setIsGlobal(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
     useEffect(() => {
-        axios.get(`/registry/${selectedProvider.name}/${region.name}`)
+        var api_url = is_admin
+            ? `/admin/registry/${selectedProvider.name}/${region.name}/all`
+            : `/registry/${selectedProvider.name}/${region.name}`
+        axios.get(api_url)
             .then(res => {
                 setRegistries(res.data)
                 setFiltredRegistries(res.data)
             }).catch(err => {
                 navigate('/notfound')
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [region.name, navigate, selectedProvider.name, showConfirmDeleteModal])
 
     const preDeleteHandler = (registryId) => {
@@ -67,11 +77,14 @@ function RegistriesPage(props) {
         setSelectedRegistry(registries[registryIndex])
         setShowConfirmDeleteModal(true)
     }
-
-    const deleteRegistryHandler = (selectedItems) => {
+    
+    const deleteRegistryHandler = () => {
         setLoading(true)
         var registryId = selectedRegistry.id
-        axios.delete(`/registry/${selectedProvider.name}/${region.name}/${registryId}`)
+        var api_url = is_admin
+            ? `/admin/registry/${registryId}`
+            : `/registry/${selectedProvider.name}/${region.name}/${registryId}` 
+        axios.delete(api_url)
             .then(res => {
                 setRegistries(filteredListWithoutRemovedElement(registryId, registries))
                 setFiltredRegistries(filteredListWithoutRemovedElement(registryId, filtredRegistries))
@@ -95,7 +108,10 @@ function RegistriesPage(props) {
         new Promise((r, j) => {
             const deletedRegistries = []
             selectedDeletionItems.forEach((registryId, index) => {
-                axios.delete(`/registry/${selectedProvider.name}/${region.name}/${registryId}`)
+                var api_url = is_admin
+                    ? `/admin/registry/${registryId}`
+                    : `/registry/${selectedProvider.name}/${region.name}/${registryId}`
+                axios.delete(api_url)
                     .then(() => {
                         deletedRegistries.push(registryId)
                         if (index === selectedDeletionItems.length - 1) {
@@ -109,12 +125,13 @@ function RegistriesPage(props) {
                     })
             })
         })
-            .then((deletedRegistries) => {
-                setRegistries([...registries.filter(p => !deletedRegistries.includes(p.id))])
+            .then((delete_registries) => {
+                setRegistries([...registries.filter(p => !delete_registries.includes(p.id))])
                 toast.success(counterpart('dashboard.adminRegistriesPage.message.successMultiDelete'))
                 setLoading(false)
                 setShowConfirmDeleteModal(false)
             })
+
     }
 
     const filtreRegistries = (e) => {
@@ -141,28 +158,43 @@ function RegistriesPage(props) {
                 onDelete={deleteRegistryHandler}
                 name={selectedRegistry?.name}
                 loading={loading} />
-            <Row >
-                <Col md="12">
-                    <TextField
-                        style={{ paddingBottom: "20px"  }} 
-                        onChange={(e) => filtreRegistries(e) }
-                        label={context.counterpart('dashboard.addRegistry.inputs.name.placeholder')}
-                        InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <SearchOutlinedIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                        size="small"
-                        fullWidth 
-                    />
+            <Row>
+                <Col>
+                    <div style={{ paddingBottom: "20px"  }} className="instanceCreation">
+                        <TextField
+                            onChange={(e) => filtreRegistries(e) }
+                            label={context.counterpart('dashboard.addRegistry.inputs.name.placeholder')}
+                            InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <SearchOutlinedIcon />
+                                  </InputAdornment>
+                                ),
+                              }}
+                            size="small"
+                            fullWidth 
+                        />
+                        {
+                            is_admin &&
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={
+                                <h5 className="tootltipValue">
+                                    <Translate content="dashboard.adminRegistriesPage.addInstance" />
+                                </h5>}
+                                placement="bottom">
+                                <Fab color="primary" aria-label="add" onClick={() => navigate("/admin/registries/create")} style={{ transform: 'scale(0.7)' }} >
+                                    <AddIcon className="whiteIcon" />
+                                </Fab>
+                            </Tooltip>
+                        }
+                    </div>
                 </Col>
             </Row>
             <DataTable
-                noCreate
                 icon={'fa-brands fa-docker'}
+                noCreate={!is_admin}
+                createUrl='/admin/registries/create'
                 emptyMessage={counterpart('dashboard.adminRegistriesPage.emptyMessage')}
+                createMessage={counterpart('dashboard.adminRegistriesPage.createMessage')}
                 checkboxSelection
                 columns={columns}
                 rows={filtredRegistries}

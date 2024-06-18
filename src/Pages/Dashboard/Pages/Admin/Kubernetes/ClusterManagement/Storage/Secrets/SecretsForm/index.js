@@ -86,16 +86,13 @@ function SecretsFormPage(props) {
           />
           <Row>
             <Col>
-              <div className={classes.goBack}>
+              <div className="goBack">
                 <NavLink
                   to={`/kubernetes/cluster/${clusterId}/storage/secrets/explore`}
-                  className={classes.link}
+                  className="link"
                 >
                   <i
-                    className={[
-                      "fa-solid fa-arrow-left",
-                      `${classes.iconStyle}`,
-                    ].join(" ")}
+                    className="fa-solid fa-arrow-left iconStyle"
                   ></i>
                   <Translate content="dashboard.kubernetesDashboardPages.storage.secrets.form.backToExplore" />
                 </NavLink>

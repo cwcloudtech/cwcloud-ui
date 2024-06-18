@@ -67,7 +67,7 @@ export default function IpAddresses() {
             {
                 ipAddresses.externalIps.map((item) => <ExternalIp key={`extIpAddress-${item.id}`} externalIp={item} counterpart={counterpart} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className={classes.addButton} variant="contained" onClick={addExternalIp}>
+            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addExternalIp}>
                 <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.addExternalIp" />
             </LoadingButton>
         </Form>

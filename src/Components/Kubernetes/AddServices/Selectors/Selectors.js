@@ -64,7 +64,7 @@ export default function Selectors(props) {
             {
                 selectors.map((item) => <Selector key={`selector-${item.id}`} selector={item} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className={classes.addButton} variant="contained" onClick={addSelector}>
+            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addSelector}>
                 <Translate content="dashboard.kubernetesDashboardPages.common.form.addSelector" />
             </LoadingButton>
         </Form>

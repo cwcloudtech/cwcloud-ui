@@ -130,7 +130,7 @@ function Certificate(props) {
 
       <LoadingButton
         icon={"fa-solid fa-plus"}
-        className={classes.addButton}
+        className="addButton"
         variant="contained"
         onClick={() => addHost(id)}
       >
@@ -151,7 +151,7 @@ export default function Certificates(props) {
         ))}
         <LoadingButton
           icon={"fa-solid fa-plus"}
-          className={classes.addButton}
+          className="addButton"
           variant="contained"
           onClick={() => addCertificate()}
         >

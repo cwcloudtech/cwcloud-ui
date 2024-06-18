@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Col, Row, Container } from "reactstrap";
 import classes from "./AddEnvironment.module.css";
+import '../../../../../common.css';
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -115,18 +116,18 @@ function AddEnvironment() {
                 <SubdomainModal title="dashboard.addEnvironement.inputs.subdomains.editModalTitle" isOpen={showEditSubdomain} toggle={() => setShowEditSubdomain(!showEditSubdomain)} variable={selectedSubdomain} index={selectedSubdomainIndex} onClick={handleChangeSubdomain} />
                 <Row>
                     <Col>
-                        <div className={classes.goBack}>
-                            <NavLink to='/environment/overview' className={classes.link}>
-                                <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                        <div className="goBack">
+                            <NavLink to='/admin/environment/overview' className="link">
+                                <i className="fa-solid fa-arrow-left iconStyle"></i>
                                 <Translate content="dashboard.addEnvironement.back" />
                             </NavLink>
                         </div>
                     </Col>
                 </Row>
-                <Container className={classes.container} fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
+                <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
                     <Row>
-                        <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                            <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                        <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                            <h5 className="textTitle" style={{color: colors.title[_mode]}}>
                                 <Translate content="dashboard.addEnvironement.mainTitle" />
                             </h5>
                         </Col>
@@ -135,7 +136,7 @@ function AddEnvironment() {
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>
                                 <Col md="4">
-                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                    <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                         <Translate content="dashboard.addEnvironement.inputs.name.title" />
                                         <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
                                 </Col>
@@ -156,7 +157,7 @@ function AddEnvironment() {
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>
                                 <Col md="4">
-                                    <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                    <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                         <Translate content="dashboard.addEnvironement.inputs.path.title" />
                                         <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
                                 </Col>
@@ -175,7 +176,7 @@ function AddEnvironment() {
                     </Row>
                     <Row style={{ margin: "30px 0px" }}>
                         <Col md="4">
-                            <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                            <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                 <Translate content="dashboard.addEnvironement.inputs.logo_url.title" />
                             </h5>
                         </Col>
@@ -185,7 +186,7 @@ function AddEnvironment() {
                     </Row>
                     <Row style={{ margin: "30px 0px" }}>
                         <Col md="4">
-                            <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                            <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                 <Translate content="dashboard.addEnvironement.inputs.description.title" />
                             </h5>
                         </Col>

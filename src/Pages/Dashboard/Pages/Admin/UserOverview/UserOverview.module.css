@@ -28,10 +28,6 @@
     color: #ffffff;
 }
 
-.icon {
-    margin-right: 8px;
-}
-
 .TextFieldFirst {
     margin: 20px 0 20px 0 !important;
     width: 100% !important;
@@ -40,31 +36,6 @@
 .passwordTextField {
     margin: 20px 0 20px 0 !important;
     width: 100% !important;
-}
-
-.goBack {
-    display: flex;
-    align-items: center;
-}
-
-.iconStyle {
-    font-size: 20px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
-.link {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0.2px;
-    text-align: right;
-    cursor: pointer;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
 }
 
 .rowtest {

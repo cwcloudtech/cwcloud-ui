@@ -1,6 +1,7 @@
 import React from 'react';
 import logoimage from '../../utils/logo'
 import classes from './LoadingComponent.module.css';
+import '../../common.css';
 
 const LoadingPage = () => {
     return (

@@ -6,6 +6,7 @@ import Translate from "react-translate-component";
 import classes from "./LabelsAnnotations.module.css";
 import LoadingButton from "../../../LoadingButton/LoadingButton";
 import MetadataFormContext from "../../../../Context/kubernetes/MetadataFormContext";
+import '../../../../common.css'
 
 function Labels(props) {
   const { counterpart, mode } = useContext(GlobalContext);
@@ -160,7 +161,7 @@ export default function LabelsAnnotations() {
       <div>
         <div className={classes.titleContainer}>
           <Translate
-            className={classes.title}
+            className="card-title"
             content="dashboard.kubernetesDashboardPages.common.form.labels"
           />
         </div>
@@ -172,7 +173,7 @@ export default function LabelsAnnotations() {
         ))}
         <LoadingButton
           icon={"fa-solid fa-plus"}
-          className={classes.addButton}
+          className="addButton"
           variant="contained"
           onClick={addLabel}
         >
@@ -182,7 +183,7 @@ export default function LabelsAnnotations() {
       <div>
         <div className={classes.titleContainer} style={{ marginTop: "25px" }}>
           <Translate
-            className={classes.title}
+            className="card-title"
             content="dashboard.kubernetesDashboardPages.common.form.annotations"
           />
         </div>
@@ -194,7 +195,7 @@ export default function LabelsAnnotations() {
         ))}
         <LoadingButton
           icon={"fa-solid fa-plus"}
-          className={classes.addButton}
+          className="addButton"
           variant="contained"
           onClick={addAnnotation}
         >

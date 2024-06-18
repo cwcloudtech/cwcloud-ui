@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Col } from "reactstrap";
 import GlobalContext from "../../../Context/GlobalContext";
 import classes from "./MiniCardComponent.module.css";
+import '../../../common.css';
 
 function MiniCardComponent({ className = "", instancetitle, value, onClick, checked }) {
     const context = useContext(GlobalContext);

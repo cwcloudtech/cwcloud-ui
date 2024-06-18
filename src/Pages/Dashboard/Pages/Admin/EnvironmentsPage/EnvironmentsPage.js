@@ -1,7 +1,8 @@
 import { useContext, useState, useRef, useEffect } from 'react';
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
 import { Row, Col } from "reactstrap";
-import classes from "./EnvironmentsPage.module.css";
+// import classes from "./EnvironmentsPage.module.css";
+import '../../../../../common.css';
 import { TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../../../utils/axios";
@@ -34,7 +35,7 @@ function EnvironmentsPage(props) {
     const uploadFileRef = useRef(null)
     const navigate = useNavigate()
     const columns = [
-        { field: 'id', headerName: context.counterpart("dashboard.environmentsPage.table.id"), width: 100, renderCell: (params) => (<Link to={`/environment/${params.id}`}>{params.id}</Link>) },
+        { field: 'id', headerName: context.counterpart("dashboard.environmentsPage.table.id"), width: 100, renderCell: (params) => (<Link to={`/admin/environment/${params.id}`}>{params.id}</Link>) },
         { field: 'name', headerName: context.counterpart("dashboard.environmentsPage.table.name"), width: 200 },
         { field: 'path', headerName: context.counterpart("dashboard.environmentsPage.table.path"), width: 200 },
         { field: 'private', headerName: context.counterpart("dashboard.environmentsPage.table.private"), width: 200, renderCell: (params) => (params.row.is_private ? 'yes' : 'no') },
@@ -116,7 +117,7 @@ function EnvironmentsPage(props) {
             <DeleteModal resourceName={'environment'} isOpen={showConfirmDeleteModal} toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)} onDelete={deleteEnvironmentHandler} name={selectedEnvironment?.name} loading={loadingDeleteEnv} />
             <Row>
                 <Col>
-                    <div style={{ paddingBottom: "20px"  }} className={classes.envCreation}>
+                    <div style={{ paddingBottom: "20px"  }} className="envCreation">
                         <TextField
                             style={{ marginRight: "5px" }}
                             onChange={(e) => filterEnvironments(e) }
@@ -133,17 +134,17 @@ function EnvironmentsPage(props) {
                         />
                         <div style={{ display: 'flex' }}>
                             <input accept='application/json`' type="file" style={{ display: 'none' }} onChange={uploadEnvironmentHandler} ref={uploadFileRef} />
-                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.environmentsPage.importEnvironment" />
                                 </h5>} placement="bottom">
                                     <Fab color="primary" aria-label="import" onClick={() => uploadFileRef.current.click()} style={{ transform: 'scale(0.7)' }} >
                                         <PublishOutlinedIcon className="whiteIcon" />
                                     </Fab>
                             </Tooltip>
-                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.environmentsPage.addEnvironment" />
                             </h5>} placement="bottom">
-                                <Fab color="primary" aria-label="add" onClick={() => navigate("/environment/add")} style={{ transform: 'scale(0.7)' }} >
+                                <Fab color="primary" aria-label="add" onClick={() => navigate("/admin/environment/add")} style={{ transform: 'scale(0.7)' }} >
                                     <AddIcon className="whiteIcon" />
                                 </Fab>
                             </Tooltip>

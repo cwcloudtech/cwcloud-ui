@@ -16,7 +16,7 @@ function DevicesPage(props) {
     const location = useLocation()
     const currentPath = location.pathname
     const is_admin = currentPath === "/admin/iot/devices"
-    const [createLink, setCreateLink] = useState("/admin/iot/add/device")
+    const [createLink, setCreateLink] = useState("/iot/add/device")
 
     const [devices, setDevices] = useState([])
     const [selectedDevice, setSelectedDevice] = useState(null)

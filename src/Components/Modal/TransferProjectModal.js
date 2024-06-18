@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
-import {useEffect, useState} from "react";
+import { useState, useEffect } from "react";
 import {
     Modal,
     ModalHeader,
@@ -8,12 +8,11 @@ import {
     Row,
     Col,
 } from "reactstrap";
-import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton"
+import LoadingButton from "../LoadingButton/LoadingButton"
 import Translate from 'react-translate-component';
 
-const TransferBucketModal = (props) => {
+const TransferProjectModal = (props) => {
     const [userEmail, setUserEmail] = useState("")
-
     useEffect(() => {
         if (!props.isOpen)
             setUserEmail("")
@@ -21,7 +20,7 @@ const TransferBucketModal = (props) => {
     return (
         <Modal centered isOpen={props.isOpen} toggle={props.toggle}>
             <ModalHeader toggle={props.toggle}>
-                <Translate content="dashboard.bucketOverview.fields.transferTitle" />
+                <Translate content="dashboard.projectOverview.fields.transferTitle" />
             </ModalHeader>
             <ModalBody>
                 <Row>
@@ -33,7 +32,6 @@ const TransferBucketModal = (props) => {
                 </Row>
                 <Row>
                     <Col>
-
                         <Autocomplete
                             disablePortal
                             id="combo-box-email"
@@ -46,9 +44,7 @@ const TransferBucketModal = (props) => {
                             renderInput={(params) =>
                                 <TextField onChange={(e) => setUserEmail(e.target.value)} {...params} label="Email" />}
                         />
-
                     </Col>
-
                 </Row>
             </ModalBody>
             <ModalFooter>
@@ -64,4 +60,4 @@ const TransferBucketModal = (props) => {
     );
 };
 
-export default TransferBucketModal;
+export default TransferProjectModal;

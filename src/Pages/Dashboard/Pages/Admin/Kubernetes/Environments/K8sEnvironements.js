@@ -197,7 +197,7 @@ export default function K8sEnvironements(props) {
               TransitionComponent={Fade}
               TransitionProps={{ timeout: 600 }}
               title={
-                <h5 className={classes.tootltipValue}>
+                <h5 className="tootltipValue">
                   <Translate content="dashboard.k8sEnvironments.explore.addEnvironement" />
                 </h5>
               }

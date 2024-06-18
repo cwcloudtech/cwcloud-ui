@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import { Input, Form, FormGroup, FormFeedback, Col, Row, Label } from "reactstrap"
-import classes from "./K8sEnvironmentForm.module.css"
+// import classes from "./K8sEnvironmentForm.module.css"
+import '../../../../../../common.css'
 import { NavLink, useParams } from "react-router-dom"
 import GlobalContext from "../../../../../../Context/GlobalContext";
 import colors from "../../../../../../Context/Colors";
@@ -48,17 +49,17 @@ function K8sEnvironmentForm(props) {
             <AddExternalChartModal toggle={() => setShowAddModal(!showAddModal)} isOpen={showAddModal} onAddRole={handleExternalRoleAdd} />
             <Row>
                 <Col>
-                    <div className={classes.goBack}>
-                        <NavLink to='/kubernetes/environments' className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div className="goBack">
+                        <NavLink to='/kubernetes/environments' className="link">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.environmentOverview.back" />
                         </NavLink>
                     </div>
                 </Col>
             </Row>
             <Row style={{ marginTop: "30px", marginBottom: "20px", margin: "10px 0px 0px" }}>
-                <Col className={classes.borderCol} style={{ boxShadow: "0 3px " + colors.bottomShaddow[mode] }}>
-                    <h5 className={classes.textTitle} style={{ color: colors.title[mode] }}>
+                <Col className="borderCol" style={{ boxShadow: "0 3px " + colors.bottomShaddow[mode] }}>
+                    <h5 className="textTitle" style={{ color: colors.title[mode] }}>
                         <Translate content="dashboard.k8sEnvironments.form.title" />
                     </h5>
                 </Col>

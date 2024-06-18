@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'reactstrap';
 import GlobalContext from '../../Context/GlobalContext'
 import classes from './AllowCookiesFooter.module.css';
+import '../../common.css';
 import Translate from 'react-translate-component'
 
 const AllowCookiesFooter = () => {

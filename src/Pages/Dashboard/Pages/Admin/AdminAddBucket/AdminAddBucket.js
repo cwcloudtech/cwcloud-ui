@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
 import { Input, Form, FormGroup, FormFeedback, FormText, Col, Row } from "reactstrap";
-import classes from "./AdminAddBucket.module.css"
+// import classes from "./AdminAddBucket.module.css"
+import '../../../../../common.css'
 import axios from "../../../../../utils/axios";
 import { NavLink, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
@@ -69,17 +70,17 @@ function AdminAddBucket(props) {
         <div>
             <Row>
                 <Col>
-                    <div className={classes.goBack}>
-                        <NavLink to='/admin/buckets' className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div className="goBack">
+                        <NavLink to='/admin/buckets' className="link fs-6">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.addBucket.back" />
                         </NavLink>
                     </div>
                 </Col>
             </Row>
-            <Row style={{ marginTop: "30px", marginBottom: "20px", margin: "10px 0px 0px" }}>
-                <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                    <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+            <Row style={{ marginTop: "20px", marginBottom: "20px"}}>
+                <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                    <h5 className="textTitle" style={{color: colors.title[_mode]}}>
                         <Translate content="dashboard.addBucket.mainTitle" />
                     </h5>
                 </Col>

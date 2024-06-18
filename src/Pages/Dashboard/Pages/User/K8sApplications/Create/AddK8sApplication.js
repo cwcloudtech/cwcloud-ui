@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import { Input, Form, FormGroup, FormFeedback, Col, Row, Label } from "reactstrap"
-import classes from "./AddK8sApplication.module.css"
+// import classes from "./AddK8sApplication.module.css"
+import '../../../../../../common.css';
 import { NavLink, useNavigate } from "react-router-dom"
 import GlobalContext from "../../../../../../Context/GlobalContext";
 import colors from "../../../../../../Context/Colors";
@@ -73,55 +74,49 @@ function AddK8sApplication(props) {
         <div>
             <Row>
                 <Col>
-                    <div className={classes.goBack}>
-                        <NavLink to='/k8s-applications' className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div className="goBack">
+                        <NavLink to='/k8s-applications' className="link fs-6">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.k8sApplications.form.backToExplore" />
                         </NavLink>
                     </div>
                 </Col>
             </Row>
             <Row style={{ marginTop: "30px", marginBottom: "20px", margin: "10px 0px 0px" }}>
-                <Col className={classes.borderCol} style={{ boxShadow: "0 3px " + colors.bottomShaddow[_mode] }}>
-                    <h5 className={classes.textTitle} style={{ color: colors.title[_mode] }}>
+                <Col className="borderCol" style={{ boxShadow: "0 3px " + colors.bottomShaddow[_mode] }}>
+                    <h5 className='textTitle' style={{ color: colors.title[_mode] }}>
                         <Translate content="dashboard.k8sApplications.form.title" />
                     </h5>
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    <CardComponent
-                        containerStyles={props.containerStyles}
-                        customMarginTop={"20px"}
-                        title={context.counterpart('dashboard.k8sApplications.form.title')}>
-                        <Form>
-                            <Row>
-                                <FormGroup>
-                                    <Label
-                                        for="app-name"
-                                        style={{ color: colors.title[_mode] }}
-                                    >{context.counterpart('dashboard.k8sApplications.form.nameLabel')}*</Label>
-                                    <Input className="blackableInput" placeholder={context.counterpart('dashboard.k8sApplications.form.namePlaceHolder')}
-                                        value={appInfo.name} name="app-name"
-                                        onChange={(e) => setAppInfo({ ...appInfo, name: e.target.value })} invalid={isInvalid.name} />
-                                    <FormFeedback>
-                                        <Translate content="common.message.thisFieldIsRequired" className="errorText" />
-                                    </FormFeedback>
-                                </FormGroup>
-                            </Row>
-                            <FormGroup>
-                                <Label
-                                    for="app-description"
-                                    style={{ color: colors.title[_mode] }}
-                                >{context.counterpart('dashboard.k8sApplications.form.descriptionLabel')}</Label>
-                                <Input className="blackableInput" type="textarea" placeholder={context.counterpart('dashboard.k8sApplications.form.descriptionPlaceholder')}
-                                    value={appInfo.description} name="app-description"
-                                    onChange={(e) => setAppInfo({ ...appInfo, description: e.target.value })} />
-                            </FormGroup>
-                        </Form>
-                    </CardComponent>
-                </Col>
-            </Row>
+            <CardComponent
+                containerStyles={props.containerStyles}
+                customMarginTop={"20px"}
+                title={context.counterpart('dashboard.k8sApplications.form.title')}>
+                <Form>
+                    <FormGroup>
+                        <Label
+                            for="app-name"
+                            style={{ color: colors.title[_mode] }}
+                        >{context.counterpart('dashboard.k8sApplications.form.nameLabel')}*</Label>
+                        <Input className="blackableInput" placeholder={context.counterpart('dashboard.k8sApplications.form.namePlaceHolder')}
+                            value={appInfo.name} name="app-name"
+                            onChange={(e) => setAppInfo({ ...appInfo, name: e.target.value })} invalid={isInvalid.name} />
+                        <FormFeedback>
+                            <Translate content="common.message.thisFieldIsRequired" className="errorText" />
+                        </FormFeedback>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label
+                            for="app-description"
+                            style={{ color: colors.title[_mode] }}
+                        >{context.counterpart('dashboard.k8sApplications.form.descriptionLabel')}</Label>
+                        <Input className="blackableInput" type="textarea" placeholder={context.counterpart('dashboard.k8sApplications.form.descriptionPlaceholder')}
+                            value={appInfo.description} name="app-description"
+                            onChange={(e) => setAppInfo({ ...appInfo, description: e.target.value })} />
+                    </FormGroup>
+                </Form>
+            </CardComponent>
             <CardComponent
                 containerStyles={props.containerStyles}
                 title={context.counterpart('dashboard.k8sApplications.form.selectCluster') + '*'}
@@ -169,7 +164,7 @@ function AddK8sApplication(props) {
                             items={projects}
                         />
 
-                        <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                        <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                             <Translate content="dashboard.k8sApplications.form.addNewProject" />
                         </h5>} placement="right">
                             <Fab color="primary" aria-label="add" onClick={() => navigate("/projects/create")} style={{ transform: 'scale(0.7)', top: '18px' }} >

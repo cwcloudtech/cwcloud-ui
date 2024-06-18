@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton'
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from "../../../../../../Context/Colors";
 import classes from './ResourceItem.module.css';
+import '../../../../../../common.css';
 
 const ResourceItem = (props) => {
     const context = useContext(GlobalContext);
@@ -18,7 +19,7 @@ const ResourceItem = (props) => {
                 }}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div className={classes.iconContainer}>
-                        <i className={`${props.icon} ${classes.icon} gadientIcon`}></i>
+                        <i className={`${props.icon} resourceicon gadientIcon`}></i>
                     </div>
                     <div>
                         <h3 className={classes.resourceNameText} style={{ color: colors.blue[_mode] }}>
@@ -42,7 +43,7 @@ const ResourceItem = (props) => {
             }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div className={classes.iconContainer}>
-                    <i className={`${props.icon} ${classes.icon} gadientIcon`}></i>
+                    <i className={`${props.icon} resourceicon gadientIcon`}></i>
                 </div>
                 <div>
                     <h3 className={classes.resourceNameText} style={{ color: colors.blue[_mode] }}>

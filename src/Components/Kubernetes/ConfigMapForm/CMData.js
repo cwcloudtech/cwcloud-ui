@@ -64,7 +64,7 @@ export default function CMData(props) {
             {
                 cmData.map((item) => <SingleCMData key={`cmdata-${item.id}`} cmData={item} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className={classes.addButton} variant="contained" onClick={addSingleCmData}>
+            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addSingleCmData}>
                 <Translate content="dashboard.kubernetesDashboardPages.common.form.addSelector" />
             </LoadingButton>
         </Form>

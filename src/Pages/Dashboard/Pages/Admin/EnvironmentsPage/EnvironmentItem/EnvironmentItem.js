@@ -40,11 +40,11 @@ function EnvironmentItem(props) {
                 <th scope="row">
                     <Skeleton />
                 </th>
-                <td className={`${classes.itemTitle}`}> <Skeleton /></td>
-                <td className={`${classes.itemTitle}`}> <Skeleton /></td>
-                <td className={`${classes.itemTitle}`}> <Skeleton /></td>
-                <td className={`${classes.itemTitle}`}> <Skeleton /></td>
-                <td className={classes.itemTitle}>
+                <td className="itemTitle"> <Skeleton /></td>
+                <td className="itemTitle"> <Skeleton /></td>
+                <td className="itemTitle"> <Skeleton /></td>
+                <td className="itemTitle"> <Skeleton /></td>
+                <td className="itemTitle">
                     <Skeleton />
                 </td>
             </tr >
@@ -61,11 +61,11 @@ function EnvironmentItem(props) {
                     </NavLink>
                 </Tooltip>
             </th>
-            <td className={`${classes.itemTitle}`}>{props.environment.name}</td>
-            <td className={`${classes.itemTitle}`}>{props.environment.path}</td>
-            <td className={`${classes.itemTitle}`}>{props.environment.is_private ? 'yes' : 'no'}</td>
-            <td className={`${classes.itemTitle}`}>{formateDate(props.environment.created_at)}</td>
-            <td className={classes.itemTitle}>
+            <td className="itemTitle">{props.environment.name}</td>
+            <td className="itemTitle">{props.environment.path}</td>
+            <td className="itemTitle">{props.environment.is_private ? 'yes' : 'no'}</td>
+            <td className="itemTitle">{formateDate(props.environment.created_at)}</td>
+            <td className="itemTitle">
                 <CustomDeleteIcon onClick={onPreDeleteHandler} />
             </td>
         </tr >

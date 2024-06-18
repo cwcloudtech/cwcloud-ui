@@ -8,11 +8,12 @@ import {
     Row,
     Col,
 } from "reactstrap";
-import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton"
+import LoadingButton from "../LoadingButton/LoadingButton"
 import Translate from 'react-translate-component';
 
-const TransferProjectModal = (props) => {
+const TransferRegistryModal = (props) => {
     const [userEmail, setUserEmail] = useState("")
+
     useEffect(() => {
         if (!props.isOpen)
             setUserEmail("")
@@ -20,7 +21,7 @@ const TransferProjectModal = (props) => {
     return (
         <Modal centered isOpen={props.isOpen} toggle={props.toggle}>
             <ModalHeader toggle={props.toggle}>
-                <Translate content="dashboard.projectOverview.fields.transferTitle" />
+                <Translate content="dashboard.registryOverview.fields.transferTitle" />
             </ModalHeader>
             <ModalBody>
                 <Row>
@@ -32,6 +33,7 @@ const TransferProjectModal = (props) => {
                 </Row>
                 <Row>
                     <Col>
+
                         <Autocomplete
                             disablePortal
                             id="combo-box-email"
@@ -44,7 +46,9 @@ const TransferProjectModal = (props) => {
                             renderInput={(params) =>
                                 <TextField onChange={(e) => setUserEmail(e.target.value)} {...params} label="Email" />}
                         />
+
                     </Col>
+
                 </Row>
             </ModalBody>
             <ModalFooter>
@@ -60,4 +64,4 @@ const TransferProjectModal = (props) => {
     );
 };
 
-export default TransferProjectModal;
+export default TransferRegistryModal;

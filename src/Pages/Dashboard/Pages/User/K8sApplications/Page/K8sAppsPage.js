@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import { Row, Col } from "reactstrap";
-import classes from "./K8sAppsPage.module.css";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import { Link, useNavigate } from "react-router-dom";
 import GlobalContext from "../../../../../../Context/GlobalContext";
@@ -183,7 +182,7 @@ function K8sAppsPage(props) {
           name={selectedDepApplication?.name}
           loading={deletionLoading} />
         <Col>
-          <div style={{ paddingBottom: "20px" }} className={classes.instanceCreation}>
+          <div style={{ paddingBottom: "20px" }} className="instanceCreation">
             <TextField
               onChange={(e) => filtreProjects(e)}
               placeholder={counterpart('dashboard.kubernetesDashboardPages.deployedApplications.explore.searchPlaceholder')}
@@ -197,7 +196,7 @@ function K8sAppsPage(props) {
               size="small"
               fullWidth
             />
-            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
               <Translate content="dashboard.kubernetesDashboardPages.deployedApplications.explore.deployApplication" />
             </h5>} placement="bottom">
               <Fab color="primary" aria-label="add" onClick={() => navigate(`/k8s-applications/create`)} style={{ transform: 'scale(0.7)' }} >

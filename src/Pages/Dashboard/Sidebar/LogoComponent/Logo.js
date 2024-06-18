@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import classes from "./Logo.module.css"
+import '../../../../common.css'
 import { Row, Col } from "reactstrap"
 import logoimage from "../../../../utils/customizedLogo";
 import lightLogo from "../../../../assets/images/logocomwork.png";

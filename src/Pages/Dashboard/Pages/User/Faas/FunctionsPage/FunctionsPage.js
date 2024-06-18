@@ -198,7 +198,7 @@ function FunctionsPage(props) {
             />
             <Row>
                 <Col>
-                    <div style={{ paddingBottom: "20px"  }} className={classes.envCreation}>
+                    <div style={{ paddingBottom: "20px"  }} className="envCreation">
                         <TextField
                             style={{ marginRight: "5px" }}
                             onChange={(f) => filterServerlessFunction(f) }
@@ -215,14 +215,14 @@ function FunctionsPage(props) {
                         />
                         <div style={{ display: 'flex' }}>
                             <input accept='application/json`' type="file" style={{ display: 'none' }} onChange={uploadFunctionHandler} ref={uploadFileRef} />
-                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.function.import" />
                             </h5>} placement="bottom">
                                 <Fab color="primary" aria-label="import" onClick={() => uploadFileRef.current.click()} style={{ transform: 'scale(0.7)' }} >
                                     <PublishOutlinedIcon className="whiteIcon" />
                                 </Fab>
                             </Tooltip>
-                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.function.add" />
                             </h5>} placement="bottom">
                                 <Fab color="primary" aria-label="add" onClick={() => navigate("/function/add")} style={{ transform: 'scale(0.7)' }} >

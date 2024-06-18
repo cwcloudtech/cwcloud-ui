@@ -36,7 +36,7 @@ const Confirm = (props) => {
                     </Col>
                 </Row>
                 <Row style={{ width: "100%" }}>
-                    <Col className={classes.formContainer}>
+                    <Col className="formContainer">
                         <Row className={classes.form}>
                             <Col style={{ padding: "0" }}>
                                 <h4 className={classes.headerTitle}>

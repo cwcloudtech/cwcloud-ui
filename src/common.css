@@ -1,0 +1,392 @@
+.card-title {
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.buttonStyle {
+    width: 150px;
+    height: 50px;
+}
+
+.icon {
+    margin-right: 8px;
+}
+
+/* .icon {
+    color: #0861AF;
+    font-size: 20px;
+    margin-right: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+} */
+
+.resourceicon {
+    font-size: 18px;
+}
+
+.addicon {
+    margin-right: 8px;
+    color: #0861AF;
+}
+
+.linkicon {
+    font-size: 20px;
+    margin-right: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.textTitle {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: rgb(74, 79, 98);
+    letter-spacing: 0.1px;
+    padding: 15px;
+    margin: 0;
+}
+
+.textStyle {
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    margin: 0;
+    font-size: 18px;
+    line-height: 24px;
+    padding: 9px;
+}
+
+.link {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    color: #0860b0;
+    text-align: right;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.goBack {
+    display: flex;
+    align-items: center;
+}
+
+.iconStyle {
+    color: #0861AF;
+    font-size: 20px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.link:hover .iconStyle {
+    color: rgb(17, 77, 129) !important;
+}
+
+.roleStyle {
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    color: #4a4f62;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.row {
+    margin: 10px 0 10px 0 !important;
+}
+
+.rowD {
+    margin: 20px 0 20px 0 !important;
+}
+
+.testrow {
+    border-top: 0.2px solid #929191;
+}
+
+.container {
+    padding: 0 20px 20px 20px;
+    margin-top: 20px;
+    min-height: 80vh;
+    position: relative
+}
+
+.labelName {
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    color: #4a4f62;
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.borderCol {
+    padding: 0 !important;
+}
+
+/* .borderCol {
+    box-shadow: 0 3px #c7c3c3;
+    padding: 0 !important;
+} */
+
+.formContainer {
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px !important;
+}
+
+/* .buttonStyle {
+    border-radius: 25px;
+    width: 50%;
+    padding: 1%;
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 700;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(90deg,
+            rgb(76, 212, 214) 0%,
+            rgb(12, 67, 131) 100%);
+    border: 0px;
+    cursor: pointer;
+    transition: opacity 0.25s ease-out;
+} */
+
+/* .buttonStyle:hover {
+    opacity: 0.8;
+} */
+
+.tootltipValue {
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    margin: 0;
+    line-height: 28px;
+
+}
+
+.titleStyle {
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 24px;
+}
+
+.subtitleStyle {
+    margin: 0;
+    color: #98a6ad !important;
+    font-size: 15px;
+    letter-spacing: 0.1px;
+    font-weight: 400;
+}
+
+.iconStyle {
+    font-size: 20px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.iconProcessStyle {
+    font-size: 50px;
+}
+
+.colElement {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.separator {
+    width: 97%;
+    color: black;
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+.imgstyle {
+    width: 20px;
+}
+
+.active {
+    color: #22c8a2;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.inactive {
+    color: rgb(74, 79, 98);
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.toggleStarting {
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+    animation-iteration-count: infinite;
+    animation-name: toggle_color;
+    animation-duration: 0.8s;
+}
+
+.shellExecutorText {
+    text-decoration: none !important;
+}
+
+.shellExecutorText:hover {
+    text-decoration: underline !important;
+}
+
+.powredOff {
+    color: #f6f7f9;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.colinline {
+    display: flex !important;
+}
+
+.colInlineValue {
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    color: #4A4F62;
+    margin: 0 0 0 8px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.colInlineValueSpec {
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.toggleOn {
+    color: #22c8a2;
+    font-size: 40px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.toggleOn:hover {
+    color: #ff6b75;
+}
+
+.toggleOff {
+    color: #ff6b75;
+    font-size: 40px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.toggleOff:hover {
+    color: #22c8a2;
+}
+
+.test {
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.blocMargin {
+    margin: 30px 0 30px 0 !important
+}
+
+.instanceCreation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.itemTitle {
+    font-weight: 500;
+    color: rgb(74, 79, 98);
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.borderCol {
+    padding: 0 !important;
+    display: flex;
+    justify-content: space-between;
+}
+
+.createdStyle {
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    color: rgb(74, 79, 98);
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 !important;
+    padding: 9px;
+}
+
+.envCreation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.spinner {
+    margin-right: 10px;
+}
+
+.mainTitleText {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.addButton {
+    font-size: 40px !important;
+    cursor: pointer;
+}
+
+@keyframes toggle_color {
+    0% {
+        color: #0861AF;
+    }
+
+    25% {
+        color: #3a6e9e
+    }
+
+    50% {
+        color: #80a5c8
+    }
+
+    75% {
+        color: #c0d8ee
+    }
+
+    100% {
+        color: #f6f7f9;
+    }
+}

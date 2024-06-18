@@ -20,16 +20,8 @@ import UserDashboard from "./Pages/User/UserDashboard/UserDashboard"
 import AddEnvironment from "./Pages/Admin/AddEnvironment/AddEnvironment"
 import AddUser from "./Pages/Admin/AddUser/AddUser"
 import AdminAddBucket from "./Pages/Admin/AdminAddBucket/AdminAddBucket"
-import AdminAddInstance from "./Pages/Admin/AdminAddInstance/AdminAddInstance"
-import AdminAddProject from "./Pages/Admin/AdminAddProject/AdminAddProject"
-import AdminBucketOverview from "./Pages/Admin/AdminBucketOverview/AdminBucketOverview"
-import AdminBucketsPage from "./Pages/Admin/AdminBucketsPage/AdminBucketsPage"
 import AdminGenerateInvoice from "./Pages/Admin/AdminGenerateInvoice/AdminGenerateInvoice"
-import AdminInstanceOverview from "./Pages/Admin/AdminInstanceOverview/AdminInstanceOverview"
-import AdminInstancesPage from "./Pages/Admin/AdminInstancesPage/AdminInstancesPage"
 import AdminInvoicesOverview from "./Pages/Admin/AdminInvoicesOverview/AdminInvoicesOverview"
-import AdminProjectOverview from "./Pages/Admin/AdminProjectOverview/AdminProjectOverview"
-import AdminProjectsPage from "./Pages/Admin/AdminProjectsPage/AdminProjectsPage"
 import EnvironmentOverview from "./Pages/Admin/EnvironmentOverview/EnvironmentOverview"
 import EnvironmentsPage from "./Pages/Admin/EnvironmentsPage/EnvironmentsPage"
 import UserOverview from "./Pages/Admin/UserOverview/UserOverview"
@@ -37,21 +29,15 @@ import UsersPage from "./Pages/Admin/UsersPage/UsersPage"
 import Error from "./Pages/Error/Error"
 import RegistriesPage from "./Pages/User/RegistriesPage/RegistriesPage";
 import RegistryOverview from "./Pages/User/RegistryOverview/RegistryOverview";
-import AdminRegistriesPage from "./Pages/Admin/AdminRegistriesPage/AdminRegistriesPage";
 import AdminAddRegistry from "./Pages/Admin/AdminAddRegistry/AdminAddRegistry";
-import AdminRegistryOverview from "./Pages/Admin/AdminRegistryOverview/AdminRegistryOverview";
 import Credentials from "./Pages/User/Credentials/Credentials";
 import Settings from "./Pages/User/Settings/Settings";
 import AdminAddVoucher from "./Pages/Admin/AdminAddVoucher/AdminAddVoucher";
 import AdminVouchersPage from "./Pages/Admin/AdminVouchersPage/AdminVouchersPage";
 import Vouchers from "./Pages/User/Vouchers/Vouchers";
-import Support from "./Pages/User/Support/Support";
 import Ticket from "./Pages/User/Ticket/Ticket";
-import ManageSupport from "./Pages/Admin/ManageSupport/ManageSupport";
+import ManageSupport from "./Pages/User/ManageSupport/ManageSupport";
 import SendEmail from "./Pages/User/SendEmail/SendEmail";
-import AdminSendEmail from "./Pages/Admin/AdminSendEmail/AdminSendEmail";
-import AdminTicket from "./Pages/Admin/AdminTicket/AdminTicket";
-import AdminAttachInstance from "./Pages/Admin/AdminAttachInstance/AdminAttachInstance";
 import AdminVoucherPage from "./Pages/Admin/AdminVoucherPage/AdminVoucherPage";
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
@@ -112,24 +98,26 @@ function Dashboard() {
                     <IndexNavbar />
                     <div className={classes.contentBlock}>
                         <Routes>
+                            {/* Admin Routes */}
                             <Route exact path="/dashboard" element={<UserDashboard />} />
-                            {/* Admin routes  */}
-                            <Route exact path="/admin/projects" element={<AdminProjectsPage />} />
-                            <Route exact path="/admin/project/:projectId" element={<AdminProjectOverview />} />
-                            <Route exact path="/admin/projects/create" element={<AdminAddProject />} />
-                            <Route exact path="/admin/instances" element={<AdminInstancesPage />} />
-                            <Route exact path="/admin/instances/attach/:projectId" element={<AdminAttachInstance />} />
-                            <Route exact path="/admin/instances/create" element={<AdminAddInstance />} />
-                            <Route exact path="/admin/instance/:instanceId" element={<AdminInstanceOverview />} />
-                            <Route exact path="/admin/buckets" element={<AdminBucketsPage />} />
+                            <Route exact path="/admin/projects" element={<ProjectsPage />} />
+                            <Route exact path="/admin/projects/create" element={<AddProject />} />
+                            <Route exact path="/admin/project/:projectId" element={<ProjectOverview />} />
+                            <Route exact path="/admin/instances" element={<InstancesPage />} />
+                            <Route exact path="/admin/instances/attach/:projectId" element={<AttachInstance />} />
+                            <Route exact path="/admin/instances/create" element={<AddInstance />} />
+                            <Route exact path="/admin/instance/:instanceId" element={<InstanceOverview />} />
+                            <Route exact path="/admin/buckets" element={<BucketsPage />} />
                             <Route exact path="/admin/buckets/create" element={<AdminAddBucket />} />
-                            <Route exact path="/admin/bucket/:bucketId" element={<AdminBucketOverview />} />
-                            <Route exact path="/admin/registries" element={<AdminRegistriesPage />} />
+                            <Route exact path="/admin/bucket/:bucketId" element={<BucketOverview />} />
+                            <Route exact path="/admin/registries" element={<RegistriesPage />} /> 
                             <Route exact path="/admin/registries/create" element={<AdminAddRegistry />} />
-                            <Route exact path="/admin/registry/:registryId" element={<AdminRegistryOverview />} />
+                            <Route exact path="/admin/registry/:registryId" element={<RegistryOverview />} />
                             <Route exact path="/admin/vouchers" element={<AdminVouchersPage />} />
                             <Route exact path="/admin/vouchers/create" element={<AdminAddVoucher />} />
                             <Route exact path="/admin/voucher/:voucherId" element={<AdminVoucherPage />} />
+                            <Route exact path="/admin/support" element={<ManageSupport />} />
+                            <Route exact path="/admin/support/:ticketId" element={<Ticket />} />
                             <Route exact path="/admin/function/overview" element={<AdminFunctionsPage />} />
                             <Route exact path="/admin/function/add" element={<AddFunction />} />
                             <Route exact path="/admin/function/:id" element={<AdminFunctionEdit />} />
@@ -143,34 +131,30 @@ function Dashboard() {
                             <Route exact path="/admin/iot/object-type/:id" element={<ObjectType />} />
                             <Route exact path="/admin/iot/add/device" element={<Device />} />
                             <Route exact path="/admin/iot/add/data" element={<AddData />} />
-                            <Route exact path="/admin/support" element={<ManageSupport />} />
-                            <Route exact path="/admin/support/:ticketId" element={<AdminTicket />} />
-                            <Route exact path="/admin/email" element={<AdminSendEmail />} />
-                            {/* User Routes */}
-                            <Route exact path="/environment/overview" element={<EnvironmentsPage />} />
-                            <Route exact path="/environment/add" element={<AddEnvironment />} />
-                            <Route exact path="/environment/:id" element={<EnvironmentOverview />} />
+                            <Route exact path="/admin/environment/overview" element={<EnvironmentsPage />} />
+                            <Route exact path="/admin/environment/add" element={<AddEnvironment />} />
+                            <Route exact path="/admin/environment/:id" element={<EnvironmentOverview />} />
+                            <Route exact path="/admin/email" element={<SendEmail />} />
+                            <Route exact path="/users/overview" element={<UsersPage />} />
+                            <Route exact path="/users/add" element={<AddUser />} />
+                            <Route exact path="/user/:userId" element={<UserOverview />} />
+                            {/* User routes */}
+                            <Route exact path="/credentials" element={<Credentials />} />
+                            <Route exact path="/settings" element={<Settings />} />
                             <Route exact path="/projects" element={<ProjectsPage />} />
                             <Route exact path="/projects/create" element={<AddProject />} />
                             <Route exact path="/project/:projectId" element={<ProjectOverview />} />
                             <Route exact path="/instances" element={<InstancesPage />} />
-                            <Route exact path="/instances/create" element={<AddInstance />} />
                             <Route exact path="/instances/attach/:projectId" element={<AttachInstance />} />
+                            <Route exact path="/instances/create" element={<AddInstance />} />
                             <Route exact path="/instance/:instanceId" element={<InstanceOverview />} />
                             <Route exact path="/buckets" element={<BucketsPage />} />
                             <Route exact path="/bucket/:bucketId" element={<BucketOverview />} />
                             <Route exact path="/registries" element={<RegistriesPage />} />
                             <Route exact path="/registry/:registryId" element={<RegistryOverview />} />
                             <Route exact path="/vouchers" element={<Vouchers />} />
-                            <Route exact path="/support" element={<Support />} />
+                            <Route exact path="/support" element={<ManageSupport />} />
                             <Route exact path="/support/:ticketId" element={<Ticket />} />
-                            <Route exact path="/users/overview" element={<UsersPage />} />
-                            <Route exact path="/users/add" element={<AddUser />} />
-                            <Route exact path="/user/:userId" element={<UserOverview />} />
-                            <Route exact path="/credentials" element={<Credentials />} />
-                            <Route exact path="/settings" element={<Settings />} />
-                            <Route exact path="/cwai" element={<CwaiChat />} />
-                            <Route exact path="/email" element={<SendEmail />} />
                             <Route exact path="/function/overview" element={<FunctionsPage />} />
                             <Route exact path="/function/add" element={<AddFunction />} />
                             <Route exact path="/function/:id" element={<FunctionOverview />} />
@@ -184,6 +168,8 @@ function Dashboard() {
                             <Route exact path="/iot/object-type/:id" element={<ObjectType />} />
                             <Route exact path="/iot/add/device" element={<Device />} />
                             <Route exact path="/iot/add/data" element={<AddData />} />
+                            <Route exact path="/cwai" element={<CwaiChat />} />
+                            <Route exact path="/email" element={<SendEmail />} />
                             <Route exact path="/k8s-applications">
                                 <Route exact path="" element={<K8sAppsPage />} />
                                 <Route exact path="app/:appId" element={<K8sAppOverview />} />

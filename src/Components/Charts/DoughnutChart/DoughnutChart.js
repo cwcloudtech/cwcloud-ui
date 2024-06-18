@@ -3,10 +3,11 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import configs from './configs'
 import { Container, Row } from "reactstrap";
-import classes from './DoughnutChart.module.css';
+import classes from '../Chart.module.css';
+import '../../../common.css';
 import Skeleton from "react-loading-skeleton";
-import GlobalContext from "../../Context/GlobalContext";
-import colors from "../../Context/Colors";
+import GlobalContext from "../../../Context/GlobalContext";
+import colors from "../../../Context/Colors";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = (props) => {

@@ -14,6 +14,10 @@ const useStyles = createUseStyles({
         cursor: "pointer",
         paddingLeft: ({ level }) => 32 * level,
         transition: "all 0.2s ease-in-out",
+        backgroundColor: colors.sideBackground,
+        '&:hover': {
+            backgroundColor: "rgb(67,109,150)",
+        },
     },
     leftBar: {
         borderLeft: ({ level, blue }) =>
@@ -59,6 +63,7 @@ function SidebarMenuItem(props) {
                 vertical="center"
                 onClick={onItemClicked}
                 className={classes.container}
+                style={{ backgroundColor: classes.backgroundColor }}
             >
                 {props.icon && <div style={{ color: `${iconColor}`, width: '30px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>{props.icon}</div>}
                 <span className={classes.title} style={{ width: '125px' }}>{props.title}</span>

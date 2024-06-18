@@ -15,6 +15,7 @@ import SetMultiFactor from "./Pages/Public/SetMultiFactor/SetMultiFactor";
 import SetSecurityKey from "./Pages/Public/SetSecurityKey/SetSecurityKey";
 import U2fAuthentification from "./Pages/Public/U2fAuthentification/U2fAuthentification";
 import Contact from "./Pages/Public/Contact/Contact";
+
 function App() {
     return (
         <AppContext>

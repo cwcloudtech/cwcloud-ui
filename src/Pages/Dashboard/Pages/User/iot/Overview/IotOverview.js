@@ -14,7 +14,8 @@ import DataTable from '../../../../../../Components/Table/DataTable';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import formateDate from '../../../../../../utils/FormateDate';
 import axios from "../../../../../../utils/axios";
-import classes from "./IotOverview.module.css";
+// import classes from "./IotOverview.module.css";
+import '../../../../../../common.css'
 import DeleteModal from '../../../../../../Components/Modal/DeleteModal';
 import { isBlank } from '../../../../../../utils/common';
 import { TextField } from '@mui/material';
@@ -216,7 +217,7 @@ function IotOverviewPage(props) {
                         />
                         <div style={{ display: 'flex' }}>
                             <input accept='application/json`' type="file" style={{ display: 'none' }} onChange={uploadObjectTypeHandler} ref={uploadFileRef} />
-                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.function.import" />
                             </h5>} placement="bottom">
                                 <Fab color="primary" aria-label="import" onClick={() => uploadFileRef.current.click()} style={{ transform: 'scale(0.7)' }} >
@@ -224,7 +225,7 @@ function IotOverviewPage(props) {
                                 </Fab>
                             </Tooltip>
                             <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={
-                                <h5 className={classes.tootltipValue}>
+                                <h5 className="tootltipValue">
                                     <Translate content="dashboard.iot.addObjectType.mainTitle" />
                                 </h5>}
                                 placement="bottom">

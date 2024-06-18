@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 import {
     Modal,
     ModalHeader,
@@ -8,10 +8,10 @@ import {
     Row,
     Col,
 } from "reactstrap";
-import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton"
+import LoadingButton from "../LoadingButton/LoadingButton"
 import Translate from 'react-translate-component';
 
-const TransferRegistryModal = (props) => {
+const TransferBucketModal = (props) => {
     const [userEmail, setUserEmail] = useState("")
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const TransferRegistryModal = (props) => {
     return (
         <Modal centered isOpen={props.isOpen} toggle={props.toggle}>
             <ModalHeader toggle={props.toggle}>
-                <Translate content="dashboard.adminRgistryOverview.fields.transferTitle" />
+                <Translate content="dashboard.bucketOverview.fields.transferTitle" />
             </ModalHeader>
             <ModalBody>
                 <Row>
@@ -64,4 +64,4 @@ const TransferRegistryModal = (props) => {
     );
 };
 
-export default TransferRegistryModal;
+export default TransferBucketModal;

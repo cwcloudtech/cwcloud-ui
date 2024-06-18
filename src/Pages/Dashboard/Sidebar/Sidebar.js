@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import GlobalContext from "../../../Context/GlobalContext";
 import colors from "../../../Context/Colors";
@@ -6,6 +6,9 @@ import "./Sidebar.module.css";
 import LogoComponent from "./LogoComponent/Logo";
 import MenuList from "./MenuList/MenuList"
 import SidebarMenuItem from "../../../Components/SidebarMenuItem/SidebarMenuItem";
+import { FaUser, FaRegUser} from "react-icons/fa";
+import KeyboardDoubleArrowUpSharpIcon from '@mui/icons-material/KeyboardDoubleArrowUpSharp';
+import KeyboardDoubleArrowDownSharpIcon from '@mui/icons-material/KeyboardDoubleArrowDownSharp';
 
 function Sidebar() {
     const navigate = useNavigate();
@@ -24,6 +27,47 @@ function Sidebar() {
     }
     const { pathname } = useLocation()
     const id = pathname.split("/")[2]
+    const [userSectionOpen, setUserSectionOpen] = useState(false);
+    const [adminSectionOpen, setAdminSectionOpen] = useState(false);
+    
+    const toggleUserSection = () => {
+        setUserSectionOpen(!userSectionOpen);
+    };
+
+    const toggleAdminSection = () => {
+        setAdminSectionOpen(!adminSectionOpen);
+    };
+    useEffect(() => {
+        setUserSectionOpen(true);
+        setAdminSectionOpen(true);
+    }, []);
+    const [showAdminIcon, setShowAdminIcon] = useState(false);
+
+    const handleAdminMouseEnter = () => {
+        setShowAdminIcon(true);
+    };
+
+    const handleAdminMouseLeave = () => {
+        setShowAdminIcon(false);
+    };
+
+    const handleAdminClick = () => {
+        setShowAdminIcon(!showAdminIcon);
+    };
+    const [showUserIcon, setShowUserIcon] = useState(false);
+
+    const handleUserMouseEnter = () => {
+        setShowUserIcon(true);
+    };
+
+    const handleUserMouseLeave = () => {
+        setShowUserIcon(false);
+    };
+
+    const handleUserClick = () => {
+        setShowUserIcon(!showUserIcon);
+    };
+
     return (
         <MenuList isMobile={isMobile}>
             <div style={{ paddingTop: 5, paddingBottom: 8, textAlign: "center", fontSize: "9px", color: colors.secondText[_mode] }}>
@@ -31,7 +75,26 @@ function Sidebar() {
                 <span style={{ fontWeight: "300", fontSize: "12px", display: "inline-block", marginTop: "10px", color: colors.mainTitle[_mode] }}>{process.env.REACT_APP_CWCLOUD_UI_LABEL}</span><br />
                 <span style={{ fontWeight: "700" }}>{process.env.REACT_APP_CWCLOUD_UI_URL}</span>
             </div>
-            <div style={{ backgroundColor: colors.sideBackground[_mode], borderTopRightRadius: '15px', borderBottomRightRadius: '15px' }}>
+            <div style={{backgroundColor: colors.sideBackground[_mode],borderTopRightRadius: '15px',borderBottomRightRadius: '15px',marginTop: '15px',}}>
+            <div onClick={handleUserClick} onMouseEnter={handleUserMouseEnter} onMouseLeave={handleUserMouseLeave}>
+                <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }} onClick={toggleUserSection}>
+                <div style={{ display: 'flex', alignItems: 'center', marginLeft: '35px', marginTop: '1px' }} onMouseEnter={handleUserMouseEnter} onMouseLeave={handleUserMouseLeave}>
+                    <div style={{ color: colors.mainTitle[_mode], fontSize: '25px', marginLeft: '-7px', marginTop: '1px', transition: 'color 0.3s' }}>
+                        {!userSectionOpen? (
+                            <KeyboardDoubleArrowDownSharpIcon />
+                        ) : (
+                            <KeyboardDoubleArrowUpSharpIcon />
+                        )}
+                    </div>
+                    <span style={{ marginLeft: '33px', marginTop: '3px', color: colors.mainTitle[_mode], fontWeight: '700' }}>
+                        User {showUserIcon && <FaRegUser style={{ marginLeft: '10px', marginTop: '-3px', color: colors.FaUserAdmin[_mode] }} />}
+                    </span>
+                </div>
+                </div>
+            </div>
+                {userSectionOpen && (
+                    <div style={{ maxHeight: '1800px', overflowY: 'auto' }}>
+                        
                 <SidebarMenuItem
                     id="/dashboard"
                     title={context.counterpart('sidebar.dashboard')}
@@ -39,13 +102,16 @@ function Sidebar() {
                     icon={<i className="fa-solid fa-gauge" style={{ fontSize: "18px" }}></i>}
                     onClick={() => onClick("/dashboard")}
                 />
-                <SidebarMenuItem
-                    id="/projects"
-                    title={context.counterpart('sidebar.projects')}
-                    items={["/projects", "/projects/create"]}
-                    icon={<i className="fa-solid fa-layer-group" style={{ fontSize: "18px" }}></i>}
-                    onClick={() => onClick("/projects")}
-                />
+                {
+                    (context.user.enabled_features.k8sapi || context.user.enabled_features.daasapi) &&
+                    <SidebarMenuItem
+                        id="/projects"
+                        title={context.counterpart('sidebar.projects')}
+                        items={["/projects", "/projects/create"]}
+                        icon={<i className="fa-solid fa-layer-group" style={{ fontSize: "18px" }}></i>}
+                        onClick={() => onClick("/projects")}
+                    />
+                }
                 <SidebarMenuItem
                     id="/buckets"
                     items={["/buckets"]}
@@ -60,13 +126,16 @@ function Sidebar() {
                     onClick={() => onClick("/registries")}
                     icon={<i className="fa-brands fa-docker" style={{ fontSize: "18px" }}></i>}
                 />
-                <SidebarMenuItem
-                    id="/instances"
-                    items={["/instances", "/instances/create"]}
-                    title={context.counterpart('sidebar.instances')}
-                    icon={<i className="fa-solid fa-microchip" style={{ fontSize: "18px" }}></i>}
-                    onClick={() => onClick("/instances")}
-                />
+                {
+                    context.user.enabled_features.daasapi &&
+                    <SidebarMenuItem
+                        id="/instances"
+                        items={["/instances", "/instances/create"]}
+                        title={context.counterpart('sidebar.instances')}
+                        icon={<i className="fa-solid fa-microchip" style={{ fontSize: "18px" }}></i>}
+                        onClick={() => onClick("/instances")}
+                    />
+                }
                 {context.user.enabled_features.k8sapi &&
                     <SidebarMenuItem
                         id="/k8s-applications"
@@ -166,8 +235,27 @@ function Sidebar() {
                     onClick={() => onClick("/cwai")}
                 />}
             </div>
-            <div style={{ backgroundColor: colors.sideBackground[_mode], borderTopRightRadius: '15px', borderBottomRightRadius: '15px', marginTop: '15px' }}>
-                {context.user.is_admin &&
+            )}                
+            </div>
+            <div style={{backgroundColor: colors.sideBackground[_mode], borderTopRightRadius: '15px', borderBottomRightRadius: '15px', marginTop: '15px'}}>
+                <div onClick={handleAdminClick} onMouseEnter={handleAdminMouseEnter} onMouseLeave={handleAdminMouseLeave}>
+                <div style={{ display: 'flex', alignItems: 'center', marginLeft: '35px', marginTop: '10px' }} onClick={toggleAdminSection} onMouseEnter={handleAdminMouseEnter} onMouseLeave={handleAdminMouseLeave}>
+                    <div style={{ color: colors.mainTitle[_mode], fontSize: '25px', marginLeft: '-7px', marginTop: '1px', transition: 'color 0.3s' }}>
+                        {!adminSectionOpen? (
+                            <KeyboardDoubleArrowDownSharpIcon />
+                        ) : (
+                            <KeyboardDoubleArrowUpSharpIcon />
+                        )}
+                    </div>
+                    <span style={{ marginLeft: '33px', marginTop: '3px', color: colors.mainTitle[_mode], fontWeight: '700' }}>
+                        Admin {showAdminIcon && <FaUser style={{ marginLeft: '10px', marginTop: '-3px', color: colors.FaUserAdmin[_mode] }} />}
+                    </span>
+                </div>
+                </div>
+                    {adminSectionOpen && (
+                        <div style={{ maxHeight: '1800px', overflowY: 'auto' }}>
+                        {context.user.is_admin &&
+
                     <React.Fragment>
                         <SidebarMenuItem
                             id="/admin/support"
@@ -197,21 +285,21 @@ function Sidebar() {
                         </SidebarMenuItem>
                         <SidebarMenuItem
                             id="/environment"
-                            items={["/environment/overview", "/environment/add", `/environment/${id}`]}
+                            items={["/admin/environment/overview", "/admin/environment/add", `/environment/${id}`]}
                             title={context.counterpart('sidebar.manageEnvironments.title')}
                             icon={<i className="fa-solid fa-laptop-code" style={{ fontSize: "18px" }}></i>}
                         >
                             <SidebarMenuItem
-                                id="/environment/overview"
+                                id="/admin/environment/overview"
                                 title={context.counterpart('sidebar.manageEnvironments.overview')}
                                 level={2}
-                                onClick={() => onClick("/environment/overview")}
+                                onClick={() => onClick("/admin/environment/overview")}
                             />
                             <SidebarMenuItem
-                                id="/environment/add"
+                                id="/admin/environment/add"
                                 title={context.counterpart('sidebar.manageEnvironments.add')}
                                 level={2}
-                                onClick={() => onClick("/environment/add")}
+                                onClick={() => onClick("/admin/environment/add")}
                             />
                         </SidebarMenuItem>
                         <SidebarMenuItem
@@ -445,7 +533,9 @@ function Sidebar() {
                     </React.Fragment>
                 }
             </div>
-        </MenuList>
+  )}
+  </div>
+</MenuList>  
     );
 }
 export default Sidebar;

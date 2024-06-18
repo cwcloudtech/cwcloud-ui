@@ -1,30 +1,34 @@
 import { useContext, useState, useEffect } from "react";
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
-import { Input, Form, FormGroup, FormFeedback, FormText, Col, Row } from "reactstrap"
-import classes from "./AddInstance.module.css"
+import { Input, Form, FormGroup, FormFeedback, Col, Row} from "reactstrap";
+import '../../../../../common.css';
 import axios from "../../../../../utils/axios";
-import { NavLink, useLocation, useNavigate } from "react-router-dom"
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import GlobalContext from "../../../../../Context/GlobalContext";
 import colors from "../../../../../Context/Colors";
-import { Fab, OutlinedInput } from "@mui/material";
+import { Fab, OutlinedInput, TextField } from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import AddIcon from '@mui/icons-material/Add';
-import * as queryString from 'query-string';
 import Translate from 'react-translate-component';
-import ServiceNotAvailable from "../../../../../Components/ServiceNotAvailable/ServiceNotAvailable";
 import LoadingSpinner from "../../../../../Components/LoadingSpinner/LoadingSpinner";
+import ServiceNotAvailable from "../../../../../Components/ServiceNotAvailable/ServiceNotAvailable";
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 import MiniCardComponent from "../../../../../Components/Cards/MiniCardComponent/MiniCardComponent";
-import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
+import SuggestionsAutoComplete from "../../../../../Components/SuggestionsAutoComplete/SuggestionsAutoComplete";
 import DropdownComponent from "../../../../../Components/Dropdown/Dropdown";
 import DropdownComponentWithoutId from "../../../../../Components/Dropdown/DropdownWithoutItemId";
+import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
 import { getPriceWithUnit } from "../../../../../utils/common";
 
 function AddInstance(props) {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath.includes("admin")
+    const nextPath = is_admin ? "/admin/instances" : "/instances"
     const [EnvironmentSelected, setEnvironmentSelected] = useState("")
     const [instanceInfo, setInstanceInfo] = useState({ type: "" })
     const [disabled, setdisabled] = useState(false)
@@ -35,25 +39,26 @@ function AddInstance(props) {
     const [dns_zones, setDnsZones] = useState([])
     const [prices, setPrices] = useState([])
     const [selectedProject, setSelectedProject] = useState(null)
-    const [zone, setZone] = useState(null)
     const [selectedDnsZone, setSelectedDnsZone] = useState(null)
+    const [users, setUsers] = useState([])
+    const [selectedUser, setSelectedUser] = useState(null)
+    const [zone, setZone] = useState(null)
     const [instancesTypesAvailability, setInstancesTypesAvailability] = useState([])
     const [serviceNotAvailable, setServiceNotAvailable] = useState(false)
+    const [queryParam, setQueryParam] = useState('')
+
     const navigate = useNavigate()
-    const location = useLocation()
 
     useEffect(() => {
         context.setIsGlobal(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    useEffect(() => {
-        setZone(null)
-    }, [context.region])
-
     useEffect(() => {
         setdisabled(false)
     }, [instanceInfo])
+    useEffect(() => {
+        setZone(null)
+    }, [context.region])
 
     useEffect(() => {
         if (zone) {
@@ -64,6 +69,7 @@ function AddInstance(props) {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [zone])
+
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true)
@@ -75,30 +81,63 @@ function AddInstance(props) {
             }
             const availabilityIndex = responseInstanceAvailibility.data.availability.findIndex(a => a.region === context.region.name)
             setInstancesTypesAvailability(responseInstanceAvailibility.data.availability[availabilityIndex].zones)
-
-            const parsedQuery = queryString.parse(location.search);
-            const responseProjects = await axios.get(`/project?type=vm`)
+            if (is_admin) {
+                const responseUsers = await axios.get("/admin/user/all")
+                setUsers(responseUsers.data.result)
+            }
+            if (context.user.enabled_features.daasapi && context.user.enabled_features.k8sapi) {
+                setQueryParam("?type=all")
+            }
+            else if (context.user.enabled_features.k8sapi) {
+                setQueryParam("?type=k8s")
+            }
+            else if (context.user.enabled_features.daasapi) {
+                setQueryParam("?type=vm")
+            }
+            var project_url = is_admin ? "/project" : `/project${queryParam}`
+            const responseProjects = await axios.get(project_url)
             setProjects(responseProjects.data)
-            const responseEnvironments = await axios.get("/environment/all")
+            var environment_url = is_admin ? "/admin/environment/all" : `/environment/all${queryParam}`
+            const responseEnvironments = await axios.get(environment_url)
             setEnvironments(responseEnvironments.data)
-            if (parsedQuery.environment)
-                setEnvironmentSelected(parsedQuery.environment)
             const responseDnsZones = await axios.get(`/dns_zones`)
             setDnsZones(responseDnsZones.data.zones)
             setLoading(false)
         }
         fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [context.region, location])
+    }, [context.region])
+
+    useEffect(() => {
+        if (instanceInfo.email) {
+            const userIndex = users.findIndex(u => u.email === instanceInfo.email)
+            setSelectedUser({ ...users[userIndex] })
+        }
+    }, [instanceInfo, users])
+
+    useEffect(() => {
+        if (selectedUser && selectedUser.id) {
+            axios.get(`/admin/project/user/${selectedUser.id}`)
+                .then(res => {
+                    setProjects(res.data)
+                })
+        }
+    }, [context.selectedProvider, context.region, selectedUser])
 
     const addInstanceHandler = () => {
         setLoadingSubmit(true)
         setdisabled(!instanceInfo.name)
-        axios.post(`/instance/${context.selectedProvider.name}/${context.region.name}/${zone}/provision/${EnvironmentSelected}`, { ...instanceInfo, project_id: selectedProject, root_dns_zone: selectedDnsZone })
+        var api_url = is_admin
+            ? `/admin/instance/${context.selectedProvider.name}/${context.region.name}/${zone}/provision/${EnvironmentSelected}`
+            : `/instance/${context.selectedProvider.name}/${context.region.name}/${zone}/provision/${EnvironmentSelected}`
+        axios.post(api_url, { ...instanceInfo, project_id: selectedProject, root_dns_zone: selectedDnsZone })
             .then(response => {
                 setLoadingSubmit(false)
                 toast.success(context.counterpart('dashboard.addInstance.message.successAdd'))
-                navigate(`/instance/${response.data.id}`)
+                var nextPath = is_admin
+                    ? `/admin/instance/${response.data.id}`
+                    : `/instance/${response.data.id}`
+                navigate(nextPath)
             }).catch(err => {
                 setLoadingSubmit(false)
             })
@@ -108,48 +147,59 @@ function AddInstance(props) {
         return <LoadingSpinner />
     if (serviceNotAvailable)
         return (
-            <ServiceNotAvailable region={context.region.name} backLink={'/instances'} />
+            <ServiceNotAvailable region={context.region.name} backLink={nextPath} />
         )
     return (
         <div>
             <Row>
                 <Col>
-                    <div className={classes.goBack}>
-                        <NavLink to='/instances' className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div className="goBack">
+                        <NavLink to={nextPath} className="link fs-6">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.addInstance.back" />
                         </NavLink>
                     </div>
                 </Col>
             </Row>
             <Row style={{ marginTop: "30px", marginBottom: "20px", margin: "10px 0px 0px" }}>
-                <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                    <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                    <h5 className="textTitle" style={{color: colors.title[_mode]}}>
                         <Translate content="dashboard.addInstance.mainTitle" />
                     </h5>
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    <CardComponent
-                        containerStyles={props.containerStyles}
-                        title={context.counterpart('dashboard.addInstance.inputs.name.title')}>
-                        <Form>
-                            <FormGroup>
-                                <Input className="blackableInput" placeholder={context.counterpart('dashboard.addInstance.inputs.name.placeholder')}
-                                    value={instanceInfo.name}
-                                    onChange={(e) => setInstanceInfo({ ...instanceInfo, name: e.target.value })} invalid={disabled} />
-                                <FormFeedback>
-                                    <Translate content="common.message.thisFieldIsRequired" />
-                                </FormFeedback>
-                                <FormText>
-                                    <Translate content="dashboard.addInstance.inputs.name.hint" />
-                                </FormText>
-                            </FormGroup>
-                        </Form>
-                    </CardComponent>
-                </Col>
-            </Row>
+            <CardComponent
+                containerStyles={props.containerStyles}
+                title={context.counterpart('dashboard.addInstance.inputs.name.title')}>
+                <Form>
+                    <FormGroup>
+                        <Input className="blackableInput" placeholder={context.counterpart('dashboard.addInstance.inputs.name.placeholder')}
+                            value={instanceInfo.name}
+                            onChange={(e) => setInstanceInfo({ ...instanceInfo, name: e.target.value })} invalid={disabled} />
+                        <FormFeedback>
+                            <Translate content="common.message.thisFieldIsRequired" />
+                        </FormFeedback>
+                    </FormGroup>
+                </Form>
+            </CardComponent>
+            {
+                is_admin &&
+                <CardComponent
+                    containerStyles={props.containerStyles}
+                    title="Enter user email address"
+                    subtitle="The email in which the instance will be affected to.">
+                    <SuggestionsAutoComplete
+                        id="combo-box-email"
+                        onChange={(event, newValue) => {
+                            setInstanceInfo({ ...instanceInfo, email: newValue });
+                        }}
+                        options={users.map(u => u.email)}
+                        renderInput={(params) => <TextField onChange={(e) => setInstanceInfo({ ...instanceInfo, email: e.target.value })} {...params} label="Email" />}
+                        feedbackMessage="common.message.thisFieldIsRequired"
+                        hint="common.message.pleaseEnterAnEmail"
+                    />
+                </CardComponent>
+            }
             <CardComponent
                 containerStyles={props.containerStyles}
                 title={context.counterpart('dashboard.addInstance.inputs.zone.title')}>
@@ -173,6 +223,7 @@ function AddInstance(props) {
                             checked={instanceInfo.type === price.name}
                             onClick={() => setInstanceInfo({ ...instanceInfo, type: price.name })} />
                     )}
+
                 </Row>
             </CardComponent>
             <CardComponent
@@ -189,11 +240,11 @@ function AddInstance(props) {
                     input={<OutlinedInput label="Name" />}
                     items={projects}
                 />
-                <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                     <Translate content="dashboard.addInstance.inputs.addProject.title" />
                 </h5>} placement="right">
                     <Fab color="primary" aria-label="add" onClick={() => navigate("/projects/create")} style={{ transform: 'scale(0.7)', top: '18px' }} >
-                        <AddIcon className="whiteIcon"/>
+                        <AddIcon className="whiteIcon" />
                     </Fab>
                 </Tooltip>
             </CardComponent>
@@ -237,13 +288,9 @@ function AddInstance(props) {
             </CardComponent>
             <Row style={{ marginTop: '30px' }}  >
                 <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <LoadingButton
-                        loading={loadingSubmit}
-                        icon="fa-solid fa-floppy-disk"
-                        onClick={addInstanceHandler}  >
+                    <LoadingButton loading={loadingSubmit} icon="fa-solid fa-floppy-disk" onClick={addInstanceHandler}  >
                         <Translate content="common.button.create" />
                     </LoadingButton>
-
                 </Col>
             </Row>
         </div >

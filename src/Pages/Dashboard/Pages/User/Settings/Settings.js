@@ -89,12 +89,12 @@ function Settings(props) {
     }
 
     return (
-        <Container fluid className={classes.container} style={{ padding: "0px 20px 20px 20px", }} >
+        <Container fluid style={{ padding: "0px 20px 20px 20px", }} >
             <DeleteModal resourceName="2Factor authentification" isOpen={showConfirmDeleteModal} toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)} onDelete={delete2FaHandler} name={'delete'} loading={loadingDelete2Fa} />
             <Row style={{ marginTop: '20px', marginBottom: '20px' }}>
                 <Col>
                     <div className={classes.titleWithDivider}>
-                        <h1 className={classes.mainTitleText} style={{ color: colors.mainText[_mode] }}>
+                        <h1 className="mainTitleText" style={{ color: colors.mainText[_mode] }}>
                             <Translate content="dashboard.settings.userInformations" />
                         </h1>
                     </div>
@@ -163,7 +163,7 @@ function Settings(props) {
             <Row style={{ marginTop: '20px', marginBottom: '20px' }}>
                 <Col>
                     <div className={classes.titleWithDivider}>
-                        <h1 className={classes.mainTitleText} style={{ color: colors.mainText[_mode] }}>
+                        <h1 className="mainTitleText" style={{ color: colors.mainText[_mode] }}>
                             <Translate content="dashboard.settings.passwordManagement" />
                         </h1>
                     </div>
@@ -263,7 +263,7 @@ function Settings(props) {
             <Row style={{ marginTop: '20px', marginBottom: '20px' }}>
                 <Col>
                     <div className={classes.titleWithDivider}>
-                        <h1 className={classes.mainTitleText} style={{ color: colors.mainText[_mode] }}>
+                        <h1 className="mainTitleText" style={{ color: colors.mainText[_mode] }}>
                             <Translate content="dashboard.settings.security" />
                         </h1>
                     </div>

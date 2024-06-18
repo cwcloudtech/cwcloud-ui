@@ -2,8 +2,9 @@ import { useContext, useState, useEffect } from "react";
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
 import { Col, Row } from "reactstrap"
 import classes from "./AttachInstance.module.css"
+import '../../../../../common.css'
 import axios from "../../../../../utils/axios";
-import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify";
 import GlobalContext from "../../../../../Context/GlobalContext";
 import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
@@ -23,15 +24,21 @@ function AttachInstance(props) {
     const [zone, setZone] = useState(null)
     const { projectId } = useParams()
     const navigate = useNavigate()
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath.includes('admin')
+    const nextPath = is_admin ? '/admin/projects' : '/projects'
 
     useEffect(() => {
         context.setIsGlobal(false)
-        axios.get(`/project/${projectId}`)
+        var api_url = is_admin ? `/admin/project/${projectId}` : `/project/${projectId}` 
+        axios.get(api_url)
             .then(async (res) => {
                 setProject(res.data)
             })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
     useEffect(() => {
         if (zone) {
             axios.get(`/provider/${context.selectedProvider.name}/instance/${context.region.name}/${zone}/pricing`)
@@ -44,14 +51,20 @@ function AttachInstance(props) {
 
     const attachInstanceHandler = () => {
         setLoading(true)
-        axios.post(`/instance/${context.selectedProvider.name}/${context.region.name}/${zone}/attach/${project.id}`, { ...instanceInfo })
+        var api_url = is_admin
+            ? `/admin/instance/${context.selectedProvider.name}/${context.region.name}/${zone}/attach/${project.id}` 
+            :  `/instance/${context.selectedProvider.name}/${context.region.name}/${zone}/attach/${project.id}`
+        axios.post(api_url, { ...instanceInfo })
             .then(response => {
                 setLoading(false)
                 toast.success(context.counterpart('dashboard.attachInstance.message.successAdd'))
-                navigate(`/instance/${response.data.id}`)
+                var nextPath = is_admin
+                    ? `/admin/instance/${response.data.id}`
+                    : `/instance/${response.data.id}`
+                navigate(nextPath)
             }).catch(err => {
                 setLoading(false)
-
+                console.log(err)
             })
     }
 
@@ -59,9 +72,9 @@ function AttachInstance(props) {
         <div>
             <Row>
                 <Col>
-                    <div className={classes.goBack}>
-                        <NavLink to='/projects' className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div className="goBack">
+                        <NavLink to={nextPath} className="link">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.attachInstance.back" />
                         </NavLink>
                     </div>
@@ -80,7 +93,7 @@ function AttachInstance(props) {
                 subtitle={context.counterpart("dashboard.attachInstance.inputs.playbook.subtitle")}>
                 <FormControl sx={{ m: 1, width: 300 }}>
                     <InputLabel id="demo-multiple-name-label">
-                        <Translate content="dashboard.attachInstance.inputs.playbook.instanceName" />
+                        <Translate content="dashboard.attachInstance.inputs.instance.title" />
                     </InputLabel>
                     <Select
                         labelId="demo-multiple-name-label"

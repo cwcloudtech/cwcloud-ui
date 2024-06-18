@@ -199,10 +199,10 @@ export default function ClusterOverview() {
   }, [pods, deployments])
 
   return (
-    <Container fluid className={classes.container} style={{ padding: "0px 20px 20px 20px" }} >
+    <Container fluid style={{ padding: "0px 20px 20px 20px" }} >
       <Row style={{ marginTop: '10px', marginBottom: '10px' }}>
         <Col>
-          <h1 className={classes.mainTitleText} style={{ color: colors.mainText[_mode] }}>
+          <h1 className="mainTitleText" style={{ color: colors.mainText[_mode] }}>
             <Translate content="dashboard.kubernetesDashboardPages.clusterOverview.title" />
           </h1>
         </Col>

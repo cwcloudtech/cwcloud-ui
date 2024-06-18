@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import { Row, Col } from "reactstrap";
-import classes from "./ProjectsPage.module.css";
+// import classes from "./ProjectsPage.module.css";
+import '../../../../../common.css';
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import GlobalContext from "../../../../../Context/GlobalContext";
@@ -22,6 +23,10 @@ import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 
 function ProjectsPage(props) {
     const context = useContext(GlobalContext);
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath === "/admin/projects"
+    const [createLink, setCreateLink] = useState("/projects/create")
     const [projects, setProjects] = useState([]);
     const [filtredProjects, setFiltredProjects] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -30,15 +35,16 @@ function ProjectsPage(props) {
     const [multiSelection, setMultiSelection] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [selectedDeletionItems, setSelectedDeletionItems] = useState([])
+    const [queryParam, setQueryParam] = useState('')
     const navigate = useNavigate()
     const columns = [
-        { field: 'id', headerName: counterpart("dashboard.projectsPage.table.id"), width: 300, renderCell: (params) => (<Link to={`/project/${params.id}`}>{params.id}</Link>) },
+        { field: 'id', headerName: counterpart("dashboard.projectsPage.table.id"), width: 300, renderCell: (params) => (<Link to={is_admin ? `/admin/project/${params.id}`:`/project/${params.id}`}>{params.id}</Link>) },
         { field: 'name', headerName: counterpart("dashboard.projectsPage.table.name"), width: 200 },
         { field: 'instances', headerName: counterpart("dashboard.projectsPage.table.numberOfInstances"), width: 200, renderCell: (params) => (params.row.type === 'vm' ? params.instances : 'N/A')},
         { field: 'type', headerName: counterpart("dashboard.projectsPage.table.type"), width: 200 },
         {
             field: 'action', headerName: counterpart("dashboard.projectsPage.table.actions"), width: 200, renderCell: (params) => {
-                if (params.row.userid === user.id) {
+                if (params.row.userid === user.id || is_admin) {
                     const onClick = (e) => {
                         e.stopPropagation();
                         onPreDeleteHandler(params.id)
@@ -52,7 +58,17 @@ function ProjectsPage(props) {
 
     useEffect(() => {
         setIsGlobal(true)
-        axios.get(`/project`)
+        if (context.user.enabled_features.daasapi && context.user.enabled_features.k8sapi) {
+            setQueryParam("?type=all")
+        }
+        else if (context.user.enabled_features.k8sapi) {
+            setQueryParam("?type=k8s")
+        }
+        else if (context.user.enabled_features.daasapi) {
+            setQueryParam("?type=vm")
+        }
+        var api_url = is_admin ? "/admin/project" : `/project${queryParam}`
+        axios.get(api_url)
             .then(res => {
                 setProjects(res.data)
                 setFiltredProjects(res.data)
@@ -60,6 +76,13 @@ function ProjectsPage(props) {
             })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showConfirmDeleteModal])
+
+    useEffect(() => {
+        if (is_admin) {
+            setCreateLink("/admin/projects/create")
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPath])
 
     const onPreDeleteHandler = (projectId) => {
         const projectIndex = projects.findIndex(p => p.id === projectId)
@@ -69,7 +92,9 @@ function ProjectsPage(props) {
 
     const deleteProjectHandler = () => {
         setLoading(true)
-        axios.delete(`/project/${selectedProject.id}`).then(response => {
+        var api_url = is_admin ? `/admin/project/${selectedProject.id}` : `/project/${selectedProject.id}`
+        axios.delete(api_url)
+        .then(response => {
             setProjects(filteredListWithoutRemovedElement(selectedProject.id, projects))
             setFiltredProjects(filteredListWithoutRemovedElement(selectedProject.id, filtredProjects))
             toast.success(counterpart('dashboard.projectOverview.message.successDelete'))
@@ -94,7 +119,8 @@ function ProjectsPage(props) {
         new Promise((r, j) => {
             const deletedProjects = []
             selectedDeletionItems.forEach((projectId, index) => {
-                axios.delete(`/project/${projectId}`)
+                var api_url = is_admin ? `/admin/project/${projectId}` : `/project/${projectId}`
+                axios.delete(api_url)
                     .then(() => {
                         deletedProjects.push(projectId)
                         if (index === selectedDeletionItems.length - 1) {
@@ -144,7 +170,7 @@ function ProjectsPage(props) {
                     name={selectedProject?.name}
                     loading={loading} />
                 <Col>
-                    <div style={{ paddingBottom: "20px"  }} className={classes.instanceCreation}>
+                    <div style={{ paddingBottom: "20px"  }} className="instanceCreation">
                         <TextField
                             onChange={(e) => filtreProjects(e) }
                             label={context.counterpart('dashboard.addProject.inputs.name.placeholder')}
@@ -158,7 +184,7 @@ function ProjectsPage(props) {
                             size="small"
                             fullWidth 
                         />
-                        <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                        <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                             <Translate content="dashboard.projectsPage.addProject" />
                         </h5>} placement="bottom">
                             <Fab color="primary" aria-label="add" onClick={() => navigate("/projects/create")} style={{ transform: 'scale(0.7)' }} >
@@ -170,7 +196,7 @@ function ProjectsPage(props) {
             </Row>
             <DataTable
                 icon={'fa-solid fa-layer-group'}
-                createUrl='/projects/create'
+                createUrl={createLink}
                 emptyMessage={counterpart('dashboard.projectsPage.emptyMessage')}
                 createMessage={counterpart('dashboard.projectsPage.createMessage')}
                 checkboxSelection

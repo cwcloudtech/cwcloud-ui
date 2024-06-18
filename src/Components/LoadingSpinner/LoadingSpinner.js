@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import classes from './LoadingSpinner.module.css';
+import '../../common.css';
 import { Spinner } from 'reactstrap';
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";

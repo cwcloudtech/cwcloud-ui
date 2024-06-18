@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider';
 import MButton from '@mui/material/Button';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import classes from "./DragDropList.module.css"
+import '../../common.css';
 import GlobalContext from '../../Context/GlobalContext';
 import colors from "../../Context/Colors";
 import { IconButton, Tooltip } from '@mui/material';

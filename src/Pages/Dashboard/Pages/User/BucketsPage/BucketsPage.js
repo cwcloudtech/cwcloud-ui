@@ -1,23 +1,33 @@
-import { useState, useContext, useEffect } from "react";
-import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Row, Col } from "reactstrap";
+// import classes from "./BucketsPage.module.css";
+import '../../../../../common.css';
 import { TextField } from "@mui/material";
+import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import GlobalContext from "../../../../../Context/GlobalContext";
+import Tooltip from '@mui/material/Tooltip';
+import Fade from '@mui/material/Fade';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import Translate from 'react-translate-component';
 import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import formateDate from "../../../../../utils/FormateDate";
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import { toast } from 'react-toastify';
 import DataTable from "../../../../../Components/Table/DataTable";
-import { Col, Row } from "reactstrap";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CustomDeleteIcon from "../../../../../Components/CustomIcon/CustomDeleteIcon";
 
 function BucketsPage(props) {
-
     const context = useContext(GlobalContext);
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath.includes('admin')
+    const createLink = is_admin ? '/admin/buckets/create' : '/buckets/create'
     const [buckets, setBuckets] = useState([]);
     const [filtredBuckets, setFiltredBuckets] = useState([]);
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
@@ -25,20 +35,16 @@ function BucketsPage(props) {
     const [selectedBucket, setSelectedBucket] = useState(null)
     const [multiSelection, setMultiSelection] = useState(false)
     const [loading, setLoading] = useState(false)
-    const { selectedProvider, region, counterpart, setIsGlobal, user } = useContext(GlobalContext)
+    const { selectedProvider, region, counterpart, setIsGlobal } = useContext(GlobalContext)
     const navigate = useNavigate()
 
     const columns = [
-        { field: 'id', headerName: counterpart("dashboard.adminBucketsPage.table.id"), width: 200, renderCell: (params) => (<Link to={`/bucket/${params.id}`}>{params.id}</Link>) },
+        { field: 'id', headerName: counterpart("dashboard.adminBucketsPage.table.id"), width: 200, renderCell: (params) => (<Link to={is_admin ? `/admin/bucket/${params.id}`:`/bucket/${params.id}`}>{params.id}</Link>) },
         { field: 'name', headerName: counterpart("dashboard.adminBucketsPage.table.name"), width: 200 },
         { field: 'status', headerName: counterpart("dashboard.adminBucketsPage.table.status"), width: 100 },
         { field: 'created_at', headerName: counterpart("dashboard.adminBucketsPage.table.created"), width: 200, renderCell: (params) => (formateDate(params.row.created_at)) },
         {
             field: 'action', headerName: counterpart("dashboard.adminBucketsPage.table.actions"), width: 100, renderCell: (params) => {
-
-                if (params.row.user_id !== user.id) {
-                    return null
-                }
                 const onClick = (e) => {
                     e.stopPropagation();
                     preDeleteHandler(params.id)
@@ -54,13 +60,17 @@ function BucketsPage(props) {
     }, [])
 
     useEffect(() => {
-        axios.get(`/bucket/${selectedProvider.name}/${region.name}`)
+        var api_url = is_admin
+            ? `/admin/bucket/${selectedProvider.name}/${region.name}/all`
+            : `/bucket/${selectedProvider.name}/${region.name}`
+        axios.get(api_url)
             .then(res => {
                 setBuckets(res.data)
                 setFiltredBuckets(res.data)
             }).catch(err => {
                 navigate('/notfound')
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [region.name, navigate, selectedProvider.name, showConfirmDeleteModal])
 
     const preDeleteHandler = (bucketId) => {
@@ -73,7 +83,10 @@ function BucketsPage(props) {
     const deleteBucketHandler = () => {
         setLoading(true)
         var bucketId = selectedBucket.id
-        axios.delete(`/bucket/${selectedProvider.name}/${region.name}/${bucketId}`)
+        var api_url = is_admin
+            ? `/admin/bucket/${bucketId}`
+            : `/bucket/${selectedProvider.name}/${region.name}/${bucketId}`
+        axios.delete(api_url)
             .then(res => {
                 setBuckets(filteredListWithoutRemovedElement(bucketId, buckets))
                 setFiltredBuckets(filteredListWithoutRemovedElement(bucketId, filtredBuckets))
@@ -92,12 +105,15 @@ function BucketsPage(props) {
         setSelectedDeletionItems(selectedItems)
     }
 
-    const deleteBucketsHandler = async () => {
+    const deletebucketsHandler = async () => {
         setLoading(true)
         new Promise((r, j) => {
             const deletedBuckets = []
             selectedDeletionItems.forEach((bucketId, index) => {
-                axios.delete(`/bucket/${selectedProvider.name}/${region.name}/${bucketId}`)
+                var api_url = is_admin
+                    ? `/admin/bucket/${bucketId}`
+                    : `/bucket/${selectedProvider.name}/${region.name}/${bucketId}`
+                axios.delete(api_url)
                     .then(() => {
                         deletedBuckets.push(bucketId)
                         if (index === selectedDeletionItems.length - 1) {
@@ -140,36 +156,51 @@ function BucketsPage(props) {
                 multi={multiSelection}
                 isOpen={showConfirmDeleteModal}
                 toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)}
-                onMultiDelete={deleteBucketsHandler}
+                onMultiDelete={deletebucketsHandler}
                 onDelete={deleteBucketHandler}
                 name={selectedBucket?.name}
                 loading={loading} />
             <Row>
-                <Col md="12">
-                    <TextField
-                        style={{ paddingBottom: "20px"  }} 
-                        onChange={(e) => filtreBuckets(e) }
-                        label={context.counterpart('dashboard.addBucket.inputs.name.placeholder')}
-                        InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <SearchOutlinedIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                        size="small"
-                        fullWidth 
-                    />
+                <Col>
+                    <div style={{ paddingBottom: "20px"  }} className="instanceCreation">
+                        <TextField
+                            onChange={(e) => filtreBuckets(e) }
+                            label={context.counterpart('dashboard.addBucket.inputs.name.placeholder')}
+                            InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <SearchOutlinedIcon />
+                                  </InputAdornment>
+                                ),
+                              }}
+                            size="small"
+                            fullWidth 
+                        />
+                        {
+                            is_admin &&
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={
+                                <h5 className="tootltipValue">
+                                    <Translate content="dashboard.adminBucketsPage.addInstance" />
+                                </h5>}
+                                placement="bottom">
+                                <Fab color="primary" aria-label="add" onClick={() => navigate("/admin/buckets/create")} style={{ transform: 'scale(0.7)' }} >
+                                    <AddIcon className="whiteIcon" />
+                                </Fab>
+                            </Tooltip>
+                        }
+                    </div>
                 </Col>
             </Row>
             <DataTable
-                noCreate
+                noCreate={!is_admin}
                 icon={'fa-solid fa-cube'}
+                createUrl={createLink}
                 emptyMessage={counterpart('dashboard.adminBucketsPage.emptyMessage')}
+                createMessage={counterpart('dashboard.adminBucketsPage.createMessage')}
                 checkboxSelection
                 columns={columns}
-                rows={filtredBuckets}
                 setMultiSelection={setMultiSelection}
+                rows={filtredBuckets}
                 onDeleteSelection={preDeleteSelectionHandler} />
         </CardComponent>
     );

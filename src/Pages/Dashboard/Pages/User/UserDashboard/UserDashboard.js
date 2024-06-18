@@ -20,7 +20,7 @@ import {
     ArcElement,
     Legend,
 } from 'chart.js';
-import DoughnutChart from '../../../../../Components/DoughnutChart/DoughnutChart'
+import DoughnutChart from '../../../../../Components/Charts/DoughnutChart/DoughnutChart'
 import Translate from 'react-translate-component'
 
 ChartJS.register(
@@ -43,6 +43,7 @@ const UserDashboard = () => {
     const [buckets, setBuckets] = useState(0)
     const [currentConsumptions, setCurrentConsumptions] = useState(null)
     const [currentDataConsumptions, setCurrentDataConsumptions] = useState(null)
+    const [queryParam, setQueryParam] = useState('')
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -52,7 +53,16 @@ const UserDashboard = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const responseEnv = await axios.get('/environment/all')
+            if (context.user.enabled_features.daasapi && context.user.enabled_features.k8sapi) {
+                setQueryParam("?type=all")
+            }
+            else if (context.user.enabled_features.k8sapi) {
+                setQueryParam("?type=k8s")
+            }
+            else if (context.user.enabled_features.daasapi) {
+                setQueryParam("?type=vm")
+            }
+            const responseEnv = await axios.get(`/environment/all${queryParam}`)
             setEnvironments(responseEnv.data)
             const responseUserResources = await axios.get(`/user/statistics`)
             setProjects(responseUserResources.data.projects)
@@ -68,6 +78,7 @@ const UserDashboard = () => {
             setLoading(false)
         }
         fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context.region])
 
     const getPieData = (labels, data) => ({
@@ -179,4 +190,3 @@ const UserDashboard = () => {
     )
 }
 export default UserDashboard
-

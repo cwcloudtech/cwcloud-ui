@@ -14,7 +14,8 @@ import colors from "../../../Context/Colors";
 import Translate from "react-translate-component";
 import CardComponent from "../../Cards/CardComponent/CardComponent";
 import LoadingButton from "../../LoadingButton/LoadingButton";
-import classes from "./secrets.module.css";
+// import classes from "./secrets.module.css";
+import '../../../common.css';
 import SecretsFormContext from "../../../Context/kubernetes/SecretsFormContext";
 
 function SecretData(props) {
@@ -103,7 +104,7 @@ export default function Rules() {
         ))}
         <LoadingButton
           icon={"fa-solid fa-plus"}
-          className={classes.addButton}
+          className="addButton"
           variant="contained"
           onClick={() => addSecretData()}
         >

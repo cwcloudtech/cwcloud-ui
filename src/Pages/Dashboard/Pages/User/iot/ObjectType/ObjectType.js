@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Col, Row, Container, Form, FormGroup, Label, Input, FormFeedback } from "reactstrap";
-import classes from "./ObjectType.module.css";
+// import classes from "./ObjectType.module.css";
+import '../../../../../../common.css';
 import Translate from 'react-translate-component';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
@@ -196,23 +197,23 @@ function ObjectType() {
                 <TriggerModal title="dashboard.iot.inputs.triggers.editModalTitle" isOpen={showEditTriggerModal} toggle={() => setShowEditTriggerModal(!showEditTriggerModal)} variable={selectedTrigger} index={triggerIndex} onClick={handleChangeTrigger} />
                 <Row>
                     <Col>
-                        <div onClick={navigateToNextPath} className={classes.goBack}>
-                            <NavLink className={classes.link}>
-                                <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                        <div onClick={navigateToNextPath} className="goBack">
+                            <NavLink className="link fs-6">
+                                <i className="fa-solid fa-arrow-left iconStyle"></i>
                                 <Translate content="dashboard.iot.back" />
                             </NavLink>
                         </div>
                     </Col>
                 </Row>
-                <Container className={classes.container} fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
+                <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
                     <Row>
-                        <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                            <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                        <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                            <h5 className='textTitle' style={{color: colors.title[_mode]}}>
                                 <Translate content="dashboard.iot.updateObjectType.mainTitle" />
                             </h5>
                             {
                                 is_admin &&
-                                <h4 className={classes.createdStyle} style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.table.updatedAt" /> : {formateDate(lastUpdate)}</h4>
+                                <h4 className="createdStyle" style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.table.updatedAt" /> : {formateDate(lastUpdate)}</h4>
                             }
                         </Col>
                     </Row>
@@ -245,7 +246,7 @@ function ObjectType() {
                             <Row style={{ margin: "30px 0px" }}>
                                 <Col>
                                     <CardComponent
-                                        containerStyles={classes.container}
+                                        containerStyles=""
                                         customMarginTop={"20px"}>
                                         <Form>
                                             <FormGroup>

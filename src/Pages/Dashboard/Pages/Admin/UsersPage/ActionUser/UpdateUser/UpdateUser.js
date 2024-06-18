@@ -260,6 +260,20 @@ function Drawer(props) {
                                     })}
                                 />
                             </ListItem>
+                            <ListItem >
+                                <FormControlLabel
+                                    label={"DaaS API"}
+                                    control={<Switch sx={{ m: 1 }} checked={props.user.enabled_features.daasapi}
+                                    />}
+                                    onChange={(e) => props.setUser({
+                                        ...props.user,
+                                        enabled_features: {
+                                            ...props.user.enabled_features,
+                                            daasapi: e.target.checked
+                                        }
+                                    })}
+                                />
+                            </ListItem>
                             </>
                         }
                         <ListItem style={{ display: "block" }}>

@@ -275,29 +275,24 @@ function K8sAppOverview() {
         name={deployedApp.name}
         loading={loadingRequest}
       />
-      <div className={classes.goBack}>
+      <div className="goBack">
         <NavLink
           to="/k8s-applications"
-          className={classes.link}
+          className="link"
           style={{ color: colors.blue[_mode] }}
         >
           <i
-            className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(
-              " "
-            )}
+            className="fa-solid fa-arrow-left iconStyle"
             style={{ color: colors.blue[_mode] }}
           ></i>
           <Translate content="dashboard.kubernetesDashboardPages.k8sAppOverview.back" />
         </NavLink>
       </div>
-      <div className={classes.row}>
+      <div className="row">
         <Row>
           <Col className={classes.colinline}>
             <i
-              className={[
-                "fa-solid fa-dharmachakra",
-                classes.iconProcessStyle,
-              ].join(" ")}
+              className="fa-solid fa-dharmachakra iconProcessStyle"
               style={{ color: colors.blue[_mode] }}
             ></i>
             <div style={{ marginLeft: "20px" }}>
@@ -333,7 +328,6 @@ function K8sAppOverview() {
           <Translate content="dashboard.kubernetesDashboardPages.k8sAppOverview.fields.title" />
         </h2>
         <Container
-          className={classes.container}
           style={{
             backgroundColor: colors.secondBackground[_mode],
             border: "1px solid " + colors.border[_mode],
@@ -342,9 +336,9 @@ function K8sAppOverview() {
           fluid
         >
           <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
-            <Col xs="12" md="3" className={classes.row}>
+            <Col xs="12" md="3" className="row">
               <h5
-                className={classes.textStyle}
+                className="textStyle"
                 style={{ color: colors.mainText[_mode] }}
               >
                 <Translate content="dashboard.kubernetesDashboardPages.k8sAppOverview.fields.environment" />
@@ -361,9 +355,9 @@ function K8sAppOverview() {
                 )}
               </h6>
             </Col>
-            <Col xs="12" md="3" className={classes.row}>
+            <Col xs="12" md="3" className="row">
               <h5
-                className={classes.textStyle}
+                className="textStyle"
                 style={{ color: colors.mainText[_mode] }}
               >
                 <Translate content="dashboard.kubernetesDashboardPages.k8sAppOverview.fields.project" />
@@ -429,7 +423,7 @@ function K8sAppOverview() {
         <Skeleton style={{ opacity: colors.opacity[_mode] }} width={100} />
       )}
       {!loading && deployedApp.user_id === context.user.id && (
-        <Row className={classes.blocMargin}>
+        <Row className="blocMargin">
           <h2
             className={classes.titleStyle}
             style={{ color: colors.mainText[_mode] }}
@@ -437,7 +431,6 @@ function K8sAppOverview() {
             <Translate content="dashboard.kubernetesDashboardPages.k8sAppOverview.fields.deleteTitle" />
           </h2>
           <Container
-            className={classes.container}
             style={{
               backgroundColor: colors.secondBackground[_mode],
               border: "1px solid " + colors.border[_mode],
@@ -446,9 +439,9 @@ function K8sAppOverview() {
             fluid
           >
             <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
-              <Col xs="12" sm="12" md="9" className={classes.rowD}>
+              <Col xs="12" sm="12" md="9" className="rowD">
                 <h6
-                  className={classes.test}
+                  className="test"
                   style={{ color: colors.mainText[_mode] }}
                 >
                   <span style={{ color: "#DF4D7A", fontWeight: "bold" }}>
@@ -458,7 +451,7 @@ function K8sAppOverview() {
                   <Translate content="dashboard.kubernetesDashboardPages.k8sAppOverview.fields.deleteDescription" />
                 </h6>
               </Col>
-              <Col xs="12" sm="12" md="3" className={classes.rowD}>
+              <Col xs="12" sm="12" md="3" className="rowD">
                 <Button
                   color="danger"
                   outline

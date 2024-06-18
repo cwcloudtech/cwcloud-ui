@@ -9,7 +9,8 @@ import K8sObjectActionsList from "../../../../../../../../Components/Kubernetes/
 import calculateObjectAge from "../../../../../../../../utils/calculateObjectAge";
 import generateRandomString from "../../../../../../../../utils/generateRandomString";
 import LoadingSpinner from "../../../../../../../../Components/LoadingSpinner/LoadingSpinner";
-import classes from "../../styles.module.css";
+// import classes from "../../styles.module.css";
+import '../../../../../../../../common.css'
 import { Row, Col, FormGroup, Input } from "reactstrap";
 import Translate from "react-translate-component";
 import Fade from "@mui/material/Fade";
@@ -331,7 +332,7 @@ export default function Ingresses(props) {
               TransitionComponent={Fade}
               TransitionProps={{ timeout: 600 }}
               title={
-                <h5 className={classes.tootltipValue}>
+                <h5 className="tootltipValue">
                   <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.ingresses.explore.createIngressDescription" />
                 </h5>
               }

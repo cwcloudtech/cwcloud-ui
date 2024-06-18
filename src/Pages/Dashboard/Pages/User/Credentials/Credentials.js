@@ -3,7 +3,8 @@ import axios from '../../../../../utils/axios';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import { Col, Container, Row } from 'reactstrap';
-import classes from './Credentials.module.css';
+// import classes from './Credentials.module.css';
+import '../../../../../common.css';
 import DataTable from '../../../../../Components/Table/DataTable';
 import { toast } from 'react-toastify';
 import CustomDeleteIcon from '../../../../../Components/CustomIcon/CustomDeleteIcon';
@@ -171,7 +172,7 @@ function Credentials() {
     }
 
     return (
-        <Container fluid className={classes.container} style={{ padding: "0px 20px 20px 20px", }} >
+        <Container fluid style={{ padding: "0px 20px 20px 20px", }} >
             <DeleteModal resourceName={'api key'} isOpen={showConfirmDeleteApiKeyModal} toggle={() => setShowConfirmDeleteApiKeyModal(!showConfirmDeleteApiKeyModal)} onDelete={deleteApiKeyHandler} loading={loadingDeletion} />
             <DeleteModal resourceName={'access'} isOpen={showConfirmDeleteAccessModal} toggle={() => setShowConfirmDeleteAccessModal(!showConfirmDeleteAccessModal)} onDelete={deleteAccessKeyHandler} loading={loadingDeletion} />
             <AddApiKeyModal isOpen={showAddApiKeyModal} toggle={() => setShowAddApiKeyModal(!showAddApiKeyModal)} onSave={generateApikeyHandler} loading={loadingSubmit} />
@@ -188,13 +189,13 @@ function Credentials() {
             <CardComponent>
                 <Row>
                     <Col md="11">
-                        <h1 className={classes.mainTitleText} style={{color: colors.mainText[_mode]}}>
+                        <h1 className="mainTitleText" style={{color: colors.mainText[_mode]}}>
                             <Translate content="iam.apikey.title" />
                         </h1>
                     </Col>
                     <Col className='text-end'>
                         <div style={{ paddingBottom: "20px"}}>
-                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<p className={classes.tootltipValue}>
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<p className="tootltipValue">
                                 <Translate content="iam.apikey.generate" />
                             </p>} placement="left">
                                 <Fab color="primary" aria-label="add" style={{ transform: 'scale(0.7)' }} onClick={() => setShowAddApiKeyModal(true)} >
@@ -212,13 +213,13 @@ function Credentials() {
             <CardComponent>
                 <Row>
                     <Col md="11">
-                        <h1 className={classes.mainTitleText} style={{color: colors.mainText[_mode]}}>
+                        <h1 className="mainTitleText" style={{color: colors.mainText[_mode]}}>
                             <Translate content="iam.access.title" />
                         </h1>
                     </Col>
                     <Col className='text-end'>
                         <div style={{ paddingBottom: "20px"}}>
-                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<p className={classes.tootltipValue}>
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<p className="tootltipValue">
                                 <Translate content="iam.access.generate" />
                             </p>} placement="left">
                                 <Fab color="primary" aria-label="add" style={{ transform: 'scale(0.7)' }} onClick={() => setShowAddAccessModal(true)} >

@@ -89,16 +89,13 @@ function IngressFormPage(props) {
           />
           <Row>
             <Col>
-              <div className={classes.goBack}>
+              <div className="goBack">
                 <NavLink
                   to={`/kubernetes/cluster/${clusterId}/serviceDiscovery/ingresses/explore`}
-                  className={classes.link}
+                  className="link"
                 >
                   <i
-                    className={[
-                      "fa-solid fa-arrow-left",
-                      `${classes.iconStyle}`,
-                    ].join(" ")}
+                    className="fa-solid fa-arrow-left iconStyle"
                   ></i>
                   <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.ingresses.form.backToExplore" />
                 </NavLink>

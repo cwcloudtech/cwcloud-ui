@@ -1,27 +1,3 @@
-.subtitleStyle {
-    margin: 0;
-    color: #98a6ad !important;
-    font-size: 15px;
-    letter-spacing: 0.1px;
-    font-weight: 400;
-}
-
-.container {
-    padding: 0 20px 20px 20px;
-    margin-top: 20px;
-    min-height: 80vh;
-    position: relative
-}
-
-.formContainer {
-    border-radius: 10px;
-}
-
-.borderCol {
-    box-shadow: 0 3px #c7c3c3;
-    padding: 0 !important;
-}
-
 .textTitle {
     font-size: 20px;
     line-height: 24px;
@@ -33,37 +9,6 @@
     margin: 0;
 }
 
-.goBack {
-    display: flex;
-    align-items: center;
-}
-
-.iconStyle {
-    color: #0861AF;
-    font-size: 20px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
-.link:hover .iconStyle {
-    color: rgb(17, 77, 129) !important;
-}
-
-.link {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0.2px;
-    color: #0860B0;
-    text-align: right;
-    cursor: pointer;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
 .buttonStyle {
     width: 200px;
     height: 50px;
@@ -73,14 +18,4 @@
 
 .buttonStyle:hover .icon {
     color: #ffffff;
-}
-
-.icon {
-    margin-right: 8px;
-    color: #0861AF;
-}
-
-.spinner {
-    margin-right: 8px;
-    color: #0861AF;
 }

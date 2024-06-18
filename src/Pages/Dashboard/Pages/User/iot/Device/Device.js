@@ -8,7 +8,7 @@ import LoadingButton from '../../../../../../Components/LoadingButton/LoadingBut
 import colors from '../../../../../../Context/Colors';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import axios from '../../../../../../utils/axios';
-import classes from "./Device.module.css";
+import '../../../../../../common.css';
 
 function Device() {
     const context = useContext(GlobalContext);
@@ -44,18 +44,18 @@ function Device() {
         <div>
             <Row>
                 <Col>
-                    <div onClick={() => navigate(nextPath)} className={classes.goBack}>
-                        <NavLink className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div onClick={() => navigate(nextPath)} className="goBack">
+                        <NavLink className="link fs-6">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.iot.back" />
                         </NavLink>
                     </div>
                 </Col>
             </Row>
-            <Container className={classes.container} fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
+            <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
                 <Row>
-                    <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                        <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                    <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                        <h5 className='textTitle' style={{color: colors.title[_mode]}}>
                             <Translate content="dashboard.iot.addDevice.mainTitle" />
                         </h5>
                     </Col>
@@ -63,7 +63,7 @@ function Device() {
                 <Row style={{ margin: "30px 0px" }}>
                     <Col>
                         <CardComponent
-                            containerStyles={classes.container}
+                            containerStyles=""
                             customMarginTop={"20px"}>
                             <Form>
                                 <FormGroup>

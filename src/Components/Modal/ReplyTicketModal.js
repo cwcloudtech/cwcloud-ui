@@ -38,7 +38,7 @@ const ReplyTicketModal = (props) => {
                 <Row>
                     <Col>
                         <textarea
-                            style={{ width: '100%', backgroundColor: colors.secondBackground[_mode], color: colors.menuText[_mode], border: "1px solid "+ colors.textAreaBorder[_mode], borderRadius: "5px", padding: '10px' }}
+                            style={{ width: '100%', height: '170px', backgroundColor: colors.secondBackground[_mode], color: colors.menuText[_mode], border: "1px solid "+ colors.textAreaBorder[_mode], borderRadius: "5px", padding: '10px' }}
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                         />

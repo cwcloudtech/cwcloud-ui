@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Translate from 'react-translate-component';
 import colors from "../../../Context/Colors"
 import GlobalContext from "../../../Context/GlobalContext";
+import '../../../common.css';
 
 function InfoCard({ title, length, unitInfo}) {
     const context = useContext(GlobalContext);

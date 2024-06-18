@@ -64,7 +64,7 @@ export default function BinaryData(props) {
             {
                 binaryData.map((item) => <SingleBinaryData key={`bdata-${item.id}`} binaryData={item} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className={classes.addButton} variant="contained" onClick={addSingleBinaryData}>
+            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addSingleBinaryData}>
                 <Translate content="dashboard.kubernetesDashboardPages.common.form.addSelector" />
             </LoadingButton>
         </Form>

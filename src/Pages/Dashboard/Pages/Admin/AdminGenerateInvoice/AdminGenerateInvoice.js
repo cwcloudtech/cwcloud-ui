@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Col, Row, Container } from "reactstrap"
 import classes from "./AdminGenerateInvoice.module.css"
+import '../../../../../common.css'
 import axios from "../../../../../utils/axios";
 import { toast } from "react-toastify";
 import TextField from '@mui/material/TextField';
@@ -83,9 +84,9 @@ function AdminGenerateInvoice() {
     }
 
     return (
-        <Container fluid className={classes.container} style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
+        <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
             <Row>
-                <Col md="6" className={classes.formContainer} style={{backgroundColor: colors.formBackground[_mode]}}>
+                <Col className="formContainer" style={{backgroundColor: colors.formBackground[_mode]}}>
                     <Row style={{ marginTop: "30px", marginBottom: "30px", marginRight: "0", marginLeft: "0", display: "flex", justifyContent: "center" }}>
                         <Col className={classes.estwicol}>
                             <Autocomplete
@@ -104,7 +105,7 @@ function AdminGenerateInvoice() {
                     </Row>
                     <Row style={{ marginTop: "30px", marginBottom: "30px", marginRight: "0", marginLeft: "0", display: "flex", justifyContent: "center" }}>
                         <Col>
-                            <h4 className={classes.subtitleStyle}>
+                            <h4 className="subtitleStyle">
                                 <Translate content="dashboard.generateInvoice..inputs.startDate.title" />
                                 <span style={{ marginLeft: "2px", color: "red" }}>*</span></h4>
                         </Col>
@@ -126,7 +127,7 @@ function AdminGenerateInvoice() {
                     </Row>
                     <Row style={{ marginTop: "30px", marginBottom: "30px", marginRight: "0", marginLeft: "0", display: "flex", justifyContent: "center" }} >
                         <Col>
-                            <h4 className={classes.subtitleStyle}>
+                            <h4 className="subtitleStyle">
                                 <Translate content="dashboard.generateInvoice..inputs.endDate.title" />
                                 <span style={{ marginLeft: "2px", color: "red" }}>*</span></h4>
                         </Col>

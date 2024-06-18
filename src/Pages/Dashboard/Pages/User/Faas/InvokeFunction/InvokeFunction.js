@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Spinner, Col, Row, Container } from "reactstrap"
-import classes from "./InvokeFunction.module.css"
+// import classes from "./InvokeFunction.module.css"
+import '../../../../../../common.css'
 import axios from "../../../../../../utils/axios";
 import { NavLink, useParams, useNavigate, useLocation } from "react-router-dom"
 import { toast } from "react-toastify";
@@ -79,19 +80,19 @@ function InvokeFunction() {
             <div>
                 <Row>
                     <Col>
-                        <div className={classes.goBack}>
-                            <NavLink to={previousPath} className={classes.link}>
-                                <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                        <div className="goBack">
+                            <NavLink to={previousPath} className="link">
+                                <i className="fa-solid fa-arrow-left iconStyle"></i>
                                 <Translate content="dashboard.function.back" />
                             </NavLink>
                         </div>
                     </Col>
                 </Row>
-                <Container className={classes.container} fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
+                <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
                     {argsNames?.map((argName, index) => (
                         <Row key={index} style={{ display: 'flex', alignItems: 'center' }}>
                             <Col md="4">
-                                <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                     {argName}
                                 </h5>
                             </Col>

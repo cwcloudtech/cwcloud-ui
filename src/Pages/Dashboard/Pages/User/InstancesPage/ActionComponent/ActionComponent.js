@@ -35,7 +35,11 @@ function ActionComponent(props) {
 
     const onDeleteHandler = () => {
         setLoading(true)
-        axios.delete(`/instance/${selectedProvider.name}/${props && props.item ? props.item.region : 'undef'}/${props && props.item ? props.item.id : 'undef'}`).then(response => {
+        var api_url = props.is_admin 
+        ? `/admin/instance/${props && props.item ? props.item.id : 'undef'}`
+        : `/instance/${selectedProvider.name}/${props && props.item ? props.item.region : 'undef'}/${props && props.item ? props.item.id : 'undef'}`
+        axios.delete(api_url)
+        .then(response => {
             props.deleteInstance()
             toast.success(counterpart('dashboard.instanceOverview.message.successDelete'))
             setShowConfirmDeleteModal(false)
@@ -43,7 +47,7 @@ function ActionComponent(props) {
         }).catch(err => {
             setShowConfirmDeleteModal(false)
             setLoading(false)
-
+            console.log(err)
         })
     }
 
@@ -51,22 +55,28 @@ function ActionComponent(props) {
         const payload = {
             status: "reboot",
         }
-    
+        var api_url = props.is_admin
+        ? `/admin/instance/${props && props.item ? props.item.id : 'undef'}`
+        : `/instance/${selectedProvider.name}/${props && props.item ? props.item.region : 'undef'}/${props && props.item ? props.item.id : 'undef'}`
         setLoading(true)
-        axios.patch(`/instance/${selectedProvider.name}/${props && props.item ? props.item.region : 'undef'}/${props && props.item ? props.item.id : 'undef'}`, payload).then(response => {
+        axios.patch(api_url, payload).then(response => {
             toast.success(counterpart('dashboard.instanceOverview.message.successUpdate'))
             setshowConfirmRebootModal(false)
             setLoading(false)
         }).catch(err => {
             setshowConfirmRebootModal(false)
             setLoading(false)
+            console.log(err)
         })
     }
 
     const onPowerHandler = () => {
         const updatedStatus = props.item.status === 'active' ? 'poweroff' : 'poweron'
         setLoading(true)
-        axios.patch(`/instance/${selectedProvider.name}/${props && props.item ? props.item.region : 'undef'}/${props && props.item ? props.item.id : 'undef'}`, { status: updatedStatus, type: props.item.type })
+        var api_url = props.is_admin
+        ? `/admin/instance/${props && props.item ? props.item.id : 'undef'}`
+        : `/instance/${selectedProvider.name}/${props && props.item ? props.item.region : 'undef'}/${props && props.item ? props.item.id : 'undef'}`
+        axios.patch(api_url, { status: updatedStatus, type: props.item.type })
             .then(response => {
                 toast.success(counterpart('dashboard.instanceOverview.message.successUpdate'))
                 const newInstanceStatus = updatedStatus === 'poweroff' ? 'poweredoff' : 'active'
@@ -76,6 +86,7 @@ function ActionComponent(props) {
             }).catch(err => {
                 setshowConfirmPowerModal(false)
                 setLoading(false)
+                console.log(api_url)
             })
     }
 

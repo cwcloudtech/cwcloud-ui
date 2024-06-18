@@ -4,6 +4,7 @@ import MenuItem from "../../Pages/Dashboard/Sidebar/MenuItem/MenuItem";
 import GlobalContext from "../../Context/GlobalContext"
 import colors from "../../Context/Colors";
 import "./Sidebar.module.css";
+import "../../common.css";
 
 const Sidebar = (props) => {
     const context = useContext(GlobalContext);

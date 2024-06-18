@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { Col, Row, Container } from "reactstrap"
 import classes from "./AddUser.module.css"
+import '../../../../../common.css'
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import { NavLink, useNavigate } from "react-router-dom"
@@ -93,22 +94,22 @@ function AddUser() {
         <div>
             <Row>
                 <Col>
-                    <div className={classes.goBack}>
-                        <NavLink to='/users/overview' className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div className="goBack">
+                        <NavLink to='/users/overview' className="link">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.addUser.back" />
                         </NavLink>
                     </div>
                 </Col>
             </Row>
-            <Container fluid className={classes.container} style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
+            <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
                 <Row>
-                    <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                        <h5 className={classes.textTitle}><Translate content="dashboard.addUser.mainTitle" style={{color: colors.title[_mode]}} /></h5>
+                    <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                        <h5 className="textTitle"><Translate content="dashboard.addUser.mainTitle" style={{color: colors.title[_mode]}} /></h5>
                     </Col>
                 </Row>
                 <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Col md="6" className={classes.formContainer} style={{backgroundColor: colors.formBackground[_mode]}}>
+                    <Col md="6" className="formContainer" style={{backgroundColor: colors.formBackground[_mode]}}>
                         <Row style={{ marginTop: "30px", marginBottom: "30px", marginRight: "0", marginLeft: "0", display: "flex", justifyContent: "center" }}>
                             <Col md="8" className={classes.estwicol}>
                                 <TextField

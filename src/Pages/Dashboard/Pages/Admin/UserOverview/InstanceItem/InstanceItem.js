@@ -27,9 +27,9 @@ function InstanceItem(props) {
 
                 </div>
             </th>
-            <td className={classes.itemTitle} style={{color: colors.secondText[_mode]}}>{props.item.type}</td>
-            <td className={classes.itemTitle} style={{color: colors.secondText[_mode]}}>{props.item.status}</td>
-            <td className={classes.itemTitle} style={{color: colors.secondText[_mode]}}>{formateDate(props.item.created_at)}</td>
+            <td className="itemTitle" style={{color: colors.secondText[_mode]}}>{props.item.type}</td>
+            <td className="itemTitle" style={{color: colors.secondText[_mode]}}>{props.item.status}</td>
+            <td className="itemTitle" style={{color: colors.secondText[_mode]}}>{formateDate(props.item.created_at)}</td>
         </tr>
     );
 }

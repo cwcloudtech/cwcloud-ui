@@ -10,6 +10,7 @@ import GlobalContext from '../../../../../Context/GlobalContext';
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import classes from "./AdminEditionInvoice.module.css";
+import '../../../../../common.css';
 
 function AdminEditionInvoice() {
     const context = useContext(GlobalContext);
@@ -70,22 +71,22 @@ function AdminEditionInvoice() {
         <div>
             <Row>
                 <Col>
-                    <div className={classes.goBack}>
-                        <NavLink to='/admin/invoice/overview' className={classes.link}>
-                            <i className={["fa-solid fa-arrow-left", `${classes.iconStyle}`].join(" ")}></i>
+                    <div className="goBack">
+                        <NavLink to='/admin/invoice/overview' className="link">
+                            <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.customInvoice.back" />
                         </NavLink>
                     </div>
                 </Col>
             </Row>
-            <Container fluid className={classes.container} style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
+            <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }} >
                 <Row>
-                    <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                        <h5 className={classes.textTitle}><Translate content="dashboard.editionInvoice.mainTitle" style={{color: colors.title[_mode]}} /></h5>
+                    <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                        <h5 className="textTitle"><Translate content="dashboard.editionInvoice.mainTitle" style={{color: colors.title[_mode]}} /></h5>
                     </Col>
                 </Row>
                 <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Col md="9" className={classes.formContainer} style={{backgroundColor: colors.formBackground[_mode]}}>
+                    <Col className="formContainer" style={{backgroundColor: colors.formBackground[_mode]}}>
                         <Row style={{ marginTop: "30px", marginBottom: "30px", marginRight: "0", marginLeft: "0", display: "flex", justifyContent: "center" }}>
                             <Col md="8" className={classes.estwicol}>
                                 <Autocomplete

@@ -3,11 +3,12 @@ import axios from '../../../../../utils/axios';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import { Col, Container, Row } from 'reactstrap';
-import classes from './ManageSupport.module.css';
+// import classes from './ManageSupport.module.css';
+import '../../../../../common.css'
 import DataTable from '../../../../../Components/Table/DataTable';
 import formateDate from '../../../../../utils/FormateDate';
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Translate from 'react-translate-component';
 import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import CustomDeleteIcon from '../../../../../Components/CustomIcon/CustomDeleteIcon';
@@ -24,6 +25,9 @@ import TicketModal from '../../../../../Components/Modal/TicketModal';
 function ManageSupport() {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath.includes("admin")
     const [tickets, setTickets] = useState([])
     const [filteredTickets, setFilteredTickets] = useState([])
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
@@ -38,20 +42,34 @@ function ManageSupport() {
     const [showTicketModal, setShowTicketModal] = useState(false)
     const [environments, setEnvironments] = useState([])
     const [users, setUsers] = useState([])
+    const [queryParam, setQueryParam] = useState("")
 
     const fetchData = async () => {
         context.setIsGlobal(true)
-        axios.get('/admin/support')
+        if (context.user.enabled_features.daasapi && context.user.enabled_features.k8sapi) {
+            setQueryParam("?type=all")
+        }
+        else if (context.user.enabled_features.k8sapi) {
+            setQueryParam("?type=k8s")
+        }
+        else if (context.user.enabled_features.daasapi) {
+            setQueryParam("?type=vm")
+        }
+        var api_support_url = is_admin ? '/admin/support' : '/support'
+        var api_environment_url = is_admin ? '/admin/environment/all' : `/environment/all${queryParam}`
+        axios.get(api_support_url)
             .then(res => {
                 setTickets(res.data)
                 setFilteredTickets(res.data)
             })
-        axios.get('/environment/all')
+        axios.get(api_environment_url)
         .then(res => {
             setEnvironments(res.data)
         })
-        const responseUsers = await axios.get("/admin/user/all")
-        setUsers(responseUsers.data.result)
+        if (is_admin) {
+            const responseUsers = await axios.get("/admin/user/all")
+            setUsers(responseUsers.data.result)
+        }
     }
 
     useEffect(() => {
@@ -70,7 +88,7 @@ function ManageSupport() {
     }, [tickets, closedTickets])
 
     const columns = [
-        { field: 'id', headerName: context.counterpart("dashboard.support.table.id"), width: 100, renderCell: (params) => <Link to={`/admin/support/${params.row.id}`}>{`Ticket #${params.row.id}`}</Link> },
+        { field: 'id', headerName: context.counterpart("dashboard.support.table.id"), width: 100, renderCell: (params) => <Link to={is_admin ? `/admin/support/${params.row.id}` : `/support/${params.row.id}` }>{`Ticket #${params.row.id}`}</Link> },
         { field: 'severity', headerName: context.counterpart("dashboard.support.severityText"), width: 100 },
         { field: 'subject', headerName: context.counterpart("dashboard.support.table.subject"), width: 200 },
         { field: 'selected_product', headerName: context.counterpart("dashboard.support.table.selected_product"), width: 100 },
@@ -118,7 +136,10 @@ function ManageSupport() {
                 };
                 return (
                     <React.Fragment>
-                        <CustomDeleteIcon onClick={onDelete} />
+                        {
+                            is_admin && 
+                            <CustomDeleteIcon onClick={onDelete} />
+                        }
                         <CustomEditIcon onClick={onUpdate} />
                     </React.Fragment>
                 )
@@ -132,13 +153,14 @@ function ManageSupport() {
     }
     const onUpdateHandler = (ticket) => {
         setLoading(true)
+        var api_url = is_admin ? `/admin/support/${ticket.id}` : `/support/${ticket.id}`
         var body = {
             severity: ticket.severity,
             product: ticket.selected_product,
             subject: ticket.subject,
             message: ticket.message
         }
-        axios.patch(`/admin/support/${ticket.id}`, body)
+        axios.patch(api_url, body)
             .then(res => {
                 setLoading(false)
                 setShowTicketModal(false)
@@ -196,7 +218,8 @@ function ManageSupport() {
     }
     const addTicketHandler = async (ticket) => {
         setLoadingSubmit(true)
-        axios.post('/admin/support', ticket)
+        var api_url = is_admin ? '/admin/support' : '/support'
+        axios.post(api_url, ticket)
             .then(res => {
                 setTickets([res.data, ...tickets])
                 setLoadingSubmit(false)
@@ -220,7 +243,7 @@ function ManageSupport() {
         }
     }
     return (
-        <Container fluid className={classes.container} style={{ padding: "0px 20px 20px 20px" }} >
+        <Container fluid style={{ padding: "0px 20px 20px 20px" }} >
             <DeleteModal resourceName={'ticket'}
                 multi={multiSelection}
                 isOpen={showConfirmDeleteModal}
@@ -229,13 +252,13 @@ function ManageSupport() {
                 onMultiDelete={onDeleteSelectionHandler}
                 name={selectedTicket?.id.toString()}
                 loading={loadingDelete} />
-            <AddTicketModal isAdmin={true} isOpen={showAddTicketModal} envs={environments} users={users} toggle={() => setShowAddTicketModal(!showAddTicketModal)} onSave={addTicketHandler} loading={loadingSubmit} />
+            <AddTicketModal isAdmin={is_admin} isOpen={showAddTicketModal} envs={environments} users={users} toggle={() => setShowAddTicketModal(!showAddTicketModal)} onSave={addTicketHandler} loading={loadingSubmit} />
             {
                 selectedTicket && <TicketModal isOpen={showTicketModal} ticket={selectedTicket} nvs={environments} users={users} onUpdate={onUpdateHandler} loading={loading} toggle={() => setShowTicketModal(!showTicketModal)} />
             }
             <Row style={{ marginTop: '10px', marginBottom: '20px' }}>
                 <Col>
-                    <h1 className={classes.mainTitleText} style={{color: colors.mainText[_mode]}}>
+                    <h1 className="mainTitleText" style={{color: colors.mainText[_mode]}}>
                         Tickets
                     </h1>
                 </Col>
@@ -269,7 +292,7 @@ function ManageSupport() {
             </Row>
             <Row style={{ marginTop: '20px' }}>
             <Col>
-                    <div style={{ paddingBottom: "20px"  }} className={classes.instanceCreation}>
+                    <div style={{ paddingBottom: "20px"  }} className="instanceCreation">
                         <TextField
                             onChange={(e) => filtreTickets(e) }
                             label={context.counterpart('dashboard.support.ticketTitle')}

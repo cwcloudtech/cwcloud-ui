@@ -206,7 +206,7 @@ function Rule(props) {
       ))}
       <LoadingButton
         icon={"fa-solid fa-plus"}
-        className={classes.addButton}
+        className="addButton"
         variant="contained"
         onClick={() => props.addPath(id)}
       >
@@ -243,7 +243,7 @@ export default function Rules() {
         ))}
         <LoadingButton
           icon={"fa-solid fa-plus"}
-          className={classes.addButton}
+          className="addButton"
           variant="contained"
           onClick={() => addRule()}
         >

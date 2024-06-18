@@ -20,14 +20,9 @@
     margin-bottom: 50px;
 }
 
-.formContainer,
 .logoContainer {
     margin-left: 40px;
     margin-right: 40px;
-}
-
-.formContainer {
-    height: 100%;
 }
 
 .headerTitle {
@@ -79,10 +74,6 @@
     width: 13em;
     display: block;
     margin: auto;
-}
-
-.spinner {
-    margin-left: 10px;
 }
 
 .row {

@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, Fragment } from 'react';
 import { Col, Row, Container } from "reactstrap";
 import classes from "./Chat.module.css";
+import '../../../../../common.css';
 import axios from "../../../../../utils/axios";
 import { Autocomplete, TextField } from '@mui/material';
 import { toast } from 'react-toastify';
@@ -78,10 +79,10 @@ function CwaiChat() {
 
     return (
         <div>
-            <Container className={classes.container} fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
+            <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
                 <Row>
-                    <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                        <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                    <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                        <h5 className="textTitle" style={{color: colors.title[_mode]}}>
                             <Translate content="dashboard.cwai.mainTitle" />
                         </h5>
                     </Col>

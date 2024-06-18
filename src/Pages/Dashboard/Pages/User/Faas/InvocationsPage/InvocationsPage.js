@@ -1,7 +1,8 @@
 import React, { useContext , useState, useEffect } from 'react';
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import { Link } from "react-router-dom";
-import classes from "./InvocationsPage.module.css";
+// import classes from "./InvocationsPage.module.css";
+import '../../../../../../common.css'
 import { Row, Col } from "reactstrap";
 import { TextField } from "@mui/material";
 import axios from "../../../../../../utils/axios"
@@ -167,7 +168,7 @@ function InvocationsPage(props) {
             <DeleteModal resourceName={context.counterpart('dashboard.invocation.allInvocations').toLowerCase()} isOpen={showConfirmTruncateModal} toggle={() => setShowConfirmTruncateModal(!showConfirmTruncateModal)} onDelete={truncateInvocationsHandler} loading={loadingDelete} />
             <Row>
                 <Col>
-                    <div style={{ paddingBottom: "20px"  }} className={classes.envCreation}>
+                    <div style={{ paddingBottom: "20px"  }} className="envCreation">
                         <TextField
                             style={{ marginRight: "5px" }}
                             onChange={(f) => filterInvocations(f) }
@@ -183,7 +184,7 @@ function InvocationsPage(props) {
                             fullWidth
                         />
                         <div style={{ display: 'flex' }}>
-                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                            <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.invocation.truncate" />
                             </h5>} placement="bottom">
                                 <Fab color="primary" aria-label="delete" onClick={preTruncateInvocationsHandler} style={{ transform: 'scale(0.7)' }} >

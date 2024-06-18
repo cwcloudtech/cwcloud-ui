@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap';
 import classes from './ServiceNotAvailable.module.css';
+import '../../common.css';
 import Translate from 'react-translate-component';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import GlobalContext from '../../Context/GlobalContext';

@@ -114,6 +114,14 @@ const colors = {
     shadow: {
         light: "0 0px 0px #fff",
         dark: "0 1px 2px rgb(0 0 0 / 5%)"
+    },
+    menuitem: {
+        light: '#ffffff',
+        dark: '#31373d'
+    },
+    FaUserAdmin:{
+        light: '#0861AF',
+        dark: '#4ea8f7'
     }
 }
 export default colors;

@@ -79,7 +79,7 @@ function UsersPage(props) {
         >
             <Row>
                 <Col>
-                    <div style={{ paddingBottom: "20px"  }} className={classes.envCreation}>
+                    <div style={{ paddingBottom: "20px"  }} className="envCreation">
                         <TextField
                             onChange={(e) => filterUsers(e) }
                             label={context.counterpart('dashboard.addProject.inputs.email.title')}
@@ -93,7 +93,7 @@ function UsersPage(props) {
                             size="small"
                             fullWidth 
                         />
-                        <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className={classes.tootltipValue}>
+                        <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                             <Translate content="dashboard.usersPage.addUser" />
                         </h5>} placement="bottom">
                             <Fab color="primary" aria-label="add" onClick={() => navigate("/users/add")} style={{ transform: 'scale(0.7)' }} >

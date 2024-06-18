@@ -4,6 +4,7 @@ import Translate from "react-translate-component";
 import { Col, Container, Row } from "reactstrap";
 import LoadingButton from "../../../LoadingButton/LoadingButton";
 import classes from "./style.module.css";
+import '../../../../common.css'
 import ErrorCard from "../ErrorCard/ErrorCard";
 import EditorBox from "../../../EditorBox/EditorBox";
 
@@ -22,16 +23,13 @@ export default function UpdateYaml({
     <Container style={{ padding: "0" }}>
       <Row>
         <Col>
-          <div className={classes.goBack}>
+          <div className="goBack">
             <NavLink
               onClick={() => setSelectedObject(undefined)}
-              className={classes.link}
+              className="link"
             >
               <i
-                className={[
-                  "fa-solid fa-arrow-left",
-                  `${classes.iconStyle}`,
-                ].join(" ")}
+                className="fa-solid fa-arrow-left iconStyle"
               ></i>
               <Translate content={translation.backToExplore} />
             </NavLink>

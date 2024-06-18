@@ -1,16 +1,20 @@
 import { useContext, useState, useEffect } from 'react';
 import { Col, Row, Container } from "reactstrap";
 import classes from "./SendEmail.module.css";
+import '../../../../../common.css';
 import axios from "../../../../../utils/axios";
-import { isBlank, isEmpty } from "../../../../../utils/common";
+import { isBlank } from "../../../../../utils/common";
 import { toast } from "react-toastify";
 import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Translate from 'react-translate-component';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
+import IOSSwitch from '../../../../../utils/iosswitch';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useLocation } from 'react-router-dom';
 
 function SendEmail() {
     const context = useContext(GlobalContext);
@@ -22,7 +26,10 @@ function SendEmail() {
         subject: ""
     })
     const [recepientInputError, setRecepientInputError] = useState(false)
-    const [subjectInputError, setSubjectInputError] = useState(false)        
+    const [subjectInputError, setSubjectInputError] = useState(false)
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath.includes('admin')
 
     useEffect(() => {
         context.setIsGlobal(true)
@@ -40,12 +47,8 @@ function SendEmail() {
             setSubjectInputError(true)
             setLoadingSubmit(false)
         }
-
-        if (isEmpty(email.from)) {
-            delete email.from
-        }
-
-        axios.post(`/email`, email)
+        var api_url = is_admin ? '/admin/email' : '/email'
+        axios.post(api_url, email)
             .then(response => {
                 setLoadingSubmit(false)
                 toast.success(context.counterpart('dashboard.sendEmail.success'))
@@ -53,25 +56,11 @@ function SendEmail() {
                     from: "",
                     to: "",
                     subject: "",
-                    content: ""
+                    content: ""  // assuming content is a field you want to clear
                 });
             }).catch(err => {
                 setLoadingSubmit(false)
             })
-    }
-
-    const handleRecepientEmailInput = (e) => {
-        setEmail({ ...email, to: e.target.value })
-        if (isBlank(e.target.value)) {
-            setRecepientInputError(true)
-        }
-    }
-
-    const handleSubjectEmailInput = (e) => {
-        setEmail({ ...email, subject: e.target.value })
-        if (isBlank(e.target.value)) {
-            setSubjectInputError(true)
-        }
     }
 
     const quillConfig = {
@@ -82,18 +71,18 @@ function SendEmail() {
             ['link', 'image'],
             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
             ['blockquote', 'code-block'],
-            [{ 'color': [] }, { 'background': [] }], // Add colorization buttons
+            [{ 'color': [] }, { 'background': [] }],
             ['clean']
             ]
         }
-    };      
+    };
 
     return (
         <div>
-            <Container className={classes.container} fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
+            <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
                 <Row>
-                    <Col className={classes.borderCol} style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
-                        <h5 className={classes.textTitle} style={{color: colors.title[_mode]}}>
+                    <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
+                        <h5 className="textTitle" style={{color: colors.title[_mode]}}>
                             <Translate content="dashboard.sendEmail.mainTitle" />
                         </h5>
                     </Col>
@@ -102,7 +91,7 @@ function SendEmail() {
                     <Col>
                         <Row style={{ display: "flex", alignItems: "center" }}>
                             <Col md="4">
-                                <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                     <Translate content="dashboard.sendEmail.from.title" />
                                 </h5>
                             </Col>
@@ -116,21 +105,21 @@ function SendEmail() {
                     <Col>
                         <Row style={{ display: "flex", alignItems: "center" }}>
                             <Col md="4">
-                                <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                     <Translate content="dashboard.sendEmail.to.title" />
                                     <span style={{ marginLeft: "2px", color: "red" }}>*</span>
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
-                                    id="to" 
-                                    error={recepientInputError}
-                                    helperText={recepientInputError ? context.counterpart("common.message.thisFieldIsRequired"): ""}
-                                    label={context.counterpart('dashboard.sendEmail.to.placeholder')}
-                                    onChange={(e) => handleRecepientEmailInput(e)} 
-                                    required
-                                    fullWidth
-                                />
+                                <TextField
+                                id="to"
+                                error={recepientInputError}
+                                helperText={recepientInputError ? context.counterpart("common.message.thisFieldIsRequired"): ""}
+                                label={context.counterpart('dashboard.sendEmail.to.placeholder')}
+                                onChange={(e) => setEmail({ ...email, to: e.target.value })}
+                                required
+                                fullWidth
+                            />
                             </Col>
                         </Row>
                     </Col>
@@ -139,7 +128,7 @@ function SendEmail() {
                     <Col>
                         <Row style={{ display: "flex", alignItems: "center" }}>
                             <Col md="4">
-                                <h5 className={classes.labelName} style={{color: colors.title[_mode]}}>
+                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
                                     <Translate content="dashboard.sendEmail.subject.title" />
                                     <span style={{ marginLeft: "2px", color: "red" }}>*</span>
                                 </h5>
@@ -150,14 +139,26 @@ function SendEmail() {
                                     error={subjectInputError}
                                     helperText={subjectInputError ? context.counterpart("common.message.thisFieldIsRequired") : ""}
                                     label={context.counterpart('dashboard.sendEmail.subject.placeholder')}
-                                    onChange={(e) => handleSubjectEmailInput(e)}
-                                    required 
+                                    onChange={(e) => setEmail({ ...email, subject: e.target.value })}
+                                    required
                                     fullWidth
                                 />
                             </Col>
                         </Row>
                     </Col>
                 </Row>
+                {
+                    is_admin &&
+                    <Row style={{ marginTop: "30px", marginBottom: "90px", marginLeft: "0", marginRight: "0" }}>
+                        <Col>
+                            <FormControlLabel
+                                label={context.counterpart('dashboard.sendEmail.templated')}
+                                control={<IOSSwitch sx={{ m: 1 }} defaultChecked={email.templated} />}
+                                onChange={(e) => setEmail({ ...email, templated: !email.templated })}
+                            />
+                        </Col>
+                    </Row>
+                }
                 <Row className={classes.rowContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: '20px' }}>
                     <Col md="12">
                         <ReactQuill

@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
-import classes from "./AdminVouchersPage.module.css";
+// import classes from "./AdminVouchersPage.module.css";
+import '../../../../../common.css';
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../../../utils/axios";
@@ -153,12 +154,12 @@ const AdminVouchersPage = (props) => {
                 loading={loading} />
             <Row>
                 <Col>
-                    <div className={classes.instanceCreation}>
-                        <h5 className={[classes.itemTitle].join(" ")} style={{color: colors.title[_mode]}}>
+                    <div className="instanceCreation">
+                        <h5 className="itemTitle" style={{color: colors.title[_mode]}}>
                             <Translate content="dashboard.adminVouchersPage.create" />
                         </h5>
                         <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={
-                            <h5 className={classes.tootltipValue}>
+                            <h5 className="tootltipValue">
                                 <Translate content="dashboard.adminVouchersPage.add" />
                             </h5>}
                             placement="left">

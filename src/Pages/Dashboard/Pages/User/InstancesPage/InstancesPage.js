@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import { Row, Col } from "reactstrap";
-import classes from "./InstancesPage.module.css";
+// import classes from "./InstancesPage.module.css";
+import '../../../../../common.css';
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
@@ -31,9 +32,13 @@ function InstancesPage(props) {
     const [multiSelection, setMultiSelection] = useState(false)
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
+    const location = useLocation()
+    const currentPath = location.pathname
+    const is_admin = currentPath === '/admin/instances'
+    const nextPath = is_admin ? '/admin/instances/create' : '/instances/create'
 
     const columns = [
-        { field: 'id', headerName: counterpart("dashboard.instancesPage.table.id"), width: 200, renderCell: (params) => (<Link to={`/instance/${params.id}`}>{params.id}</Link>) },
+        { field: 'id', headerName: counterpart("dashboard.instancesPage.table.id"), width: 200, renderCell: (params) => (<Link to={is_admin ? `/admin/instance/${params.id}` : `/instance/${params.id}`}>{params.id}</Link>) },
         { field: 'name', headerName: counterpart("dashboard.instancesPage.table.name"), width: 200 },
         { field: 'type', headerName: counterpart("dashboard.instancesPage.table.size"), width: 100 },
         { field: 'status', headerName: counterpart("dashboard.instancesPage.table.status"), width: 100 },
@@ -49,6 +54,7 @@ function InstancesPage(props) {
                 return (
                     <ActionComponent
                         item={instances[instanceIndex]}
+                        is_admin={is_admin}
                         onClick={onClick}
                         updateInstanceStatus={updateInstanceStatusHandler}
                         deleteInstance={deleteInstanceHandler} />
@@ -59,7 +65,8 @@ function InstancesPage(props) {
 
     useEffect(() => {
         setIsGlobal(false)
-        axios.get(`/instance/${selectedProvider.name}/${region.name}`)
+        var api_url = is_admin ? `/admin/instance/${selectedProvider.name}/${region.name}/all` : `/instance/${selectedProvider.name}/${region.name}`
+        axios.get(api_url)
             .then(res => {
                 setInstances(res.data)
                 setFiltredInstances(res.data)
@@ -67,6 +74,7 @@ function InstancesPage(props) {
             }).catch(err => {
                 navigate('/notfound')
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [region, navigate, selectedProvider, setIsGlobal, showConfirmDeleteModal])
 
     const deleteInstanceHandler = (instanceId) => {
@@ -94,7 +102,8 @@ function InstancesPage(props) {
         new Promise((r, j) => {
             const deletedInstances = []
             selectedDeletionItems.forEach((instanceId, index) => {
-                axios.delete(`/instance/${selectedProvider.name}/${region.name}/${instanceId}`)
+                var api_url = is_admin ? `/admin/instance/${instanceId}` : `/instance/${selectedProvider.name}/${region.name}/${instanceId}`
+                axios.delete(api_url)
                     .then(() => {
                         deletedInstances.push(instanceId)
                         if (index === selectedDeletionItems.length - 1) {
@@ -141,7 +150,7 @@ function InstancesPage(props) {
                 loading={loading} />
             <Row>
                 <Col>
-                    <div style={{ paddingBottom: "20px"  }} className={classes.instanceCreation}>
+                    <div style={{ paddingBottom: "20px"  }} className="instanceCreation">
                         <TextField
                             onChange={(e) => filterInstances(e) }
                             label={context.counterpart('dashboard.addInstance.inputs.name.placeholder')}
@@ -156,7 +165,7 @@ function InstancesPage(props) {
                             fullWidth 
                         />
                         <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={
-                            <h5 className={classes.tootltipValue}>
+                            <h5 className="tootltipValue">
                                 <Translate content="dashboard.instancesPage.addInstance" />
                             </h5>}
                             placement="bottom">
@@ -169,7 +178,7 @@ function InstancesPage(props) {
             </Row>
             <DataTable
                 icon={'fa-solid fa-microchip'}
-                createUrl='/instances/create'
+                createUrl={nextPath}
                 emptyMessage={counterpart('dashboard.instancesPage.emptyMessage')}
                 createMessage={counterpart('dashboard.instancesPage.createMessage')}
                 checkboxSelection
