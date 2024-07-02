@@ -58,20 +58,23 @@ function ProjectsPage(props) {
 
     useEffect(() => {
         setIsGlobal(true)
-        if (context.user.enabled_features.daasapi && context.user.enabled_features.k8sapi) {
-            setQueryParam("?type=all")
-        }
-        else if (context.user.enabled_features.k8sapi) {
+        if (context.user.enabled_features.k8sapi) {
             setQueryParam("?type=k8s")
         }
-        else if (context.user.enabled_features.daasapi) {
+        if (context.user.enabled_features.daasapi) {
             setQueryParam("?type=vm")
+        }
+        if (context.user.enabled_features.daasapi && context.user.enabled_features.k8sapi) {
+            setQueryParam("?type=all")
         }
         var api_url = is_admin ? "/admin/project" : `/project${queryParam}`
         axios.get(api_url)
             .then(res => {
                 setProjects(res.data)
                 setFiltredProjects(res.data)
+                setLoading(false)
+            })
+            .catch(err => {
                 setLoading(false)
             })
     // eslint-disable-next-line react-hooks/exhaustive-deps

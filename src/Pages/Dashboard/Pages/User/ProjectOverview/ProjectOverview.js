@@ -48,7 +48,6 @@ function ProjectOverview() {
             .then(res => {
                 setloading(false)
                 setProject(res.data)
-                console.log(res.data)
             }).catch(err => {
                 setloading(false)
                 navigate(nextPath)
