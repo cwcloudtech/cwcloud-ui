@@ -1,20 +1,19 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Col, Collapse, Form, FormFeedback, FormGroup, FormText, Input, Row } from "reactstrap";
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
-import { Input, Form, FormGroup, FormFeedback, FormText, Col, Row, Collapse } from "reactstrap"
 // import classes from "./AddProject.module.css";
+import { Box, TextField } from "@mui/material";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Translate from 'react-translate-component';
+import { Container } from 'reactstrap';
+import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
+import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
+import colors from "../../../../../Context/Colors";
+import GlobalContext from "../../../../../Context/GlobalContext";
 import '../../../../../common.css';
 import axios from "../../../../../utils/axios";
-import { NavLink, useLocation, useNavigate } from "react-router-dom"
-import { toast } from "react-toastify";
-import GlobalContext from "../../../../../Context/GlobalContext";
-import colors from "../../../../../Context/Colors";
-import { Container } from 'reactstrap';
-import Translate from 'react-translate-component';
-import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
-import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
-import { Box } from "@mui/material";
-
-const projectType = []
+import SuggestionsAutoComplete from "../../../../../Components/SuggestionsAutoComplete/SuggestionsAutoComplete";
 
 function AddProject(props) {
     const context = useContext(GlobalContext);
@@ -22,22 +21,33 @@ function AddProject(props) {
     const location = useLocation()
     const currentPath = location.pathname
     const is_admin = currentPath === "/admin/projects/create"
-    const [type, setType] = useState(projectType[0])
+    const [type, setType] = useState("")
     const [project, setProject] = useState({type})
+    const [projectType, setProjectType] = useState([])
     const [disabled, setdisabled] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [users, setUsers] = useState([])
     const [isOpenOptions, setIsOpenOptions] = useState(false)
     const navigate = useNavigate()
 
+  useEffect(() => {
+        context.setIsGlobal(false)
+        axios.get("/admin/user/all")
+            .then(res => {
+                setUsers(res.data.result)
+            })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [context.region.name])
 
     useEffect(() => {
-        context.setIsGlobal(true)
+        const types = []
         if (context.user?.enabled_features?.daasapi){
-            projectType.push("vm")
+            types.push("vm")
         }
         if (context.user?.enabled_features?.k8sapi){
-            projectType.push("k8s")
+            types.push("k8s")
         }
+        setProjectType(types)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -117,6 +127,38 @@ function AddProject(props) {
                                 <Translate content="dashboard.addProject.inputs.type.subtitle" />
                             </FormText>
                         </Box>
+                    </CardComponent>
+                    <CardComponent
+                        containerStyles={props.containerStyles}
+                        title={context.counterpart(
+                        "dashboard.addProject.inputs.email.title"
+                        )}
+                        subtitle={context.counterpart(
+                        "dashboard.addProject.inputs.email.subtitle"
+                        )}
+                    >
+                        <Form>
+                        <SuggestionsAutoComplete
+                            id="combo-box-email"
+                            onChange={(event, newValue) => {
+                            setProject({ ...project, email: newValue });
+                            }}
+                            options={users.map((u) => u.email)}
+                            renderInput={(params) => (
+                            <TextField
+                                onChange={(e) =>
+                                setProject({ ...project, email: e.target.value })
+                                }
+                                {...params}
+                                label={context.counterpart(
+                                "dashboard.addProject.inputs.email.placeholder"
+                                )}
+                            />
+                            )}
+                            feedbackMessage="common.message.thisFieldIsRequired"
+                            hint="dashboard.addProject.inputs.email.feedback"
+                        />
+                        </Form>
                     </CardComponent>
                 </Col>
             </Row>
