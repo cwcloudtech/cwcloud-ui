@@ -64,9 +64,6 @@ function ProjectsPage(props) {
         } else if (context.user.enabled_features.daasapi) {
             queryParam = "?type=vm";
         }
-        if (context.user.enabled_features.daasapi && context.user.enabled_features.k8sapi) {
-            setQueryParam("?type=all")
-        }
         var api_url = is_admin ? "/admin/project" : `/project${queryParam}`
         axios.get(api_url)
             .then(res => {
