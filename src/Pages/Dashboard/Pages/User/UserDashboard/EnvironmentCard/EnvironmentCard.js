@@ -1,6 +1,5 @@
 import Skeleton from 'react-loading-skeleton'
 import React, { useContext } from 'react';
-import { Col } from 'reactstrap';
 import classes from './EnvironmentCard.module.css';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from "../../../../../../Context/Colors";
@@ -9,7 +8,7 @@ const EnvironmentCard = (props) => {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
     return (
-        <Col xs='5' md='3' className={classes.mainContainer} onClick={props.onClick} style={{backgroundColor: colors.secondBackground[_mode], border: '1px solid '+ colors.border[_mode]}}>
+        <div className={classes.mainContainer} onClick={props.onClick} style={{backgroundColor: colors.secondBackground[_mode], border: '1px solid '+ colors.border[_mode]}}>
             { props.logo_url 
                 ? <div className={classes.illustration} style={{backgroundColor: colors.dashboardEnvs[_mode], backgroundImage: `url('${props.logo_url}')`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover"}}></div>
                 : <div className={classes.illustration} style={{backgroundColor: colors.dashboardEnvs[_mode]}}></div>
@@ -32,7 +31,7 @@ const EnvironmentCard = (props) => {
                     }
                 </div>
             </div>
-        </Col>
+        </div>
     )
 }
 

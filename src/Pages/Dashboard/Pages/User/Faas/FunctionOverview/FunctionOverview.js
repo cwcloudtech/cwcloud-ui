@@ -28,6 +28,10 @@ import EnvModal from '../../../../../../Components/Modal/EnvVarModal';
 import EnvTable from '../../../../../../Components/Table/EnvTable';
 import ArgModal from '../../../../../../Components/Modal/ArgModal';
 import ArgTable from '../../../../../../Components/Table/ArgTable';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CallbackTable from '../../../../../../Components/Table/CallbackTable';
 import CallbackModal from '../../../../../../Components/Modal/CallbackModal';
 
@@ -401,24 +405,45 @@ function FunctionOverview() {
                             </Row>
                         </Col>
                     </Row>
-                    <CallbackTable
-                        callbacks={callbacks}
-                        addNewCallback={handleAddNewCallback}
-                        editCallback={handleEditCallback}
-                        deleteCallback={handleDeleteCallback}
-                    />
-                    <ArgTable
-                        args={args}
-                        addNewArg={handleAddNewArg}
-                        editArg={handleEditArg}
-                        deleteArg={handleDeleteArg}
-                    />
-                    <EnvTable
-                        envVars={envVars}
-                        addNewEnvVar={handlAddNewEnvVariable}
-                        deleteEnvVar={handleDeleteEnVar}
-                        editEnvVar={handleEditEnVar} 
-                    />
+                    <Accordion defaultExpanded>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <Translate content="dashboard.function.inputs.args.title" />
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <ArgTable
+                                args={args}
+                                addNewArg={handleAddNewArg}
+                                editArg={handleEditArg}
+                                deleteArg={handleDeleteArg}
+                            />
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <Translate content="dashboard.function.inputs.env_vars.title" />
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <EnvTable
+                                envVars={envVars}
+                                addNewEnvVar={handlAddNewEnvVariable}
+                                deleteEnvVar={handleDeleteEnVar}
+                                editEnvVar={handleEditEnVar} 
+                            />
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <Translate content="dashboard.function.inputs.callbacks.title" />
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <CallbackTable
+                                callbacks={callbacks}
+                                addNewCallback={handleAddNewCallback}
+                                editCallback={handleEditCallback}
+                                deleteCallback={handleDeleteCallback}
+                            />
+                        </AccordionDetails>
+                    </Accordion>
                     {
                        (selectedLanguage === "blockly") && (
                         <Row style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "20px", marginTop: "10px" }}>

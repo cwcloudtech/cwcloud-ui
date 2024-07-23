@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Col } from 'reactstrap';
 import Skeleton from 'react-loading-skeleton'
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from "../../../../../../Context/Colors";
@@ -11,7 +10,7 @@ const ResourceItem = (props) => {
     const _mode = context.mode;
     if (props.loading)
         return (
-            <Col xs='4' md='3' className={classes.mainContainer} onClick={props.onClick}
+            <div className={classes.mainContainer} onClick={props.onClick}
                 style={{
                     backgroundColor: colors.secondBackground[_mode],
                     border: '1px solid ' + colors.border[_mode],
@@ -32,10 +31,10 @@ const ResourceItem = (props) => {
                         <Skeleton width={20} style={{ opacity: colors.opacity[_mode] }} />
                     </h5>
                 </div>
-            </Col>
+            </div>
         )
     return (
-        <Col xs='5' md='3' className={classes.mainContainer} onClick={props.onClick}
+        <div className={classes.mainContainer} onClick={props.onClick}
             style={{
                 backgroundColor: colors.secondBackground[_mode],
                 border: '1px solid ' + colors.border[_mode],
@@ -54,7 +53,7 @@ const ResourceItem = (props) => {
             <div>
                 <h5 className={classes.countText} style={{ color: colors.mainText[_mode] }}>{props.resourceCount}</h5>
             </div>
-        </Col>
+        </div>
     )
 }
 

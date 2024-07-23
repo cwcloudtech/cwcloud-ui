@@ -21,6 +21,7 @@ function AddProject(props) {
     const location = useLocation()
     const currentPath = location.pathname
     const is_admin = currentPath === "/admin/projects/create"
+    const nextPath = is_admin ? "/admin/projects" : "/projects"
     const [type, setType] = useState("")
     const [project, setProject] = useState({type})
     const [projectType, setProjectType] = useState([])
@@ -59,7 +60,7 @@ function AddProject(props) {
             .then(response => {
                 setLoading(false)
                 toast.success(context.counterpart('dashboard.addProject.message.successAdd'))
-                navigate(`/projects`)
+                navigate(nextPath)
             }).catch(err => {
                 setLoading(false)
             })
@@ -70,7 +71,7 @@ function AddProject(props) {
             <Row>
                 <Col>
                     <div className="goBack">
-                        <NavLink to='/projects' className="link fs-6">
+                        <NavLink to={nextPath} className="link fs-6">
                             <i className="fa-solid fa-arrow-left iconStyle"></i>
                             <Translate content="dashboard.addProject.back" />
                         </NavLink>
@@ -128,38 +129,42 @@ function AddProject(props) {
                             </FormText>
                         </Box>
                     </CardComponent>
-                    <CardComponent
-                        containerStyles={props.containerStyles}
-                        title={context.counterpart(
-                        "dashboard.addProject.inputs.email.title"
-                        )}
-                        subtitle={context.counterpart(
-                        "dashboard.addProject.inputs.email.subtitle"
-                        )}
-                    >
-                        <Form>
-                        <SuggestionsAutoComplete
-                            id="combo-box-email"
-                            onChange={(event, newValue) => {
-                            setProject({ ...project, email: newValue });
-                            }}
-                            options={users.map((u) => u.email)}
-                            renderInput={(params) => (
-                            <TextField
-                                onChange={(e) =>
-                                setProject({ ...project, email: e.target.value })
-                                }
-                                {...params}
-                                label={context.counterpart(
-                                "dashboard.addProject.inputs.email.placeholder"
+                    {
+                        is_admin && (
+                            <CardComponent
+                                containerStyles={props.containerStyles}
+                                title={context.counterpart(
+                                "dashboard.addProject.inputs.email.title"
                                 )}
-                            />
-                            )}
-                            feedbackMessage="common.message.thisFieldIsRequired"
-                            hint="dashboard.addProject.inputs.email.feedback"
-                        />
-                        </Form>
-                    </CardComponent>
+                                subtitle={context.counterpart(
+                                "dashboard.addProject.inputs.email.subtitle"
+                                )}
+                            >
+                                <Form>
+                                <SuggestionsAutoComplete
+                                    id="combo-box-email"
+                                    onChange={(event, newValue) => {
+                                    setProject({ ...project, email: newValue });
+                                    }}
+                                    options={users.map((u) => u.email)}
+                                    renderInput={(params) => (
+                                    <TextField
+                                        onChange={(e) =>
+                                        setProject({ ...project, email: e.target.value })
+                                        }
+                                        {...params}
+                                        label={context.counterpart(
+                                        "dashboard.addProject.inputs.email.placeholder"
+                                        )}
+                                    />
+                                    )}
+                                    feedbackMessage="common.message.thisFieldIsRequired"
+                                    hint="dashboard.addProject.inputs.email.feedback"
+                                />
+                                </Form>
+                            </CardComponent>
+                        )
+                    }
                 </Col>
             </Row>
             <Row>

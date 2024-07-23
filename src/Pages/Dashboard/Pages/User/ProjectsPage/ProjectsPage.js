@@ -35,7 +35,6 @@ function ProjectsPage(props) {
     const [multiSelection, setMultiSelection] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [selectedDeletionItems, setSelectedDeletionItems] = useState([])
-    const [queryParam, setQueryParam] = useState('')
     const navigate = useNavigate()
     const columns = [
         { field: 'id', headerName: counterpart("dashboard.projectsPage.table.id"), width: 300, renderCell: (params) => (<Link to={is_admin ? `/admin/project/${params.id}`:`/project/${params.id}`}>{params.id}</Link>) },
@@ -56,13 +55,14 @@ function ProjectsPage(props) {
         }
     ];
 
-    useEffect(() => {
-        setIsGlobal(true)
-        if (context.user.enabled_features.k8sapi) {
-            setQueryParam("?type=k8s")
-        }
-        if (context.user.enabled_features.daasapi) {
-            setQueryParam("?type=vm")
+    const fetchProjects = () => {
+        let queryParam = "";
+        if (context.user.enabled_features.k8sapi && context.user.enabled_features.daasapi) {
+            queryParam = "?type=all";
+        } else if (context.user.enabled_features.k8sapi) {
+            queryParam = "?type=k8s";
+        } else if (context.user.enabled_features.daasapi) {
+            queryParam = "?type=vm";
         }
         if (context.user.enabled_features.daasapi && context.user.enabled_features.k8sapi) {
             setQueryParam("?type=all")
@@ -77,8 +77,13 @@ function ProjectsPage(props) {
             .catch(err => {
                 setLoading(false)
             })
+    }
+
+    useEffect(() => {
+        setIsGlobal(true)
+        fetchProjects()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showConfirmDeleteModal])
+    }, [])
 
     useEffect(() => {
         if (is_admin) {

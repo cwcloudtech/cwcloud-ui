@@ -2,12 +2,13 @@ import React, { useContext } from "react"
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import configs from './configs'
-import { Container, Row } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import classes from '../Chart.module.css';
 import '../../../common.css';
 import Skeleton from "react-loading-skeleton";
 import GlobalContext from "../../../Context/GlobalContext";
 import colors from "../../../Context/Colors";
+import CardComponent from "../../Cards/CardComponent/CardComponent";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = (props) => {
@@ -18,20 +19,28 @@ const DoughnutChart = (props) => {
     const priceUnit = process.env.REACT_APP_PRICE_UNIT === null ? " " : process.env.REACT_APP_PRICE_UNIT;
     return (
         <Container className={classes.mainContainer} fluid>
-            <Row>
-                <div style={{width: "25%", margin:"5px"}}>
-                    <h2 className={classes.chartTitle} style={{color: colors.title[_mode]}}>{props.title}</h2>
-                    <h5 className={classes.TotalConsumptionsText} style={{color: colors.secondText[_mode], marginTop: "10px"}}>{`Total: ${props.totalConsumptions === null ? "" : props.totalConsumptions} ${priceUnit}`}</h5>
-                </div>
-                {!props.loading ?
-                    <div style={{width: "50%", margin:"5px", textAlign: "right"}}>
-                        <Doughnut data={props.data} options={options} />
-                    </div>
-                    :
-                    <div style={{width: "50%", margin:"5px", textAlign: "right"}}>
-                        <Skeleton height={150} />
-                    </div>}
-            </Row>
+            <CardComponent 
+                title={context.counterpart("dashboard.userDashboard.consumptions.currentConsumptions")} 
+                style={{width: "90%", margin:"15px"}}
+            >
+                <Row>
+                    <Col md="2">
+                        <ul>
+                            <li style={{color: colors.secondText[_mode]}}>{`Total: ${props.totalConsumptions === null ? "" : props.totalConsumptions} ${priceUnit}`}</li>
+                        </ul>
+                    </Col>
+                    <Col md="9">
+                        {!props.loading ?
+                            <div style={{width: "140%", height: "250px"}}>
+                                <Doughnut data={props.data} options={options} />
+                            </div>
+                            :
+                            <div style={{width: "50%", margin:"5px"}}>
+                                <Skeleton height={150} />
+                            </div>}
+                    </Col>
+                </Row>
+            </CardComponent>
         </Container>
     );
 }

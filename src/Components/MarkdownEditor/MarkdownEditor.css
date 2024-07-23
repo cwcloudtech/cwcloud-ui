@@ -1,0 +1,38 @@
+.react-mde {
+  background-color: transparent !important;
+}
+
+.react-mde .mde-header,
+.react-mde .mde-tabs,
+.react-mde .mde-text {
+  background-color: transparent !important;
+}
+
+.react-mde .mde-preview {
+  background-color: transparent !important;
+}
+
+/* Dark mode text color */
+.dark-mode .mde-textarea-wrapper textarea,
+.dark-mode .mde-preview {
+  color: white !important;
+}
+
+.dark-mode .mde-header,
+.dark-mode .mde-tabs button,
+.dark-mode .mde-toolbar button,
+.dark-mode .mde-tabs {
+  color: white !important;
+  background-color: transparent !important;
+}
+
+/* Dark mode toolbar button color */
+.dark-mode .mde-header-item button,
+.dark-mode .mde-header-item button svg {
+  color: white !important;
+}
+
+/* Dark mode tab label color */
+.dark-mode .mde-tabs .mde-tab {
+  color: white !important;
+}

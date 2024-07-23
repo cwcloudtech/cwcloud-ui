@@ -113,7 +113,7 @@ export const englishLanguage = {
         "object_while_create_object": "Error has occured while creating the object",
         "no_premission_for_deployment": "You dont have permission to delete this deployment",
         "deployment_not_found": "Deployment not found",
-        "can_not_delete_deployment_from_cluster": "Couldn't delete deployment from the cluster",
+        "can_not_delete_deployment_from_cluster": "Couldn't delete deployment from the cluster, but it has been deleted from the database",
         "api_key_not_found": "Api key not found",
         "api_key_deleted": "Api key successfully deleted",
         "can_not_selecte_environment_for_project": "Can't select a different environment for this project",
@@ -185,6 +185,7 @@ export const englishLanguage = {
         "can_not_reboot_instance_protected": "Can not reboot a protected instance",
         "not_daasapi": "The user is not granted for the DaaS API",
         "not_daasapi_nor_k8sapi": "The user is not granted for the DaaS nor the k8s API",
+        "not_implemented": "Not implemented",
     },
     common: {
         ok: "OK",
@@ -217,7 +218,8 @@ export const englishLanguage = {
             goFullScreen: "Go full screen",
             goBack: "Go back",
             browseFiles: "Browse files",
-            cancel: "Cancel"
+            cancel: "Cancel",
+            attachFile: "Attach file",
         },
         state: {
             copied: "Copied",
@@ -231,6 +233,8 @@ export const englishLanguage = {
             or: "Or",
             key: "Key",
             value: "Value",
+            enter: "Enter",
+            file: "file"
         },
         message: {
             thisFieldIsRequired: "This field is required",
@@ -437,6 +441,11 @@ export const englishLanguage = {
             overview: "Overview",
             add: "Add"
         },
+        manageDnsRecords: {
+            title: "Manage DNS records",
+            overview: "Overview",
+            add: "Add"
+        },
         manageFunctions: {
             title: "Serverless"
         },
@@ -554,7 +563,14 @@ export const englishLanguage = {
                 registries: "Registries"
             },
             availableEnvironments: {
-                title: "Available environments"
+                title: "Available environments",
+                noEnvironments: "No environments available",
+                searchPlaceholder: "Search an environment by name",
+                seeMore: "View more",
+                vmSubtitle: "VM envrionments",
+                k8sSubtitle: "Kubernetes environments",
+                vm: "VM",
+                k8s: "K8S"
             },
             consumptions: {
                 title: "Consumption",
@@ -565,9 +581,12 @@ export const englishLanguage = {
         addEnvironement: {
             mainTitle: "Create New Environment",
             back: "Back to environments",
+            argsTitle: "Arguments",
+            argsDescription: "Add your custom arguments",
             inputs: {
                 template: {
-                    title: "Environment template"
+                    title: "Environment template",
+                    readme: "Documentation",
                 },
                 documentation: {
                     title: "Documentation"
@@ -1377,6 +1396,7 @@ export const englishLanguage = {
             createdBy: "Created by",
             back: "Back to tickets",
             description: "Description",
+            dragAndDrop: "Drag & drop files here, or click to select files",
             reply: "Reply",
             awaitCustomer: "Await customer",
             awaitAgent: "Await agent",
@@ -1399,7 +1419,8 @@ export const englishLanguage = {
             },
             message: {
                 message_deleted: "This message has been deleted",
-            }
+            },
+            attachedFiles: "Attached files",
         },
         adminVouchersPage: {
             title: "Vouchers",
@@ -1569,7 +1590,8 @@ export const englishLanguage = {
             explore: {
                 title: "Kubernetes Environments",
                 description: "Below here is a list of your kubernetes Environments.",
-                addEnvironement: "Add a Kubernetes Environment",
+                addEnvironement: "Add Kubernetes Environment",
+                updateEnvironment: "Update Kubernetes Environment",
                 learnMore: "Learn more",
                 emptyMessage: "There is no kubernetes environments to display",
                 searchPlaceholder: "Search for a kubernetes Environment by name",
@@ -1586,6 +1608,9 @@ export const englishLanguage = {
                 successDelete: "Kubernetes Environment deleted successfully",
                 successDeleteAll: "All selected kubernetes Environments deleted successfully",
                 delete: "Delete",
+                errors: {
+                    upload: "Couldn't upload the k8s environement"
+                }
             },
             externalChartModal: {
                 title: "Add External Chart",
@@ -1601,12 +1626,15 @@ export const englishLanguage = {
                 title: "Create Kubernetes environment",
                 generalInfo: "Enter general information about your k8s environement",
                 nameLabel: "Name",
+                pathLabel: "Path",
+                pathPlaceHolder: "Enter a path for this k8s environement",
                 namePlaceHolder: "Enter a name that describes this k8s environement",
                 descriptionLabel: "Description",
                 descriptionPlaceholder: "Enter description about this k8s environement",
                 logoUrlLabel: "Logo URL",
                 logoUrlPlaceholder: "Enter logo URL for this k8s environement",
                 isPrivate: "Do you want to keep it private ?",
+                export: "Export",
                 selectCharts: "Charts for your environment",
                 createSuccess: "Kubernetes environment created successfully",
                 updateSuccess: "Kubernetes environment updated successfully",
@@ -1616,6 +1644,42 @@ export const englishLanguage = {
                     couldntUpdate: "Couldn't update the k8s environement, please check your inputs",
                     mustSelectChart: "Please select at least one chart"
                 }
+            }
+        },
+        dnsRecordsPage: {
+            explore: {
+                title: "DNS Records",
+                description: "Below here is a list of your DNS records. You can create or delete DNS records directly from your cluster.",
+                learnMore: "Learn more",
+                addDnsRecord: "Add DNS Record",
+                emptyMessage: "There is no DNS records to display right now",
+                searchPlaceholder: "Search for a DNS record by name",
+                successDelete: "DNS record deleted successfully",
+                successDeleteAll: "All selected DNS records deleted successfully",
+                table: {
+                    name: "Name",
+                    zone: "Zone",
+                    data: "data(target)",
+                    ttl: "TTL",
+                    type: "Type",
+                    actions: "Actions",
+                }
+            },
+            form: {
+                backToExplore: "Back to DNS records",
+                title: "Create a new DNS record",
+                nameLabel: "Record name",
+                namePlaceHolder: "Enter a name for this record",
+                typeLabel: "Record type",
+                selectTypeSubtitle: "Select a type for this record",
+                ttlLabel: "TTL",
+                ttlPlaceHolder: "Enter a TTL for this record",
+                targetLabel: "Target",
+                targetPlaceHolder: "Enter the target (ipv4-ipv6 etc) for this record",
+                selectZone: "Select a zone",
+                zoneLabel: "Zone",
+                selectZoneSubtitle: "Select a zone for this record",
+                invalid: "This field is required or it's invalid",
             }
         },
         kubernetesDashboardPages: {
@@ -2264,7 +2328,7 @@ export const frenchLanguage = {
         "can_not_connect_to_cluster": "Impossible de se connecter au cluster, verifier si le cluster est accessible",
         "no_premission_for_deployment": "Vous n'avez pas la permission de supprimer ce déploiement",
         "deployment_not_found": "Déploiement introuvable",
-        "can_not_delete_deployment_from_cluster": "Impossible de supprimer le déploiement du cluster",
+        "can_not_delete_deployment_from_cluster": "Impossible de supprimer le déploiement du cluster, mais il a été supprimé de la base de données",
         "api_key_not_found": "Clé API introuvable",
         "api_key_deleted": "Clé API supprimée avec succès",
         "can_not_selecte_environment_for_project": "Vous ne pouvez pas sélectionner un environnement différent pour ce projet",
@@ -2336,6 +2400,7 @@ export const frenchLanguage = {
         "gitlab_url_not_available": "L'url de gitlab n'est pas disponible",
         "not_daasapi": "L'utilisateur n'a pas l'api DaaS activée",
         "not_daasapi_nor_k8sapi": "L'utilisateur n'a pas l'api DaaS ni l'api k8s activée",
+        "not_implemented": "Fonctionnalité non implémentée",
     },
     common: {
         ok: "OK",
@@ -2367,7 +2432,8 @@ export const frenchLanguage = {
             goFullScreen: "Plein écran",
             goBack: "Retour",
             browseFiles: "Parcourir",
-            cancel: "Annuler"
+            cancel: "Annuler",
+            attachFile: "Joindre un fichier",
         },
         state: {
             copied: "Copié",
@@ -2380,7 +2446,9 @@ export const frenchLanguage = {
         word: {
             or: "Ou",
             key: "Clef",
-            value: "Valeur"
+            value: "Valeur",
+            enter: "Entrez",
+            file: "fichier"
         },
         message: {
             thisFieldIsRequired: "Ce champ est obligatoire",
@@ -2587,6 +2655,11 @@ export const frenchLanguage = {
             overview: "Aperçu",
             add: "Ajouter"
         },
+        manageDnsRecords: {
+            title: "Gérer les enregistrements DNS",
+            overview: "Aperçu",
+            add: "Ajouter"
+        },
         manageFunctions: {
             title: "Serverless",
         },
@@ -2704,7 +2777,14 @@ export const frenchLanguage = {
                 registries: "Registries"
             },
             availableEnvironments: {
-                title: "Environnements disponibles"
+                title: "Environnements disponibles",
+                noEnvironments: "Aucun environnement disponible",
+                searchPlaceholder: "Rechercher un environnement par nom",
+                seeMore: "Voir plus",
+                vmSubtitle: "Environnements VM",
+                k8sSubtitle: "Environnements Kubernetes",
+                vm: "VM",
+                k8s: "K8S"
             },
             consumptions: {
                 title: "Consommation",
@@ -2715,9 +2795,12 @@ export const frenchLanguage = {
         addEnvironement: {
             mainTitle: "Créer un nouvel environnement",
             back: "Retour aux environnements",
+            argsTitle: "Arguments",
+            argsDescription: "Ajoutez vos arguments personnalisés",
             inputs: {
                 template: {
-                    title: "Template de l'environnement"
+                    title: "Template de l'environnement",
+                    readme: "Documentation",
                 },
                 documentation: {
                     title: "Documentation"
@@ -3521,6 +3604,7 @@ export const frenchLanguage = {
             selectSeverity: "Sélectionner la gravité",
             back: "Retour aux tickets",
             description: "Description",
+            dragAndDrop: "Glisser-déposer des fichiers ici, ou cliquer pour sélectionner des fichiers",
             reply: "Répondre",
             successDelete: "Ticket supprimées avec succès",
             successMultiDelete: "Tickets supprimées avec succès",
@@ -3543,7 +3627,8 @@ export const frenchLanguage = {
             },
             message: {
                 message_deleted: "Ce message a été supprimé",
-            }
+            },
+            attachedFiles: "Fichiers attachés",
         },
         adminVouchersPage: {
             title: "Vouchers",
@@ -3714,6 +3799,7 @@ export const frenchLanguage = {
                 title: "Environnements Kubernetes",
                 description: "Ci-dessous se trouve la liste de vos environnements Kubernetes.",
                 addEnvironement: "Ajouter un environnement Kubernetes",
+                updateEnvironment: "Mettre à jour l'environnement Kubernetes",
                 learnMore: "En savoir plus",
                 emptyMessage: "Il n'y a aucun environnement Kubernetes à afficher",
                 searchPlaceholder: "Rechercher un environnement Kubernetes par nom",
@@ -3730,6 +3816,9 @@ export const frenchLanguage = {
                 successDelete: "Environnement Kubernetes supprimé avec succès",
                 successDeleteAll: "Tous les environnements Kubernetes sélectionnés ont été supprimés avec succès",
                 delete: "Supprimer",
+                errors: {
+                    upload: "Impossible de télécharger l'environnement Kubernetes"
+                }
             },
             externalChartModal: {
                 title: "Add external chart",
@@ -3746,10 +3835,13 @@ export const frenchLanguage = {
                 generalInfo: "Entrez des informations générales sur votre environnement Kubernetes",
                 nameLabel: "Nom",
                 namePlaceHolder: "Entrez un nom qui décrit cet environnement Kubernetes",
+                pathLabel: "Path",
+                pathPlaceHolder: "Entrez un path pour cet environnement Kubernetes",
                 descriptionLabel: "Description",
                 descriptionPlaceholder: "Entrez une description de cet environnement Kubernetes",
                 logoUrlLabel: "URL du logo",
                 logoUrlPlaceholder: "Entrez l'URL du logo pour cet environnement Kubernetes",
+                export: "Exporter",
                 isPrivate: "Voulez-vous le garder privé ?",
                 selectCharts: "Charts pour votre environnement",
                 createSuccess: "Environnement Kubernetes créé avec succès",
@@ -4141,6 +4233,42 @@ export const frenchLanguage = {
                 pay: "Payé",
                 download: "Télécharger",
                 receipt: "Reçu"
+            }
+        },
+        dnsRecordsPage: {
+            explore: {
+                title: "Enregistrements DNS",
+                description: "Ci-dessous se trouve la liste de vos enregistrements DNS. Vous pouvez créer ou supprimer directement des enregistrements DNS de votre cluster.",
+                learnMore: "Learn more",
+                addDnsRecord: "Ajouter un nouvel enregistrement DNS",
+                emptyMessage: "Il n'y a pas d'enregistrement DNS pour le moment.",
+                searchPlaceholder: "Rechercher un enregistrement DNS par nom",
+                successDelete: "Enregistrement DNS supprimé avec succès",
+                successDeleteAll: "Tous les enregistrements DNS sélectionnés ont été supprimés avec succès",
+                table: {
+                    name: "Nom",
+                    zone: "Zone",
+                    data: "data(target)",
+                    ttl: "TTL",
+                    type: "Type",
+                    actions: "Actions",
+                }
+            },
+            form: {
+                backToExplore: "Retour à l'exploration des enregistrements DNS",
+                title: "Créer un nouvel enregistrement DNS",
+                nameLabel: "Nom de l'enregistrement",
+                namePlaceHolder: "Entrez un nom pour cet enregistrement",
+                typeLabel: "Type",
+                selectTypeSubtitle: "Selectionnez un type pour cet enregistrement",
+                ttlLabel: "TTL",
+                ttlPlaceHolder: "Entrez un TTL pour cet enregistrement",
+                targetLabel: "Cible",
+                targetPlaceHolder: "Entrez le cible( ipv4-ipv6 etc ) pour cet enregistrement",
+                selectZone: "Sélectionner une zone",
+                zoneLabel: "Zone",
+                selectZoneSubtitle: "Sélectionnez une zone pour cet enregistrement",
+                invalid: "Ce champ est requis ou invalide",
             }
         },
         projectOverview: {

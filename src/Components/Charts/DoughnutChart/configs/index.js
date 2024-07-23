@@ -6,7 +6,7 @@ function configs() {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'bottom',
+                    position: 'left',
                     labels: {
                         color: '#686868'
                     }
@@ -18,6 +18,7 @@ function configs() {
             },
             scales: {
                 y: {
+                    display: false,
                     grid: {
                         drawBorder: false,
                         display: false,
@@ -29,6 +30,7 @@ function configs() {
                     },
                 },
                 x: {
+                    display: false,
                     grid: {
                         drawBorder: false,
                         display: false,

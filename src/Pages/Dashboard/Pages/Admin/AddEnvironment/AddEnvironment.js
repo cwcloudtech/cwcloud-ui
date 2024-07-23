@@ -19,6 +19,9 @@ import EditorModal from '../../../../../Components/Modal/EditorModal';
 import EditorBox from '../../../../../Components/EditorBox/EditorBox';
 import SubdomainTable from '../../../../../Components/Table/SubdomainTable';
 import SubdomainModal from '../../../../../Components/Modal/SubdomainModal';
+import useTableArgs from '../../../../../Hooks/subdomain/useSubdomain';
+import ArgModal from '../../../../../Components/Modal/ArgModal';
+import ArgTable from '../../../../../Components/Table/ArgTable';
 
 function AddEnvironment() {
     const context = useContext(GlobalContext);
@@ -30,6 +33,7 @@ function AddEnvironment() {
         name: "",
         path: ""
     })
+    const [args, setArgs] = useState([])
     const [subdomains, setSubdomains] = useState([])
     const [unselectedRoles, setUnselectedRoles] = useState([])
     const [selectedRoles, setSelectedRoles] = useState([])
@@ -107,11 +111,33 @@ function AddEnvironment() {
         setSubdomains(updatedSubdomains)
     }
 
+    const {
+        showArgsModalForm,
+        setShowArgsModalForm,
+        selectedArg,
+        handleChangeArgs,
+        handleAddNewArgs,
+        handleEditArgs,
+        handleDeleteArgs,
+    } = useTableArgs(args, setArgs);
+
     if (loadingRoles)
         return <LoadingSpinner />
     else
         return (
             <div>
+                <ArgModal
+                    title={
+                    selectedArg
+                        ? "dashboard.function.inputs.args.addModalTitle"
+                        : "dashboard.function.inputs.args.editModalTitle"
+                    }
+                    isOpen={showArgsModalForm}
+                    toggle={() => setShowArgsModalForm((prev) => !prev)}
+                    variable={args[args.length - 1]}
+                    index={args.length - 1}
+                    onClick={handleChangeArgs}
+                />
                 <SubdomainModal title="dashboard.addEnvironement.inputs.subdomains.addModalTitle" isOpen={showAddNewSubdomain} toggle={() => setShowAddNewSubdomain(!showAddNewSubdomain)} variable={subdomains[subdomains.length-1]} index={subdomains.length-1} onClick={handleChangeSubdomain} />
                 <SubdomainModal title="dashboard.addEnvironement.inputs.subdomains.editModalTitle" isOpen={showEditSubdomain} toggle={() => setShowEditSubdomain(!showEditSubdomain)} variable={selectedSubdomain} index={selectedSubdomainIndex} onClick={handleChangeSubdomain} />
                 <Row>
@@ -228,6 +254,12 @@ function AddEnvironment() {
                         addNewSubdomain={handleAddNewSubdomain}
                         editSubdomain={handleEditSubdomain}
                         deleteSubdomain={handleDeleteSubdomain}
+                    />
+                    <ArgTable
+                        args={args}
+                        addNewArg={handleAddNewArgs}
+                        editArg={handleEditArgs}
+                        deleteArg={handleDeleteArgs}
                     />
                     <Row className={classes.rowContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: '20px' }}>
                         <Col md="12" >

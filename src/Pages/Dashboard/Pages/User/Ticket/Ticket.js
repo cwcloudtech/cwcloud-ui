@@ -1,11 +1,10 @@
 import {useContext, useState, useEffect} from 'react';
 import { Container } from 'reactstrap';
-// import classes from "./Ticket.module.css";
 import '../../../../../common.css';
 import { Row, Col } from "reactstrap";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios";
-import { MenuItem, Select, TextField } from '@mui/material';
+import { Box, Chip, MenuItem, Select} from '@mui/material';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import TicketReply from '../../../../../Components/TicketReply/TicketReply';
@@ -15,6 +14,9 @@ import formateDate from '../../../../../utils/FormateDate';
 import { isBlank, sortObjectsByDate } from '../../../../../utils/common';
 import { BarLoader } from 'react-spinners';
 import TicketDescription from '../../../../../Components/TicketReply/TicketDescription';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import DeleteModal from '../../../../../Components/Modal/DeleteModal';
+import MarkdownEditor from '../../../../../Components/MarkdownEditor/MarkdownEditor';
 
 function Ticket() {
     const context = useContext(GlobalContext)
@@ -23,15 +25,19 @@ function Ticket() {
     const currentPath = location.pathname
     const is_admin = currentPath.includes('admin')
     const nextPath = is_admin ? '/admin/support' : '/support'
+    const [hoveredChip, setHoveredChip] = useState(null);
     const { ticketId } = useParams()
     const [ticket, setTicket] = useState(null)
     const [loadingReply, setLoadingReply] = useState(false)
+    const [loadingAttach, setLoadingAttach] = useState(false)
+    const [loadingDelete, setLoadingDelete] = useState(false)
+    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [replies, setReplies] = useState([])
     const [replyMessage, setReplyMessage] = useState('')
     const [replyStatus, setReplyStatus] = useState('await customer')
+    const [selectedAttachment, setSelectedAttachment] = useState(null)
 
-    useEffect(() => {
-        context.setIsGlobal(true)
+    const fetchTicketDetails = () => {
         var api_url = is_admin ? `/admin/support/${ticketId}` : `/support/${ticketId}`
         axios.get(api_url)
             .then(res => {
@@ -39,6 +45,11 @@ function Ticket() {
                 var replies = sortObjectsByDate(res.data.replies)
                 setReplies(replies)
             })
+    }
+
+    useEffect(() => {
+        context.setIsGlobal(true)
+        fetchTicketDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context, ticketId, loadingReply])
 
@@ -66,16 +77,61 @@ function Ticket() {
                 setLoadingReply(false)
                 if (isBlank(replyMessage) || isBlank(res.data.reply)) {
                     setTicket({ ...ticket, status: replyStatus })
+                    setReplyMessage("")
                 } else {
                     setTicket({ ...ticket, status: replyStatus, replies: [{ ...res.data.reply }, ...ticket.replies] })
                     setReplyMessage("")
                 }
             })
     }
-    const handleKeyDown = (e) => {
-        if (e.ctrlKey && e.key === 'Enter') {
-            replyHandler()
+
+    const attachFile = (event) => {
+        const files = Array.from(event.target.files);
+        if (files.length > 0) {
+            setLoadingAttach(true)
+            const formData = new FormData()
+            files.forEach((file) => {
+                formData.append('files', file)
+            })
+            axios.post(`/support/attach-file/${ticket.id}`, formData)
+            .then(() => {
+                fetchTicketDetails()
+                setLoadingAttach(false)
+            })
         }
+    }
+    const downloadFile = (attachment) => {
+        axios.get(`/support/attach-file/${ticket.id}?attachment_id=${attachment.id}`, {
+            responseType: 'blob'
+        })
+        .then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', attachment.name);
+            document.body.appendChild(link);
+            link.click();
+        })
+    }
+    const preDeleteFile = (attachment) => {
+        setSelectedAttachment(attachment)
+        setShowConfirmDeleteModal(true)
+    }
+    const deleteFile = () => {
+        setLoadingDelete(true)
+        var api_url = is_admin
+        ? `/admin/support/attach-file/${ticket.id}?attachment_id=${selectedAttachment.id}`
+        : `/support/attach-file/${ticket.id}?attachment_id=${selectedAttachment.id}`
+        axios.delete(api_url) 
+        .then(() => {
+            setShowConfirmDeleteModal(false)
+            setLoadingDelete(false)
+            fetchTicketDetails()
+        })
+        .catch(err => {
+            setShowConfirmDeleteModal(false)
+            setLoadingDelete(false)
+        })
     }
     const findSeverity = (severity) => {
         return context.counterpart(`dashboard.support.severity.${severity}`)
@@ -84,8 +140,16 @@ function Ticket() {
         return null
     return (
         <Container fluid>
+            <DeleteModal 
+                resourceName={context.counterpart("common.word.file")}
+                isOpen={showConfirmDeleteModal}
+                toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)}
+                onDelete={deleteFile}
+                name={selectedAttachment?.name}
+                loading={loadingDelete}
+            />
             <div className="goBack">
-                <NavLink to={nextPath} className="link">
+                <NavLink to={nextPath} className="link fs-6">
                     <i className="fa-solid fa-arrow-left iconStyle"></i>
                     <Translate content="dashboard.support.back" />
                 </NavLink>
@@ -132,19 +196,44 @@ function Ticket() {
                     }
                 </Col>
             </Row>
+            {
+                ticket.attachments && ticket.attachments.length > 0 &&
+                <Row className="pt-1">
+                    <Col className='pt-2' md="12">
+                        <h3 style={{ fontSize: '18px', fontWeight: '400', color: colors.title[_mode] }}>
+                            <Translate content={"dashboard.support.attachedFiles"} />:
+                        </h3>
+                    </Col>
+                    <Col>
+                        <Box display="flex" flexWrap="wrap" gap={1}>
+                            {ticket.attachments.map((attachment, index) => (
+                                <Chip
+                                    color="primary"
+                                    label={
+                                        hoveredChip === index ? (
+                                            <GetAppIcon /> 
+                                        ) : (
+                                            attachment.name
+                                        )
+                                    }
+                                    key={index}
+                                    onMouseEnter={() => setHoveredChip(index)}
+                                    onMouseLeave={() => setHoveredChip(null)}
+                                    onClick={() => downloadFile(attachment)}
+                                    onDelete={is_admin || attachment.has_rights ? () => preDeleteFile(attachment) : undefined}
+                                />
+                            ))}
+                        </Box>
+                    </Col>
+                </Row>
+            }
             <Row>
                 <Col>
                     <Row>
                         <Col>
-                            <TextField
-                                label={context.counterpart("dashboard.support.enterMessage")}
-                                placeholder={context.counterpart("dashboard.support.updateFromKeyboardTip")}
-                                multiline
-                                minRows={3}
-                                style={{ width: '100%', color: colors.mainText[_mode]}}
+                            <MarkdownEditor
                                 value={replyMessage}
-                                onChange={(e) => setReplyMessage(e.target.value)}
-                                onKeyDown={handleKeyDown}
+                                onChange={setReplyMessage} 
                             />
                         </Col>
                     </Row>
@@ -171,6 +260,21 @@ function Ticket() {
                             <LoadingButton loading={loadingReply} onClick={replyHandler}>
                                 <Translate content={is_admin ? "common.button.update" : "dashboard.support.reply"} />
                             </LoadingButton>
+                            <div style={{ paddingLeft: "10px" }}>
+                                <input
+                                    type="file"
+                                    id="fileInput"
+                                    style={{ display: "none" }}
+                                    multiple
+                                    onChange={attachFile}
+                                />
+                                <LoadingButton loading={loadingAttach} onClick={() => document.getElementById('fileInput').click()}>
+                                    {
+                                        !loadingAttach &&
+                                        <Translate content={"common.button.attachFile"} />
+                                    }
+                                </LoadingButton>
+                            </div>
                         </Col>
                     </Row>
                 </Col>

@@ -1,0 +1,51 @@
+.toggleDrawerIcon {
+    position: relative;
+    display: inline-block;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .toggleDrawerIcon i {
+    font-size: 20px;
+  }
+
+.drawerHeaderContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 0 8px;;
+}
+
+.drawerHeader{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.drawerHeaderCustomContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.drawerHeaderText{
+    font-weight: 300;
+    font-size: 12px;
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.toggleDrawerIconContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        cursor: pointer;
+    }
+}

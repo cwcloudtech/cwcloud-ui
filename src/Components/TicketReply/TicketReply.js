@@ -3,7 +3,6 @@ import { formatDateTime } from '../../utils/FormateDate';
 import { Col, Row } from 'reactstrap';
 import MessageEntered from './MessageEntered';
 import MessageResponded from './MessageResponded';
-import convertMarkdownLink from '../../utils/convertMarkdownLink';
 
 const TicketReply = (props) => {
     var change_date = formatDateTime(props.reply.change_date)
@@ -13,7 +12,7 @@ const TicketReply = (props) => {
         return (
             <Row style={{marginTop: '10px', marginBottom: '10px' }}>
                 <Col md="6">
-                    <MessageResponded ticket_id={props.ticket_id} reply_id={props.reply.id} text={convertMarkdownLink(props.reply.message)} user={props.reply.user} creation_date={creation_date} change_date={change_date} />
+                    <MessageResponded ticket_id={props.ticket_id} reply_id={props.reply.id} text={props.reply.message} user={props.reply.user} creation_date={creation_date} change_date={change_date} />
                 </Col>
             </Row>
         )
@@ -21,7 +20,7 @@ const TicketReply = (props) => {
         <Row style={{marginTop: '10px', marginBottom: '10px' }}>
             <Col md="6"/>
             <Col md="6">
-                <MessageEntered ticket_id={props.ticket_id} reply_id={props.reply.id} text={convertMarkdownLink(props.reply.message)} user={props.reply.user} creation_date={creation_date} change_date={change_date} />
+                <MessageEntered ticket_id={props.ticket_id} reply_id={props.reply.id} text={props.reply.message} user={props.reply.user} creation_date={creation_date} change_date={change_date} />
             </Col>
         </Row>
     )

@@ -1,6 +1,6 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { MenuItem, Select } from "@material-ui/core";
-import { TextField } from "@mui/material";
+import { Chip, TextField } from "@mui/material";
 import Translate from "react-translate-component";
 import GlobalContext from '../../Context/GlobalContext'; 
 import colors from '../../Context/Colors'; 
@@ -15,15 +15,37 @@ import {
 } from "reactstrap";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import SuggestionsAutoComplete from "../SuggestionsAutoComplete/SuggestionsAutoComplete";
+import { useDropzone } from 'react-dropzone';
 
 const AddTicketModal = (props) => {
     const _mode = useContext(GlobalContext).mode;
     const [ticket, setTicket] = useState({})
+    const [files, setFiles] = useState([]);
+
+    const dropzoneStyle = {
+        border: '1px dashed #AAB8C5',
+        borderRadius: '5px',
+        padding: '20px',
+        textAlign: 'center',
+        color: '#F0F1F2',
+        cursor: 'pointer',
+    };
 
     useEffect(() => {
         if (!props.isOpen)
             setTicket({})
     }, [props.isOpen])
+
+    const onDrop = useCallback(acceptedFiles => {
+        setFiles(prevFiles => [...prevFiles, ...acceptedFiles]);
+    }, []);
+
+    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+    const handleDeleteFile = (file) => {
+        setFiles(prevFiles => prevFiles.filter(f => f !== file));
+    }
+
     return (
         <Modal centered isOpen={props.isOpen} toggle={props.toggle}>
             <ModalHeader toggle={props.toggle}>
@@ -138,11 +160,28 @@ const AddTicketModal = (props) => {
                         />
                     </Col>                    
                 </Row>
+                <Row style={{ marginTop: '20px' }}>
+                    <Col>
+                        <div {...getRootProps({ style: dropzoneStyle })}>
+                            <input {...getInputProps()} />
+                            <p>
+                                <Translate content="dashboard.support.dragAndDrop" />
+                            </p>
+                        </div>
+                        <Row className="pt-1">
+                            {files.map((file, index) => (
+                                <Col className="pt-1" md="12" key={index}>
+                                    <Chip color="primary" label={file.name} onDelete={() => handleDeleteFile(file)} />
+                                </Col>
+                            ))}
+                        </Row>
+                    </Col>
+                </Row>
             </ModalBody>
             <ModalFooter>
                 <LoadingButton
                     loading={props.loading}
-                    onClick={() => props.onSave(ticket)}
+                    onClick={() => props.onSave(ticket, files)}
                     style={{ width: "100%" }}
                 >
                     <Translate content="common.button.save" />

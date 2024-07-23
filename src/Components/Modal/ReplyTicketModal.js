@@ -1,7 +1,5 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Translate from "react-translate-component";
-import GlobalContext from '../../Context/GlobalContext'; 
-import colors from '../../Context/Colors'; 
 import {
     Modal,
     ModalHeader,
@@ -11,9 +9,9 @@ import {
     Col,
 } from "reactstrap";
 import LoadingButton from "../LoadingButton/LoadingButton";
+import MarkdownEditor from "../MarkdownEditor/MarkdownEditor";
 
 const ReplyTicketModal = (props) => {
-    const _mode = useContext(GlobalContext).mode;
     const [message, setMessage] = useState('')
 
     useEffect(() => {
@@ -28,19 +26,11 @@ const ReplyTicketModal = (props) => {
                 <Translate content="dashboard.support.editTicketReply" />
             </ModalHeader>
             <ModalBody>
-                <Row style={{ marginTop: '20px' }}>
-                    <Col>
-                        <h5 style={{ fontSize: '14px', color: colors.title[_mode]}}>
-                            <Translate content="dashboard.support.reply" />
-                        </h5>
-                    </Col>
-                </Row>
                 <Row>
                     <Col>
-                        <textarea
-                            style={{ width: '100%', height: '170px', backgroundColor: colors.secondBackground[_mode], color: colors.menuText[_mode], border: "1px solid "+ colors.textAreaBorder[_mode], borderRadius: "5px", padding: '10px' }}
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
+                        <MarkdownEditor
+                             value={message}
+                             onChange={setMessage}
                         />
                     </Col>                    
                 </Row>

@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import GlobalContext from '../../Context/GlobalContext';
 import { Col, Row } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
-import convertMarkdownLink from '../../utils/convertMarkdownLink';
 
 const TicketDescription = (props) => {
     const context = useContext(GlobalContext);
@@ -30,11 +29,11 @@ const TicketDescription = (props) => {
                 <div style={message}>
                     <div style={messageEntered} className='container-fluid'>
                         <Row style={{ paddingRight: "10px", paddingLeft: "20px" }}>
-                        <Col md="12">
-                            <p className='text-center' style={{ fontSize: "20px" }}>
-                                <ReactMarkdown>{convertMarkdownLink(props.reply.message)}</ReactMarkdown>
-                            </p>
-                        </Col>
+                            <Col md="12">
+                                <p className='text-center' style={{ fontSize: "20px" }}>
+                                    <ReactMarkdown>{props.reply.message}</ReactMarkdown>
+                                </p>
+                            </Col>
                         </Row>
                     </div>
                 </div>

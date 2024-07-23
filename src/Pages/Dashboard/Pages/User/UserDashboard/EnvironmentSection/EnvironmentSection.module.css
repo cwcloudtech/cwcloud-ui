@@ -1,0 +1,21 @@
+.sectionContainer{
+    margin: 20px 0;
+}
+
+.seeMoreContainer{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.seeMoreButtonContent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .seeMoreContainer {
+        width: 85%;
+    }
+}

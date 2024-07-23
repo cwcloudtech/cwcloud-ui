@@ -1,26 +1,29 @@
-import { useContext, useState, useEffect } from 'react';
-import { Spinner, Col, Row, Container } from "reactstrap"
-import classes from "./EnvironmentOverview.module.css";
-import '../../../../../common.css';
-import axios from "../../../../../../src/utils/axios";
-import { NavLink, useParams } from "react-router-dom"
-import { toast } from "react-toastify";
-import TextField from '@mui/material/TextField';
-import formateDate from '../../../../../utils/FormateDate';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import DragDropList from '../../../../../Components/DragDropList/DragDropList';
 import Button from '@mui/material/Button';
-import LoadingSpinner from '../../../../../Components/LoadingSpinner/LoadingSpinner';
-import Translate from 'react-translate-component';
-import GlobalContext from '../../../../../Context/GlobalContext';
-import colors from '../../../../../Context/Colors';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import TextField from '@mui/material/TextField';
 import { saveAs } from 'file-saver';
-import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
-import IOSSwitch from '../../../../../utils/iosswitch';
-import EditorModal from '../../../../../Components/Modal/EditorModal';
+import { useContext, useEffect, useState } from 'react';
+import { NavLink, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Translate from 'react-translate-component';
+import { Col, Container, Row, Spinner } from "reactstrap";
+import axios from "../../../../../../src/utils/axios";
+import DragDropList from '../../../../../Components/DragDropList/DragDropList';
 import EditorBox from '../../../../../Components/EditorBox/EditorBox';
-import SubdomainTable from '../../../../../Components/Table/SubdomainTable';
+import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
+import LoadingSpinner from '../../../../../Components/LoadingSpinner/LoadingSpinner';
+import ArgModal from '../../../../../Components/Modal/ArgModal';
+import EditorModal from '../../../../../Components/Modal/EditorModal';
 import SubdomainModal from '../../../../../Components/Modal/SubdomainModal';
+import ArgTable from '../../../../../Components/Table/ArgTable';
+import SubdomainTable from '../../../../../Components/Table/SubdomainTable';
+import colors from '../../../../../Context/Colors';
+import GlobalContext from '../../../../../Context/GlobalContext';
+import useTableArgs from '../../../../../Hooks/subdomain/useSubdomain';
+import '../../../../../common.css';
+import formateDate from '../../../../../utils/FormateDate';
+import IOSSwitch from '../../../../../utils/iosswitch';
+import classes from "./EnvironmentOverview.module.css";
 
 function EnvironmentOverview(props) {
     const context = useContext(GlobalContext);
@@ -34,6 +37,7 @@ function EnvironmentOverview(props) {
     const [unselectedRoles, setUnselectedRoles] = useState([])
     const [loadingExport, setLoadingExport] = useState(false)
     const [selectedRoles, setSelectedRoles] = useState([])
+    const [args, setArgs] = useState([])
     const { id } = useParams()
     const [showFirstEditorFullScreen, setShowFirstEditorFullScreen] = useState(false)
     const [showSecondEditorFullScreen, setShowSecondEditorFullScreen] = useState(false)
@@ -59,6 +63,7 @@ function EnvironmentOverview(props) {
                 .then(res => {
                     setEnvironment({ ...res.data, subdomains: res.data.subdomains?.split(';') || [] })
                     setSubdomains(res.data.subdomains?.split(';') || [])
+                    setArgs(JSON.parse(res.data.args) || [])
                     const _envRoles = res.data.roles.split(';')
                     setSelectedRoles(_envRoles)
                     setUnselectedRoles(allRoles.filter(role => !_envRoles.includes(role)))
@@ -90,7 +95,7 @@ function EnvironmentOverview(props) {
         setLoadingSubmit(true)
         const joinedRoles = selectedRoles.join(';')
         const joinedSubdomains = subdomains.join(';')
-        axios.put(`/admin/environment/${id}`, { ...environment, roles: joinedRoles, subdomains: joinedSubdomains })
+        axios.put(`/admin/environment/${id}`, { ...environment, args, roles: joinedRoles, subdomains: joinedSubdomains })
             .then(response => {
                 setLoadingSubmit(false)
                 toast.success(context.counterpart('dashboard.environmentOverview.message.successUpdate'))
@@ -124,17 +129,39 @@ function EnvironmentOverview(props) {
         setSubdomains(updatedSubdomains)
     }
 
+    const {
+        showArgsModalForm,
+        setShowArgsModalForm,
+        selectedArg,
+        handleChangeArgs,
+        handleAddNewArgs,
+        handleEditArgs,
+        handleDeleteArgs,
+    } = useTableArgs(args, setArgs);
+
     if (loading || loadingRoles)
         return <LoadingSpinner />
     else
         return (
             <div>
+                <ArgModal
+                    title={
+                    selectedArg
+                        ? "dashboard.function.inputs.args.addModalTitle"
+                        : "dashboard.function.inputs.args.editModalTitle"
+                    }
+                    isOpen={showArgsModalForm}
+                    toggle={() => setShowArgsModalForm((prev) => !prev)}
+                    variable={args[args.length - 1]}
+                    index={args.length - 1}
+                    onClick={handleChangeArgs}
+                />
                 <SubdomainModal title="dashboard.addEnvironement.inputs.subdomains.addModalTitle" isOpen={showAddNewSubdomain} toggle={() => setShowAddNewSubdomain(!showAddNewSubdomain)} variable={subdomains[subdomains.length-1]} index={subdomains.length-1} onClick={handleChangeSubdomain} />
                 <SubdomainModal title="dashboard.addEnvironement.inputs.subdomains.editModalTitle" isOpen={showEditSubdomain} toggle={() => setShowEditSubdomain(!showEditSubdomain)} variable={selectedSubdomain} index={selectedSubdomainIndex} onClick={handleChangeSubdomain} />
                 <Row>
                     <Col>
                         <div className="goBack">
-                            <NavLink to='/environment/overview' className="link">
+                            <NavLink to='/admin/environment/overview' className="link">
                                 <i className="fa-solid fa-arrow-left iconStyle"></i>
                                 <Translate content="dashboard.environmentOverview.back" />
                             </NavLink>
@@ -208,6 +235,12 @@ function EnvironmentOverview(props) {
                         addNewSubdomain={handleAddNewSubdomain}
                         editSubdomain={handleEditSubdomain}
                         deleteSubdomain={handleDeleteSubdomain}
+                    />
+                    <ArgTable
+                        args={args}
+                        addNewArg={handleAddNewArgs}
+                        editArg={handleEditArgs}
+                        deleteArg={handleDeleteArgs}
                     />
                     <Row className={classes.rowContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: '20px' }}>
                         <Col md="12" >

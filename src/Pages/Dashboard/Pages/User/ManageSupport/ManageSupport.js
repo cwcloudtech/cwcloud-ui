@@ -216,14 +216,31 @@ function ManageSupport() {
                 setShowConfirmDeleteModal(false)
             })
     }
-    const addTicketHandler = async (ticket) => {
+    const addTicketHandler = async (ticket, files) => {
         setLoadingSubmit(true)
         var api_url = is_admin ? '/admin/support' : '/support'
+        var ticket_id = 0
         axios.post(api_url, ticket)
             .then(res => {
+                ticket_id = res.data.id
                 setTickets([res.data, ...tickets])
                 setLoadingSubmit(false)
                 setShowAddTicketModal(false)
+            })
+            .then(() => {
+                if (files.length > 0) {
+                    const formData = new FormData()
+                    files.forEach((file) => {
+                        formData.append('files', file)
+                    })
+                    axios.post(`/support/attach-file/${ticket_id}`, formData)
+                        .then(() => {
+                            setLoadingSubmit(false)
+                            setShowAddTicketModal(false)
+                        })
+                }
+            }).catch(() => {
+                setLoadingSubmit(false)
             })
     }
     const filtreTickets = (e) => {

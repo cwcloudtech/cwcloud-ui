@@ -1,9 +1,29 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { SidebarProvider } from "../Hooks/useSidebar";
+import React, { createContext } from "react";
 
-const SidebarContext = ({ children }) => {
-  const { pathname } = useLocation();
-  return <SidebarProvider defaultItem={pathname}>{children}</SidebarProvider>;
-}
-export { SidebarContext };
+export const SidebarContext = createContext();
+
+export const SidebarProvider = ({ children }) => {
+  const [open, setOpen] = React.useState(true);
+  const drawerWidth = 255;
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <SidebarContext.Provider
+      value={{
+        open,
+        drawerWidth,
+        handleDrawerOpen,
+        handleDrawerClose,
+      }}
+    >
+      {children}
+    </SidebarContext.Provider>
+  );
+};
