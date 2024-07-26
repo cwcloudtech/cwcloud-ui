@@ -169,7 +169,7 @@ function InstancesPage(props) {
                                 <Translate content="dashboard.instancesPage.addInstance" />
                             </h5>}
                             placement="bottom">
-                            <Fab color="primary" aria-label="add" onClick={() => navigate("/instances/create")} style={{ transform: 'scale(0.7)' }} >
+                            <Fab color="primary" aria-label="add" onClick={() => navigate(nextPath)} style={{ transform: 'scale(0.7)' }} >
                                 <AddIcon className="whiteIcon" />
                             </Fab>
                         </Tooltip>

@@ -17,7 +17,6 @@ const useStyles = createUseStyles({
     minHeight: ({ level }) => (level > 1 ? 35 : 48),
     padding: "0 20px",
     "&:hover": {
-      backgroundColor: "rgb(67,109,150)",
       cursor: "pointer",
     },
     borderLeft: ({ level, blue, isActivated }) =>

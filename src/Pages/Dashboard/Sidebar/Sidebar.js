@@ -6,15 +6,17 @@ import { useSidebarItems } from "../../../Hooks/useSidebarItems";
 import SidebarMenuItem from "../../../Components/CollapsableSidebar/SidebarMenuItem/SidebarMenuItem";
 import CollapsableSidebar from "../../../Components/CollapsableSidebar/CollapsableSidebar";
 import { useSidebar } from "../../../Hooks/useSidebar";
+import colors from "../../../Context/Colors";
 
 function Sidebar() {
   const context = useContext(GlobalContext);
+  const _mode = context.mode;
   const { open } = useSidebar();
   const { sidebarAdminItems, sidebarUserItems } = useSidebarItems();
 
   return (
     <CollapsableSidebar>
-      <List style={{ margin: "20px 0" }}>
+      <List style={{ margin: "20px 0", backgroundColor: colors.navbar[_mode], borderRadius: "25px" }}>
         {sidebarUserItems.map(
           ({
             id,
@@ -55,7 +57,7 @@ function Sidebar() {
         )}
       </List>
       <Divider />
-      <List style={{ margin: "20px 0" }}>
+      <List style={{ margin: "20px 0", backgroundColor: colors.navbar[_mode], borderRadius: "25px" }}>
         {context.user.is_admin && sidebarAdminItems.map(
           ({
             id,

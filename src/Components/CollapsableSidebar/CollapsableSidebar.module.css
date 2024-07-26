@@ -1,3 +1,13 @@
+.noScrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.noScrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Existing styles */
 .toggleDrawerIcon {
     position: relative;
     display: inline-block;
@@ -5,13 +15,13 @@
     background: transparent;
     cursor: pointer;
     overflow: hidden;
-  }
+}
 
-  .toggleDrawerIcon i {
+.toggleDrawerIcon i {
     font-size: 20px;
-  }
+}
 
-.drawerHeaderContent{
+.drawerHeaderContent {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +29,7 @@
     padding: 0 8px;;
 }
 
-.drawerHeader{
+.drawerHeader {
     position: sticky;
     top: 0;
     z-index: 20;
@@ -33,7 +43,7 @@
     padding: 0 8px;
 }
 
-.drawerHeaderText{
+.drawerHeaderText {
     font-weight: 300;
     font-size: 12px;
     display: inline-block;
@@ -41,7 +51,7 @@
     text-align: center;
 }
 
-.toggleDrawerIconContainer{
+.toggleDrawerIconContainer {
     display: flex;
     justify-content: center;
     align-items: center;

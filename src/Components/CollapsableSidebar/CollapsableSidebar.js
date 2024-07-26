@@ -10,8 +10,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { Divider } from "@material-ui/core";
 
 function CollapsableSidebar(props) {
-  const { open, handleDrawerClose, handleDrawerOpen, drawerWidth } =
-    useSidebar();
+  const { open, handleDrawerClose, handleDrawerOpen, drawerWidth } = useSidebar();
   const context = useContext(GlobalContext);
   const _mode = context.mode;
   const theme = useTheme();
@@ -57,18 +56,32 @@ function CollapsableSidebar(props) {
     boxSizing: "border-box",
     ...(open && {
       ...openedMixin(theme),
-      "& .MuiDrawer-paper": openedMixin(theme),
+      "& .MuiDrawer-paper": {
+        ...openedMixin(theme),
+        overflowY: "hidden",
+        overflowX: "hidden",
+        "&:hover": {
+          overflowY: "auto",
+        },
+      },
     }),
     ...(!open && {
       ...closedMixin(theme),
-      "& .MuiDrawer-paper": closedMixin(theme),
+      "& .MuiDrawer-paper": {
+        ...closedMixin(theme),
+        overflowY: "hidden",
+        overflowX: "hidden",
+        "&:hover": {
+          overflowY: "auto",
+        },
+      },
     }),
   }));
 
   return (
-    <Drawer variant={"permanent"} open={open}>
+    <Drawer variant={"permanent"} open={open} className={classes.noScrollbar}>
       <div
-        className={classes.drawerHeader}
+        className={`${classes.drawerHeader} ${classes.noScrollbar}`}
         style={{
           backgroundColor: colors.secondBackground[_mode],
         }}
