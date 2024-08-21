@@ -446,7 +446,7 @@ export const englishLanguage = {
             add: "Add"
         },
         manageDnsRecords: {
-            title: "Manage DNS records",
+            title: "Manage DNS",
             overview: "Overview",
             add: "Add"
         },
@@ -2670,7 +2670,7 @@ export const frenchLanguage = {
             add: "Ajouter"
         },
         manageDnsRecords: {
-            title: "Gérer les enregistrements DNS",
+            title: "Gestion DNS",
             overview: "Aperçu",
             add: "Ajouter"
         },
