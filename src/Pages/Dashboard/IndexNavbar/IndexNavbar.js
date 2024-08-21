@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { Row } from "simple-flexbox";
 import classes from "./IndexNavbar.module.css";
 import localStorage from "../../../utils/localStorageService";
@@ -17,14 +17,19 @@ import srcimage from "../../../utils/regions";
 import SelectDropdown from "../../../Components/Dropdown/SelectDropdown";
 import LanguageDropdown from "../../../Components/Dropdown/LanguageDropdown";
 import Identicon from "react-identicons";
+import { Chip } from "@material-ui/core";
+import axios from "../../../utils/axios";
 
 function IndexNavbar() {
   const context = useContext(GlobalContext);
   const _mode = context.mode;
   const [isOpenUserDropdown, setIsOpenUserDropdown] = useState(false);
   const [isOpenLanguageDropdown, setIsOpenLanguageDropdown] = useState(false);
+  const [backendVersion, setBackendVersion] = useState('');
+  const frontendVersion = process.env.REACT_APP_VERSION;
   const userDropdownRef = useRef(null);
   const { pathname } = useLocation();
+  const isDNSpage = pathname.includes("dns");
   const navigate = useNavigate();
   let title =
     pathname.split("/")[1].charAt(0).toUpperCase(0) +
@@ -57,6 +62,15 @@ function IndexNavbar() {
     if (!userDropdownRef.current.contains(e.target))
       setIsOpenUserDropdown(false);
   };
+  
+  useEffect(() => {
+      context.setIsGlobal(true)
+      axios.get("/manifest")
+          .then(res => {
+            setBackendVersion(res.data.version)
+          })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Row
@@ -89,20 +103,21 @@ function IndexNavbar() {
           )}
         </Col>
         <Col>
-          {!context.isGlobal && (
-            <SelectDropdown
-              labelId="demo-customized-select-label"
-              id="demo-customized-select"
-              value={!context.isGlobal ? context.region.name : "global"}
-              onChange={(e) => {
-                selectRegionHandler(e.target.value);
-              }}
-              itemsList={context.selectedProvider.regions}
-              withImage={true}
-              classes={classes}
-            />
-          )}
-        </Col>
+            {!context.isGlobal && (
+              <SelectDropdown
+                labelId="demo-customized-select-label"
+                id="demo-customized-select"
+                value={!context.isGlobal ? context.region.name : "global"}
+                onChange={(e) => {
+                  selectRegionHandler(e.target.value);
+                }}
+                itemsList={context.selectedProvider.regions}
+                withImage={true}
+                classes={classes}
+                is_dns={isDNSpage}
+              />
+            )}
+          </Col>
         {!context.isGlobal && <div className={classes.separator}></div>}
         <div ref={userDropdownRef}>
           <Dropdown
@@ -327,6 +342,17 @@ function IndexNavbar() {
                   </h5>
                 </div>
               </DropdownItem>
+              {
+                context.user.is_admin && 
+                <>
+                  <DropdownItem nav style={{ padding: "5px"}}>
+                    <Chip color="primary" label={`API: ${backendVersion}`} />
+                  </DropdownItem>
+                  <DropdownItem nav style={{ padding: "5px"}}>
+                    <Chip color="default" label={`${context.counterpart("common.word.webUi")}: ${frontendVersion}`} />
+                  </DropdownItem>
+                </>
+              }
             </DropdownMenu>
           </Dropdown>
         </div>

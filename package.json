@@ -59,6 +59,7 @@
     },
     "scripts": {
         "start": "env-cmd -f ./.env react-scripts start",
+        "prebuild": "node inject-version.js",
         "build": "env-cmd -f ./.env react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

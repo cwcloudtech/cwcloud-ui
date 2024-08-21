@@ -1,6 +1,6 @@
 import * as moment from "moment";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import colors from "../../../../../Context/Colors";
 import GlobalContext from "../../../../../Context/GlobalContext";
@@ -39,6 +39,8 @@ const UserDashboard = () => {
   const _mode = context.mode;
   const [vmEnvironments, setVmEnvironments] = useState([]);
   const [k8sEnvironments, setK8sEnvironments] = useState([]);
+  const [k8sDeployments, setK8sDeployments] = useState([]);
+  const [faasFunctions, setFaasFunctions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState(0);
   const [instances, setInstances] = useState(0);
@@ -54,7 +56,7 @@ const UserDashboard = () => {
   }, []);
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchDaasData = () => {
       const startOfMonth = moment()
         .clone()
         .startOf("month")
@@ -65,9 +67,6 @@ const UserDashboard = () => {
         axios.get(
           `/environment/all?type=vm&page=0&limit=${MAX_ENV_ITEMS_PER_TYPE}`
         ),
-        axios.get(
-          `/environment/all?type=k8s&page=0&limit=${MAX_ENV_ITEMS_PER_TYPE}`
-        ),
         axios.get(`/user/statistics`),
         axios.get(`/consumption?from=${startOfMonth}&to=${endOfMonth}`),
       ];
@@ -76,12 +75,10 @@ const UserDashboard = () => {
         .then(
           ([
             vmEnvironments,
-            k8sEnvironments,
             responseUserResources,
             responseCurrentConsumptions,
           ]) => {
             setVmEnvironments(vmEnvironments.data);
-            setK8sEnvironments(k8sEnvironments.data);
             setProjects(responseUserResources.data.projects);
             setInstances(responseUserResources.data.instances);
             setRegistries(responseUserResources.data.registries);
@@ -101,7 +98,48 @@ const UserDashboard = () => {
           // handle error here
         });
     };
-    fetchData();
+    const fetchk8sData = () => {
+      const requests = [
+        axios.get(`/environment/all?type=k8s&page=0&limit=${MAX_ENV_ITEMS_PER_TYPE}`),
+        axios.get(`/kubernetes/deployment`),
+      ]
+      Promise.all(requests)
+        .then(([
+          k8sEnvironments,
+          k8sDeployments,
+        ]) => {
+          setK8sEnvironments(k8sEnvironments.data);
+          setK8sDeployments(k8sDeployments.data.length);
+        })
+        .catch((error) => {
+          console.error(error);
+          // handle error here
+        });
+    };
+    const fetchFaasData = () => {
+      const requests = [
+        axios.get(`/faas/functions`)
+      ]
+      Promise.all(requests)
+        .then(([
+          faasFunctions
+        ]) => {
+          setFaasFunctions(faasFunctions.data.results.length);
+        })
+        .catch((error) => {
+          console.error(error);
+          // handle error here
+        });
+    };
+    if (context.user.enabled_features.k8sapi) {
+      fetchk8sData();
+    }
+    if (context.user.enabled_features.daasapi) {
+      fetchDaasData();
+    }
+    if (context.user.enabled_features.faasapi) {
+      fetchFaasData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.region]);
 
@@ -143,7 +181,7 @@ const UserDashboard = () => {
         hoverBorderWidth: 3,
       },
     ],
-  });  
+  });
 
   const getTotalCurrentConsumptions = () => {
     if (!currentConsumptions) return 0.0;
@@ -157,110 +195,157 @@ const UserDashboard = () => {
     <Container
       fluid
       className={classes.container}
-      style={{ padding: "0px 20px 20px 20px", overflow: "hidden"}}
+      style={{ padding: "0px 20px 20px 20px", overflow: "hidden" }}
     >
-      <Row>
-        <Col style={{ marginBottom: "10px" }}>
-          <h1
-            className={classes.mainTitleText}
-            style={{ color: colors.mainText[_mode] }}
-          >
-            <Translate content="dashboard.userDashboard.resourceOverview.title" />
-          </h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs='5' md='3'>
-          <ResourceItem
-            loading={loading}
-            icon="fa-solid fa-microchip"
-            resourceCount={instances}
-            onClick={() => navigate("/instances")}
-            resourceName={context.counterpart(
-              "dashboard.userDashboard.resourceOverview.instances"
-            )}
-          />
-        </Col>
-        <Col xs='5' md='3'>
-          <ResourceItem
-            loading={loading}
-            icon="fa-solid fa-layer-group"
-            onClick={() => navigate("/projects")}
-            resourceCount={projects}
-            resourceName={context.counterpart(
-              "dashboard.userDashboard.resourceOverview.projects"
-            )}
-          />
-        </Col>
-        <Col xs='5' md='3'>
-          <ResourceItem
-            loading={loading}
-            icon="fa-solid fa-cube"
-            onClick={() => navigate("/buckets")}
-            resourceCount={buckets}
-            resourceName={context.counterpart(
-              "dashboard.userDashboard.resourceOverview.buckets"
-            )}
-          />
-        </Col>
-        <Col xs='5' md='3'>
-          <ResourceItem
-            loading={loading}
-            icon="fa-brands fa-docker"
-            onClick={() => navigate("/registries")}
-            resourceCount={registries}
-            resourceName={context.counterpart(
-              "dashboard.userDashboard.resourceOverview.registries"
-            )}
-          />
-        </Col>
-      </Row>
-      {process.env.REACT_APP_DISABLE_PAYMENT_FEATURE.includes("false") && (
         <Row>
-          <Col md="12" style={{ marginTop: "20px" }}>
+          <Col md="3">
+            {
+              (context.user.enabled_features.daasapi || context.user.enabled_features.k8sapi || context.user.enabled_features.faasapi) && (
+                <h1
+                  className={classes.mainTitleText}
+                  style={{
+                    color: colors.mainText[_mode],
+                    paddingBottom: "10px",
+                    paddingLeft: "5px",
+                  }}
+                >
+                  <Translate content="dashboard.userDashboard.resourceOverview.title" />
+                </h1>
+              )
+            }
+            {
+              context.user.enabled_features.daasapi && (
+                <>
+                  <ResourceItem
+                    loading={loading}
+                    icon="fa-solid fa-microchip"
+                    resourceCount={instances}
+                    onClick={() => navigate("/instances")}
+                    resourceName={context.counterpart(
+                      "dashboard.userDashboard.resourceOverview.instances"
+                    )}
+                  />
+                  <ResourceItem
+                    loading={loading}
+                    icon="fa-solid fa-layer-group"
+                    onClick={() => navigate("/projects")}
+                    resourceCount={projects}
+                    resourceName={context.counterpart(
+                      "dashboard.userDashboard.resourceOverview.projects"
+                    )}
+                  />
+                  <ResourceItem
+                    loading={loading}
+                    icon="fa-solid fa-cube"
+                    onClick={() => navigate("/buckets")}
+                    resourceCount={buckets}
+                    resourceName={context.counterpart(
+                      "dashboard.userDashboard.resourceOverview.buckets"
+                    )}
+                  />
+                  <ResourceItem
+                    loading={loading}
+                    icon="fa-brands fa-docker"
+                    onClick={() => navigate("/registries")}
+                    resourceCount={registries}
+                    resourceName={context.counterpart(
+                      "dashboard.userDashboard.resourceOverview.registries"
+                    )}
+                  />
+                </>
+              )
+            }
+            {
+              context.user.enabled_features.k8sapi && (
+                <ResourceItem
+                  loading={loading}
+                  icon="fa-solid fa-dharmachakra"
+                  onClick={() => navigate("/k8s-applications")}
+                  resourceCount={k8sDeployments}
+                  resourceName={context.counterpart(
+                    "dashboard.userDashboard.resourceOverview.k8sApplications"
+                  )}
+                />
+              )
+            }
+            {
+              context.user.enabled_features.faasapi && (
+                <ResourceItem
+                  loading={loading}
+                  icon="fa-solid fa-code"
+                  onClick={() => navigate("/function/overview")}
+                  resourceCount={faasFunctions}
+                  resourceName={context.counterpart(
+                    "dashboard.userDashboard.resourceOverview.functions"
+                  )}
+                />
+              )
+            }
+          </Col>
+          {process.env.REACT_APP_DISABLE_PAYMENT_FEATURE.includes("false") && context.user.enabled_features.daasapi  && (
+            <Col md="9">
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <h1
+                  className={classes.mainTitleText}
+                  style={{ color: colors.mainText[_mode] }}
+                >
+                  <Translate content="dashboard.userDashboard.consumptions.title" />
+                </h1>
+                <Link
+                  onClick={() => {
+                    navigate("/billing");
+                  }}
+                  style={{
+                    color: colors.menuText[_mode],
+                    paddingRight: "20px",
+                    textDecoration: "none",
+                  }}
+                >
+                  <Translate content="navbar.billing" />
+                </Link>
+              </div>
+              <DoughnutChart
+                loading={loading}
+                totalConsumptions={getTotalCurrentConsumptions()}
+                data={currentDataConsumptions}
+              />
+            </Col>
+          )}
+        </Row>
+      {(context.user.enabled_features.daasapi ||
+        context.user.enabled_features.k8sapi) && (
+        <Row>
+          <Col style={{ marginTop: "20px" }}>
             <h1
               className={classes.mainTitleText}
               style={{ color: colors.mainText[_mode] }}
             >
-              <Translate content="dashboard.userDashboard.consumptions.title" />
+              <Translate content="dashboard.userDashboard.availableEnvironments.title" />
             </h1>
-          </Col>
-          <Col md="12">
-            <DoughnutChart
-              loading={loading}
-              totalConsumptions={getTotalCurrentConsumptions()}
-              data={currentDataConsumptions}
-            />
           </Col>
         </Row>
       )}
-      <Row>
-        <Col style={{ marginTop: "20px" }}>
-          <h1
-            className={classes.mainTitleText}
-            style={{ color: colors.mainText[_mode] }}
-          >
-            <Translate content="dashboard.userDashboard.availableEnvironments.title" />
-          </h1>
-        </Col>
-      </Row>
-      <EnvironmentSection
-        environments={vmEnvironments}
-        type={"vm"}
-        loading={loading}
-        titleTranslationPath="dashboard.userDashboard.availableEnvironments.vmSubtitle"
-        viewMoreLink="/dashboard/environments"
-        maxItems={MAX_ENV_ITEMS_PER_TYPE}
-      />
-      <EnvironmentSection
-        environments={k8sEnvironments}
-        type={"k8s"}
-        hidden={!context.user.enabled_features.k8sapi}
-        loading={loading}
-        titleTranslationPath="dashboard.userDashboard.availableEnvironments.k8sSubtitle"
-        viewMoreLink="/dashboard/environments"
-        maxItems={MAX_ENV_ITEMS_PER_TYPE}
-      />
+      {context.user.enabled_features.daasapi && (
+        <EnvironmentSection
+          environments={vmEnvironments}
+          type={"vm"}
+          loading={loading}
+          titleTranslationPath="dashboard.userDashboard.availableEnvironments.vmSubtitle"
+          viewMoreLink="/dashboard/environments"
+          maxItems={MAX_ENV_ITEMS_PER_TYPE}
+        />
+      )}
+      {context.user.enabled_features.k8sapi && (
+        <EnvironmentSection
+          environments={k8sEnvironments}
+          type={"k8s"}
+          hidden={!context.user.enabled_features.k8sapi}
+          loading={loading}
+          titleTranslationPath="dashboard.userDashboard.availableEnvironments.k8sSubtitle"
+          viewMoreLink="/dashboard/environments"
+          maxItems={MAX_ENV_ITEMS_PER_TYPE}
+        />
+      )}
     </Container>
   );
 };

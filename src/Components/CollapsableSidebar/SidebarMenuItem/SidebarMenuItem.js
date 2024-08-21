@@ -75,7 +75,7 @@ function SidebarMenuItem(props) {
   }
 
   return (
-    <ListItem disablePadding sx={{ display: "block" }}>
+    <ListItem style={{padding: "0px"}} sx={{ display: "block" }}>
       <div
         onClick={() => handleNavigation(props.path)}
         className={classes.item}

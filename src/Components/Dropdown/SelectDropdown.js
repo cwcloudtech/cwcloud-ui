@@ -33,7 +33,7 @@ const BootstrapInput = withStyles((theme) => ({
     },
 }))(InputBase);
 
-const SelectDropdown = ({ labelId, id, value, onChange, itemsList, classes, withImage }) => {
+const SelectDropdown = ({ labelId, id, value, onChange, itemsList, classes, withImage, is_dns }) => {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
     return (
@@ -50,7 +50,7 @@ const SelectDropdown = ({ labelId, id, value, onChange, itemsList, classes, with
                 </div>
             </MenuItem>
             {itemsList.map(item => (
-                <MenuItem disabled={context.isGlobal} value={item.name} key={item.name} style={{background: colors.secondBackground[_mode]}}>
+                <MenuItem disabled={context.isGlobal || is_dns} value={item.name} key={item.name} style={{background: colors.secondBackground[_mode]}}>
                     <div className={classes.regionItemStyles} style={{color: colors.mainText[_mode]}}>
                         {withImage && <img src={srcimage(item.name)} alt="fr" className={classes.ImageRegionStyles} />}
                         <span>{item.name}</span>

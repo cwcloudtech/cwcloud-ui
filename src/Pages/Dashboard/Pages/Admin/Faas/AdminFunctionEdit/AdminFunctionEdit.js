@@ -177,7 +177,7 @@ function AdminFunctionEdit() {
             setLoadingSubmit(false)
             setChangesAreSaved(true)
             toast.success(context.counterpart('dashboard.function.message.successUpdate'))
-            navigate('/admin/function')
+            navigate('/admin/function/overview')
         }).catch(err => {
             setLoadingSubmit(false)
         })
@@ -314,7 +314,7 @@ function AdminFunctionEdit() {
                 <Row>
                     <Col>
                         <div onClick={navigateBack} className="goBack">
-                            <NavLink className="link">
+                            <NavLink className="link fs-6">
                                 <i className="fa-solid fa-arrow-left iconStyle"></i>
                                 <Translate content="dashboard.function.back" />
                             </NavLink>

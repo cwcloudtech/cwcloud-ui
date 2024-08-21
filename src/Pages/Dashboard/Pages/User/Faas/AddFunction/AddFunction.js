@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import { Col, Row, Container} from "reactstrap";
+import { Col, Row, Container } from "reactstrap";
 import classes from "./AddFunction.module.css";
 import '../../../../../../common.css';
 import axios from "../../../../../../utils/axios";
@@ -30,6 +30,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CallbackModal from '../../../../../../Components/Modal/CallbackModal';
 import CallbackTable from '../../../../../../Components/Table/CallbackTable';
+import SuggestionsAutoComplete from '../../../../../../Components/SuggestionsAutoComplete/SuggestionsAutoComplete';
 
 function AddFunction() {
     const context = useContext(GlobalContext);
@@ -37,6 +38,7 @@ function AddFunction() {
     const [loading, setLoading] = useState(false)
     const [loadingSubmit, setLoadingSubmit] = useState(false)
     const [withBlockly, setWithBlockly] = useState(false)
+    const [users, setUsers] = useState([])
 
     const [showEditorFullScreen, setShowEditorFullScreen] = useState(false)
     const [showBlocklyFullScreen, setShowBlocklyFullScreen] = useState(false)
@@ -57,6 +59,7 @@ function AddFunction() {
     const [selectedCallbackIndex, setSelectedCallbackIndex] = useState(0)
     
     const [isPublic, setIsPublic] = useState(false)
+    const [ownerId, setOwnerId] = useState(context.user.id)
     const [currentCode, setCurrentCode] = useState('')
     const [currentState, setCurrentState] = useState(null)
     const [languages, setLanguages] = useState([])
@@ -72,6 +75,7 @@ function AddFunction() {
     const navigate = useNavigate()
     const location = useLocation()
     const [nextPath, setNextPath] = useState("/function/overview")
+    const is_admin = location.pathname.includes("admin");
     const message = context.counterpart("dashboard.function.message.unsavedChangesWarning")
     const defaultBlock= {"blocks":{"languageVersion":0,"blocks":[{"type":"procedures_defreturn","id":"|U:JxK,WwHD$^.P_JKyp","x":10,"y":10,"icons":{"comment":{"text":"Describe this function...","pinned":false,"height":80,"width":160}},"fields":{"NAME":"handle"},"inputs":{"RETURN":{"block":{"type":"text","id":"[zf7d#G}*e9tM4;qKep[","fields":{"TEXT":""}}}}}]}}
 
@@ -81,10 +85,23 @@ function AddFunction() {
         }
     }
 
+    const fetchUsers = () => {
+        axios.get("/admin/user/all")
+            .then(res => {
+                setUsers(res.data.result)
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
     useEffect(() => {
         getNextPath()
         context.setIsGlobal(true)
         setLoading(true)
+        if (is_admin) {
+            fetchUsers()
+        }
         axios.get('/faas/languages')
             .then(res => {
                 setLanguages([...res.data.languages, "blockly"])
@@ -126,7 +143,7 @@ function AddFunction() {
             env[obj.name] = obj.value;
         });
         setLoadingSubmit(true)
-        axios.post(`/faas/function`, {
+        var body = {
             is_public: isPublic,
             content: {
                 code: code,
@@ -138,7 +155,11 @@ function AddFunction() {
                 args: args,
                 env: env
             }
-        }).then(response => {
+        }
+        if (is_admin) {
+            body.owner_id = ownerId
+        }
+        axios.post(`/faas/function`, body).then(response => {
             setLoadingSubmit(false)
             setChangesAreSaved(true)
             toast.success(context.counterpart('dashboard.function.message.successAdd'))
@@ -334,6 +355,38 @@ function AddFunction() {
                             </Row>
                         </Col>
                     </Row>
+                    {
+                        is_admin && (
+                            <Row style={{ margin: "30px 0px" }}>
+                                <Col>
+                                    <Row style={{ display: "flex", alignItems: "center" }}>
+                                        <Col md="4">
+                                            <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                                <Translate content="dashboard.function.inputs.owner.title" />
+                                            </h5>
+                                        </Col>
+                                        <Col md="6">
+                                            <SuggestionsAutoComplete
+                                                id="combo-box-email"
+                                                onChange={(event, newValue) => {
+                                                    const selectedOwnerEmail = newValue
+                                                    const selectedOwner = users.find(u => u.email === selectedOwnerEmail)
+                                                    setOwnerId(selectedOwner.id)
+                                                }}
+                                                options={users.map((u) => u.email)}
+                                                renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    label={context.counterpart('dashboard.function.inputs.owner.placeholder')}
+                                                />
+                                                )}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        )
+                    }
                     <Row style={{ margin: "30px 0px" }}>
                         <Col>
                             <Row style={{ display: "flex", alignItems: "center" }}>

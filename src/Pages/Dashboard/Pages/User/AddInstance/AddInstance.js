@@ -29,6 +29,8 @@ function AddInstance(props) {
   const location = useLocation();
   const currentPath = location.pathname;
   const is_admin = currentPath.includes("admin");
+  const queryParams = new URLSearchParams(location.search);
+  const preSelectedEnvironment = queryParams.get("environment");
   const nextPath = is_admin ? "/admin/instances" : "/instances";
   const [selectedEnvironment, setSelectedEnvironment] = useState(null);
   const [instanceInfo, setInstanceInfo] = useState({ type: "" });
@@ -141,6 +143,12 @@ function AddInstance(props) {
         : `/environment/all${queryParam}`;
       const responseEnvironments = await axios.get(environment_url);
       setEnvironments(responseEnvironments.data);
+      if (preSelectedEnvironment) {
+        const environmentIndex = responseEnvironments.data.findIndex(
+          (e) => e.path === preSelectedEnvironment
+        );
+        setSelectedEnvironment(responseEnvironments.data[environmentIndex]);
+      }
       const responseDnsZones = await axios.get(`/dns_zones`);
       setDnsZones(responseDnsZones.data.zones);
       setLoading(false);

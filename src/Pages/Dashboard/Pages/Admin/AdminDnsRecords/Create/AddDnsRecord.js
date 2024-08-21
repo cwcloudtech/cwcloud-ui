@@ -25,7 +25,7 @@ const recordType = ["A", "AAAA", "NS", "CNAME", "DNAME", "TXT"];
 
 function AddDnsRecord(props) {
   const context = useContext(GlobalContext);
-  const _mode = context.mode;
+  const _mode = context.mode; 
 
   const [data, setData] = useState({
     name: "",
@@ -43,6 +43,7 @@ function AddDnsRecord(props) {
     ttl: false,
     data: false,
   });
+  const [invalidGcpCnameTargeForm, setInvalidGcpCnameTargeForm] = useState(false);
   const { dns_zones, loading } = useDnsZones();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
@@ -54,6 +55,9 @@ function AddDnsRecord(props) {
     let typeIsInvalid = data.type === "" || !recordType.includes(data.type);
     let ttlIsInvalid = data.ttl === null || data.ttl === "" || data.ttl < 0;
     let dataIsInvalid = data.data === "";
+    if(context.selectedProvider.name === "gcp" && data.type === "CNAME" && !data.data.endsWith(".")){
+      setInvalidGcpCnameTargeForm(true);
+    }
     setIsInvalid({
       name: nameIsInvalid,
       zone: zoneIsInvalid,
@@ -174,13 +178,19 @@ function AddDnsRecord(props) {
               value={data.data}
               id="dns-record-data"
               onChange={(e) => setData({ ...data, data: e.target.value })}
-              invalid={isInvalid.data}
+              invalid={isInvalid.data || invalidGcpCnameTargeForm}
             />
             <FormFeedback>
               <Translate
                 content="dashboard.dnsRecordsPage.form.invalid"
                 className="errorText"
               />
+              <br/>
+              {
+                invalidGcpCnameTargeForm && <Translate
+                content="dashboard.dnsRecordsPage.form.pleaseAddApointatTheEnd"
+                className="errorText" />
+              }
             </FormFeedback>
           </FormGroup>
         </Form>

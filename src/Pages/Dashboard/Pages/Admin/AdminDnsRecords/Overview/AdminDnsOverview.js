@@ -35,27 +35,27 @@ export default function AdminDnsOverview(props) {
     {
       field: "record",
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.name"),
-      flex: 2,
+      width: 200,
     },
     {
       field: "zone",
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.zone"),
-      flex: 2,
+      width: 200
     },
     {
       field: "data",
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.data"),
-      flex: 2,
+      width: 500
     },
     {
       field: "ttl",
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.ttl"),
-      flex: 2,
+      width: 100
     },
     {
       field: "type",
-      headerName: counterpart("dashboard.dnsRecordsPage.explore.table.type"),
-      flex: 2,
+      headerName: (<Tooltip title={context.counterpart("dashboard.dnsRecordsPage.message.searchTip")} placement='top'><span>{context.counterpart("dashboard.dnsRecordsPage.explore.table.type")}</span> </Tooltip>),
+      width: 100
     },
     {
       field: "action",
@@ -76,8 +76,12 @@ export default function AdminDnsOverview(props) {
     axios
       .get(`/admin/dns/${context.selectedProvider.name}/list`)
       .then((res) => {
-        setDnsRecords(res.data);
-        setFilteredDnsRecords(res.data);
+        var data = res.data.map(item => ({
+          ...item,
+          data: item.data.replace(/,/g, ' | ')
+        }));
+        setDnsRecords(data);
+        setFilteredDnsRecords(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -87,7 +91,13 @@ export default function AdminDnsOverview(props) {
 
   const filterDns = (e) => {
     const searchQuery = e.target.value.trim();
-    if (!searchQuery || searchQuery === "") {
+    if (searchQuery.startsWith(":")) {
+      const typeQuery = searchQuery.slice(1).toUpperCase();
+      const filteredItems = dnsRecords.filter((dns_record) =>
+        dns_record.type.toUpperCase() === typeQuery
+      );
+      setFilteredDnsRecords(filteredItems);
+    } else if (!searchQuery || searchQuery === "") {
       setFilteredDnsRecords(dnsRecords);
     } else {
       var filteredItems = dnsRecords.filter((dns_record) =>

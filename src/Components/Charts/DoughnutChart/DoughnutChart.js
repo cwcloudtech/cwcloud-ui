@@ -21,10 +21,10 @@ const DoughnutChart = (props) => {
         <Container className={classes.mainContainer} fluid>
             <CardComponent 
                 title={context.counterpart("dashboard.userDashboard.consumptions.currentConsumptions")} 
-                style={{width: "90%", margin:"15px"}}
+                style={{width: "100%", margin:"15px"}}
             >
                 <Row>
-                    <Col md="2">
+                    <Col md="12">
                         <ul>
                             <li style={{color: colors.secondText[_mode]}}>{`Total: ${props.totalConsumptions === null ? "" : props.totalConsumptions} ${priceUnit}`}</li>
                         </ul>

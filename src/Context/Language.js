@@ -237,7 +237,8 @@ export const englishLanguage = {
             key: "Key",
             value: "Value",
             enter: "Enter",
-            file: "file"
+            file: "file",
+            webUi: "Web UI",
         },
         message: {
             thisFieldIsRequired: "This field is required",
@@ -563,7 +564,9 @@ export const englishLanguage = {
                 projects: "Projects",
                 instances: "Instances",
                 buckets: "Buckets",
-                registries: "Registries"
+                registries: "Registries",
+                k8sApplications: "K8s applications",
+                functions: "Serverless Functions",
             },
             availableEnvironments: {
                 title: "Available environments",
@@ -734,8 +737,8 @@ export const englishLanguage = {
                     placeholder: "Put the function's name"
                 },
                 owner: {
-                    title: "owner",
-                    placeholder: "Put the owner's email"
+                    title: "Function owner (optional)",
+                    placeholder: "Select the user you want to assign the function to"
                 },
                 language: {
                     title: "Language"
@@ -1672,7 +1675,7 @@ export const englishLanguage = {
                 backToExplore: "Back to DNS records",
                 title: "Create a new DNS record",
                 nameLabel: "Record name",
-                namePlaceHolder: "Enter a name for this record",
+                namePlaceHolder: "Enter a name for this record e.g. example.com",
                 typeLabel: "Record type",
                 selectTypeSubtitle: "Select a type for this record",
                 ttlLabel: "TTL",
@@ -1683,6 +1686,10 @@ export const englishLanguage = {
                 zoneLabel: "Zone",
                 selectZoneSubtitle: "Select a zone for this record",
                 invalid: "This field is required or it's invalid",
+                pleaseAddApointatTheEnd: "Please add a point at the end of the target",
+            },
+            message: {
+                searchTip: "Tip: you can filter the DNS records by their type by writing ':' before the name of the type in the search bar",
             }
         },
         kubernetesDashboardPages: {
@@ -2454,7 +2461,8 @@ export const frenchLanguage = {
             key: "Clef",
             value: "Valeur",
             enter: "Entrez",
-            file: "fichier"
+            file: "fichier",
+            webUi: "Interface web",
         },
         message: {
             thisFieldIsRequired: "Ce champ est obligatoire",
@@ -2780,7 +2788,9 @@ export const frenchLanguage = {
                 projects: "Projets",
                 instances: "Instances",
                 buckets: "Buckets",
-                registries: "Registries"
+                registries: "Registries",
+                k8sApplications: "Applications k8",
+                functions: "fonctions serverless",
             },
             availableEnvironments: {
                 title: "Environnements disponibles",
@@ -2951,8 +2961,8 @@ export const frenchLanguage = {
                     placeholder: "Mettre le nom de la fonction"
                 },
                 owner: {
-                    title: "Owner",
-                    placeholder: "Mettre l'email du propriétaire"
+                    title: "Propriétaire de la fonction (facultatif)",
+                    placeholder: "Sélectionnez l'utilisateur auquel vous souhaitez attribuer la fonction"
                 },
                 language: {
                     title: "Langage"
@@ -4264,7 +4274,7 @@ export const frenchLanguage = {
                 backToExplore: "Retour à l'exploration des enregistrements DNS",
                 title: "Créer un nouvel enregistrement DNS",
                 nameLabel: "Nom de l'enregistrement",
-                namePlaceHolder: "Entrez un nom pour cet enregistrement",
+                namePlaceHolder: "Entrez un nom pour cet enregistrement ex: exemple.com",
                 typeLabel: "Type",
                 selectTypeSubtitle: "Selectionnez un type pour cet enregistrement",
                 ttlLabel: "TTL",
@@ -4275,6 +4285,10 @@ export const frenchLanguage = {
                 zoneLabel: "Zone",
                 selectZoneSubtitle: "Sélectionnez une zone pour cet enregistrement",
                 invalid: "Ce champ est requis ou invalide",
+                pleaseAddApointatTheEnd: "Veuillez ajouter un point à la fin de la cible",
+            },
+            message: {
+                searchTip: "Astuce : vous pouvez filtrer les enregistrements DNS par leur type en écrivant ':' devant le nom du type dans la barre de recherche",
             }
         },
         projectOverview: {
