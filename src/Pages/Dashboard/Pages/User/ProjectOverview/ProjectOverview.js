@@ -182,17 +182,6 @@ function ProjectOverview() {
                     <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
                         <Col xs="12" md="6" className="row">
                             <div className="colinline">
-                                <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.projectOverview.fields.activeInstances" />:</h5>
-                                <h6 className="colInlineValue" style={{color: colors.smallTitle[_mode]}}>
-                                    {(!loading && project?.instances?.length > 0) 
-                                        ? project?.instances?.length 
-                                        : 0
-                                    }
-                                </h6>
-                            </div>
-                        </Col>
-                        <Col xs="12" md="6" className="row">
-                            <div className="colinline">
                                 <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.projectOverview.fields.numberPlaybooks" />:</h5>
                                 <h6 className="colInlineValue" style={{color: colors.smallTitle[_mode]}}>
                                     {(!loading && project?.playbooks?.length > 0) 
@@ -232,7 +221,7 @@ function ProjectOverview() {
                             </div>
                         </Col>
                     </Row>
-                    { is_admin && <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
+                    <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
                         <Col xs="12" md="12" className="row">
                             <div>
                                 <h5 className={classes.textStyle} style={{color: colors.mainText[_mode]}}><Translate content="dashboard.projectOverview.fields.activeInstances" />:</h5>
@@ -257,7 +246,7 @@ function ProjectOverview() {
                                 }
                             </div>
                         </Col>
-                    </Row>}
+                    </Row>
                     {
                         project.playbooks && project.instances && project.playbooks.map(p => p.split('playbook-')[1]).filter(playbookName => (
                             !project.instances.some(instance => instance.name === playbookName)

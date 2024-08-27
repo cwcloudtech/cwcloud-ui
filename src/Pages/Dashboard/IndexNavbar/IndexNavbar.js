@@ -1,35 +1,39 @@
-import { useContext, useState, useRef, useEffect } from "react";
-import { Row } from "simple-flexbox";
-import classes from "./IndexNavbar.module.css";
-import localStorage from "../../../utils/localStorageService";
-import GlobalContext from "../../../Context/GlobalContext";
-import colors from "../../../Context/Colors";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Col,
-} from "reactstrap";
-import Translate from "react-translate-component";
-import { useLocation, useNavigate } from "react-router-dom";
-import srcimage from "../../../utils/regions";
-import SelectDropdown from "../../../Components/Dropdown/SelectDropdown";
-import LanguageDropdown from "../../../Components/Dropdown/LanguageDropdown";
-import Identicon from "react-identicons";
 import { Chip } from "@material-ui/core";
+import { useContext, useEffect, useRef, useState } from "react";
+import Identicon from "react-identicons";
+import { useLocation, useNavigate } from "react-router-dom";
+import Translate from "react-translate-component";
+import {
+  Col,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
+import { Row } from "simple-flexbox";
+import LanguageDropdown from "../../../Components/Dropdown/LanguageDropdown";
+import SelectDropdown from "../../../Components/Dropdown/SelectDropdown";
+import colors from "../../../Context/Colors";
+import GlobalContext from "../../../Context/GlobalContext";
 import axios from "../../../utils/axios";
+import localStorage from "../../../utils/localStorageService";
+import srcimage from "../../../utils/regions";
+import classes from "./IndexNavbar.module.css";
+import DnsDropdown from "../../../Components/Dropdown/DnsDropdown";
 
 function IndexNavbar() {
   const context = useContext(GlobalContext);
   const _mode = context.mode;
   const [isOpenUserDropdown, setIsOpenUserDropdown] = useState(false);
   const [isOpenLanguageDropdown, setIsOpenLanguageDropdown] = useState(false);
-  const [backendVersion, setBackendVersion] = useState('');
+  const [backendVersion, setBackendVersion] = useState("");
+  const [selectedDnsProvider, setSelectedDnsProvider] = useState(context.selectedDnsProvider);
   const frontendVersion = process.env.REACT_APP_VERSION;
   const userDropdownRef = useRef(null);
   const { pathname } = useLocation();
   const isDNSpage = pathname.includes("dns");
+  const showProviderAndRegion = !context.isGlobal;
+  const dnsProviders = context.dnsProviders;
   const navigate = useNavigate();
   let title =
     pathname.split("/")[1].charAt(0).toUpperCase(0) +
@@ -52,6 +56,12 @@ function IndexNavbar() {
     const providerIndex = _providers.findIndex((p) => p.name === providerName);
     context.setSelectedProvider(_providers[providerIndex]);
   };
+  const selectDnsProviderHandler = (providerName) => {
+    const _providers = [...context.dnsProviders];
+    const providerIndex = _providers.findIndex((p) => p === providerName);
+    setSelectedDnsProvider(_providers[providerIndex]);
+    context.setSelectedDnsProvider(_providers[providerIndex]);
+  };
   const selectRegionHandler = (regionName) => {
     const _regions = [...context.selectedProvider.regions];
     const regionIndex = _regions.findIndex((r) => r.name === regionName);
@@ -62,15 +72,14 @@ function IndexNavbar() {
     if (!userDropdownRef.current.contains(e.target))
       setIsOpenUserDropdown(false);
   };
-  
+
   useEffect(() => {
-      context.setIsGlobal(true)
-      axios.get("/manifest")
-          .then(res => {
-            setBackendVersion(res.data.version)
-          })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    context.setIsGlobal(true);
+    axios.get("/manifest").then((res) => {
+      setBackendVersion(res.data.version);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Row
@@ -86,39 +95,64 @@ function IndexNavbar() {
         {title}
       </span>
       <Row className={classes.rightPart} vertical="center">
+        {isDNSpage && <Col></Col>}
         <Col>
-          {!context.isGlobal && (
-            <SelectDropdown
+          {isDNSpage ? (
+            <DnsDropdown
               labelId="demo-customized-select-label"
               id="demo-customized-select"
-              value={
-                !context.isGlobal ? context.selectedProvider.name : "global"
-              }
+              value={selectedDnsProvider}
               onChange={(e) => {
-                selectProviderHandler(e.target.value);
+                selectDnsProviderHandler(e.target.value);
               }}
-              itemsList={context.providers}
+              itemsList={dnsProviders}
               classes={classes}
+              disabled={context.isGlobal}
+              is_dns={true}
             />
+          ) : (
+            <>
+              {showProviderAndRegion && (
+                <SelectDropdown
+                  labelId="demo-customized-select-label"
+                  id="demo-customized-select"
+                  value={
+                    showProviderAndRegion
+                      ? context.selectedProvider.name
+                      : "global"
+                  }
+                  onChange={(e) => {
+                    selectProviderHandler(e.target.value);
+                  }}
+                  itemsList={context.providers}
+                  classes={classes}
+                  disabled={context.isGlobal}
+                  is_dns={false}
+                />
+              )}
+            </>
           )}
         </Col>
-        <Col>
-            {!context.isGlobal && (
+        {!isDNSpage && (
+          <Col>
+            {showProviderAndRegion && (
               <SelectDropdown
                 labelId="demo-customized-select-label"
                 id="demo-customized-select"
-                value={!context.isGlobal ? context.region.name : "global"}
+                value={showProviderAndRegion ? context.region.name : "global"}
                 onChange={(e) => {
                   selectRegionHandler(e.target.value);
                 }}
                 itemsList={context.selectedProvider.regions}
                 withImage={true}
                 classes={classes}
-                is_dns={isDNSpage}
+                disabled={context.isGlobal}
+                is_dns={false}
               />
             )}
           </Col>
-        {!context.isGlobal && <div className={classes.separator}></div>}
+        )}
+        {showProviderAndRegion && <div className={classes.separator}></div>}
         <div ref={userDropdownRef}>
           <Dropdown
             isOpen={isOpenUserDropdown}
@@ -342,17 +376,19 @@ function IndexNavbar() {
                   </h5>
                 </div>
               </DropdownItem>
-              {
-                context.user.is_admin && 
+              {context.user.is_admin && (
                 <>
-                  <DropdownItem nav style={{ padding: "5px"}}>
+                  <DropdownItem nav style={{ padding: "5px" }}>
                     <Chip color="primary" label={`API: ${backendVersion}`} />
                   </DropdownItem>
-                  <DropdownItem nav style={{ padding: "5px"}}>
-                    <Chip color="default" label={`${context.counterpart("common.word.webUi")}: ${frontendVersion}`} />
+                  <DropdownItem nav style={{ padding: "5px" }}>
+                    <Chip
+                      color="default"
+                      label={`${context.counterpart("common.word.webUi")}: ${frontendVersion}`}
+                    />
                   </DropdownItem>
                 </>
-              }
+              )}
             </DropdownMenu>
           </Dropdown>
         </div>

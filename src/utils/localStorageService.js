@@ -36,6 +36,12 @@ const LocalStorageService = (
         const _getProvider = () => {
             return localStorage.getItem("provider")
         }
+        const _setDnsProvider = (provider) => {
+            localStorage.setItem("dnsProvider", provider)
+        }
+        const _getDnsProvider = () => {
+            return localStorage.getItem("dnsProvider")
+        }
         const _clearRegion = () => {
             localStorage.removeItem("region")
         }
@@ -62,6 +68,8 @@ const LocalStorageService = (
             getZone: _getZone,
             setProvider: _setProvider,
             getProvider: _getProvider,
+            setDnsProvider: _setDnsProvider,
+            getDnsProvider: _getDnsProvider,
             clearRegion: _clearRegion,
             setLanguage: _setLanguage,
             getLanguage: _getLanguage,

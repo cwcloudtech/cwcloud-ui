@@ -1,6 +1,10 @@
 import AddIcon from "@mui/icons-material/Add";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Fab, InputAdornment, TextField } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import Fade from "@mui/material/Fade";
 import Tooltip from "@mui/material/Tooltip";
 import React, { useContext, useEffect, useState } from "react";
@@ -17,6 +21,7 @@ import GlobalContext from "../../../../../../Context/GlobalContext";
 import axios from "../../../../../../utils/axios";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import classes from "./AdminDnsOverview.module.css";
+import colors from "../../../../../../Context/Colors";
 
 export default function AdminDnsOverview(props) {
   const { counterpart } = useContext(GlobalContext);
@@ -30,6 +35,7 @@ export default function AdminDnsOverview(props) {
 
   const navigate = useNavigate();
   const context = useContext(GlobalContext);
+  const _mode = context.mode;
 
   const columns = [
     {
@@ -38,24 +44,30 @@ export default function AdminDnsOverview(props) {
       width: 200,
     },
     {
-      field: "zone",
-      headerName: counterpart("dashboard.dnsRecordsPage.explore.table.zone"),
-      width: 200
-    },
-    {
       field: "data",
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.data"),
-      width: 500
+      width: 900,
     },
     {
       field: "ttl",
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.ttl"),
-      width: 100
+      width: 100,
     },
     {
       field: "type",
-      headerName: (<Tooltip title={context.counterpart("dashboard.dnsRecordsPage.message.searchTip")} placement='top'><span>{context.counterpart("dashboard.dnsRecordsPage.explore.table.type")}</span> </Tooltip>),
-      width: 100
+      headerName: (
+        <Tooltip
+          title={context.counterpart(
+            "dashboard.dnsRecordsPage.message.searchTip"
+          )}
+          placement="top"
+        >
+          <span>
+            {context.counterpart("dashboard.dnsRecordsPage.explore.table.type")}
+          </span>{" "}
+        </Tooltip>
+      ),
+      width: 100,
     },
     {
       field: "action",
@@ -73,38 +85,69 @@ export default function AdminDnsOverview(props) {
 
   useEffect(() => {
     setLoading(true);
+    context.setIsGlobal(false);
     axios
-      .get(`/admin/dns/${context.selectedProvider.name}/list`)
+      .get(`/admin/dns/${context.selectedDnsProvider}/list`)
       .then((res) => {
-        var data = res.data.map(item => ({
-          ...item,
-          data: item.data.replace(/,/g, ' | ')
-        }));
+        // Group the records by zone
+        const groupedData = res.data.reduce((acc, item) => {
+          const zone = item.zone;
+          if (!acc[zone]) {
+            acc[zone] = {
+              zone: zone,
+              data: [],
+            };
+          }
+          // Handle both string and array formats for the data field
+          const formattedData = Array.isArray(item.data)
+            ? item.data.join(" | ")
+            : item.data.replace(/,/g, " | ");
+  
+          acc[zone].data.push({
+            ...item,
+            data: formattedData,
+          });
+          return acc;
+        }, {});
+
+        const data = Object.values(groupedData);
         setDnsRecords(data);
         setFilteredDnsRecords(data);
         setLoading(false);
       })
-      .catch((err) => {
-        navigate("/notfound");
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
       });
-  }, [navigate, context.selectedProvider]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate, context.selectedDnsProvider]);  
 
-  const filterDns = (e) => {
+  const filterDns = (e, zone) => {
     const searchQuery = e.target.value.trim();
-    if (searchQuery.startsWith(":")) {
-      const typeQuery = searchQuery.slice(1).toUpperCase();
-      const filteredItems = dnsRecords.filter((dns_record) =>
-        dns_record.type.toUpperCase() === typeQuery
-      );
-      setFilteredDnsRecords(filteredItems);
-    } else if (!searchQuery || searchQuery === "") {
-      setFilteredDnsRecords(dnsRecords);
-    } else {
-      var filteredItems = dnsRecords.filter((dns_record) =>
-        dns_record.record.includes(searchQuery)
-      );
-      setFilteredDnsRecords(filteredItems);
-    }
+    const filteredData = dnsRecords.map((dnsRecord) => {
+      if (dnsRecord.zone === zone) {
+        let filteredItems;
+        if (searchQuery.startsWith(":")) {
+          const typeQuery = searchQuery.slice(1).toUpperCase();
+          filteredItems = dnsRecord.data.filter(
+            (record) => record.type.toUpperCase() === typeQuery
+          );
+        } else if (!searchQuery || searchQuery === "") {
+          filteredItems = dnsRecord.data;
+        } else {
+          filteredItems = dnsRecord.data.filter((record) =>
+            record.record.includes(searchQuery)
+          );
+        }
+        return {
+          ...dnsRecord,
+          data: filteredItems,
+        };
+      }
+      return dnsRecord;
+    });
+
+    setFilteredDnsRecords(filteredData);
   };
 
   const preDeleteSelectionHandler = (selectedItems) => {
@@ -127,7 +170,7 @@ export default function AdminDnsOverview(props) {
       const deletedEnvs = [];
       selectedDeletionItems.forEach((item, index) => {
         axios
-          .patch(`/admin/dns/${context.selectedProvider.name}/delete`, {
+          .patch(`/admin/dns/${context.selectedDnsProvider}/delete`, {
             id: item.id,
             record_name: item.record,
             dns_zone: item.zone,
@@ -167,7 +210,7 @@ export default function AdminDnsOverview(props) {
   const deleteDnsHandler = () => {
     setLoading(true);
     axios
-      .patch(`/admin/dns/${context.selectedProvider.name}/delete`, {
+      .patch(`/admin/dns/${context.selectedDnsProvider}/delete`, {
         id: selectedDnsRecord.id,
         record_name: selectedDnsRecord.record,
         dns_zone: selectedDnsRecord.zone,
@@ -177,10 +220,7 @@ export default function AdminDnsOverview(props) {
           filteredListWithoutRemovedElement(selectedDnsRecord.id, dnsRecords)
         );
         setFilteredDnsRecords(
-          filteredListWithoutRemovedElement(
-            selectedDnsRecord.id,
-            dnsRecords
-          )
+          filteredListWithoutRemovedElement(selectedDnsRecord.id, dnsRecords)
         );
         toast.success(
           counterpart("dashboard.dnsRecordsPage.explore.successDelete")
@@ -216,67 +256,77 @@ export default function AdminDnsOverview(props) {
         loading={loading}
         name={selectedDnsRecord?.name}
       />
-      <Row>
-        <Col>
-          <div
-            style={{ paddingBottom: "20px" }}
-            className={classes.clusterCreation}
-          >
-            <TextField
-              onChange={(e) => filterDns(e)}
-              placeholder={counterpart(
-                "dashboard.dnsRecordsPage.explore.searchPlaceholder"
-              )}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchOutlinedIcon />
-                  </InputAdornment>
-                ),
-              }}
-              size="small"
-              fullWidth
-            />
-
-            <div style={{ display: "flex" }}>
-              <Tooltip
-                TransitionComponent={Fade}
-                TransitionProps={{ timeout: 600 }}
-                title={
-                  <h5 className="tootltipValue">
-                    <Translate content="dashboard.dnsRecordsPage.explore.addDnsRecord" />
-                  </h5>
-                }
-                placement="bottom"
-              >
-                <Fab
-                  color="primary"
-                  aria-label="add"
-                  onClick={handleAddDnsRecord}
-                  style={{ transform: "scale(0.7)" }}
+      {filteredDnsRecords.map((dnsRecord) => (
+        <Accordion key={dnsRecord.zone}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <h5 style={{ color: colors.title[_mode] }}>{dnsRecord.zone}</h5>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Row>
+              <Col md="11">
+                <div
+                  style={{ paddingBottom: "20px" }}
+                  className={classes.clusterCreation}
                 >
-                  <AddIcon className="whiteIcon" />
-                </Fab>
-              </Tooltip>
-            </div>
-          </div>
-        </Col>
-      </Row>
-      <DataTable
-        icon={"fa-solid fa-laptop-code"}
-        onCreate={handleAddDnsRecord}
-        emptyMessage={counterpart(
-          "dashboard.dnsRecordsPage.explore.emptyMessage"
-        )}
-        createMessage={counterpart(
-          "dashboard.dnsRecordsPage.explore.addDnsRecord"
-        )}
-        checkboxSelection
-        columns={columns}
-        setMultiSelection={setMultiSelection}
-        rows={filteredDnsRecords}
-        onDeleteSelection={preDeleteSelectionHandler}
-      />
+                  <TextField
+                    onChange={(e) => filterDns(e, dnsRecord.zone)}
+                    placeholder={counterpart(
+                      "dashboard.dnsRecordsPage.explore.searchPlaceholder"
+                    )}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchOutlinedIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                    size="small"
+                    fullWidth
+                  />
+                </div>
+              </Col>
+              <Col md="1">
+                <Tooltip
+                  TransitionComponent={Fade}
+                  TransitionProps={{ timeout: 600 }}
+                  title={
+                    <h5 className="tootltipValue">
+                      <Translate content="dashboard.dnsRecordsPage.explore.addDnsRecord" />
+                    </h5>
+                  }
+                  placement="bottom"
+                >
+                  <Fab
+                    color="primary"
+                    aria-label="add"
+                    onClick={handleAddDnsRecord}
+                    style={{ transform: "scale(0.7)" }}
+                  >
+                    <AddIcon className="whiteIcon" />
+                  </Fab>
+                </Tooltip>
+              </Col>
+              <Col md="12">
+                <DataTable
+                  icon={"fa-solid fa-laptop-code"}
+                  onCreate={handleAddDnsRecord}
+                  emptyMessage={counterpart(
+                    "dashboard.dnsRecordsPage.explore.emptyMessage"
+                  )}
+                  createMessage={counterpart(
+                    "dashboard.dnsRecordsPage.explore.addDnsRecord"
+                  )}
+                  checkboxSelection
+                  columns={columns}
+                  setMultiSelection={setMultiSelection}
+                  rows={dnsRecord.data}
+                  onDeleteSelection={preDeleteSelectionHandler}
+                />
+              </Col>
+            </Row>
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </CardComponent>
   );
 }

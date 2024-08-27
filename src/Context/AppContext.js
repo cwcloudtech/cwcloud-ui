@@ -10,8 +10,10 @@ const AppContext = (props) => {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const [providers, setProviders] = useState(null)
+    const [dnsProviders, setDnsProviders] = useState(null)
     const [region, setRegion] = useState(null)
     const [selectedProvider, setSelectedProvider] = useState(null)
+    const [selectedDnsProvider, setSelectedDnsProvider] = useState(null)
     const [isGlobal, setIsGlobal] = useState(false)
     const [UserAuthMethods, setUserAuthMethods] = useState([])
     const [showAllowCookiesBanner, setShowAllowCookiesBanner] = useState(false)
@@ -27,7 +29,17 @@ const AppContext = (props) => {
             setSelectedProvider(providers[0])
             LocalStorageService.setProvider(providers[0].name)
         }
-    }, [providers])
+        if (dnsProviders) {
+            if (LocalStorageService.getDnsProvider()) {
+                const localProvider = LocalStorageService.getDnsProvider()
+                const providerIndex = dnsProviders.findIndex(p => p === localProvider)
+                if (providerIndex >= 0)
+                    return setSelectedDnsProvider(dnsProviders[providerIndex])
+            }
+            setSelectedDnsProvider(dnsProviders[0])
+            LocalStorageService.setDnsProvider(dnsProviders[0])
+        }
+    }, [providers, dnsProviders])
 
     useEffect(() => {
         if (selectedProvider && currentUser) {
@@ -62,7 +74,12 @@ const AppContext = (props) => {
             const reponseProviders = await axios.get('/provider')
             setProviders(reponseProviders.data.providers)
         }
+        const fetchDnsProviders = async () => {
+            const reponseDnsProviders = await axios.get('/provider/dns')
+            setDnsProviders(reponseDnsProviders.data.providers)
+        }
         fetchProviders()
+        fetchDnsProviders()
         if (LocalStorageService.getAccessToken()) {
             axios.get("/user")
                 .then(response => {
@@ -98,6 +115,10 @@ const AppContext = (props) => {
         setSelectedProvider(provider)
 
     }
+    const setSelectedDnsProviderHandler = (provider) => {
+        LocalStorageService.setDnsProvider(provider)
+        setSelectedDnsProvider(provider)
+    }
     const setRegionHandler = (region) => {
         LocalStorageService.setRegion(region.name)
         setRegion(region)
@@ -125,8 +146,11 @@ const AppContext = (props) => {
                 setRegion: setRegionHandler,
                 allowCookies: allowCookiesHandler,
                 providers: providers,
+                dnsProviders: dnsProviders,
                 selectedProvider: selectedProvider,
+                selectedDnsProvider: selectedDnsProvider,
                 setSelectedProvider: setSelectedProviderHandler,
+                setSelectedDnsProvider: setSelectedDnsProviderHandler,
                 counterpart: counterpart,
                 language: LocalStorageService.getLanguage(),
                 mode: local_storage_mode == null ? system_mode : local_storage_mode,

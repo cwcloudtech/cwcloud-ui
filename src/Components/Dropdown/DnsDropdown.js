@@ -1,11 +1,9 @@
-import Translate from "react-translate-component";
 import { MenuItem, Select } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
+import { withStyles } from '@material-ui/core/styles';
+import { useContext } from "react";
 import colors from "../../Context/Colors";
 import GlobalContext from "../../Context/GlobalContext";
-import { useContext } from "react";
-import srcimage from "../../utils/regions";
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -33,7 +31,7 @@ const BootstrapInput = withStyles((theme) => ({
     },
 }))(InputBase);
 
-const SelectDropdown = ({ labelId, id, value, onChange, itemsList, classes, withImage, disabled}) => {
+const DnsDropdown = ({ labelId, id, value, onChange, itemsList, classes, withImage, disabled}) => {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
     return (
@@ -44,21 +42,13 @@ const SelectDropdown = ({ labelId, id, value, onChange, itemsList, classes, with
             style={{ marginLeft: '10px', marginRight: '10px', background: colors.secondBackground[_mode] + ' !important'}}
             onChange={onChange}
             input={<BootstrapInput />}>
-            <MenuItem style={{display: 'none', background: colors.secondBackground[_mode]}} disabled value="global">
-                <div className={classes.regionItemStyles} style={{color: colors.mainText[_mode]}}>
-                    <span><Translate content="navbar.provider" /></span>
-                </div>
-            </MenuItem>
-            {itemsList.map(item => (
-                <MenuItem disabled={disabled} value={item.name} key={item.name} style={{background: colors.secondBackground[_mode]}}>
-                    <div className={classes.regionItemStyles} style={{color: colors.mainText[_mode]}}>
-                        {withImage && <img src={srcimage(item.name)} alt="fr" className={classes.ImageRegionStyles} />}
-                        <span>{item.name}</span>
-                    </div>
+            {itemsList?.map((item, index) => (
+                <MenuItem value={item} key={index} style={{background: colors.secondBackground[_mode]}}>
+                    <span>{item}</span>
                 </MenuItem>
             ))}
         </Select>
     );
 }
 
-export default SelectDropdown;
+export default DnsDropdown;
