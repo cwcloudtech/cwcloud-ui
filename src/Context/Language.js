@@ -567,6 +567,7 @@ export const englishLanguage = {
                 registries: "Registries",
                 k8sApplications: "K8s applications",
                 functions: "Serverless Functions",
+                noFlagsActivated: "To see any statistics, please enable at least one of the following features: DaaS, K8S or FaaS."
             },
             availableEnvironments: {
                 title: "Available environments",
@@ -2791,6 +2792,7 @@ export const frenchLanguage = {
                 registries: "Registries",
                 k8sApplications: "Applications k8",
                 functions: "fonctions serverless",
+                noFlagsActivated: "Pour voir les statistiques, veuillez activer au moins l'une des fonctions suivantes : DaaS, K8S ou FaaS."
             },
             availableEnvironments: {
                 title: "Environnements disponibles",

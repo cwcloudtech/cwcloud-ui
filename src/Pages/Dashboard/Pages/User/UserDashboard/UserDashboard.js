@@ -21,6 +21,7 @@ import {
 } from "chart.js";
 import Translate from "react-translate-component";
 import DoughnutChart from "../../../../../Components/Charts/DoughnutChart/DoughnutChart";
+import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
 
 ChartJS.register(
   CategoryScale,
@@ -47,7 +48,7 @@ const UserDashboard = () => {
   const [registries, setRegistries] = useState(0);
   const [buckets, setBuckets] = useState(0);
   const [currentConsumptions, setCurrentConsumptions] = useState(null);
-  const [currentDataConsumptions, setCurrentDataConsumptions] = useState(null);
+  const [currentDataConsumptions, setCurrentDataConsumptions] = useState({ labels: [], datasets: [{ data: [] }] });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,6 +111,7 @@ const UserDashboard = () => {
         ]) => {
           setK8sEnvironments(k8sEnvironments.data);
           setK8sDeployments(k8sDeployments.data.length);
+          setLoading(false);
         })
         .catch((error) => {
           console.error(error);
@@ -125,6 +127,7 @@ const UserDashboard = () => {
           faasFunctions
         ]) => {
           setFaasFunctions(faasFunctions.data.results.length);
+          setLoading(false);
         })
         .catch((error) => {
           console.error(error);
@@ -143,45 +146,55 @@ const UserDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.region]);
 
-  const getPieData = (labels, data) => ({
-    labels: labels,
-    datasets: [
-      {
-        label: "Total Price",
-        data: data,
-        backgroundColor: [
-          "rgba(54, 162, 235, 0.6)",
-          "rgba(255, 206, 86, 0.6)",
-          "rgba(75, 192, 192, 0.6)",
-          "rgba(153, 102, 255, 0.6)",
-          "rgba(255, 159, 64, 0.6)",
-        ].slice(0, labels.length),
-        borderColor: [
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ].slice(0, labels.length),
-        borderWidth: 2,
-        hoverBackgroundColor: [
-          "rgba(54, 162, 235, 0.8)",
-          "rgba(255, 206, 86, 0.8)",
-          "rgba(75, 192, 192, 0.8)",
-          "rgba(153, 102, 255, 0.8)",
-          "rgba(255, 159, 64, 0.8)",
-        ].slice(0, labels.length),
-        hoverBorderColor: [
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ].slice(0, labels.length),
-        hoverBorderWidth: 3,
-      },
-    ],
-  });
+  const getPieData = (labels, data) => {
+    if (labels === null || !labels) {
+      labels = [];
+    }
+
+    if (data === null || !data) {
+      data = [];
+    }
+
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: "Total Price",
+          data: data,
+          backgroundColor: [
+            "rgba(54, 162, 235, 0.6)",
+            "rgba(255, 206, 86, 0.6)",
+            "rgba(75, 192, 192, 0.6)",
+            "rgba(153, 102, 255, 0.6)",
+            "rgba(255, 159, 64, 0.6)",
+          ].slice(0, labels.length),
+          borderColor: [
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ].slice(0, labels.length),
+          borderWidth: 2,
+          hoverBackgroundColor: [
+            "rgba(54, 162, 235, 0.8)",
+            "rgba(255, 206, 86, 0.8)",
+            "rgba(75, 192, 192, 0.8)",
+            "rgba(153, 102, 255, 0.8)",
+            "rgba(255, 159, 64, 0.8)",
+          ].slice(0, labels.length),
+          hoverBorderColor: [
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ].slice(0, labels.length),
+          hoverBorderWidth: 3,
+        },
+      ]
+    }
+  };
 
   const getTotalCurrentConsumptions = () => {
     if (!currentConsumptions) return 0.0;
@@ -198,6 +211,26 @@ const UserDashboard = () => {
       style={{ padding: "0px 20px 20px 20px", overflow: "hidden" }}
     >
         <Row>
+          {
+            !(context.user.enabled_features.daasapi || context.user.enabled_features.k8sapi || context.user.enabled_features.faasapi) &&
+             (
+              <Col md="12" className="text-center">
+                <CardComponent
+                  >
+                    <h1
+                      className={classes.mainTitleText}
+                      style={{
+                        color: colors.mainText[_mode],
+                        paddingBottom: "10px",
+                        paddingLeft: "5px",
+                      }}
+                    >
+                      <Translate content="dashboard.userDashboard.resourceOverview.noFlagsActivated" />
+                    </h1>
+                  </CardComponent>
+              </Col>
+             )
+          }
           <Col md="3">
             {
               (context.user.enabled_features.daasapi || context.user.enabled_features.k8sapi || context.user.enabled_features.faasapi) && (
