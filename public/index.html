@@ -54,6 +54,10 @@
                     g = d.createElement('script'),
                     s = d.getElementsByTagName('script')[0];
                 g.async = true;
+                if (!matomoUrl.endsWith('/')) {
+                    matomoUrl += '/';
+                }
+
                 g.src = matomoUrl + 'matomo.js';
                 s.parentNode.insertBefore(g, s);
             }
