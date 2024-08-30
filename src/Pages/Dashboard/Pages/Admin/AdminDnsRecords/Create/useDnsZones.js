@@ -12,7 +12,7 @@ const useDnsZones = () => {
   React.useEffect(() => {
     setLoading(true);
     axiosInstance
-      .get(`/admin/dns/${context.selectedProvider.name}/dns_zones`)
+      .get(`/admin/dns/${context.selectedDnsProvider}/dns_zones`)
       .then((res) => {
         setDnsZones(res.data.dns_zones.map((zone,i) => ({
             name: zone,
@@ -24,7 +24,7 @@ const useDnsZones = () => {
         navigate("/notfound");
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [context.selectedProvider]);
+  }, [context.selectedDnsProvider]);
 
   return { dns_zones, loading };
 };

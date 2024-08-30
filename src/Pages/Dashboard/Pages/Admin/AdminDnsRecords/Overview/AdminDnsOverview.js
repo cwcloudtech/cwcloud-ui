@@ -30,6 +30,7 @@ export default function AdminDnsOverview(props) {
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [multiSelection, setMultiSelection] = useState(false);
   const [filteredDnsRecords, setFilteredDnsRecords] = useState([]);
+  const [rawDnsRecords, setRawDnsRecords] = useState([]);
   const [dnsRecords, setDnsRecords] = useState([]);
   const [selectedDnsRecord, setSelectedDns] = useState(null);
 
@@ -90,6 +91,7 @@ export default function AdminDnsOverview(props) {
       .get(`/admin/dns/${context.selectedDnsProvider}/list`)
       .then((res) => {
         // Group the records by zone
+        setRawDnsRecords(res.data);
         const groupedData = res.data.reduce((acc, item) => {
           const zone = item.zone;
           if (!acc[zone]) {
@@ -154,13 +156,13 @@ export default function AdminDnsOverview(props) {
     setMultiSelection(true);
     setShowConfirmDeleteModal(true);
     setSelectedDeletionItems(
-      selectedItems.map((item) => dnsRecords.find((p) => p.id === item))
+      selectedItems.map((item) => rawDnsRecords.find((p) => p.id === item))
     );
   };
 
   const onPreDeleteHandler = (clusterId) => {
-    const recordIndex = dnsRecords.findIndex((p) => p.id === clusterId);
-    setSelectedDns(dnsRecords[recordIndex]);
+    const recordIndex = rawDnsRecords.findIndex((p) => p.id === clusterId);
+    setSelectedDns(rawDnsRecords[recordIndex]);
     setShowConfirmDeleteModal(true);
   };
 
