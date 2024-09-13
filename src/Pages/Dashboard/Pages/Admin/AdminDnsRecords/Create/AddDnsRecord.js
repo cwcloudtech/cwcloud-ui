@@ -55,7 +55,7 @@ function AddDnsRecord(props) {
     let typeIsInvalid = data.type === "" || !recordType.includes(data.type);
     let ttlIsInvalid = data.ttl === null || data.ttl === "" || data.ttl < 0;
     let dataIsInvalid = data.data === "";
-    if(context.selectedProvider.name === "gcp" && data.type === "CNAME" && !data.data.endsWith(".")){
+    if(context.selectedDnsProvider === "gcp" && data.type === "CNAME" && !data.data.endsWith(".")){
       setInvalidGcpCnameTargeForm(true);
     }
     setIsInvalid({
@@ -71,7 +71,7 @@ function AddDnsRecord(props) {
     setLoadingSubmit(true);
 
     axiosInstance
-      .post(`/admin/dns/${context.selectedProvider.name}/create`, {
+      .post(`/admin/dns/${context.selectedDnsProvider}/create`, {
         record_name: data.name,
         dns_zone: dns_zones.find((zone) => zone.id === selectedZone).name,
         type: data.type,

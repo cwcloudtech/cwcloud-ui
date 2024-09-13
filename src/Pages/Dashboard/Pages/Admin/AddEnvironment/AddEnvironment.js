@@ -61,6 +61,10 @@ function AddEnvironment() {
                 setLoadingRoles(false)
                 setEnvironment({ "is_private": false})
             })
+            .catch(err => {
+                setLoadingRoles(false)
+                console.error(err)
+            })
     }, [])
 
     const handleClickButton = () => {

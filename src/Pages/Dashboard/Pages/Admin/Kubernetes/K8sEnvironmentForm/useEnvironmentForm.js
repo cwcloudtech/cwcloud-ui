@@ -151,7 +151,7 @@ const useEnvironmentForm = () => {
         setLoading(false);
       })
       .catch((err) => {
-        navigate("/notfound");
+        console.error(err);
       });
   };
 
@@ -166,7 +166,7 @@ const useEnvironmentForm = () => {
         setLoading(false);
       })
       .catch((err) => {
-        navigate("/notfound");
+        console.error(err);
       });
   };
 

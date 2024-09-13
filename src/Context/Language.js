@@ -189,6 +189,10 @@ export const englishLanguage = {
         "not_daasapi": "The user is not granted for the DaaS API",
         "not_daasapi_nor_k8sapi": "The user is not granted for the DaaS nor the k8s API",
         "not_implemented": "Not implemented",
+        "unexpected_role_format": "Unexpected roles format",
+        "can_not_get_roles": "Can not get roles from GitLab repository",
+        "unexpected_chart_format": "Unexpected charts format",
+        "can_not_get_helm_charts": "Can not get helm charts from GitLab repository",
     },
     common: {
         ok: "OK",
@@ -2415,6 +2419,10 @@ export const frenchLanguage = {
         "not_daasapi": "L'utilisateur n'a pas l'api DaaS activée",
         "not_daasapi_nor_k8sapi": "L'utilisateur n'a pas l'api DaaS ni l'api k8s activée",
         "not_implemented": "Fonctionnalité non implémentée",
+        "unexpected_role_format": "Format des rôles inattendu",
+        "can_not_get_roles_from": "Impossible de récupérer les rôles depuis le dépôt gitlab",
+        "unexpected_chart_format": "Format du chart inattendu",
+        "can_not_get_charts_from": "Impossible de récupérer les charts depuis le dépôt gitlab",
     },
     common: {
         ok: "OK",

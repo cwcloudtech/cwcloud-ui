@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import GlobalContext from "../Context/GlobalContext";
+import { isTrue } from "../utils/common";
 
 export function useSidebarItems() {
   const context = useContext(GlobalContext);
@@ -19,8 +20,8 @@ export function useSidebarItems() {
       iconClass: "fa-layer-group",
       path: "/projects",
       condition:
-        context.user.enabled_features.k8sapi ||
-        context.user.enabled_features.daasapi,
+        isTrue(context.user.enabled_features.k8sapi) ||
+        isTrue(context.user.enabled_features.daasapi),
     },
     {
       id: "/buckets",
@@ -42,7 +43,7 @@ export function useSidebarItems() {
       titleKey: "sidebar.instances",
       iconClass: "fa-microchip",
       path: "/instances",
-      condition: context.user.enabled_features.daasapi,
+      condition: isTrue(context.user.enabled_features.daasapi),
     },
     {
       id: "/k8s-applications",
@@ -50,7 +51,7 @@ export function useSidebarItems() {
       titleKey: "sidebar.k8sApplications",
       iconClass: "fa-dharmachakra",
       path: "/k8s-applications",
-      condition: context.user.enabled_features.k8sapi,
+      condition: isTrue(context.user.enabled_features.k8sapi),
     },
     {
       id: "/function",
@@ -84,7 +85,7 @@ export function useSidebarItems() {
           path: "/triggers",
         },
       ],
-      condition: context.user.enabled_features.faasapi,
+      condition: isTrue(context.user.enabled_features.faasapi),
     },
     {
       id: "/iot",
@@ -124,7 +125,7 @@ export function useSidebarItems() {
           path: "/iot/add/data",
         },
       ],
-      condition: context.user.enabled_features.iotapi,
+      condition: isTrue(context.user.enabled_features.iotapi),
     },
     {
       id: "/email",
@@ -132,7 +133,7 @@ export function useSidebarItems() {
       titleKey: "sidebar.manageEmails.title",
       iconClass: "fa-envelope",
       path: "/email",
-      condition: context.user.enabled_features.emailapi,
+      condition: isTrue(context.user.enabled_features.emailapi),
     },
     {
       id: "/cwai",
@@ -140,7 +141,7 @@ export function useSidebarItems() {
       titleKey: "sidebar.cwai",
       iconClass: "fa-robot",
       path: "/cwai",
-      condition: context.user.enabled_features.cwaiapi,
+      condition: isTrue(context.user.enabled_features.cwaiapi),
     },
   ];
 

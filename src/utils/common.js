@@ -6,6 +6,10 @@ export const isEmpty = (val) => {
     return !val || val === "";
 }
 
+export const isNotEmpty = (val) => {
+    return !isEmpty(val);
+}
+
 export const isBlank = (val) => {
     return isEmpty(val) || /^\s+$/i.test(val);
 }
@@ -34,3 +38,15 @@ export const getPriceWithUnit = (price) => {
   
     return priceUnit + ' ' + price.price;
 }  
+
+export const isTrue = (varValue) => {
+    if (typeof varValue === 'boolean') {
+        return varValue;
+    }
+    const falseChar = ["false", "ko", "no", "off"];
+    return isNotEmpty(varValue) && !falseChar.includes(String(varValue).toLowerCase());
+}
+
+export const isFalse = (varValue) => {
+    return !isTrue(varValue);
+}
