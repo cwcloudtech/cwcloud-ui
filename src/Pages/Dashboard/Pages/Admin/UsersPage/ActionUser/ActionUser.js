@@ -13,6 +13,7 @@ function ActionUser(props) {
     const [loadingPassword, setLoadingPassword] = useState(false)
     const [loadingConfirm, setLoadingConfirm] = useState(false)
     const [loadingRole, setLoadingRole] = useState(false)
+    const [loadingDelete2fa, setLoadingDelete2fa] = useState(false)
     const [userInfo, setUserInfo] = useState({ ...props.user, password: "" })
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [loadingDeletion, setLoadingDeletion] = useState(false)
@@ -89,6 +90,19 @@ function ActionUser(props) {
         })
     }
 
+    const onDelete2faHandler = () => {
+        setLoadingDelete2fa(true)
+        axios.delete(`/admin/user/2fa/${props && props.user ? props.user.id : 'undefined'}`).then(response => {
+            const updatedUser = { ...userInfo, twoFactorEnabled: false }
+            setUserInfo(updatedUser)
+            props.updateUser(updatedUser)
+            toast.success(counterpart('dashboard.userOverview.message.successUpdate'))
+            setLoadingDelete2fa(false)
+        }).catch(err => {
+            setLoadingDelete2fa(false)
+        })
+    }
+
     return (
         <div>
             <DeleteModal resourceName={'user'} isOpen={showConfirmDeleteModal} toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)} onDelete={onDeleteHandler} name={props && props.user ? props.user.email : 'undefined'} loading={loadingDeletion} />
@@ -101,10 +115,12 @@ function ActionUser(props) {
                 onEditPassword={onUpdateUserPasswordInfoHandler}
                 onConfirm={onConfirmHandler}
                 onUpdateRole={onUpdateRoleHandler}
+                onDelete2fa={onDelete2faHandler}
                 loadingEmail={loadingEmail}
                 loadingPassword={loadingPassword}
                 loadingConfirm={loadingConfirm}
                 loadingRole={loadingRole}
+                loadingDelete2fa={loadingDelete2fa}
             />
             <EditIcon style={{ marginRight: "20px" }} onClick={onPreEditHandler} 
             />

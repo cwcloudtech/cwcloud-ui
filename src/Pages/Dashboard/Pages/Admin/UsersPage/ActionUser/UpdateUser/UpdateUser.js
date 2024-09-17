@@ -51,6 +51,10 @@ function Drawer(props) {
         }
     }
 
+    const ClickDelete2faHandler = () => {
+        props.onDelete2fa()
+    }
+
     return (
         <div>
             <SwipeableDrawer
@@ -379,6 +383,11 @@ function Drawer(props) {
                         <ListItem style={{ display: "flex", justifyContent: "center" }}>
                             <LoadingButton loading={props.loadingPassword} icon="fa-solid fa-floppy-disk" className={classes.buttonStyle} onClick={() => ClickResetPasswordHandler()}>
                                 {!props.user.password ? "Reset Password" : "Save"}
+                            </LoadingButton>
+                        </ListItem>
+                        <ListItem style={{ display: "flex", justifyContent: "center" }}>
+                            <LoadingButton loading={props.loadingDelete2fa} icon="fa-solid fa-trash" className={classes.buttonStyle} onClick={() => ClickDelete2faHandler()}>
+                                <Translate content="common.button.delete2Fa" />
                             </LoadingButton>
                         </ListItem>
                     </List>

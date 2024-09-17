@@ -193,6 +193,8 @@ export const englishLanguage = {
         "can_not_get_roles": "Can not get roles from GitLab repository",
         "unexpected_chart_format": "Unexpected charts format",
         "can_not_get_helm_charts": "Can not get helm charts from GitLab repository",
+        "2fa_deleted": "2FA methods successfully deleted",
+        "user_no_2fa_methods": "User has no 2FA methods",
     },
     common: {
         ok: "OK",
@@ -2423,6 +2425,8 @@ export const frenchLanguage = {
         "can_not_get_roles_from": "Impossible de récupérer les rôles depuis le dépôt gitlab",
         "unexpected_chart_format": "Format du chart inattendu",
         "can_not_get_charts_from": "Impossible de récupérer les charts depuis le dépôt gitlab",
+        "2fa_deleted": "Méthodes MFA/2FA désactivé avec succès",
+        "user_no_2fa_methods": "L'utilisateur n'a pas de méthode MFA/2FA",
     },
     common: {
         ok: "OK",
