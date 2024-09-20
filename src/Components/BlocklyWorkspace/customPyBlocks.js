@@ -105,6 +105,7 @@ export const customizePythonGenerator = () => {
         const apiHost = process.env.REACT_APP_APIURL;
         const apiVersion = process.env.REACT_APP_APIVERSION;
         var url = `${apiHost}/${apiVersion}/faas/invocation`;
+        console.log(`url=${url}, apiVersion=${apiVersion}`)
         var syncUrlAddition = executionType === 'sync' ? '/sync' : '';
         var headers = `{"accept": "application/json", "Content-Type": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
         var body = `{ 'content': {"function_id": ${functionId},"args": ${args}} }`;

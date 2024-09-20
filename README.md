@@ -41,6 +41,13 @@ Then:
 docker-compose -f docker-compose-local.yml up --build -d
 ```
 
+Or if you have Node.js installed on your local machine you can install dependencies and run the project using the following commands:
+
+```shell
+npm install
+npm run start
+```
+
 You'll be able to see the web console on http://localhost:3000
 
 ## Using a local API (fullstack dev)
@@ -51,6 +58,14 @@ And updating this environment variable: `REACT_APP_APIURL=http://localhost:5002`
 
 * Login: `sre-devops@comwork.io`
 * Password: `cloud456`
+
+## Unit testing
+
+For unit tests we are using `Jest`. To run unit tests you can run the following command:
+
+```shell
+npm run test
+```
 
 ## Project architecture
 
@@ -85,6 +100,7 @@ And updating this environment variable: `REACT_APP_APIURL=http://localhost:5002`
 │ └── Pages
 │     ├── Dashboard
 │     ├── Public
+│ └── Tests
 │ └── Themes
 │ └── utils
 │ └── App.js
@@ -92,12 +108,4 @@ And updating this environment variable: `REACT_APP_APIURL=http://localhost:5002`
 │ └── reportWebVitals.js
 │ └── setupTests.js
 ```
-## How to update VERSION file
-In case you are going to contribute to this project (a new feature, a fix etc...) you need to update the VERSION file where you will find the current version of the project.  
-Currently, we are following the `Semantic versioning` which uses a three-part number system: ```MAJOR.MINOR.PATCH```, and follows these rules:
 
-- **MAJOR version**: Incremented when you make incompatible API changes. This indicates that the changes may break backward compatibility with previous versions. Users may need to make modifications to their code to adapt to the new version.
-
-- **MINOR version**: Incremented when you add functionality in a backward-compatible manner. This means new features are introduced, but the existing functionality remains unchanged and compatible with previous versions.
-
-- **PATCH version**: Incremented when you make backward-compatible bug fixes. This implies that the changes fix bugs without affecting the existing functionality or adding new features.
