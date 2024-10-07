@@ -1,12 +1,14 @@
 import React from 'react';
-import classes from './CustomIcon.module.css';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
-import { Tooltip } from '@material-ui/core';
+import CustomIcon from './CustomIcon';
 
-const CustomCopyIcon = (props) => {
-    return <Tooltip title={props.title} placement='bottom'>
-        <ContentCopyOutlinedIcon className={classes.copyIcon + ' copyBtn'} onClick={props.onClick} />
-    </Tooltip>
-}
+const CustomCopyIcon = (props) => (
+    <CustomIcon
+        IconComponent={ContentCopyOutlinedIcon}
+        title={props.title}
+        onClick={props.onClick}
+        iconClass="copyBtn"
+    />
+);
 
 export default CustomCopyIcon

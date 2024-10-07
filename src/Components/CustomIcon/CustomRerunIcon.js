@@ -1,12 +1,14 @@
 import React from 'react';
-import classes from './CustomIcon.module.css';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
-import { Tooltip } from '@material-ui/core';
+import CustomIcon from './CustomIcon';
 
-const CustomRerunIcon = (props) => {
-    return <Tooltip title={props.title} placement='bottom'>
-        <AutorenewOutlinedIcon className={classes.rerunIcon + ' rerunBtn'} onClick={props.onClick} />
-    </Tooltip>
-}
+const CustomRerunIcon = (props) => (
+    <CustomIcon
+        IconComponent={AutorenewOutlinedIcon}
+        title={props.title}
+        onClick={props.onClick}
+        iconClass="rerunBtn"
+    />
+);
 
 export default CustomRerunIcon

@@ -18,7 +18,7 @@ const MarkdownEditor = (props) => {
   });
 
   return (
-    <div className={_mode === 'dark' ? 'dark-mode' : ''}>
+    <div className={`markdown-editor ${_mode === 'dark' ? 'dark-mode' : ''}`}>
       <ReactMde
         value={props.value}
         onChange={props.onChange}

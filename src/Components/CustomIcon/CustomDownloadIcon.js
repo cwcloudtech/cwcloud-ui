@@ -1,14 +1,15 @@
 import React from 'react';
-import classes from './CustomIcon.module.css';
 import DownloadIcon from '@mui/icons-material/Download';
-import { Tooltip } from '@mui/material';
 import counterpart from 'counterpart';
+import CustomIcon from './CustomIcon';
 
-const CustomDownloadIcon = (props) => {
-    return <Tooltip title={counterpart("common.button.download")} placement='bottom'>
-        <DownloadIcon className={classes.downloadIcon + ' downloadBtn'} onClick={props.onClick} />
-    </Tooltip>
-    
-}
+const CustomDownloadIcon = (props) => (
+    <CustomIcon
+        IconComponent={DownloadIcon}
+        title={counterpart("common.button.download")}
+        onClick={props.onClick}
+        iconClass="downloadBtn"
+    />
+);
 
 export default CustomDownloadIcon

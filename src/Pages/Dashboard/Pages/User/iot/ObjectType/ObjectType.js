@@ -13,7 +13,7 @@ import { saveAs } from 'file-saver';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import IOSSwitch from '../../../../../../utils/iosswitch';
 import TriggersTable from '../../../../../../Components/Table/TriggersTable';
-import TriggerModal from '../../../../../../Components/Modal/TriggerModal';
+import TriggerModal from '../../../../../../Components/Modal/InputModals/TriggerModal';
 import CardComponent from '../../../../../../Components/Cards/CardComponent/CardComponent';
 import axios from '../../../../../../utils/axios';
 import { toast } from 'react-toastify';

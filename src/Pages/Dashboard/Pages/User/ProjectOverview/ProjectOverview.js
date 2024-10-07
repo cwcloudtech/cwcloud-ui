@@ -12,7 +12,7 @@ import Fade from '@mui/material/Fade';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton';
 import Translate from 'react-translate-component';
-import TransferProjectModal from '../../../../../Components/Modal/TransferProjectModal';
+import TransferProjectModal from '../../../../../Components/Modal/TransferModals/TransferProjectModal';
 import colors from '../../../../../Context/Colors';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 

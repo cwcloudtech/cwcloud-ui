@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import GlobalContext from "../../Context/GlobalContext";
-import colors from "../../Context/Colors";
+import GlobalContext from "../../../Context/GlobalContext";
+import colors from "../../../Context/Colors";
 
 import {
     Modal,
@@ -12,7 +12,7 @@ import {
     Input,
 } from "reactstrap";
 import Translate from "react-translate-component";
-import LoadingButton from "../LoadingButton/LoadingButton";
+import LoadingButton from "../../LoadingButton/LoadingButton";
 
 const ProtectionModal = (props) => {
     const _mode = useContext(GlobalContext).mode;

@@ -14,7 +14,7 @@ import Translate from 'react-translate-component';
 import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 import colors from '../../../../../Context/Colors';
-import TransferRegistryModal from '../../../../../Components/Modal/TransferRegistryModal'
+import TransferRegistryModal from '../../../../../Components/Modal/TransferModals/TransferRegistryModal'
 import sliceIfNeeded from '../../../../../utils/stringSlice';
 
 function RegistryOverview() {

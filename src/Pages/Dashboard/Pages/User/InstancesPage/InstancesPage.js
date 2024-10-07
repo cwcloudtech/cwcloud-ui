@@ -23,8 +23,8 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import CustomPowerIcon from "../../../../../Components/CustomIcon/CustomPowerIcon";
 import CustomRerunIcon from "../../../../../Components/CustomIcon/CustomRerunIcon";
 import CustomDeleteIcon from "../../../../../Components/CustomIcon/CustomDeleteIcon";
-import RebootModal from "../../../../../Components/Modal/RebootModal";
-import PowerModal from "../../../../../Components/Modal/PowerModal";
+import RebootModal from "../../../../../Components/Modal/ActionModals/RebootModal";
+import PowerModal from "../../../../../Components/Modal/ActionModals/PowerModal";
 
 function InstancesPage(props) {
   const location = useLocation();

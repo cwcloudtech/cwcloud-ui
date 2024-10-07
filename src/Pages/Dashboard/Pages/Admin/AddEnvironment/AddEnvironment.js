@@ -18,9 +18,9 @@ import IOSSwitch from '../../../../../utils/iosswitch';
 import EditorModal from '../../../../../Components/Modal/EditorModal';
 import EditorBox from '../../../../../Components/EditorBox/EditorBox';
 import SubdomainTable from '../../../../../Components/Table/SubdomainTable';
-import SubdomainModal from '../../../../../Components/Modal/SubdomainModal';
+import SubdomainModal from '../../../../../Components/Modal/InputModals/SubdomainModal';
 import useTableArgs from '../../../../../Hooks/subdomain/useSubdomain';
-import ArgModal from '../../../../../Components/Modal/ArgModal';
+import ArgModal from '../../../../../Components/Modal/InputModals/ArgModal';
 import ArgTable from '../../../../../Components/Table/ArgTable';
 
 function AddEnvironment() {

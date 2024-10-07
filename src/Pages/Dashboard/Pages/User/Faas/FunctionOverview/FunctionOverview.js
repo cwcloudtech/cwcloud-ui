@@ -24,9 +24,9 @@ import LoadingButton from '../../../../../../Components/LoadingButton/LoadingBut
 import getSelectedProgrammingLanguage from '../../../../../../utils/language';
 import EditorBox from '../../../../../../Components/EditorBox/EditorBox';
 import WarningModal from '../../../../../../Components/Modal/WarningModal';
-import EnvModal from '../../../../../../Components/Modal/EnvVarModal';
+import EnvModal from '../../../../../../Components/Modal/InputModals/EnvVarModal';
 import EnvTable from '../../../../../../Components/Table/EnvTable';
-import ArgModal from '../../../../../../Components/Modal/ArgModal';
+import ArgModal from '../../../../../../Components/Modal/InputModals/ArgModal';
 import ArgTable from '../../../../../../Components/Table/ArgTable';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';

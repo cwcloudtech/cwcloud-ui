@@ -18,7 +18,7 @@ import DragDropList from "../../../../../../Components/DragDropList/DragDropList
 import EditorBox from "../../../../../../Components/EditorBox/EditorBox";
 import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import LoadingSpinner from "../../../../../../Components/LoadingSpinner/LoadingSpinner";
-import ArgModal from "../../../../../../Components/Modal/ArgModal";
+import ArgModal from "../../../../../../Components/Modal/InputModals/ArgModal";
 import EditorModal from "../../../../../../Components/Modal/EditorModal";
 import ArgTable from "../../../../../../Components/Table/ArgTable";
 import colors from "../../../../../../Context/Colors";

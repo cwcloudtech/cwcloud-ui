@@ -1,14 +1,15 @@
 import React from 'react';
-import classes from './CustomIcon.module.css';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import { Tooltip } from '@mui/material';
 import counterpart from 'counterpart';
+import CustomIcon from './CustomIcon';
 
-const CustomDeleteIcon = (props) => {
-    return <Tooltip title={counterpart("common.button.delete")} placement='bottom'>
-        <DeleteIcon className={classes.deleteIcon + ' deleteBtn'} onClick={props.onClick} />
-    </Tooltip>
-    
-}
+const CustomDeleteIcon = (props) => (
+    <CustomIcon
+        IconComponent={DeleteIcon}
+        title={counterpart("common.button.delete")}
+        onClick={props.onClick}
+        iconClass="deleteBtn"
+    />
+);
 
 export default CustomDeleteIcon

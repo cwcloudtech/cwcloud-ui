@@ -3,8 +3,8 @@ import classes from "./ActionComponent.module.css"
 import axios from '../../../../../../utils/axios';
 import { toast } from 'react-toastify';
 import DeleteModal from '../../../../../../Components/Modal/DeleteModal';
-import PowerHandler from "../../../../../../Components/Modal/PowerModal"
-import RebootModal from "../../../../../../Components/Modal/RebootModal"
+import PowerHandler from "../../../../../../Components/Modal/ActionModals/PowerModal"
+import RebootModal from "../../../../../../Components/Modal/ActionModals/RebootModal"
 import Tooltip from '@mui/material/Tooltip';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import GlobalContext from '../../../../../../Context/GlobalContext';

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import GlobalContext from "../../Context/GlobalContext";
-import colors from "../../Context/Colors";
+import GlobalContext from "../../../Context/GlobalContext";
+import colors from "../../../Context/Colors";
 import {
     Modal,
     ModalHeader,
@@ -10,7 +10,7 @@ import {
     Col,
 } from "reactstrap";
 import Translate from "react-translate-component";
-import LoadingButton from "../LoadingButton/LoadingButton";
+import LoadingButton from "../../LoadingButton/LoadingButton";
 
 const PowerModal = (props) => {
     const context = useContext(GlobalContext);

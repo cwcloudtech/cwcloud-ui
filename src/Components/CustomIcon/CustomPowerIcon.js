@@ -1,12 +1,14 @@
 import React from 'react';
-import classes from './CustomIcon.module.css';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
-import { Tooltip } from '@material-ui/core';
+import CustomIcon from './CustomIcon';
 
-const CustomPowerIcon = (props) => {
-    return <Tooltip title={props.title} placement='bottom'>
-        <PowerSettingsNewOutlinedIcon className={classes.powerIcon + ' powerBtn'} onClick={props.onClick} />
-    </Tooltip>
-}
+const CustomPowerIcon = (props) => (
+    <CustomIcon
+        IconComponent={PowerSettingsNewOutlinedIcon}
+        title={props.title}
+        onClick={props.onClick}
+        iconClass="powerBtn"
+    />
+);
 
 export default CustomPowerIcon

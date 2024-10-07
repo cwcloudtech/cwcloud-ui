@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Translate from "react-translate-component";
-import colors from "../../Context/Colors";
-import GlobalContext from "../../Context/GlobalContext";
+import colors from "../Context/Colors";
+import GlobalContext from "../Context/GlobalContext";
 
 export default function FilterSwitch({
   filters,

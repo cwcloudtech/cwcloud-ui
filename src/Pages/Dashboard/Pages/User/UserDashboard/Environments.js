@@ -11,7 +11,7 @@ import { InputAdornment, TextField } from "@mui/material";
 
 import { useSearchParams } from "react-router-dom";
 import Translate from "react-translate-component";
-import FilterSwitch from "../../../../../Components/FilterSwitch/FilterSwitch";
+import FilterSwitch from "../../../../../Components/FilterSwitch";
 
 const Environments = () => {
   const context = useContext(GlobalContext);

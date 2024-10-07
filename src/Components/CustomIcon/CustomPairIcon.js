@@ -1,13 +1,14 @@
 import React from 'react';
-import classes from './CustomIcon.module.css';
 import TapAndPlayIcon from '@mui/icons-material/TapAndPlay';
-import { Tooltip } from '@mui/material';
+import CustomIcon from './CustomIcon';
 
-const CustomPairIcon = (props) => {
-    return <Tooltip title={props.title} placement='bottom'>
-        <TapAndPlayIcon className={classes.pairIcon + ' pairBtn'} onClick={props.onClick} />
-    </Tooltip>
-    
-}
+const CustomPairIcon = (props) => (
+    <CustomIcon
+        IconComponent={TapAndPlayIcon}
+        title={props.title}
+        onClick={props.onClick}
+        iconClass="pairBtn"
+    />
+);
 
 export default CustomPairIcon
