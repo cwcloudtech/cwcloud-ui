@@ -195,6 +195,10 @@ export const englishLanguage = {
         "can_not_get_helm_charts": "Can not get helm charts from GitLab repository",
         "2fa_deleted": "2FA methods successfully deleted",
         "user_no_2fa_methods": "User has no 2FA methods",
+        "kubeconfig_not_found": "Kubeconfig not found",
+        "cluster_not_found": "Cluster not found",
+        "clusters_not_found": "Clusters not found",
+        "cluster_info_failed": "Cluster info failed",
     },
     common: {
         ok: "OK",
@@ -229,6 +233,7 @@ export const englishLanguage = {
             browseFiles: "Browse files",
             cancel: "Cancel",
             attachFile: "Attach file",
+            seeOnGitlab: "See on Gitlab",
         },
         state: {
             copied: "Copied",
@@ -1429,6 +1434,7 @@ export const englishLanguage = {
                 created_at: "Created",
                 selected_product: "Product",
                 last_update: "Last update",
+                created_by: "Created by",
             },
             message: {
                 message_deleted: "This message has been deleted",
@@ -2162,6 +2168,10 @@ export const englishLanguage = {
             title: "Users",
             createUser: "Create a new user",
             addUser: "Add new user",
+            enabledFeaturesDistribution: "Enabled features distribution",
+            monthlyUserRegistrations: "Monthly user registrations",
+            userRoleDistribution: "User role distribution",
+            statistics: "Statistics",
             table: {
                 id: "ID",
                 email: "Email",
@@ -2427,6 +2437,10 @@ export const frenchLanguage = {
         "can_not_get_charts_from": "Impossible de récupérer les charts depuis le dépôt gitlab",
         "2fa_deleted": "Méthodes MFA/2FA désactivé avec succès",
         "user_no_2fa_methods": "L'utilisateur n'a pas de méthode MFA/2FA",
+        "kubeconfig_not_found": "Kubeconfig introuvable",
+        "cluster_not_found": "Cluster introuvable",
+        "clusters_not_found": "Clusters introuvables",
+        "cluster_info_failed": "Récupération des informations du cluster échouée",
     },
     common: {
         ok: "OK",
@@ -2460,6 +2474,7 @@ export const frenchLanguage = {
             browseFiles: "Parcourir",
             cancel: "Annuler",
             attachFile: "Joindre un fichier",
+            seeOnGitlab: "Voir sur Gitlab",
         },
         state: {
             copied: "Copié",
@@ -3654,6 +3669,7 @@ export const frenchLanguage = {
                 created_at: "Crée",
                 selected_product: "Produit",
                 last_update: "Dernière modification",
+                created_by: "Créé par",
             },
             message: {
                 message_deleted: "Ce message a été supprimé",
@@ -4369,6 +4385,10 @@ export const frenchLanguage = {
             title: "Utilisateurs",
             createUser: "Créer un nouvel utilisateur",
             addUser: "Ajouter un nouvel utilisateur",
+            enabledFeaturesDistribution: "Distribution des fonctionnalités activées",
+            monthlyUserRegistrations: "Inscriptions mensuelles des utilisateurs",
+            userRoleDistribution: "Distribution des rôles des utilisateurs",
+            statistics: "Statistiques",
             table: {
                 id: "ID",
                 email: "E-mail",

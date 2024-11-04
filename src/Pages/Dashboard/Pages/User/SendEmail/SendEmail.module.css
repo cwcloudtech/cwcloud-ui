@@ -1,0 +1,65 @@
+.quillWrapper {
+    width: 100%;
+    height: 500px;
+  }
+  
+  .quillWrapper :global(.ql-toolbar.ql-snow) {
+    background-color: #f8f9fa;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-color: #ccc;
+  }
+  
+  .quillWrapper.darkMode :global(.ql-toolbar.ql-snow) {
+    background-color: #2c3338;
+    border-color: #454545;
+  }
+  
+  .quillWrapper.darkMode :global(.ql-toolbar.ql-snow .ql-formats) {
+    border-radius: 3px;
+  }
+  
+  .quillWrapper.darkMode :global(.ql-snow .ql-stroke) {
+    stroke: #fff;
+  }
+  
+  .quillWrapper.darkMode :global(.ql-snow .ql-fill) {
+    fill: #fff;
+  }
+  
+  .quillWrapper.darkMode :global(.ql-snow .ql-picker) {
+    color: #fff;
+  }
+  
+  .quillWrapper.darkMode :global(.ql-snow .ql-picker-options) {
+    background-color: #2c3338;
+    border-color: #454545;
+  }
+  
+  .quillWrapper :global(.ql-container.ql-snow) {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-color: #ccc;
+    height: calc(500px - 42px) !important;
+  }
+  
+  .quillWrapper.darkMode :global(.ql-container.ql-snow) {
+    border-color: #454545;
+  }
+  
+  .quillWrapper :global(.ql-editor) {
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .quillWrapper.darkMode :global(.ql-editor) {
+    background-color: #31373D;
+    color: #fff;
+  }
+  
+  .rowContainer {
+    margin-top: 30px;
+    margin-bottom: 90px;
+    margin-left: 0;
+    margin-right: 0;
+  }

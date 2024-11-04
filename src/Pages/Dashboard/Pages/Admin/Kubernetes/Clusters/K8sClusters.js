@@ -86,7 +86,8 @@ export default function K8sClusters(props) {
       setLoading(false);
     })
       .catch((err) => {
-        navigate("/notfound");
+        setLoading(false);
+        console.error(err)
       });
   }, [navigate]);
 

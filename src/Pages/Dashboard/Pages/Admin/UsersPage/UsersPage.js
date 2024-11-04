@@ -3,10 +3,11 @@ import CardComponent from "../../../../../Components/Cards/CardComponent/CardCom
 import { Row, Col } from "reactstrap";
 import classes from "./UsersPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { TextField } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, TextField } from "@mui/material";
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import Tooltip from '@mui/material/Tooltip';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
@@ -19,6 +20,7 @@ import updateList from "../../../../../utils/update";
 import DataTable from '../../../../../Components/Table/DataTable';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import UserAnalytics from '../../../../../Components/Charts/UserAnalytics';
 
 function UsersPage(props) {
     const context = useContext(GlobalContext);
@@ -75,8 +77,16 @@ function UsersPage(props) {
     return (
         <CardComponent
             containerStyles={props.containerStyles}
-            title={context.counterpart('dashboard.usersPage.title')}
+            title={`${context.counterpart('dashboard.usersPage.title')} (${filtredUsers.length})`}
         >
+            <Accordion style={{marginBottom: '40px'}}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Translate content="dashboard.usersPage.statistics" />
+                </AccordionSummary>
+                <AccordionDetails>
+                     <UserAnalytics users={users} />
+                </AccordionDetails>
+            </Accordion>
             <Row>
                 <Col>
                     <div style={{ paddingBottom: "20px"  }} className="envCreation">

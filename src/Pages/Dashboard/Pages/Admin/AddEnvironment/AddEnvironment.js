@@ -82,7 +82,7 @@ function AddEnvironment() {
         axios.post(`/admin/environment`, { ...environment, roles: selectedRoles })
             .then(response => {
                 setLoadingSubmit(false)
-                navigate('/environment/overview')
+                navigate('/admin/environment/overview')
                 toast.success(context.counterpart('dashboard.addEnvironement.message.successAdd'))
             }).catch(err => {
                 setLoadingSubmit(false)

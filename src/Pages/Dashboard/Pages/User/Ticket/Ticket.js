@@ -4,7 +4,7 @@ import '../../../../../common.css';
 import { Row, Col } from "reactstrap";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import axios from "../../../../../utils/axios";
-import { Box, Chip, MenuItem, Select} from '@mui/material';
+import { MenuItem, Select } from '@mui/material';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import TicketReply from '../../../../../Components/TicketReply/TicketReply';
@@ -14,9 +14,9 @@ import formateDate from '../../../../../utils/FormateDate';
 import { isBlank, sortObjectsByDate } from '../../../../../utils/common';
 import { BarLoader } from 'react-spinners';
 import TicketDescription from '../../../../../Components/TicketReply/TicketDescription';
-import GetAppIcon from '@mui/icons-material/GetApp';
 import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import MarkdownEditor from '../../../../../Components/MarkdownEditor/MarkdownEditor';
+import Attachments from '../../../../../Components/Attachments';
 
 function Ticket() {
     const context = useContext(GlobalContext)
@@ -25,7 +25,6 @@ function Ticket() {
     const currentPath = location.pathname
     const is_admin = currentPath.includes('admin')
     const nextPath = is_admin ? '/admin/support' : '/support'
-    const [hoveredChip, setHoveredChip] = useState(null);
     const { ticketId } = useParams()
     const [ticket, setTicket] = useState(null)
     const [loadingReply, setLoadingReply] = useState(false)
@@ -196,8 +195,7 @@ function Ticket() {
                     }
                 </Col>
             </Row>
-            {
-                ticket.attachments && ticket.attachments.length > 0 &&
+            {ticket.attachments && ticket.attachments.length > 0 && (
                 <Row className="pt-1">
                     <Col className='pt-2' md="12">
                         <h3 style={{ fontSize: '18px', fontWeight: '400', color: colors.title[_mode] }}>
@@ -205,28 +203,15 @@ function Ticket() {
                         </h3>
                     </Col>
                     <Col>
-                        <Box display="flex" flexWrap="wrap" gap={1}>
-                            {ticket.attachments.map((attachment, index) => (
-                                <Chip
-                                    color="primary"
-                                    label={
-                                        hoveredChip === index ? (
-                                            <GetAppIcon /> 
-                                        ) : (
-                                            attachment.name
-                                        )
-                                    }
-                                    key={index}
-                                    onMouseEnter={() => setHoveredChip(index)}
-                                    onMouseLeave={() => setHoveredChip(null)}
-                                    onClick={() => downloadFile(attachment)}
-                                    onDelete={is_admin || attachment.has_rights ? () => preDeleteFile(attachment) : undefined}
-                                />
-                            ))}
-                        </Box>
+                        <Attachments
+                            ticket={ticket} 
+                            is_admin={is_admin} 
+                            downloadFile={downloadFile} 
+                            preDeleteFile={preDeleteFile} 
+                        />
                     </Col>
                 </Row>
-            }
+            )}
             <Row>
                 <Col>
                     <Row>

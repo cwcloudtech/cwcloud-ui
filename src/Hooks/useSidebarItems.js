@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import GlobalContext from "../Context/GlobalContext";
-import { isTrue } from "../utils/common";
+import { isFalse, isTrue } from "../utils/common";
 
 export function useSidebarItems() {
   const context = useContext(GlobalContext);
@@ -393,8 +393,7 @@ export function useSidebarItems() {
           path: "/admin/vouchers/create",
         },
       ],
-      condition:
-        !process.env.REACT_APP_DISABLE_PAYMENT_FEATURE.includes("false"),
+      condition: isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE),
     },
     {
       id: "/admin/invoice",
@@ -423,8 +422,7 @@ export function useSidebarItems() {
           path: "/admin/invoice/edition",
         },
       ],
-      condition:
-        !process.env.REACT_APP_DISABLE_PAYMENT_FEATURE.includes("false"),
+      condition: isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE),
     },
   ];
 

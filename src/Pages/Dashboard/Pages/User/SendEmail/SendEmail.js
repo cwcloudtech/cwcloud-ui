@@ -159,19 +159,15 @@ function SendEmail() {
                         </Col>
                     </Row>
                 }
-                <Row className={classes.rowContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: '20px' }}>
+                <Row className={classes.rowContainer}>
                     <Col md="12">
+                        <div className={`${classes.quillWrapper} ${_mode === 'dark' ? classes.darkMode : ''}`}>
                         <ReactQuill
-                            style={{
-                                width: "100%",
-                                height: "500px",
-                                color: _mode === 'dark' ? '#fff' : '#000',
-                                backgroundColor: _mode === 'dark' ? '#31373D' : '#fff'
-                              }}
                             value={email.content || ''}
                             modules={quillConfig}
                             onChange={v => setEmail({ ...email, content: v })}
                         />
+                        </div>
                     </Col>
                 </Row>
                 <Row>

@@ -21,10 +21,13 @@ const DeleteModal = (props) => {
     }, [props.isOpen])
     const inputChangeHandler = (e) => {
         if (e.key === 'Enter') {
-            if (props.multi)
-                props.onMultiDelete()
-            else
-                props.onDelete()
+            if (!checkDisabledButton()) {
+                if (props.multi) {
+                    props.onMultiDelete()
+                } else {
+                    props.onDelete()
+                }
+            }
         }
     }
     const checkDisabledButton = () => {

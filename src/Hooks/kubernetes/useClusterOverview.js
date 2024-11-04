@@ -72,7 +72,11 @@ function useClusterOverview(props) {
             setDeployments(res.data.deployments);
             setLoading(false);
         }).catch((err) => {
-            navigate("/notfound");
+            setLoading(false);
+            console.error(err);
+            setTimeout(() => {
+                navigate("/kubernetes/clusters");
+            }, 5000);
         });
     }
 

@@ -21,6 +21,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CustomEditIcon from '../../../../../Components/CustomIcon/CustomEditIcon';
 import TicketModal from '../../../../../Components/Modal/TicketModal';
+import counterpart from 'counterpart';
+import CustomLinkIcon from '../../../../../Components/CustomIcon/CustomLinkIcon';
 
 function ManageSupport() {
     const context = useContext(GlobalContext);
@@ -72,6 +74,19 @@ function ManageSupport() {
         }
     }
 
+    const getUsername = (user_id) => {
+        const user = users.find(user => user.id === user_id)
+        return user ? user.email : ""
+    }
+
+    //? Currently this function is only dedicated for Comwork Cloud PPD and Prod platforms
+    const checkTicketOnGitlab = (gitlab_issue_id) => {
+        const gitlab_url = process.env.REACT_APP_APIURL ? "https://gitlab.comwork.io" : "https://gitlab.com"
+        if (gitlab_url.includes("comwork")) {
+            const ticket_url = `${gitlab_url}/comwork/infrastructure/comwork-cloud-ui/-/issues/${gitlab_issue_id}`
+            window.open(ticket_url, "_blank")
+        }
+    }
     useEffect(() => {
         fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,6 +109,12 @@ function ManageSupport() {
         { field: 'selected_product', headerName: context.counterpart("dashboard.support.table.selected_product"), width: 100 },
         { field: 'created_at', headerName: context.counterpart("dashboard.support.table.created_at"), width: 150, renderCell: (params) => formateDate(params.row.created_at) },
         { field: 'last_update', headerName: context.counterpart("dashboard.support.table.last_update"), width: 150, renderCell: (params) => formateDate(params.row.created_at) },
+        ...(is_admin ? [{
+            field: 'created_by', 
+            headerName: context.counterpart("dashboard.support.table.created_by"), 
+            width: 200, 
+            renderCell: (params) => getUsername(params.row.user_id)
+        }] : []),
         {
             field: 'status', headerName: 'Status', width: 200, renderCell: (params) => {
                 if (params.row.status === "await customer")
@@ -134,11 +155,24 @@ function ManageSupport() {
                     e.stopPropagation();
                     onPreUpdateHandler(params.id)
                 };
+                const onNavigate = (e) => {
+                    e.stopPropagation();
+                    checkTicketOnGitlab(params.row.gitlab_issue_id)
+                }
+                const showGitlabLink = is_admin && process.env.REACT_APP_APIURL?.includes("comwork");
                 return (
                     <React.Fragment>
                         {
-                            is_admin && 
-                            <CustomDeleteIcon onClick={onDelete} />
+                            is_admin &&
+                            <>
+                                <CustomDeleteIcon onClick={onDelete} style={{ marginRight: '10px' }} />
+                                {showGitlabLink && (
+                                    <CustomLinkIcon 
+                                        onClick={onNavigate} 
+                                        title={counterpart("common.button.seeOnGitlab")} 
+                                    />
+                                )}
+                            </>
                         }
                         <CustomEditIcon onClick={onUpdate} />
                     </React.Fragment>
@@ -271,7 +305,7 @@ function ManageSupport() {
                 loading={loadingDelete} />
             <AddTicketModal isAdmin={is_admin} isOpen={showAddTicketModal} envs={environments} users={users} toggle={() => setShowAddTicketModal(!showAddTicketModal)} onSave={addTicketHandler} loading={loadingSubmit} />
             {
-                selectedTicket && <TicketModal isOpen={showTicketModal} ticket={selectedTicket} nvs={environments} users={users} onUpdate={onUpdateHandler} loading={loading} toggle={() => setShowTicketModal(!showTicketModal)} />
+                selectedTicket && <TicketModal isOpen={showTicketModal} ticket={selectedTicket} envs={environments} users={users} onUpdate={onUpdateHandler} loading={loading} toggle={() => setShowTicketModal(!showTicketModal)} />
             }
             <Row style={{ marginTop: '10px', marginBottom: '20px' }}>
                 <Col>
