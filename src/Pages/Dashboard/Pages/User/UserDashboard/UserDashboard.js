@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import colors from "../../../../../Context/Colors";
 import GlobalContext from "../../../../../Context/GlobalContext";
+import { isFalse } from "../../../../../utils/common";
 import axios from "../../../../../utils/axios";
 import EnvironmentSection from "./EnvironmentSection/EnvironmentSection";
 import ResourceItem from "./ResourceItem/ResourceItem";
@@ -54,7 +55,7 @@ const UserDashboard = () => {
   });
   const navigate = useNavigate();
   const showConsumptionsChart =
-    process.env.REACT_APP_DISABLE_PAYMENT_FEATURE.includes("false") &&
+    isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE) &&
     context.user.enabled_features.daasapi;
   const resourceItemStyle = showConsumptionsChart
     ? {}

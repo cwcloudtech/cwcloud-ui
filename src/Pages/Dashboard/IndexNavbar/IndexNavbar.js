@@ -15,6 +15,7 @@ import LanguageDropdown from "../../../Components/Dropdown/LanguageDropdown";
 import SelectDropdown from "../../../Components/Dropdown/SelectDropdown";
 import colors from "../../../Context/Colors";
 import GlobalContext from "../../../Context/GlobalContext";
+import { isFalse } from "../../../utils/common";
 import axios from "../../../utils/axios";
 import localStorage from "../../../utils/localStorageService";
 import srcimage from "../../../utils/regions";
@@ -297,9 +298,7 @@ function IndexNavbar() {
                   </h5>
                 </div>
               </DropdownItem>
-              {process.env.REACT_APP_DISABLE_PAYMENT_FEATURE.includes(
-                "false"
-              ) && (
+              {isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE) && (
                 <DropdownItem
                   onClick={() => {
                     navigate("/vouchers");
@@ -320,9 +319,7 @@ function IndexNavbar() {
                   </div>
                 </DropdownItem>
               )}
-              {process.env.REACT_APP_DISABLE_PAYMENT_FEATURE.includes(
-                "false"
-              ) && (
+              {isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE) && (
                 <DropdownItem
                   onClick={() => {
                     navigate("/billing");

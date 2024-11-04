@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, Fragment } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import axios from '../../../../../../utils/axios';
-import { isBlank } from '../../../../../../utils/common';
+import { isBlank, isFalse } from '../../../../../../utils/common';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
 import { Col, Container, Row } from 'reactstrap';
@@ -223,7 +223,7 @@ function PaymentComponent() {
                     </Tooltip>
                 </div>
             }
-            {process.env.REACT_APP_DISABLE_STRIPE_FEATURE.includes("false") && <Fragment>
+            {isFalse(process.env.REACT_APP_DISABLE_STRIPE_FEATURE) && <Fragment>
                 <Row style={{ marginTop: '10px', marginBottom: '10px' }}>
                     <Col>
                         <h2 className="mainTitleText" style={{color: colors.title[_mode]}}>

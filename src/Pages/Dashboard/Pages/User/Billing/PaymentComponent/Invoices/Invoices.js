@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Col, Row, Container, Spinner } from "reactstrap"
 // import classes from "./Invoices.module.css"
 import '../../../../../../../common.css'
+import { isFalse } from "../../../../../../../utils/common";
 import axios from "../../../../../../../utils/axios";
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -83,7 +84,7 @@ function Invoices(props) {
         {
             field: 'pay', headerName: counterpart("dashboard.invoicesPage.table.pay"), width: 200, renderCell: (params) => {
                 if (params.row.status === 'unpaid'
-                    && process.env.REACT_APP_DISABLE_PAYMENT_BUTTON.includes("false"))
+                    && isFalse(process.env.REACT_APP_DISABLE_PAYMENT_BUTTON))
                     return (
                         <LoadingButton loading={props.loadingPaymentInvoice === params.row.ref} onClick={() => prePayInvoiceHandler(params.row.ref)}>Pay</LoadingButton>
                     )

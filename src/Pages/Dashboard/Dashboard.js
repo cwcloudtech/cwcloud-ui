@@ -5,6 +5,7 @@ import IndexNavbar from "./IndexNavbar/IndexNavbar";
 import { SidebarProvider } from "../../Context/SidebarContext";
 import classes from "./Dashboard.module.css";
 import { toast } from "react-toastify";
+import { isFalse } from "../../utils/common";
 import AddInstance from "./Pages/User/AddInstance/AddInstance";
 import AddProject from "./Pages/User/AddProject/AddProject";
 import AttachInstance from "./Pages/User/AttachInstance/AttachInstance";
@@ -425,9 +426,7 @@ function Dashboard() {
                     </Route>
                   </Route>
                 </Route>
-                {process.env.REACT_APP_DISABLE_PAYMENT_FEATURE.includes(
-                  "false"
-                ) && (
+                {isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE) && (
                   <React.Fragment>
                     <Route exact path="/billing" element={<Billing />} />
                     <Route
