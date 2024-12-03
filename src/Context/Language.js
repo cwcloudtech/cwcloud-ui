@@ -2349,7 +2349,7 @@ export const englishLanguage = {
                     placeholder: "Select a type for this monitor",
                 },
                 expectedContain: {
-                    title: "Response body contain",
+                    title: "Response body contains",
                     placeholder: "Enter an expected response body extract",
                 },
                 authentification: {
