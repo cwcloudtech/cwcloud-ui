@@ -278,6 +278,20 @@ function Drawer(props) {
                                     })}
                                 />
                             </ListItem>
+                            <ListItem >
+                                <FormControlLabel
+                                    label={"Monitor API"}
+                                    control={<Switch sx={{ m: 1 }} checked={props.user.enabled_features.monitorapi}
+                                    />}
+                                    onChange={(e) => props.setUser({
+                                        ...props.user,
+                                        enabled_features: {
+                                            ...props.user.enabled_features,
+                                            monitorapi: e.target.checked
+                                        }
+                                    })}
+                                />
+                            </ListItem>
                             </>
                         }
                         <ListItem style={{ display: "block" }}>

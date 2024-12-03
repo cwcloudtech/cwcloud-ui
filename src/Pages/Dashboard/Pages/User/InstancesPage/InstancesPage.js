@@ -64,6 +64,11 @@ function InstancesPage(props) {
       width: 200,
     },
     {
+      field: "ip_address",
+      headerName: counterpart("dashboard.instancesPage.table.ip_address"),
+      width: 200,
+    },
+    {
       field: "type",
       headerName: counterpart("dashboard.instancesPage.table.size"),
       width: 100,
@@ -182,12 +187,13 @@ function InstancesPage(props) {
   };
 
   const filterInstances = (e) => {
-    const searchQuery = e.target.value.trim();
+    const searchQuery = e.target.value.trim().toLowerCase();
     if (isBlank(searchQuery)) {
       setFiltredInstances(instances);
     } else {
-      var filtredInstances = instances.filter((instances) =>
-        instances.name.includes(searchQuery)
+      const filtredInstances = instances.filter((instance) => 
+        instance.name.toLowerCase().includes(searchQuery) || 
+        instance.ip_address?.toLowerCase().includes(searchQuery)
       );
       setFiltredInstances(filtredInstances);
     }
@@ -334,7 +340,7 @@ function InstancesPage(props) {
             <TextField
               onChange={(e) => filterInstances(e)}
               label={counterpart(
-                "dashboard.addInstance.inputs.name.placeholder"
+                "dashboard.addInstance.inputs.search.placeholder"
               )}
               InputProps={{
                 startAdornment: (

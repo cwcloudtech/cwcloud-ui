@@ -199,6 +199,18 @@ export const englishLanguage = {
         "cluster_not_found": "Cluster not found",
         "clusters_not_found": "Clusters not found",
         "cluster_info_failed": "Cluster info failed",
+        "invalid_severity": "Invalid severity",
+        "invalid_ticket_reply_id": "Invalid ticket or reply id",
+        "ticket_not_found": "Ticket not found",
+        "ticket_deleted_successfully": "Ticket deleted successfully",
+        "ticket_status_updated_successfully": "Ticket status updated successfully",
+        "monitor_not_found": "Monitor not found",
+        "max_monitors_reached": "Max monitors reached",
+        "monitor_created": "Monitor created",
+        "monitor_updated": "Monitor updated",
+        "monitor_deleted": "Monitor deleted",
+        "monitor_check_failed": "Monitor check failed",
+        "invalid_http_status_code": "Invalid http status code",
     },
     common: {
         ok: "OK",
@@ -257,6 +269,7 @@ export const englishLanguage = {
             invalidEmail: "Invalid email",
             copied: "Copied",
             warning: "Warning",
+            errorFetchingUsers: "Error fetching users",
         },
         table: {
             emptyRowsMessage: "No data available"
@@ -503,6 +516,11 @@ export const englishLanguage = {
             addObjectType: "Add object type",
             addDevice: "Add device",
             addData: "Add data",
+        },
+        observability: {
+            title: "Observability",
+            monitors: "Monitors",
+            addMonitor: "Add monitor",
         }
     },
     dashboard: {
@@ -1004,6 +1022,10 @@ export const englishLanguage = {
             mainTitle: "Create new instance",
             back: "Back to instances",
             inputs: {
+                search: {
+                    title: "Search for an instance",
+                    placeholder: "Instance name or IP address"
+                },
                 name: {
                     title: "Choose your instance name",
                     subtitle: "You must enter your project name.",
@@ -1527,6 +1549,7 @@ export const englishLanguage = {
             table: {
                 id: "ID",
                 name: "Name",
+                ip_address: "IP Address",
                 size: "Size",
                 status: "Status",
                 created: "Created",
@@ -2244,6 +2267,130 @@ export const englishLanguage = {
                 successUpdate: "User successfully updated"
             }
         },
+        monitor: {
+            name: "Name",
+            back: "Back to monitors",
+            details: "Monitor details",
+            is_active: "Is active",
+            addNewMonitor: "Add new monitor",
+            optionalSettings: "Optional settings",
+            monitorOverview: "Monitor overview",
+            title: {
+                overview: "Overview",
+            },
+            overview: {
+                mainTitle: "Monitors",
+            },
+            table: {
+                name: "Name",
+                type: "Type",
+                url: "URL",
+                status: "Status",
+                lastCheck: "Last check",
+                actions: "Actions",
+                method: "Method",
+                timeout: "Timeout",
+                ownedBy: "Owned by",
+                responseTime: "Response time",
+            },
+            message: {
+                successCopyId: "Monitor ID copied to clipboard",
+                errorFetchMonitors: "Couldn't fetch monitors",
+                successDelete: "Monitor successfully deleted",
+                errorDelete: "Couldn't delete monitor",
+                successDeleteMultiple: "Monitors successfully deleted",
+                emptyMessage: "There is no monitors to display right now",
+                createMessage: "Create your first monitor",
+                unsavedChangesWarning: "You have unsaved changes, are you sure you want to leave?",
+                errorLoading: "Couldn't load the monitor",
+                successUpdate: "Monitor successfully updated",
+                errorUpdate: "Couldn't update monitor",
+                nameAndUrlRequired: "Name and URL are required",
+                monitorCreated: "Monitor successfully created",
+                errorCreatingMonitor: "Couldn't create monitor",
+                errorFetchingMonitor: "Couldn't fetch monitor",
+                monitorUpdated: "Monitor successfully updated",
+                errorUpdatingMonitor: "Couldn't update monitor",
+                userRequired: "User is required",
+            },
+            actions: {
+                copyId: "Copy ID",
+            },
+            inputs: {
+                name: {
+                    title: "Name",
+                    placeholder: "Enter a name for this monitor",
+                },
+                url: {
+                    title: "URL",
+                    placeholder: "Enter the URL for this monitor",
+                },
+                method: {
+                    title: "Method",
+                    placeholder: "Select a method for this monitor",
+                },
+                requestConfiguration: {
+                    title: "Request configuration",
+                },
+                expectedHttpCode: {
+                    title: "Expected HTTP code",
+                    placeholder: "Enter the expected HTTP code for this monitor",
+                },
+                timeout: {
+                    title: "Timeout (Seconds)",
+                    placeholder: "Enter the timeout for this monitor",
+                },
+                description: {
+                    title: "Description",
+                    placeholder: "Enter a description for this monitor",
+                },
+                type: {
+                    title: "Type",
+                    placeholder: "Select a type for this monitor",
+                },
+                expectedContain: {
+                    title: "Expected configuration",
+                    placeholder: "Enter the expected configuration for this monitor",
+                },
+                authentification: {
+                    title: "Authentification",
+                },
+                username: {
+                    title: "Username",
+                    placeholder: "Enter the username for this monitor",
+                },
+                password: {
+                    title: "Password",
+                    placeholder: "Enter the password for this monitor",
+                },
+                headers: {
+                    title: "Headers",
+                    placeholder: "Enter the headers for this monitor",
+                    noHeaders: "No headers",
+                    addHeader: "Add header",
+                    editHeader: "Edit header",
+                },
+                headerName: {
+                    title: "Header name",
+                    placeholder: "Enter the header name for this monitor",
+                },
+                headerValue: {
+                    title: "Header value",
+                    placeholder: "Enter the header value for this monitor",
+                },
+                owner: {
+                    title: "Owner",
+                    placeholder: "Select an owner for this monitor",
+                },
+                body: {
+                    title: "Body",
+                    placeholder: "Enter the body for the request",
+                }
+            },
+            buttons: {
+                addHeader: "Add header",
+            }
+        },
         pageNotFound: {
             message: "Page not found",
             description: "The page you are looking for does not exist"
@@ -2441,6 +2588,18 @@ export const frenchLanguage = {
         "cluster_not_found": "Cluster introuvable",
         "clusters_not_found": "Clusters introuvables",
         "cluster_info_failed": "Récupération des informations du cluster échouée",
+        "invalid_severity": "Gravité non valide",
+        "invalid_ticket_reply_id": "ID de réponse ou ticket non valide",
+        "ticket_not_found": "Ticket introuvable",
+        "ticket_deleted_successfully": "Ticket supprimé avec succès",
+        "ticket_status_updated_successfully": "Statut du ticket mis à jour avec succès",
+        "monitor_not_found": "Monitor introuvable",
+        "max_monitors_reached": "Nombre maximum de monitors atteint",
+        "monitor_created": "Monitor créé",
+        "monitor_updated": "Monitor mis à jour",
+        "monitor_deleted": "Monitor supprimé",
+        "monitor_check_failed": "Vérification du monitor échouée",
+        "invalid_http_status_code": "Code HTTP invalide",
     },
     common: {
         ok: "OK",
@@ -2498,6 +2657,7 @@ export const frenchLanguage = {
             pleaseEnterAnEmail: "Veuillez entrer un email",
             copied: "Copié",
             warning: "Attention",
+            errorFetchingUsers: "Erreur lors de la récupération des utilisateurs",
         },
         table: {
             emptyRowsMessage: "Pas de données disponibles"
@@ -2744,6 +2904,11 @@ export const frenchLanguage = {
             addObjectType: "Ajouter un type d'objet",
             addDevice: "Ajouter un device",
             addData: "Ajouter des données",
+        },
+        observability: {
+            title: "Observabilité",
+            monitors: "Moniteurs",
+            addMonitor: "Ajouter un moniteur",
         }
     },
     dashboard: {
@@ -3244,6 +3409,10 @@ export const frenchLanguage = {
             mainTitle: "Créer une nouvelle instance",
             back: "Retour aux instances",
             inputs: {
+                search: {
+                    title: "Rechercher un instance",
+                    placeholder: "Nom ou l'IP d'une instance"
+                },
                 name: {
                     title: "Choisissez le nom de votre instance",
                     subtitle: "Vous devez saisir le nom de votre projet.",
@@ -3762,6 +3931,7 @@ export const frenchLanguage = {
             table: {
                 id: "ID",
                 name: "Nom",
+                ip_address: "Adresse IP",
                 size: "Taille",
                 status: "État",
                 created: "Créé",
@@ -4461,6 +4631,130 @@ export const frenchLanguage = {
                 successUpdate: "L'utilisateur a été mis à jour avec succès"
             }
         },
+        monitor: {
+            name: "Nom",
+            back: "Retour aux moniteurs",
+            details: "Détails du moniteur",
+            is_active: "Est actif",
+            addNewMonitor: "Ajouter un nouveau moniteur",
+            optionalSettings: "Paramètres optionnels",
+            monitorOverview: "Vue d'ensemble du moniteur",
+            title: {
+                overview: "Aperçu",
+            },
+            overview: {
+                mainTitle: "Moniteurs",
+            },
+            table: {
+                name: "Nom",
+                type: "Type",
+                url: "URL",
+                status: "Statut",
+                lastCheck: "Dernière vérification",
+                actions: "Actions",
+                method: "Méthode",
+                timeout: "Délai",
+                ownedBy: "Propriétaire",
+                responseTime: "Temps de réponse",
+            },
+            message: {
+                successCopyId: "ID du moniteur copié dans le presse-papiers",
+                errorFetchMonitors: "Impossible de récupérer les moniteurs",
+                successDelete: "Moniteur supprimé avec succès",
+                errorDelete: "Impossible de supprimer le moniteur",
+                successDeleteMultiple: "Moniteurs supprimés avec succès",
+                emptyMessage: "Aucun moniteur à afficher pour le moment",
+                createMessage: "Créez votre premier moniteur",
+                unsavedChangesWarning: "Vous avez des modifications non enregistrées, êtes-vous sûr de vouloir quitter ?",
+                errorLoading: "Impossible de charger le moniteur",
+                successUpdate: "Moniteur mis à jour avec succès",
+                errorUpdate: "Impossible de mettre à jour le moniteur",
+                nameAndUrlRequired: "Nom et URL sont requis",
+                monitorCreated: "Moniteur créé avec succès",
+                errorCreatingMonitor: "Impossible de créer le moniteur",
+                errorFetchingMonitor: "Impossible de récupérer le moniteur",
+                monitorUpdated: "Moniteur mis à jour avec succès",
+                errorUpdatingMonitor: "Impossible de mettre à jour le moniteur",
+                userRequired: "L'utilisateur est requis",
+            },
+            actions: {
+                copyId: "Copier l'ID",
+            },
+            inputs: {
+                name: {
+                    title: "Nom",
+                    placeholder: "Entrez un nom pour ce moniteur",
+                },
+                url: {
+                    title: "URL",
+                    placeholder: "Entrez l'URL pour ce moniteur",
+                },
+                method: {
+                    title: "Méthode",
+                    placeholder: "Sélectionnez une méthode pour ce moniteur",
+                },
+                requestConfiguration: {
+                    title: "Configuration de la requête",
+                },
+                expectedHttpCode: {
+                    title: "Code HTTP attendu",
+                    placeholder: "Entrez le code HTTP attendu pour ce moniteur",
+                },
+                timeout: {
+                    title: "Délai (Secondes)",
+                    placeholder: "Entrez le délai pour ce moniteur",
+                },
+                description: {
+                    title: "Description",
+                    placeholder: "Entrez une description pour ce moniteur",
+                },
+                type: {
+                    title: "Type",
+                    placeholder: "Sélectionnez un type pour ce moniteur",
+                },
+                expectedContain: {
+                    title: "Configuration attendue",
+                    placeholder: "Entrez la configuration attendue pour ce moniteur",
+                },
+                authentification: {
+                    title: "Authentification",
+                },
+                username: {
+                    title: "Nom d'utilisateur",
+                    placeholder: "Entrez le nom d'utilisateur pour ce moniteur",
+                },
+                password: {
+                    title: "Mot de passe",
+                    placeholder: "Entrez le mot de passe pour ce moniteur",
+                },
+                headers: {
+                    title: "En-têtes",
+                    placeholder: "Entrez les en-têtes pour ce moniteur",
+                    noHeaders: "Aucun en-tête",
+                    addHeader: "Ajouter un en-tête",
+                    editHeader: "Modifier l'en-tête",
+                },
+                headerName: {
+                    title: "Nom de l'en-tête",
+                    placeholder: "Entrez le nom de l'en-tête pour ce moniteur",
+                },
+                headerValue: {
+                    title: "Valeur de l'en-tête",
+                    placeholder: "Entrez la valeur de l'en-tête pour ce moniteur",
+                },
+                owner: {
+                    title: "Propriétaire",
+                    placeholder: "Sélectionnez un propriétaire pour ce moniteur",
+                },
+                body: {
+                    title: "Body",
+                    placeholder: "Entrez le body pour la requête",
+                }
+            },
+            buttons: {
+                addHeader: "Ajouter un en-tête",
+            }
+        },        
         pageNotFound: {
             message: "Page introuvable",
             description: "La page que vous recherchez n'existe pas"

@@ -82,6 +82,9 @@ import Environments from "./Pages/User/UserDashboard/Environments";
 import AddDnsRecord from "./Pages/Admin/AdminDnsRecords/Create/AddDnsRecord";
 import AdminDnsOverview from "./Pages/Admin/AdminDnsRecords/Overview/AdminDnsOverview";
 import { Box } from "@mui/material";
+import AddMonitor from "./Pages/User/Observability/AddMonitor/AddMonitor";
+import Monitors from "./Pages/User/Observability/Monitors/Monitors";
+import MonitorOverview from "./Pages/User/Observability/MonitorOverview/MonitorOverview";
 
 function Dashboard() {
   const _mode = useContext(GlobalContext).mode;
@@ -251,6 +254,9 @@ function Dashboard() {
                   element={<Device />}
                 />
                 <Route exact path="/admin/iot/add/data" element={<AddData />} />
+                <Route exact path="/admin/monitors" element={<Monitors />} />
+                <Route exact path="/admin/monitor/add" element={<AddMonitor />} />
+                <Route exact path="/admin/monitor/:id" element={<MonitorOverview />} />
                 <Route
                   exact
                   path="/admin/environment/overview"
@@ -367,6 +373,9 @@ function Dashboard() {
                 />
                 <Route exact path="/iot/add/device" element={<Device />} />
                 <Route exact path="/iot/add/data" element={<AddData />} />
+                <Route exact path="/monitors" element={<Monitors />} />
+                <Route exact path="/monitor/add" element={<AddMonitor />} />
+                <Route exact path="/monitor/:id" element={<MonitorOverview />} />
                 <Route exact path="/cwai" element={<CwaiChat />} />
                 <Route exact path="/email" element={<SendEmail />} />
                 <Route exact path="/k8s-applications">

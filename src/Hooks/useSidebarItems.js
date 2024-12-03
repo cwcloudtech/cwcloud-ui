@@ -128,6 +128,28 @@ export function useSidebarItems() {
       condition: isTrue(context.user.enabled_features.iotapi),
     },
     {
+      id: "/monitors",
+      items: [
+        "/monitors",
+        "/monitors/add"
+      ],
+      titleKey: "sidebar.observability.title",
+      iconClass: "fa-eye",
+      children: [
+        {
+          id: "/monitors",
+          titleKey: "sidebar.observability.monitors",
+          path: "/monitors",
+        },
+        {
+          id: "/monitor/add",
+          titleKey: "sidebar.observability.addMonitor",
+          path: "/monitor/add",
+        },
+      ],
+      condition: isTrue(context.user.enabled_features.monitorapi),
+    },
+    {
       id: "/email",
       items: ["/email"],
       titleKey: "sidebar.manageEmails.title",
@@ -368,6 +390,28 @@ export function useSidebarItems() {
           path: "/admin/iot/add/data",
         },
       ],
+    },
+    {
+      id: "/admin/monitors",
+      items: [
+        "/admin/monitors",
+        "/admin/monitors/add"
+      ],
+      titleKey: "sidebar.observability.title",
+      iconClass: "fa-eye",
+      children: [
+        {
+          id: "/admin/monitors",
+          titleKey: "sidebar.observability.monitors",
+          path: "/admin/monitors",
+        },
+        {
+          id: "/admin/monitor/add",
+          titleKey: "sidebar.observability.addMonitor",
+          path: "/admin/monitor/add",
+        },
+      ],
+      condition: isTrue(context.user.enabled_features.monitorapi),
     },
     {
       id: "/admin/email",
