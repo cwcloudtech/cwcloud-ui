@@ -247,8 +247,7 @@ const AddMonitor = () => {
                         </Row>
                     </Col>
                 </Row>
-                {
-                    is_admin && (
+                { is_admin && (
                         <Row style={{ margin: "30px 0px" }}>
                             <Col>
                                 <Row style={{ display: "flex", alignItems: "center" }}>
@@ -282,28 +281,7 @@ const AddMonitor = () => {
                         </Row>
                     )
                 }
-                <Row style={{ margin: "30px 0px" }}>
-                    <Col>
-                        <Row style={{ display: "flex", alignItems: "center" }}>
-                            <Col md="4">
-                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                    <Translate content="dashboard.monitor.inputs.expectedContain.title" />
-                                </h5>
-                            </Col>
-                            <Col md="6">
-                                <TextField 
-                                    id="monitor_expected_contain"
-                                    name='expected_contain'
-                                    label={context.counterpart('dashboard.monitor.inputs.expectedContain.placeholder')}
-                                    onChange={handleInputChange}
-                                    fullWidth
-                                />
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-                {
-                    monitor.method === "POST" || monitor.method === "PUT" ? (
+                { monitor.method === "POST" || monitor.method === "PUT" ? (
                         <Row style={{ margin: "30px 0px" }}>
                             <Col md="12" >
                                 <EditorBox
@@ -344,6 +322,27 @@ const AddMonitor = () => {
                                             name="expected_http_code"
                                             value={monitor.expected_http_code}
                                             label={context.counterpart('dashboard.monitor.inputs.expectedHttpCode.placeholder')}
+                                            onChange={handleInputChange}
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                        <Row style={{ margin: "30px 0px" }}>
+                            <Col>
+                                <Row style={{ display: "flex", alignItems: "center" }}>
+                                    <Col md="4">
+                                        <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                            <Translate content="dashboard.monitor.inputs.expectedContain.title" />
+                                        </h5>
+                                    </Col>
+                                    <Col md="6">
+                                        <TextField
+                                            id="monitor_expected_contain"
+                                            name="expected_contain"
+                                            label={context.counterpart('dashboard.monitor.inputs.expectedContain.placeholder')}
+                                            value={monitor.expected_contain}
                                             onChange={handleInputChange}
                                             fullWidth
                                         />

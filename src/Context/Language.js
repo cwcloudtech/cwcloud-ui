@@ -2349,8 +2349,8 @@ export const englishLanguage = {
                     placeholder: "Select a type for this monitor",
                 },
                 expectedContain: {
-                    title: "Expected configuration",
-                    placeholder: "Enter the expected configuration for this monitor",
+                    title: "Response body contain",
+                    placeholder: "Enter an expected response body extract",
                 },
                 authentification: {
                     title: "Authentification",
@@ -4713,8 +4713,8 @@ export const frenchLanguage = {
                     placeholder: "Sélectionnez un type pour ce moniteur",
                 },
                 expectedContain: {
-                    title: "Configuration attendue",
-                    placeholder: "Entrez la configuration attendue pour ce moniteur",
+                    title: "Body doit contenir",
+                    placeholder: "Entrez un extrait du body attendu par la réponse de ce moniteur",
                 },
                 authentification: {
                     title: "Authentification",
