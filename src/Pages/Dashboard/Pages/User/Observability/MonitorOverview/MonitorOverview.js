@@ -328,7 +328,6 @@ const MonitorOverview = () => {
                                     label={context.counterpart('dashboard.monitor.inputs.family.placeholder')}
                                     value={monitor.family}
                                     onChange={handleInputChange}
-                                    required 
                                     fullWidth
                                 />
                             </Col>
