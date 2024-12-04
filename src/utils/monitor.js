@@ -3,7 +3,14 @@ export const field_from_input_name = (input_name) => {
 }
 
 export const shortname = (name) => {
-    chunks = name.split("-")
-    chunks.pop()
-    return chunks.join("-")
+    if (!name) {
+        return '';
+    }
+    const chunks = name.split('-');
+    if (chunks.length <= 1) {
+        return name;
+    }
+    chunks.pop();
+    return chunks.join('-');
 }
+
