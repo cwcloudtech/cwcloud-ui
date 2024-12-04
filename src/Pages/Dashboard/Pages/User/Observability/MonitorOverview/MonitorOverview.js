@@ -85,6 +85,7 @@ const MonitorOverview = () => {
                 var api_url = is_admin ? `/admin/monitor/${id}` : `/monitor/${id}`;
                 const response = await axios.get(api_url);
                 const fetchedMonitor = response.data;
+                fetchedMonitor.name = shortname(fetchedMonitor.name);
                 setMonitor(fetchedMonitor);
                 if (fetchedMonitor.headers && fetchedMonitor.headers.length > 0) {
                     setHeaders(fetchedMonitor.headers);
@@ -281,7 +282,7 @@ const MonitorOverview = () => {
                                     id="monitor_name"
                                     name="monitor_name"
                                     label={context.counterpart('dashboard.monitor.inputs.name.placeholder')}
-                                    value={shortname(monitor.name)}
+                                    value={monitor.name}
                                     onChange={handleInputChange}
                                     required 
                                     fullWidth
