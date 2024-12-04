@@ -21,7 +21,7 @@ import HttpHeadersTable from '../../../../../../Components/Table/HeadersTable';
 import colors from '../../../../../../Context/Colors';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import axios from '../../../../../../utils/axios';
-
+import { field_from_input_name, shortname } from '../../../../../../utils/monitor';
 
 const MonitorOverview = () => {
     const context = useContext(GlobalContext);
@@ -105,7 +105,7 @@ const MonitorOverview = () => {
         const { name, value } = e.target;
         setMonitor(prev => ({
             ...prev,
-            [name.replace("monitor_", '')]: value
+            [field_from_input_name(name)]: value
         }));
     };
 
@@ -281,7 +281,7 @@ const MonitorOverview = () => {
                                     id="monitor_name"
                                     name="monitor_name"
                                     label={context.counterpart('dashboard.monitor.inputs.name.placeholder')}
-                                    value={monitor.name.split("-")[0]}
+                                    value={shortname(monitor.name)}
                                     onChange={handleInputChange}
                                     required 
                                     fullWidth

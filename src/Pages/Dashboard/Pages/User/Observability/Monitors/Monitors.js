@@ -14,6 +14,7 @@ import DataTable from '../../../../../../Components/Table/DataTable';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import axios from "../../../../../../utils/axios";
 import { isBlank } from "../../../../../../utils/common";
+import { shortname } from '../../../../../../utils/monitor';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import Translate from 'react-translate-component';
 
@@ -46,7 +47,7 @@ function Monitors(props) {
                     ?`/admin/monitor/${params.id}`
                     :`/monitor/${params.id}`
                 }>
-                    {params.row.name.split("-")[0]}
+                    {shortname(params.row.name)}
                 </Link>
             )
         },
@@ -176,11 +177,6 @@ function Monitors(props) {
     ];
 
     useEffect(() => {
-        const uniqueFamilies = ['all', ...new Set(monitors.map(monitor => monitor.family).filter(family => family))];
-        setFamilyOptions(uniqueFamilies);
-    }, [monitors]);
-
-    useEffect(() => {
         if (is_admin) {
             axios.get("/admin/user/all")
                 .then(response => {
@@ -193,29 +189,38 @@ function Monitors(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [is_admin]);
 
+    const fetchMonitors = () => {
+        context.setIsGlobal(true);
+        var api_url = is_admin ? "/admin/monitor/all" : "/monitor/all";
+        return axios.get(api_url)
+            .then(res => {
+                setMonitors(res.data);
+                const filtered = familyFilter === 'all' 
+                    ? res.data 
+                    : res.data.filter(monitor => monitor.family === familyFilter);
+                setFilteredMonitors(filtered);
+            })
+            .catch(err => {
+                toast.error(counterpart("dashboard.monitor.message.errorFetchMonitors"));
+                console.error("Error fetching monitors:", err);
+            });
+    };
+
     useEffect(() => {
-        const fetchMonitors = () => {
-            context.setIsGlobal(true);
-            var api_url = is_admin ? "/admin/monitor/all" : "/monitor/all";
-            const params = familyFilter === 'all' ? {} : { family: familyFilter };
-            axios.get(api_url, { params })
-                .then(res => {
-                    setMonitors(res.data);
-                    setFilteredMonitors(res.data);
-                })
-                .catch(err => {
-                    toast.error(counterpart("dashboard.monitor.message.errorFetchMonitors"));
-                    console.error("Error fetching monitors:", err);
-                });
-        };
-
         fetchMonitors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showConfirmDeleteModal, familyFilter]);
 
-        //? Set up polling every 5 seconds
+    useEffect(() => {
         const intervalId = setInterval(fetchMonitors, 5000);
         return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showConfirmDeleteModal, familyFilter]);
+    }, [familyFilter]);
+
+    useEffect(() => {
+        const uniqueFamilies = ['all', ...new Set(monitors.map(monitor => monitor.family).filter(family => family))];
+        setFamilyOptions(uniqueFamilies);
+    }, [monitors]);
 
     const filterMonitors = (e) => {
         const searchQuery = e.target.value.trim();
@@ -230,7 +235,12 @@ function Monitors(props) {
     };
 
     const handleFamilyFilterChange = (e) => {
-        setFamilyFilter(e.target.value);
+        const newFamily = e.target.value;
+        setFamilyFilter(newFamily);
+        const filtered = newFamily === 'all' 
+            ? monitors 
+            : monitors.filter(monitor => monitor.family === newFamily);
+        setFilteredMonitors(filtered);
     };
 
     const preDeleteMonitorHandler = (monitorId) => {
@@ -305,7 +315,7 @@ function Monitors(props) {
                 toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)}
                 onMultiDelete={deleteSelectedMonitorsHandler}
                 onDelete={deleteMonitorHandler}
-                name={selectedMonitor?.name.split("-")[0]}
+                name={shortname(selectedMonitor?.name)}
                 loading={loadingDelete}
             />
             <Row style={{ paddingBottom: "20px" }}>

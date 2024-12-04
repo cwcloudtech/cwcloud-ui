@@ -21,6 +21,7 @@ import HttpHeadersTable from '../../../../../../Components/Table/HeadersTable';
 import colors from '../../../../../../Context/Colors';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import axios from '../../../../../../utils/axios';
+import { field_from_input_name } from '../../../../../../utils/monitor';
 
 const AddMonitor = () => {
     const context = useContext(GlobalContext);
@@ -59,7 +60,7 @@ const AddMonitor = () => {
         const { name, value } = e.target;
         setMonitor(prev => ({
             ...prev,
-            [name.replace("monitor_", '')]: value
+            [field_from_input_name(name)]: value
         }));
     };
 

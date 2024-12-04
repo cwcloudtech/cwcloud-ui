@@ -68,7 +68,7 @@ function CwaiChat() {
         setConversation(newConversation)
         handleCwai(prevPrompt)
     }
-        
+ 
     const handleCwaiKeyboard = (event) => {
         if (event.key !== 'Enter') {
             return;
