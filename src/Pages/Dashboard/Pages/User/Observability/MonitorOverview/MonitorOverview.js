@@ -43,6 +43,7 @@ const MonitorOverview = () => {
     const [monitor, setMonitor] = useState({
         type: 'http',
         name: '',
+        family: '',
         url: '',
         method: 'GET',
         expected_http_code: "20*",
@@ -161,6 +162,7 @@ const MonitorOverview = () => {
         const monitorData = {
             type: "http",
             name: monitor.name,
+            family: monitor.family || null,
             url: monitor.url,
             method: monitor.method || 'GET',
             expected_http_code: monitor.expected_http_code || "20*",
@@ -303,6 +305,28 @@ const MonitorOverview = () => {
                                     name='url'
                                     label={context.counterpart('dashboard.monitor.inputs.url.placeholder')}
                                     value={monitor.url}
+                                    onChange={handleInputChange}
+                                    required 
+                                    fullWidth
+                                />
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+                <Row style={{ margin: "30px 0px" }}>
+                    <Col>
+                        <Row style={{ display: "flex", alignItems: "center" }}>
+                            <Col md="4">
+                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                    <Translate content="dashboard.monitor.inputs.family.title" />
+                                </h5>
+                            </Col>
+                            <Col md="6">
+                                <TextField 
+                                    id="monitor_family"
+                                    name='family'
+                                    label={context.counterpart('dashboard.monitor.inputs.family.placeholder')}
+                                    value={monitor.family}
                                     onChange={handleInputChange}
                                     required 
                                     fullWidth

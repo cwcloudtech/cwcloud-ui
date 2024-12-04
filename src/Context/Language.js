@@ -2283,10 +2283,11 @@ export const englishLanguage = {
             },
             table: {
                 name: "Name",
+                family: "Family",
                 type: "Type",
                 url: "URL",
                 status: "Status",
-                lastCheck: "Last check",
+                updatedAt: "Updated at",
                 actions: "Actions",
                 method: "Method",
                 timeout: "Timeout",
@@ -2324,6 +2325,11 @@ export const englishLanguage = {
                 url: {
                     title: "URL",
                     placeholder: "Enter the URL for this monitor",
+                },
+                family: {
+                    title: "Family",
+                    placeholder: "Select a family for this monitor",
+                    all: "All",
                 },
                 method: {
                     title: "Method",
@@ -4647,10 +4653,11 @@ export const frenchLanguage = {
             },
             table: {
                 name: "Nom",
+                family: "Famille",
                 type: "Type",
                 url: "URL",
                 status: "Statut",
-                lastCheck: "Dernière vérification",
+                updatedAt: "Mis à jour à",
                 actions: "Actions",
                 method: "Méthode",
                 timeout: "Délai",
@@ -4688,6 +4695,11 @@ export const frenchLanguage = {
                 url: {
                     title: "URL",
                     placeholder: "Entrez l'URL pour ce moniteur",
+                },
+                family: {
+                    title: "Famille",
+                    placeholder: "Sélectionnez une famille pour ce moniteur",
+                    all: "Tous",
                 },
                 method: {
                     title: "Méthode",

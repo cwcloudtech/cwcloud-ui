@@ -40,6 +40,7 @@ const AddMonitor = () => {
     const [monitor, setMonitor] = useState({
         type: 'http',
         name: '',
+        family: '',
         url: '',
         method: 'GET',
         expected_http_code: "20*",
@@ -247,6 +248,28 @@ const AddMonitor = () => {
                         </Row>
                     </Col>
                 </Row>
+                <Row style={{ margin: "30px 0px" }}>
+                    <Col>
+                        <Row style={{ display: "flex", alignItems: "center" }}>
+                            <Col md="4">
+                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                    <Translate content="dashboard.monitor.inputs.family.title" />
+                                </h5>
+                            </Col>
+                            <Col md="6">
+                                <TextField 
+                                    id="monitor_family"
+                                    name='family'
+                                    autoComplete='new-family'
+                                    label={context.counterpart('dashboard.monitor.inputs.family.placeholder')}
+                                    onChange={handleInputChange}
+                                    required 
+                                    fullWidth
+                                />
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
                 { is_admin && (
                         <Row style={{ margin: "30px 0px" }}>
                             <Col>
@@ -389,6 +412,7 @@ const AddMonitor = () => {
                                         <TextField 
                                             id="monitor_username"
                                             name='username'
+                                            autoComplete='new-username'
                                             label={context.counterpart('dashboard.monitor.inputs.username.placeholder')}
                                             onChange={handleInputChange}
                                             fullWidth
@@ -409,6 +433,7 @@ const AddMonitor = () => {
                                     <TextField 
                                         id="monitor_password"
                                         name='password'
+                                        autoComplete='new-password'
                                         type={showPassword ? 'text' : 'password'}
                                         label={context.counterpart('dashboard.monitor.inputs.password.placeholder')}
                                         onChange={handleInputChange}

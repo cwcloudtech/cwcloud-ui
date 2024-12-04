@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { TextField, Tooltip, Fab } from '@mui/material';
+import { TextField, Tooltip, Fab, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -15,6 +15,7 @@ import GlobalContext from '../../../../../../Context/GlobalContext';
 import axios from "../../../../../../utils/axios";
 import { isBlank } from "../../../../../../utils/common";
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import Translate from 'react-translate-component';
 
 function Monitors(props) {
     const location = useLocation();
@@ -31,6 +32,8 @@ function Monitors(props) {
     const [multiSelection, setMultiSelection] = useState(false);
     const [selectedDeletionItems, setSelectedDeletionItems] = useState([]);
     const [users, setUsers] = useState([]);
+    const [familyFilter, setFamilyFilter] = useState('all');
+    const [familyOptions, setFamilyOptions] = useState(['all']);
     const navigate = useNavigate();
     const columns = [
         { 
@@ -73,8 +76,16 @@ function Monitors(props) {
             width: 80
         },
         {
-            field: 'last_check',
-            headerName: counterpart("dashboard.monitor.table.lastCheck"),
+            field: 'family',
+            headerName: counterpart("dashboard.monitor.table.family"),
+            width: 80,
+            renderCell: (params) => {
+                return params.row.family ? params.row.family : 'N/A';
+            }
+        },
+        {
+            field: 'updated_at',
+            headerName: counterpart("dashboard.monitor.table.updatedAt"),
             width: 100,
             renderCell: (params) => {
                 return params.row.updated_at
@@ -165,6 +176,11 @@ function Monitors(props) {
     ];
 
     useEffect(() => {
+        const uniqueFamilies = ['all', ...new Set(monitors.map(monitor => monitor.family).filter(family => family))];
+        setFamilyOptions(uniqueFamilies);
+    }, [monitors]);
+
+    useEffect(() => {
         if (is_admin) {
             axios.get("/admin/user/all")
                 .then(response => {
@@ -181,7 +197,8 @@ function Monitors(props) {
         const fetchMonitors = () => {
             context.setIsGlobal(true);
             var api_url = is_admin ? "/admin/monitor/all" : "/monitor/all";
-            axios.get(api_url)
+            const params = familyFilter === 'all' ? {} : { family: familyFilter };
+            axios.get(api_url, { params })
                 .then(res => {
                     setMonitors(res.data);
                     setFilteredMonitors(res.data);
@@ -194,11 +211,11 @@ function Monitors(props) {
 
         fetchMonitors();
 
-        //? Set up polling every 10 seconds
-        const intervalId = setInterval(fetchMonitors, 10000);
+        //? Set up polling every 5 seconds
+        const intervalId = setInterval(fetchMonitors, 5000);
         return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [showConfirmDeleteModal, familyFilter]);
 
     const filterMonitors = (e) => {
         const searchQuery = e.target.value.trim();
@@ -210,6 +227,10 @@ function Monitors(props) {
             );
             setFilteredMonitors(filteredList);
         }
+    };
+
+    const handleFamilyFilterChange = (e) => {
+        setFamilyFilter(e.target.value);
     };
 
     const preDeleteMonitorHandler = (monitorId) => {
@@ -288,7 +309,7 @@ function Monitors(props) {
                 loading={loadingDelete}
             />
             <Row style={{ paddingBottom: "20px" }}>
-                <Col md="11">
+                <Col md="9">
                     <TextField
                         onChange={(e) => filterMonitors(e)}
                         label="Search Monitors"
@@ -302,6 +323,27 @@ function Monitors(props) {
                         size="small"
                         fullWidth
                     />
+                </Col>
+                <Col md="2">
+                    <FormControl fullWidth size="small">
+                        <InputLabel>
+                            <Translate content="dashboard.monitor.inputs.family.title" />
+                        </InputLabel>
+                        <Select
+                            value={familyFilter}
+                            label="Family"
+                            onChange={handleFamilyFilterChange}
+                        >
+                            {familyOptions.map((family) => (
+                                <MenuItem key={family} value={family}>
+                                    {family === 'all'
+                                        ? context.counterpart('dashboard.monitor.inputs.family.all')
+                                        : family
+                                    }
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </Col>
                 <Col md="1">
                     <Tooltip
