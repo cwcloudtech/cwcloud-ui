@@ -105,7 +105,7 @@ const MonitorOverview = () => {
         const { name, value } = e.target;
         setMonitor(prev => ({
             ...prev,
-            [name]: value
+            [name.replace("monitor_", '')]: value
         }));
     };
 
