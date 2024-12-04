@@ -190,8 +190,8 @@ const AddMonitor = () => {
                             </Col>
                             <Col md="6">
                                 <Select
-                                    id="method"
-                                    name='method'
+                                    id="monitor_method"
+                                    name="monitor_method"
                                     value={monitor.method}
                                     onChange={handleInputChange}
                                     input={<OutlinedInput label="Name" />} 
@@ -216,7 +216,7 @@ const AddMonitor = () => {
                             <Col md="6">
                                 <TextField 
                                     id="monitor_name"
-                                    name='name'
+                                    name="monitor_name"
                                     label={context.counterpart('dashboard.monitor.inputs.name.placeholder')}
                                     onChange={handleInputChange}
                                     required 
@@ -238,7 +238,7 @@ const AddMonitor = () => {
                             <Col md="6">
                                 <TextField 
                                     id="monitor_url"
-                                    name='url'
+                                    name="monitor_url"
                                     label={context.counterpart('dashboard.monitor.inputs.url.placeholder')}
                                     onChange={handleInputChange}
                                     required 
@@ -259,11 +259,10 @@ const AddMonitor = () => {
                             <Col md="6">
                                 <TextField 
                                     id="monitor_family"
-                                    name='family'
+                                    name="monitor_family"
                                     autoComplete='new-family'
                                     label={context.counterpart('dashboard.monitor.inputs.family.placeholder')}
                                     onChange={handleInputChange}
-                                    required 
                                     fullWidth
                                 />
                             </Col>
@@ -341,8 +340,8 @@ const AddMonitor = () => {
                                     </Col>
                                     <Col md="6">
                                         <TextField
-                                            id="expected_http_code"
-                                            name="expected_http_code"
+                                            id="monitor_expected_http_code"
+                                            name="monitor_expected_http_code"
                                             value={monitor.expected_http_code}
                                             label={context.counterpart('dashboard.monitor.inputs.expectedHttpCode.placeholder')}
                                             onChange={handleInputChange}
@@ -363,7 +362,7 @@ const AddMonitor = () => {
                                     <Col md="6">
                                         <TextField
                                             id="monitor_expected_contain"
-                                            name="expected_contain"
+                                            name="monitor_expected_contain"
                                             label={context.counterpart('dashboard.monitor.inputs.expectedContain.placeholder')}
                                             value={monitor.expected_contain}
                                             onChange={handleInputChange}
@@ -411,7 +410,7 @@ const AddMonitor = () => {
                                     <Col md="6">
                                         <TextField 
                                             id="monitor_username"
-                                            name='username'
+                                            name="monitor_username"
                                             autoComplete='new-username'
                                             label={context.counterpart('dashboard.monitor.inputs.username.placeholder')}
                                             onChange={handleInputChange}
@@ -432,7 +431,7 @@ const AddMonitor = () => {
                                     <Col md="6">
                                     <TextField 
                                         id="monitor_password"
-                                        name='password'
+                                        name="monitor_password"
                                         autoComplete='new-password'
                                         type={showPassword ? 'text' : 'password'}
                                         label={context.counterpart('dashboard.monitor.inputs.password.placeholder')}

@@ -253,8 +253,8 @@ const MonitorOverview = () => {
                             </Col>
                             <Col md="6">
                                 <Select
-                                    id="method"
-                                    name='method'
+                                    id="monitor_method"
+                                    name="monitor_method"
                                     value={monitor.method}
                                     onChange={handleInputChange}
                                     input={<OutlinedInput label="Name" />} 
@@ -279,7 +279,7 @@ const MonitorOverview = () => {
                             <Col md="6">
                                 <TextField 
                                     id="monitor_name"
-                                    name='name'
+                                    name="monitor_name"
                                     label={context.counterpart('dashboard.monitor.inputs.name.placeholder')}
                                     value={monitor.name.split("-")[0]}
                                     onChange={handleInputChange}
@@ -302,7 +302,7 @@ const MonitorOverview = () => {
                             <Col md="6">
                                 <TextField 
                                     id="monitor_url"
-                                    name='url'
+                                    name="monitor_url"
                                     label={context.counterpart('dashboard.monitor.inputs.url.placeholder')}
                                     value={monitor.url}
                                     onChange={handleInputChange}
@@ -324,7 +324,7 @@ const MonitorOverview = () => {
                             <Col md="6">
                                 <TextField 
                                     id="monitor_family"
-                                    name='family'
+                                    name="monitor_family"
                                     label={context.counterpart('dashboard.monitor.inputs.family.placeholder')}
                                     value={monitor.family}
                                     onChange={handleInputChange}
@@ -407,8 +407,8 @@ const MonitorOverview = () => {
                                     </Col>
                                     <Col md="6">
                                         <TextField
-                                            id="expected_http_code"
-                                            name="expected_http_code"
+                                            id="monitor_expected_http_code"
+                                            name="monitor_expected_http_code"
                                             value={monitor.expected_http_code}
                                             label={context.counterpart('dashboard.monitor.inputs.expectedHttpCode.placeholder')}
                                             onChange={handleInputChange}
@@ -429,7 +429,7 @@ const MonitorOverview = () => {
                                     <Col md="6">
                                         <TextField 
                                             id="monitor_expected_contain"
-                                            name='expected_contain'
+                                            name="monitor_expected_contain"
                                             label={context.counterpart('dashboard.monitor.inputs.expectedContain.placeholder')}
                                             value={monitor.expected_contain}
                                             onChange={handleInputChange}
@@ -477,7 +477,7 @@ const MonitorOverview = () => {
                                     <Col md="6">
                                         <TextField 
                                             id="monitor_username"
-                                            name='username'
+                                            name="monitor_username"
                                             label={context.counterpart('dashboard.monitor.inputs.username.placeholder')}
                                             value={monitor.username}
                                             onChange={handleInputChange}
@@ -498,7 +498,7 @@ const MonitorOverview = () => {
                                     <Col md="6">
                                     <TextField 
                                         id="monitor_password"
-                                        name='password'
+                                        name="monitor_password"
                                         type={showPassword ? 'text' : 'password'}
                                         label={context.counterpart('dashboard.monitor.inputs.password.placeholder')}
                                         value={monitor.password}
