@@ -85,7 +85,7 @@ const MonitorOverview = () => {
                 var api_url = is_admin ? `/admin/monitor/${id}` : `/monitor/${id}`;
                 const response = await axios.get(api_url);
                 const fetchedMonitor = response.data;
-                fetchedMonitor.name = shortname(fetchedMonitor.name);
+                fetchedMonitor.name = shortname(fetchedMonitor.name, fetchedMonitor.hash);
                 setMonitor(fetchedMonitor);
                 if (fetchedMonitor.headers && fetchedMonitor.headers.length > 0) {
                     setHeaders(fetchedMonitor.headers);

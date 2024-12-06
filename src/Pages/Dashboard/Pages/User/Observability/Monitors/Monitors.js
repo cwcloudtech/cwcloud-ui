@@ -40,14 +40,14 @@ function Monitors(props) {
         { 
             field: 'name', 
             headerName: counterpart("dashboard.monitor.table.name"), 
-            width: 150,
+            width: 200,
             renderCell: (params) => (
                 <Link to={
                     is_admin
                     ?`/admin/monitor/${params.id}`
                     :`/monitor/${params.id}`
                 }>
-                    {shortname(params.row.name)}
+                    {shortname(params.row.name, params.row.hash)}
                 </Link>
             )
         },
@@ -315,7 +315,7 @@ function Monitors(props) {
                 toggle={() => setShowConfirmDeleteModal(!showConfirmDeleteModal)}
                 onMultiDelete={deleteSelectedMonitorsHandler}
                 onDelete={deleteMonitorHandler}
-                name={shortname(selectedMonitor?.name)}
+                name={shortname(selectedMonitor?.name, selectedMonitor?.hash)}
                 loading={loadingDelete}
             />
             <Row style={{ paddingBottom: "20px" }}>

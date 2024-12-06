@@ -89,27 +89,25 @@ function InstancesPage(props) {
       headerName: counterpart("dashboard.instancesPage.table.actions"),
       width: 100,
       renderCell: (params) => {
-        const instanceIndex = instances.findIndex(
-          (instance) => instance.id === params.id
-        );
-        setSelectedInstance(instances[instanceIndex]);
         return (
           <div>
             <CustomPowerIcon
-              onClick={onPrePowerHandler}
+              onClick={() => onPrePowerHandler(params.row)}
               title={
-                selectedInstance && selectedInstance?.status === "active"
+                params.row.status === "active"
                   ? "Power Off"
                   : "Power On"
               }
             />
             <span style={{ width: "10px" }}></span>
             <CustomRerunIcon
-              onClick={onPreRebootHandler}
+              onClick={() => onPreRebootHandler(params.row)}
               title={counterpart("common.button.reboot")}
             />
             <span style={{ width: "10px" }}></span>
-            <CustomDeleteIcon onClick={onPreDeleteHandler} />
+            <CustomDeleteIcon 
+              onClick={() => onPreDeleteHandler(params.row)}
+            />
           </div>
         );
       },
@@ -199,7 +197,8 @@ function InstancesPage(props) {
     }
   };
 
-  const onPreDeleteHandler = () => {
+  const onPreDeleteHandler = (instance) => {
+    setSelectedInstance(instance);
     setShowConfirmDeleteModal(true);
   };
 
@@ -225,11 +224,12 @@ function InstancesPage(props) {
       });
   };
 
-  const onPreRebootHandler = () => {
-    selectedInstance.status === "active"
+  const onPreRebootHandler = (instance) => {
+    setSelectedInstance(instance);
+    instance.status === "active"
       ? setshowConfirmRebootModal(true)
       : toast.error("you can't reboot your instance");
-  };
+  }
 
   const onRebootHandler = () => {
     const payload = {
@@ -255,7 +255,8 @@ function InstancesPage(props) {
       });
   };
 
-  const onPrePowerHandler = () => {
+  const onPrePowerHandler = (instance) => {
+    setSelectedInstance(instance);
     setshowConfirmPowerModal(true);
   };
 
