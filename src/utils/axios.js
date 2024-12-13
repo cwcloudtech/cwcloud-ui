@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use(
                 toast.error(`Internal Server Error, CID: ${error.response.headers['x-comwork-cid']}`)
                 return Promise.reject(error)
             } else if (error.response.status === 422) {
-                toast.error(counterpart(`error_codes.400`))
+                toast.error(counterpart(`error_codes.422`))
                 return Promise.reject(error)
             } else {
                 if (error.response.data.i18n_code) {

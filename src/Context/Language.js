@@ -10,7 +10,8 @@
 // inputs error 1100
 export const englishLanguage = {
     error_codes: {
-        "401": "Unauthorized: Access to the requested resource requires authentication",
+        "401": "Unauthorized: access to the requested resource requires authentication",
+        "422": "There's mandatory fields missing",
         "instance_not_found": "Instance not found",
         "instance_updated": "Instance successfully updated",
         "instance_deleted": "Instance successfully deleted",
@@ -40,7 +41,7 @@ export const englishLanguage = {
         "project_already_exists_gitlab": "Project already exists in Gitlab",
         "project_not_found_with_gitlab": "Project not found in Gitlab",
         "creation_project_error_with_gitlab": "Error when creating project in Gitlab",
-        "gitlab_unauthorized": "The gitlab token seems expired",
+        "gitlab_token_expired": "The gitlab token seems expired",
         "runner_not_found": "Runner not found",
         "project_deleted": "Project successfully deleted",
         "project_hold_active_instances": "Project still holds active instances",
@@ -252,6 +253,7 @@ export const englishLanguage = {
             copied: "Copied",
             uploaded: "Uploaded",
             edited: "Edited",
+            inProgress: "In progress...",
         },
         fields: {
             userEmail: "User email",
@@ -2408,7 +2410,8 @@ export const englishLanguage = {
 
 export const frenchLanguage = {
     error_codes: {
-        "401": "Non autorisé : L'accès à la ressource demandée nécessite une authentification",
+        "401": "Non autorisé : l'accès à la ressource demandée nécessite une authentification",
+        "422": "Des champs obligatoires ne sont pas renseignés",
         "instance_not_found": "Instance introuvable",
         "instance_updated": "Instance mise à jour avec succès",
         "instance_deleted": "Instance supprimée avec succès",
@@ -2438,7 +2441,7 @@ export const frenchLanguage = {
         "project_already_exists_gitlab": "Le projet existe déjà dans gitlab",
         "project_not_found_with_gitlab": "Projet introuvable dans gitlab",
         "creation_project_error_with_gitlab": "Erreur lors de la création du projet dans gitlab",
-        "gitlab_unauthorized": "Le token gitlab semble expiré",
+        "gitlab_token_expired": "Le token gitlab semble expiré",
         "runner_not_found": "Runner non trouvé",
         "project_deleted": "Projet supprimé avec succès",
         "project_hold_active_instances": "Le projet contient toujours des instances actives",
@@ -2647,6 +2650,7 @@ export const frenchLanguage = {
             copied: "Copié",
             uploaded: "Uploadé",
             edited: "Edité",
+            inProgress: "En cours...",
         },
         fields: {
             userEmail: "Email de l'utilisateur",

@@ -67,6 +67,7 @@ function InstancesPage(props) {
       field: "ip_address",
       headerName: counterpart("dashboard.instancesPage.table.ip_address"),
       width: 200,
+      renderCell: (params) => params.row.ip_address === "Null" ? counterpart("common.state.inProgress") : params.row.ip_address,
     },
     {
       field: "type",
@@ -126,7 +127,7 @@ function InstancesPage(props) {
         setLoading(false);
       })
       .catch((err) => {
-        navigate("/notfound");
+        console.error(err)
       });
   };
 
