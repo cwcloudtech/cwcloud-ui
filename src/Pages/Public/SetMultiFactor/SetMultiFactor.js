@@ -102,7 +102,7 @@ function SetMultiFactor() {
                                     <Translate content="setup2fa.addManualDescription" />
                                 </h4>
                                 <h4 className={classes.emailStyle} style={{ color: 'black', fontSize: '13px' }}>
-                                    <Translate content="setup2fa.account" />: Comwork Cloud:{context.user.email}
+                                    <Translate content="setup2fa.account" />: CWCloud:{context.user.email}
                                 </h4>
                                 <h4 className={classes.emailStyle} style={{ color: 'black', fontSize: '13px' }}>
                                     <Translate content="setup2fa.key" />: {getOtpCodeFormatted()}

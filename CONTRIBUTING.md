@@ -1,6 +1,6 @@
 # Contribution Guidelines
 
-👋 Welcome to comwork cloud GUI! We're thrilled that you're interested in contributing to our project.
+👋 Welcome to CWCloud GUI! We're thrilled that you're interested in contributing to our project.
 
 ## Development
 

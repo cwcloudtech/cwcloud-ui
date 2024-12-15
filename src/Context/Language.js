@@ -357,7 +357,7 @@ export const englishLanguage = {
         understand: "I understand"
     },
     intro: {
-        presentation: "This is the comwork cloud web console",
+        presentation: "This is the CWCloud web console",
         wiki: {
             part1: "Check out our",
             part2: "documentation"
@@ -882,7 +882,7 @@ export const englishLanguage = {
                 placeholder: "Put the subject"
             },
             content: "Email content",
-            templated: "Using the comwork cloud template?",
+            templated: "Using the CWCloud template?",
             success: "Email successfully sent",
             send: "Send"
         },
@@ -2754,7 +2754,7 @@ export const frenchLanguage = {
         understand: "Je comprends"
     },
     intro: {
-        presentation: "Ceci est la console web de comwork cloud",
+        presentation: "Ceci est la console web de CWCloud",
         wiki: {
             part1: "Plus de détails sur notre",
             part2: "documentation"
@@ -3278,7 +3278,7 @@ export const frenchLanguage = {
                 placeholder: "Mettre le sujet"
             },
             content: "Contenu html",
-            templated: "Utiliser le template de comwork cloud ?",
+            templated: "Utiliser le template de CWCloud ?",
             success: "L'email a bien été envoyé",
             send: "Envoyer"
         },

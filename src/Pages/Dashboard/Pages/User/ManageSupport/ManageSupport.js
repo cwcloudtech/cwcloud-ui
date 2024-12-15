@@ -79,7 +79,7 @@ function ManageSupport() {
         return user ? user.email : ""
     }
 
-    //? Currently this function is only dedicated for Comwork Cloud PPD and Prod platforms
+    //? Currently this function is only dedicated for CWCloud PPD and Prod platforms
     const checkTicketOnGitlab = (gitlab_issue_id) => {
         const gitlab_url = process.env.REACT_APP_APIURL ? "https://gitlab.comwork.io" : "https://gitlab.com"
         if (gitlab_url.includes("comwork")) {
@@ -87,6 +87,7 @@ function ManageSupport() {
             window.open(ticket_url, "_blank")
         }
     }
+
     useEffect(() => {
         fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
