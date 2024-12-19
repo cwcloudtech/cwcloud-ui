@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(
                 localStorageService.clearToken();
                 window.location.href = "/";
             } else if (error.response.status === 500) {
-                toast.error(`Internal Server Error, CID: ${error.response.headers['x-comwork-cid']}`)
+                toast.error(`Internal Server Error, CID: ${error.response.headers['x-cwcloud-cid']}`)
                 return Promise.reject(error)
             } else if (error.response.status === 422) {
                 toast.error(counterpart(`error_codes.422`))
@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
                 if (error.response.data.i18n_code) {
                     toast.error(counterpart(`error_codes.${error.response.data.i18n_code}`))
                 } else {
-                    toast.error(`Error ${error.response.status}, CID: ${error.response.headers['x-comwork-cid']}`)
+                    toast.error(`Error ${error.response.status}, CID: ${error.response.headers['x-cwcloud-cid']}`)
                 }
                 return Promise.reject(error)
             }
