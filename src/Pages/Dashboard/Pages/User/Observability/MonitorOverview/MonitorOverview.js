@@ -48,7 +48,7 @@ const MonitorOverview = () => {
     const [selectedCallback, setSelectedCallback] = useState({});
     const [selectedCallbackIndex, setSelectedCallbackIndex] = useState(0);
 
-    const [notifyOnlyForFailures, setNotifyOnlyForFailures] = useState(false);
+    const [notifyOnlyForFailures, setNotifyOnlyForFailures] = useState(true);
     const [headers, setHeaders] = useState([]);
     const [callbacks, setCallbacks] = useState([]);
     const [monitor, setMonitor] = useState({
@@ -66,7 +66,7 @@ const MonitorOverview = () => {
         headers: [],
         callbacks: [],
         check_tls: true,
-        level: 'INFO',
+        level: 'DEBUG',
         ...(is_admin && { user_id: 0 })
     });
     const [users, setUsers] = useState([]);
@@ -102,9 +102,7 @@ const MonitorOverview = () => {
                 fetchedMonitor.name = shortname(fetchedMonitor.name, fetchedMonitor.hash);
                 var monitor_type = fetchedMonitor.type
                 fetchedMonitor.type = monitor_type.toUpperCase();
-                if (fetchedMonitor.level === "DEBUG") {
-                    setNotifyOnlyForFailures(true)
-                }
+                setNotifyOnlyForFailures(fetchedMonitor.level === "DEBUG")
                 setMonitor(fetchedMonitor);
                 if (fetchedMonitor.headers && fetchedMonitor.headers.length > 0) {
                     setHeaders(fetchedMonitor.headers);

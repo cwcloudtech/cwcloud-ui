@@ -47,7 +47,7 @@ const AddMonitor = () => {
     const [selectedCallback, setSelectedCallback] = useState(null);
     const [selectedCallbackIndex, setSelectedCallbackIndex] = useState(0);
 
-    const [notifyOnlyForFailures, setNotifyOnlyForFailures] = useState(false);
+    const [notifyOnlyForFailures, setNotifyOnlyForFailures] = useState(true);
     const [headers, setHeaders] = useState([]);
     const [callbacks, setCallbacks] = useState([])
     const [monitor, setMonitor] = useState({
@@ -65,7 +65,7 @@ const AddMonitor = () => {
         headers: [],
         callbacks: [],
         check_tls: true,
-        level: 'INFO',
+        level: 'DEBUG',
         ...(is_admin && { user_id: 0 })
     });
     const [users, setUsers] = useState([]);
@@ -181,9 +181,7 @@ const AddMonitor = () => {
             delete monitor.expected_http_code;
         }
 
-        if (notifyOnlyForFailures) {
-            monitor.level = "DEBUG"
-        }
+        monitor.level = notifyOnlyForFailures ? "DEBUG" : "INFO"
 
         const submissionData = {
             ...monitor,

@@ -294,7 +294,7 @@ function Monitors(props) {
         
         new Promise((resolve, reject) => {
             selectedDeletionItems.forEach((monitorId, index) => {
-                axios.delete(`/monitor/${monitorId}`)
+                axios.delete(is_admin ? `/admin/monitor/${monitorId}` : `/monitor/${monitorId}`)
                     .then(() => {
                         deletedMonitors.push(monitorId);
                         if (index === selectedDeletionItems.length - 1) {
