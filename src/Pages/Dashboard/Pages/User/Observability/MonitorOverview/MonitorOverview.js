@@ -1,4 +1,4 @@
-import { MenuItem, OutlinedInput, Select } from '@material-ui/core';
+import { FormControlLabel, FormGroup, MenuItem, OutlinedInput, Select, Switch } from '@material-ui/core';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -22,6 +22,8 @@ import colors from '../../../../../../Context/Colors';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import axios from '../../../../../../utils/axios';
 import { field_from_input_name, shortname } from '../../../../../../utils/monitor';
+import CallbackTable from '../../../../../../Components/Table/CallbackTable';
+import CallbackModal from '../../../../../../Components/Modal/CallbackModal';
 
 const MonitorOverview = () => {
     const context = useContext(GlobalContext);
@@ -33,15 +35,24 @@ const MonitorOverview = () => {
     const nextPath = is_admin ? "/admin/monitors" : "/monitors";
     const [loadingSubmit, setLoadingSubmit] = useState(false);
     const [loadingFetch, setLoadingFetch] = useState(true);
-    const [headers, setHeaders] = useState([]);
+
     const [showAddNewHeaderModal, setShowAddNewHeaderModal] = useState(false);
     const [showEditHeaderModal, setShowEditHeaderModal] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showEditorFullScreen, setShowEditorFullScreen] = useState(false);
+    const [showAddNewCallbackModal, setShowAddNewCallbackModal] = useState(false);
+    const [showEditCallbackModal, setShowEditCallbackModal] = useState(false);
+
     const [selectedHeader, setSelectedHeader] = useState(null);
     const [selectedHeaderIndex, setSelectedHeaderIndex] = useState(0);
+    const [selectedCallback, setSelectedCallback] = useState({});
+    const [selectedCallbackIndex, setSelectedCallbackIndex] = useState(0);
+
+    const [notifyOnlyForFailures, setNotifyOnlyForFailures] = useState(false);
+    const [headers, setHeaders] = useState([]);
+    const [callbacks, setCallbacks] = useState([]);
     const [monitor, setMonitor] = useState({
-        type: 'http',
+        type: 'HTTP',
         name: '',
         family: '',
         url: '',
@@ -53,6 +64,9 @@ const MonitorOverview = () => {
         username: '',
         password: '',
         headers: [],
+        callbacks: [],
+        check_tls: true,
+        level: 'INFO',
         ...(is_admin && { user_id: 0 })
     });
     const [users, setUsers] = useState([]);
@@ -86,9 +100,17 @@ const MonitorOverview = () => {
                 const response = await axios.get(api_url);
                 const fetchedMonitor = response.data;
                 fetchedMonitor.name = shortname(fetchedMonitor.name, fetchedMonitor.hash);
+                var monitor_type = fetchedMonitor.type
+                fetchedMonitor.type = monitor_type.toUpperCase();
+                if (fetchedMonitor.level === "DEBUG") {
+                    setNotifyOnlyForFailures(true)
+                }
                 setMonitor(fetchedMonitor);
                 if (fetchedMonitor.headers && fetchedMonitor.headers.length > 0) {
                     setHeaders(fetchedMonitor.headers);
+                }
+                if (fetchedMonitor.callbacks && fetchedMonitor.callbacks.length > 0) {
+                    setCallbacks(fetchedMonitor.callbacks);
                 }
                 setLoadingFetch(false);
             } catch (error) {
@@ -148,6 +170,30 @@ const MonitorOverview = () => {
         }));
     };
 
+    const handleAddNewCallback = () => {
+        setCallbacks([...callbacks, { endpoint: "", type: "http"}])
+        setShowAddNewCallbackModal(true)
+    }
+
+    const handleDeleteCallback = (index) => {
+        const updatedCallbacks = [...callbacks]
+        updatedCallbacks.splice(index, 1)
+        setCallbacks(updatedCallbacks)
+    }
+
+    const handleEditCallback = (index) => {
+        var selectedCallback = callbacks[index]
+        setShowEditCallbackModal(true)
+        setSelectedCallback(selectedCallback)
+        setSelectedCallbackIndex(index)
+    }
+
+    const handleChangeCallback = (index, callback) => {
+        const updatedCallbacks = [...callbacks]
+        updatedCallbacks[index] = callback
+        setCallbacks(updatedCallbacks)
+    }
+
     const handleSubmit = () => {
         if (!monitor.name || !monitor.url) {
             toast.error(context.counterpart("dashboard.monitor.message.nameAndUrlRequired"));
@@ -161,18 +207,19 @@ const MonitorOverview = () => {
         setLoadingSubmit(true);
 
         const monitorData = {
-            type: "http",
+            type: monitor.type.toLowerCase(),
             name: monitor.name,
             family: monitor.family || null,
             url: monitor.url,
             method: monitor.method || 'GET',
-            expected_http_code: monitor.expected_http_code || "20*",
             expected_contain: monitor.expected_contain || null,
             body: monitor.body || null,
             timeout: parseInt(monitor.timeout) || 30,
             username: monitor.username || null,
             password: monitor.password || null,
-
+            callbacks: callbacks,
+            check_tls: monitor.check_tls,
+            level: notifyOnlyForFailures ? "DEBUG" : "INFO",
             headers: headers
                 .filter(h => h.name && h.value)
                 .map(h => ({
@@ -180,6 +227,10 @@ const MonitorOverview = () => {
                     value: h.value
                 }))
         };
+
+        if (monitor.type === "HTTP") {
+            monitorData.expected_http_code = monitor.expected_http_code || "20*";
+        }
 
         if (is_admin && monitor.user_id) {
             monitorData.user_id = monitor.user_id
@@ -226,6 +277,24 @@ const MonitorOverview = () => {
                 index={selectedHeaderIndex}
                 onClick={handleChangeHeader}
             />
+            <CallbackModal 
+                title="dashboard.function.inputs.callbacks.addModalTitle"
+                isOpen={showAddNewCallbackModal}
+                toggle={() => setShowAddNewCallbackModal(!showAddNewCallbackModal)}
+                callback={callbacks[callbacks.length-1]}
+                index={callbacks.length-1}
+                isMonitor
+                onClick={handleChangeCallback}
+            />
+            <CallbackModal 
+                title="dashboard.function.inputs.callbacks.editModalTitle"
+                isOpen={showEditCallbackModal}
+                toggle={() => setShowEditCallbackModal(!showEditCallbackModal)}
+                callback={selectedCallback}
+                index={selectedCallbackIndex}
+                isMonitor
+                onClick={handleChangeCallback}
+            />
             <Row>
                 <Col>
                     <div onClick={() => navigate(nextPath)} className="goBack">
@@ -249,26 +318,53 @@ const MonitorOverview = () => {
                         <Row style={{ display: "flex", alignItems: "center" }}>
                             <Col md="4">
                                 <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                    <Translate content="dashboard.monitor.inputs.method.title" />
+                                    <Translate content="dashboard.monitor.inputs.type.title" />
                                 </h5>
                             </Col>
                             <Col md="6">
                                 <Select
-                                    id="monitor_method"
-                                    name="monitor_method"
-                                    value={monitor.method}
+                                    id="monitor_type"
+                                    name="monitor_type"
+                                    value={monitor.type}
                                     onChange={handleInputChange}
-                                    input={<OutlinedInput label="Name" />} 
+                                    input={<OutlinedInput label="Type" />} 
                                     fullWidth
                                 >
-                                    <MenuItem value="GET">GET</MenuItem>
-                                    <MenuItem value="POST">POST</MenuItem>
-                                    <MenuItem value="PUT">PUT</MenuItem>
+                                    <MenuItem value="HTTP">HTTP</MenuItem>
+                                    <MenuItem value="TCP">TCP</MenuItem>
                                 </Select>
                             </Col>
                         </Row>
                     </Col>
                 </Row>
+                {
+                    monitor.type === "HTTP" && 
+                    <Row style={{ margin: "30px 0px" }}>
+                        <Col>
+                            <Row style={{ display: "flex", alignItems: "center" }}>
+                                <Col md="4">
+                                    <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                        <Translate content="dashboard.monitor.inputs.method.title" />
+                                    </h5>
+                                </Col>
+                                <Col md="6">
+                                    <Select
+                                        id="monitor_method"
+                                        name="monitor_method"
+                                        value={monitor.method}
+                                        onChange={handleInputChange}
+                                        input={<OutlinedInput label="Name" />} 
+                                        fullWidth
+                                    >
+                                        <MenuItem value="GET">GET</MenuItem>
+                                        <MenuItem value="POST">POST</MenuItem>
+                                        <MenuItem value="PUT">PUT</MenuItem>
+                                    </Select>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                }
                 <Row style={{ margin: "30px 0px" }}>
                     <Col>
                         <Row style={{ display: "flex", alignItems: "center" }}>
@@ -397,27 +493,30 @@ const MonitorOverview = () => {
                         <Translate content="dashboard.monitor.inputs.requestConfiguration.title" />
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Row style={{ margin: "30px 0px" }}>
-                            <Col>
-                                <Row style={{ display: "flex", alignItems: "center" }}>
-                                    <Col md="4">
-                                        <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                            <Translate content="dashboard.monitor.inputs.expectedHttpCode.title" />
-                                        </h5>
-                                    </Col>
-                                    <Col md="6">
-                                        <TextField
-                                            id="monitor_expected_http_code"
-                                            name="monitor_expected_http_code"
-                                            value={monitor.expected_http_code}
-                                            label={context.counterpart('dashboard.monitor.inputs.expectedHttpCode.placeholder')}
-                                            onChange={handleInputChange}
-                                            fullWidth
-                                        />
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
+                        {
+                            monitor.type === "HTTP" &&
+                            <Row style={{ margin: "30px 0px" }}>
+                                <Col>
+                                    <Row style={{ display: "flex", alignItems: "center" }}>
+                                        <Col md="4">
+                                            <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                                <Translate content="dashboard.monitor.inputs.expectedHttpCode.title" />
+                                            </h5>
+                                        </Col>
+                                        <Col md="6">
+                                            <TextField
+                                                id="monitor_expected_http_code"
+                                                name="monitor_expected_http_code"
+                                                value={monitor.expected_http_code}
+                                                label={context.counterpart('dashboard.monitor.inputs.expectedHttpCode.placeholder')}
+                                                onChange={handleInputChange}
+                                                fullWidth
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        }
                         <Row style={{ margin: "30px 0px" }}>
                             <Col>
                                 <Row style={{ display: "flex", alignItems: "center" }}>
@@ -459,30 +558,25 @@ const MonitorOverview = () => {
                                 </Row>
                             </Col>
                         </Row>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Translate content="dashboard.monitor.inputs.authentification.title" />
-                    </AccordionSummary>
-                    <AccordionDetails>
                         <Row style={{ margin: "30px 0px" }}>
                             <Col>
                                 <Row style={{ display: "flex", alignItems: "center" }}>
                                     <Col md="4">
                                         <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                            <Translate content="dashboard.monitor.inputs.username.title" />
+                                            <Translate content="dashboard.monitor.inputs.logLevel.title" />
                                         </h5>
                                     </Col>
                                     <Col md="6">
-                                        <TextField 
-                                            id="monitor_username"
-                                            name="monitor_username"
-                                            label={context.counterpart('dashboard.monitor.inputs.username.placeholder')}
-                                            value={monitor.username}
-                                            onChange={handleInputChange}
-                                            fullWidth
-                                        />
+                                        <FormGroup>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch checked={notifyOnlyForFailures}/>
+                                                }
+                                                onChange={(e) => {
+                                                    setNotifyOnlyForFailures(e.target.checked)
+                                                }}
+                                            />
+                                        </FormGroup>
                                     </Col>
                                 </Row>
                             </Col>
@@ -492,49 +586,121 @@ const MonitorOverview = () => {
                                 <Row style={{ display: "flex", alignItems: "center" }}>
                                     <Col md="4">
                                         <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                            <Translate content="dashboard.monitor.inputs.password.title" />
+                                            <Translate content="dashboard.monitor.inputs.checkTls.title" />
                                         </h5>
                                     </Col>
                                     <Col md="6">
-                                    <TextField 
-                                        id="monitor_password"
-                                        name="monitor_password"
-                                        type={showPassword ? 'text' : 'password'}
-                                        label={context.counterpart('dashboard.monitor.inputs.password.placeholder')}
-                                        value={monitor.password}
-                                        onChange={handleInputChange}
-                                        fullWidth
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        aria-label="toggle password visibility"
-                                                        onClick={() => setShowPassword(!showPassword)}
-                                                        edge="end"
-                                                    >
-                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                        style={{ background: 'transparent', color: _mode === 'light' ? 'black' : 'white' }}
-                                    />
+                                        <FormGroup>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch checked={monitor.check_tls}/>
+                                                }
+                                                onChange={(e) => {
+                                                    setMonitor(prev => ({
+                                                        ...prev,
+                                                        check_tls: e.target.checked
+                                                    }));
+                                                }}
+                                            />
+                                        </FormGroup>
                                     </Col>
                                 </Row>
                             </Col>
                         </Row>
                     </AccordionDetails>
                 </Accordion>
+                {
+                    monitor.type === "HTTP" && 
+                    <>
+                        <Accordion>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                <Translate content="dashboard.monitor.inputs.authentification.title" />
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Row style={{ margin: "30px 0px" }}>
+                                    <Col>
+                                        <Row style={{ display: "flex", alignItems: "center" }}>
+                                            <Col md="4">
+                                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                                    <Translate content="dashboard.monitor.inputs.username.title" />
+                                                </h5>
+                                            </Col>
+                                            <Col md="6">
+                                                <TextField 
+                                                    id="monitor_username"
+                                                    name="monitor_username"
+                                                    label={context.counterpart('dashboard.monitor.inputs.username.placeholder')}
+                                                    value={monitor.username}
+                                                    onChange={handleInputChange}
+                                                    fullWidth
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                                <Row style={{ margin: "30px 0px" }}>
+                                    <Col>
+                                        <Row style={{ display: "flex", alignItems: "center" }}>
+                                            <Col md="4">
+                                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                                    <Translate content="dashboard.monitor.inputs.password.title" />
+                                                </h5>
+                                            </Col>
+                                            <Col md="6">
+                                            <TextField 
+                                                id="monitor_password"
+                                                name="monitor_password"
+                                                type={showPassword ? 'text' : 'password'}
+                                                label={context.counterpart('dashboard.monitor.inputs.password.placeholder')}
+                                                value={monitor.password}
+                                                onChange={handleInputChange}
+                                                fullWidth
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                aria-label="toggle password visibility"
+                                                                onClick={() => setShowPassword(!showPassword)}
+                                                                edge="end"
+                                                            >
+                                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    )
+                                                }}
+                                                style={{ background: 'transparent', color: _mode === 'light' ? 'black' : 'white' }}
+                                            />
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                <Translate content="dashboard.monitor.inputs.headers.title" />
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <HttpHeadersTable
+                                    headers={headers}
+                                    addNewHeader={addNewHeader}
+                                    editHeader={editHeader}
+                                    deleteHeader={deleteHeader}
+                                />
+                            </AccordionDetails>
+                        </Accordion>
+                    </>
+                }
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Translate content="dashboard.monitor.inputs.headers.title" />
+                        <Translate content="dashboard.function.inputs.callbacks.title" />
                     </AccordionSummary>
                     <AccordionDetails>
-                        <HttpHeadersTable
-                            headers={headers}
-                            addNewHeader={addNewHeader}
-                            editHeader={editHeader}
-                            deleteHeader={deleteHeader}
+                        <CallbackTable
+                            callbacks={callbacks}
+                            addNewCallback={handleAddNewCallback}
+                            editCallback={handleEditCallback}
+                            deleteCallback={handleDeleteCallback}
                         />
                     </AccordionDetails>
                 </Accordion>

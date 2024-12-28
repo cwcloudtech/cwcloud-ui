@@ -35,14 +35,24 @@ function ProjectsPage(props) {
     const [multiSelection, setMultiSelection] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [selectedDeletionItems, setSelectedDeletionItems] = useState([])
+    const [users, setUsers] = useState([])
     const navigate = useNavigate()
     const columns = [
-        { field: 'id', headerName: counterpart("dashboard.projectsPage.table.id"), width: 300, renderCell: (params) => (<Link to={is_admin ? `/admin/project/${params.id}`:`/project/${params.id}`}>{params.id}</Link>) },
+        { field: 'id', headerName: counterpart("dashboard.projectsPage.table.id"), width: 100, renderCell: (params) => (<Link to={is_admin ? `/admin/project/${params.id}`:`/project/${params.id}`}>{params.id}</Link>) },
         { field: 'name', headerName: counterpart("dashboard.projectsPage.table.name"), width: 200 },
-        { field: 'instances', headerName: counterpart("dashboard.projectsPage.table.numberOfInstances"), width: 200, renderCell: (params) => (params.row.type === 'vm' ? params.instances : 'N/A')},
-        { field: 'type', headerName: counterpart("dashboard.projectsPage.table.type"), width: 200 },
+        { field: 'instances', headerName: counterpart("dashboard.projectsPage.table.numberOfInstances"), width: 100, renderCell: (params) => (params.row.type === 'vm' ? params.instances : 'N/A')},
+        { field: 'type', headerName: counterpart("dashboard.projectsPage.table.type"), width: 100 },
+        ...(is_admin ? [{
+            field: 'owned_by',
+            headerName: counterpart("dashboard.projectsPage.table.ownedBy"),
+            width: 300,
+            renderCell: (params) => {
+                const owner = users.find(user => user.id === params.row.userid);
+                return owner ? owner.email : 'N/A';
+            }
+        }] : []),
         {
-            field: 'action', headerName: counterpart("dashboard.projectsPage.table.actions"), width: 200, renderCell: (params) => {
+            field: 'action', headerName: counterpart("dashboard.projectsPage.table.actions"), width: 100, renderCell: (params) => {
                 if (params.row.userid === user.id || is_admin) {
                     const onClick = (e) => {
                         e.stopPropagation();
@@ -54,6 +64,19 @@ function ProjectsPage(props) {
             }
         }
     ];
+
+    useEffect(() => {
+        if (is_admin) {
+            axios.get("/admin/user/all")
+                .then(response => {
+                    setUsers(response.data.result);
+                })
+                .catch(error => {
+                    toast.error(error.response?.data?.message || context.counterpart("common.message.errorFetchingUsers"));
+                });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [is_admin]);
 
     const fetchProjects = () => {
         let queryParam = "";

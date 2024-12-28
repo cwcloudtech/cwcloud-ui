@@ -35,6 +35,8 @@ function Monitors(props) {
     const [users, setUsers] = useState([]);
     const [familyFilter, setFamilyFilter] = useState('all');
     const [familyOptions, setFamilyOptions] = useState(['all']);
+    const [typeFilter, setTypeFilter] = useState('all');
+    const typeOptions = ['all', 'http', 'tcp'];
     const navigate = useNavigate();
     const columns = [
         { 
@@ -206,10 +208,24 @@ function Monitors(props) {
             });
     };
 
+    const handleTypeFilterChange = (e) => {
+        const newType = e.target.value;
+        setTypeFilter(newType);
+    };
+
     useEffect(() => {
         fetchMonitors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showConfirmDeleteModal, familyFilter]);
+
+    useEffect(() => {
+        const filtered = monitors.filter(monitor => {
+            const matchesFamily = familyFilter === 'all' || monitor.family === familyFilter;
+            const matchesType = typeFilter === 'all' || monitor.type.toLowerCase() === typeFilter;
+            return matchesFamily && matchesType;
+        });
+        setFilteredMonitors(filtered);
+    }, [monitors, familyFilter, typeFilter]);
 
     useEffect(() => {
         const intervalId = setInterval(fetchMonitors, 5000);
@@ -318,8 +334,8 @@ function Monitors(props) {
                 name={shortname(selectedMonitor?.name, selectedMonitor?.hash)}
                 loading={loadingDelete}
             />
-            <Row style={{ paddingBottom: "20px" }}>
-                <Col md="9">
+             <Row style={{ paddingBottom: "20px" }}>
+                <Col md="7">
                     <TextField
                         onChange={(e) => filterMonitors(e)}
                         label="Search Monitors"
@@ -333,6 +349,27 @@ function Monitors(props) {
                         size="small"
                         fullWidth
                     />
+                </Col>
+                <Col md="2">
+                    <FormControl fullWidth size="small">
+                        <InputLabel>
+                            <Translate content="dashboard.monitor.inputs.type.title" />
+                        </InputLabel>
+                        <Select
+                            value={typeFilter}
+                            label="Type"
+                            onChange={handleTypeFilterChange}
+                        >
+                            {typeOptions.map((type) => (
+                                <MenuItem key={type} value={type}>
+                                    {type === 'all'
+                                        ? context.counterpart('dashboard.monitor.inputs.family.all')
+                                        : type.toUpperCase()
+                                    }
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </Col>
                 <Col md="2">
                     <FormControl fullWidth size="small">

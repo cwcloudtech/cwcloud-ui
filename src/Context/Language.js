@@ -135,7 +135,6 @@ export const englishLanguage = {
         "not_k8sapi": "The user is not granted for the k8s API",
         "not_iotapi": "The user is not granted for the IoT API",
         "cwaiapi_not_enabled": "The cwai API is not enabled",
-        "cwai_error": "The cwai API's answer is not ok",
         "cwai_model_notfound": "This model doesn't exists",
         "not_correct_item": "The item is not correcty serialized",
         "bad_date_aaaammdd": "Bad date format (expected: YYYY/MM/DD ou YYYY-MM-DD)",
@@ -213,6 +212,7 @@ export const englishLanguage = {
         "monitor_deleted": "Monitor deleted",
         "monitor_check_failed": "Monitor check failed",
         "invalid_http_status_code": "Invalid http status code",
+        "invalid_tcp_url_format": "Invalid tcp url format",
     },
     common: {
         ok: "OK",
@@ -2187,7 +2187,8 @@ export const englishLanguage = {
                 numberOfInstances: "N instances",
                 numberOfClusters: "N clusters",
                 type: "Type",
-                actions: "Actions"
+                actions: "Actions",
+                ownedBy: "Owned by",
             }
         },
         usersPage: {
@@ -2394,6 +2395,14 @@ export const englishLanguage = {
                 body: {
                     title: "Body",
                     placeholder: "Enter the body for the request",
+                },
+                checkTls: {
+                    title: "Check TLS",
+                    placeholder: "Check TLS",
+                },
+                logLevel: {
+                    title: "Notify only for failures",
+                    placeholder: "Select a log level for this monitor",
                 }
             },
             buttons: {
@@ -2533,7 +2542,6 @@ export const frenchLanguage = {
         "not_k8sapi": "L'utilisateur n'a pas l'api k8s activée",
         "not_iotapi": "L'utilisateur n'a pas l'api iot activée",
         "cwaiapi_not_enabled": "L'API cwai n'est pas activée",
-        "cwai_error": "Il y a un problème avec la réponse de l'API cwai",
         "cwai_model_notfound": "Le modèle n'existe pas",
         "not_correct_item": "L'item n'est pas correctement serialisé",
         "bad_date_aaaammdd": "Mauvais format de date (attendu : AAAA/MM/JJ ou AAAA-MM-JJ)",
@@ -2611,6 +2619,7 @@ export const frenchLanguage = {
         "monitor_deleted": "Monitor supprimé",
         "monitor_check_failed": "Vérification du monitor échouée",
         "invalid_http_status_code": "Code HTTP invalide",
+        "invalid_tcp_url_format": "Format d'URL TCP invalide"
     },
     common: {
         ok: "OK",
@@ -4560,7 +4569,8 @@ export const frenchLanguage = {
                 numberOfInstances: "N instances",
                 numberOfClusters: "N clusters",
                 type: "Type",
-                actions: "Actions"
+                actions: "Actions",
+                ownedBy: "Propriétaire",
             }
         },
         usersPage: {
@@ -4767,6 +4777,14 @@ export const frenchLanguage = {
                 body: {
                     title: "Body",
                     placeholder: "Entrez le body pour la requête",
+                },
+                checkTls: {
+                    title: "Vérifier le TLS",
+                    placeholder: "Vérifiez le TLS pour ce moniteur",
+                },
+                logLevel: {
+                    title: "Notifier que les échecs",
+                    placeholder: "Sélectionnez un log level pour ce moniteur",
                 }
             },
             buttons: {
