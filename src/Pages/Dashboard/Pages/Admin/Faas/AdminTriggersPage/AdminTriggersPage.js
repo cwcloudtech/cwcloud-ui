@@ -117,7 +117,7 @@ function TriggersPage(props) {
             .then((deleted_triggers) => {
                 setTriggers([...triggers.filter(trigger => !deleted_triggers.includes(trigger.id))])
                 if (deleted_triggers.length > 0)
-                    toast.success(context.counterpart('dashboard.trigger.message.successMultipleDelete'))
+                    toast.success(context.counterpart('dashboard.trigger.message.successMultiDelete'))
                 setLoadingDelete(false)
                 setShowConfirmDeleteModal(false)
             })
