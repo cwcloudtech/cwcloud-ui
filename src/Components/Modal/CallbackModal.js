@@ -14,7 +14,7 @@ import {
     Collapse
 } from "reactstrap";
 import LoadingButton from "../LoadingButton/LoadingButton";
-import { FormControl, FormControlLabel, FormGroup, MenuItem, Select, Switch } from "@mui/material";
+import { FormControl, MenuItem, Select} from "@mui/material";
 import { isEmpty } from "../../utils/common";
 
 const CallbackModal = (props) => {

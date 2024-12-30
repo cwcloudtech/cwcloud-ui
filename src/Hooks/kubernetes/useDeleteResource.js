@@ -68,8 +68,10 @@ function useDeleteResource(props) {
                 let newArr = props.resources.filter(item => !deleted_resources.some(dr => item.name === dr.name && item.namespace === dr.namespace));
                 props.setResources(newArr)
                 props.setFiltredResources(newArr)
-                if (deleted_resources.length > 0)
+                if (deleted_resources.length > 0) {
                     toast.success(counterpart('dashboard.kubernetesDashboardPages.common.deletedAllResourcesSuccess'))
+                }
+
                 setDeletionLoading(false)
                 setShowConfirmDeleteModal(false)
             })

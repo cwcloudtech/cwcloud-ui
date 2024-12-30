@@ -62,6 +62,17 @@ function CwaiChat() {
         setPrompt({ ...prompt, message: '' })
     }
 
+    const handleDownloadModel = () => {
+        setLoadingSubmit(true)
+        axios.get(`/ai/model/${prompt.model}`)
+            .then(response => {
+                setLoadingSubmit(false)
+                toast.success(context.counterpart("dashboard.cwai.messages.asyncDownloadTriggered"))
+            }).catch(err => {
+                setLoadingSubmit(false)
+            })
+    }
+
     const handleRegenerateResponse = () => {
         const newConversation = [...conversation]
         newConversation.pop()
@@ -133,7 +144,10 @@ function CwaiChat() {
                         />
                     </Col>
                     <Col style={{ display: "flex", alignItems: "center" }}>
-                            <LoadingButton icon="fa-solid fa-paper-plane" loading={loadingSubmit} onClick={handleMainPrompt} style={{ width: "100px", height: "60px" }} variant="outlined" />
+                            <LoadingButton icon="fa-solid fa-paper-plane" loading={loadingSubmit} onClick={handleMainPrompt} style={{ width: "50px", height: "60px" }} variant="outlined" />
+                            &nbsp;
+                            &nbsp;
+                            <LoadingButton icon="fa-solid fa-download" loading={loadingSubmit} onClick={handleDownloadModel} style={{ width: "50px", height: "60px" }} variant="outlined" />
                     </Col>
                 </Row>
                 {cwaiAnswer && <Row>

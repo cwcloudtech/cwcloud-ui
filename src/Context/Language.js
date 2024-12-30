@@ -135,6 +135,7 @@ export const englishLanguage = {
         "not_k8sapi": "The user is not granted for the k8s API",
         "not_iotapi": "The user is not granted for the IoT API",
         "cwaiapi_not_enabled": "The cwai API is not enabled",
+        "cwai_model_mandatory": "The model is mandatory",
         "cwai_model_notfound": "This model doesn't exists",
         "not_correct_item": "The item is not correcty serialized",
         "bad_date_aaaammdd": "Bad date format (expected: YYYY/MM/DD ou YYYY-MM-DD)",
@@ -865,7 +866,10 @@ export const englishLanguage = {
             },
             send: "Send",
             answer: "Cwai answer",
-            regenerate: "Regenerate response"
+            regenerate: "Regenerate response",
+            messages: {
+                asyncDownloadTriggered: "The asynchronous download of the model has been triggered"
+            }
         },
         sendEmail: {
             mainTitle: "Send an email",
@@ -2542,6 +2546,7 @@ export const frenchLanguage = {
         "not_k8sapi": "L'utilisateur n'a pas l'api k8s activée",
         "not_iotapi": "L'utilisateur n'a pas l'api iot activée",
         "cwaiapi_not_enabled": "L'API cwai n'est pas activée",
+        "cwai_model_mandatory": "Le modèle est obligatoire",
         "cwai_model_notfound": "Le modèle n'existe pas",
         "not_correct_item": "L'item n'est pas correctement serialisé",
         "bad_date_aaaammdd": "Mauvais format de date (attendu : AAAA/MM/JJ ou AAAA-MM-JJ)",
@@ -3270,7 +3275,10 @@ export const frenchLanguage = {
             },
             send: "Envoyer",
             answer: "Réponse Cwai",
-            regenerate: "Regénérer la réponse"
+            regenerate: "Regénérer la réponse",
+            messages: {
+                asyncDownloadTriggered: "Le téléchargement asynchrone du modèle a été lancé"
+            }
         },
         sendEmail: {
             mainTitle: "Envoyer un mail",

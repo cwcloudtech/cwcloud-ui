@@ -493,49 +493,51 @@ const MonitorOverview = () => {
                     <AccordionDetails>
                         {
                             monitor.type === "HTTP" &&
-                            <Row style={{ margin: "30px 0px" }}>
-                                <Col>
-                                    <Row style={{ display: "flex", alignItems: "center" }}>
-                                        <Col md="4">
-                                            <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                                <Translate content="dashboard.monitor.inputs.expectedHttpCode.title" />
-                                            </h5>
-                                        </Col>
-                                        <Col md="6">
-                                            <TextField
-                                                id="monitor_expected_http_code"
-                                                name="monitor_expected_http_code"
-                                                value={monitor.expected_http_code}
-                                                label={context.counterpart('dashboard.monitor.inputs.expectedHttpCode.placeholder')}
-                                                onChange={handleInputChange}
-                                                fullWidth
-                                            />
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-                        }
-                        <Row style={{ margin: "30px 0px" }}>
-                            <Col>
-                                <Row style={{ display: "flex", alignItems: "center" }}>
-                                    <Col md="4">
-                                        <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                            <Translate content="dashboard.monitor.inputs.expectedContain.title" />
-                                        </h5>
-                                    </Col>
-                                    <Col md="6">
-                                        <TextField 
-                                            id="monitor_expected_contain"
-                                            name="monitor_expected_contain"
-                                            label={context.counterpart('dashboard.monitor.inputs.expectedContain.placeholder')}
-                                            value={monitor.expected_contain}
-                                            onChange={handleInputChange}
-                                            fullWidth
-                                        />
+                            <>
+                                <Row style={{ margin: "30px 0px" }}>
+                                    <Col>
+                                        <Row style={{ display: "flex", alignItems: "center" }}>
+                                            <Col md="4">
+                                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                                    <Translate content="dashboard.monitor.inputs.expectedHttpCode.title" />
+                                                </h5>
+                                            </Col>
+                                            <Col md="6">
+                                                <TextField
+                                                    id="monitor_expected_http_code"
+                                                    name="monitor_expected_http_code"
+                                                    value={monitor.expected_http_code}
+                                                    label={context.counterpart('dashboard.monitor.inputs.expectedHttpCode.placeholder')}
+                                                    onChange={handleInputChange}
+                                                    fullWidth
+                                                />
+                                            </Col>
+                                        </Row>
                                     </Col>
                                 </Row>
-                            </Col>
-                        </Row> 
+                                <Row style={{ margin: "30px 0px" }}>
+                                    <Col>
+                                        <Row style={{ display: "flex", alignItems: "center" }}>
+                                            <Col md="4">
+                                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                                    <Translate content="dashboard.monitor.inputs.expectedContain.title" />
+                                                </h5>
+                                            </Col>
+                                            <Col md="6">
+                                                <TextField 
+                                                    id="monitor_expected_contain"
+                                                    name="monitor_expected_contain"
+                                                    label={context.counterpart('dashboard.monitor.inputs.expectedContain.placeholder')}
+                                                    value={monitor.expected_contain}
+                                                    onChange={handleInputChange}
+                                                    fullWidth
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            </>
+                        } 
                         <Row style={{ margin: "30px 0px" }}>
                             <Col>
                                 <Row style={{ display: "flex", alignItems: "center" }}>
@@ -579,32 +581,35 @@ const MonitorOverview = () => {
                                 </Row>
                             </Col>
                         </Row>
-                        <Row style={{ margin: "30px 0px" }}>
-                            <Col>
-                                <Row style={{ display: "flex", alignItems: "center" }}>
-                                    <Col md="4">
-                                        <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                            <Translate content="dashboard.monitor.inputs.checkTls.title" />
-                                        </h5>
-                                    </Col>
-                                    <Col md="6">
-                                        <FormGroup>
-                                            <FormControlLabel
-                                                control={
-                                                    <Switch checked={monitor.check_tls}/>
-                                                }
-                                                onChange={(e) => {
-                                                    setMonitor(prev => ({
-                                                        ...prev,
-                                                        check_tls: e.target.checked
-                                                    }));
-                                                }}
-                                            />
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
+                        {
+                            monitor.type === "HTTP" &&
+                            <Row style={{ margin: "30px 0px" }}>
+                                <Col>
+                                    <Row style={{ display: "flex", alignItems: "center" }}>
+                                        <Col md="4">
+                                            <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                                <Translate content="dashboard.monitor.inputs.checkTls.title" />
+                                            </h5>
+                                        </Col>
+                                        <Col md="6">
+                                            <FormGroup>
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch checked={monitor.check_tls}/>
+                                                    }
+                                                    onChange={(e) => {
+                                                        setMonitor(prev => ({
+                                                            ...prev,
+                                                            check_tls: e.target.checked
+                                                        }));
+                                                    }}
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        }
                     </AccordionDetails>
                 </Accordion>
                 {
