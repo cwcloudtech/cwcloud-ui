@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
-import { saveAs } from 'file-saver';
 import { useContext, useEffect, useState } from 'react';
 import { NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,6 +22,7 @@ import useTableArgs from '../../../../../Hooks/subdomain/useSubdomain';
 import '../../../../../common.css';
 import formateDate from '../../../../../utils/FormateDate';
 import IOSSwitch from '../../../../../utils/iosswitch';
+import { fileDownloadFromResponse } from "../../../../../utils/fileApiDownloader";
 import classes from "./EnvironmentOverview.module.css";
 
 function EnvironmentOverview(props) {
@@ -77,14 +77,7 @@ function EnvironmentOverview(props) {
         setLoadingExport(true)
         axios.get(`/admin/environment/${id}/export`)
             .then((res) => {
-                const byteCharacters = atob(res.data.blob.toString("base64"));
-                const byteNumbers = new Array(byteCharacters.length);
-                for (let i = 0; i < byteCharacters.length; i++) {
-                    byteNumbers[i] = byteCharacters.charCodeAt(i);
-                }
-                const byteArray = new Uint8Array(byteNumbers);
-                const pdfBlob = new Blob([byteArray], { type: 'application/json' });
-                saveAs(pdfBlob, res.data.file_name);
+                fileDownloadFromResponse(res, "application/json")
                 toast.success('Successfully exported environment')
                 setLoadingExport(false)
             }).catch(err => {

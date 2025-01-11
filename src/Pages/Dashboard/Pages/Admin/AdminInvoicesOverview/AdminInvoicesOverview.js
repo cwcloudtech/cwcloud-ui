@@ -7,7 +7,6 @@ import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { saveAs } from 'file-saver';
 import { Download } from "@mui/icons-material";
 import Translate from "react-translate-component"
 import GlobalContext from '../../../../../Context/GlobalContext';
@@ -17,6 +16,7 @@ import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton
 import Tooltip from '@mui/material/Tooltip';
 import { Autocomplete } from '@mui/material';
 import formateDate from '../../../../../utils/FormateDate';
+import { fileDownloadFromResponse } from "../../../../../utils/fileApiDownloader";
 
 function AdminInvoicesOverview() {
     const context = useContext(GlobalContext);
@@ -146,28 +146,13 @@ function AdminInvoicesOverview() {
 
     const downloadInvoiceHandler = (invoiceId) => {
         axios.post(`/admin/invoice/${invoiceId}/download`, { email: userEmail }).then((res) => {
-            const byteCharacters = atob(res.data.blob.toString("base64"));
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-            saveAs(pdfBlob, res.data.file_name);
-
+            fileDownloadFromResponse(res, "application/pdf")
         })
     }
 
     const downloadReceiptHandler = (invoiceId) => {
         axios.post(`/admin/receipt/${invoiceId}/download`, { email: userEmail }).then((res) => {
-            const byteCharacters = atob(res.data.blob.toString("base64"));
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-            saveAs(pdfBlob, res.data.file_name);
+            fileDownloadFromResponse(res, "application/pdf")
         })
     }
     const updateInvoiceStatus = (invoiceId, status) => {

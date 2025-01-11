@@ -9,7 +9,7 @@ import { NavLink, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { FormControlLabel, TextField } from '@mui/material';
 import EditorBox from '../../../../../../Components/EditorBox/EditorBox';
 import EditorModal from '../../../../../../Components/Modal/EditorModal';
-import { saveAs } from 'file-saver';
+import { fileDownloadFromResponseWithName } from "../../../../../../utils/fileApiDownloader";
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import IOSSwitch from '../../../../../../utils/iosswitch';
 import TriggersTable from '../../../../../../Components/Table/TriggersTable';
@@ -171,14 +171,7 @@ function ObjectType() {
         setLoadingExport(true)
         axios.get(`/iot/object-type/${id}/export`)
             .then(res => {
-                const byteCharacters = atob(res.data.blob.toString('base64'));
-                const byteNumbers = new Array(byteCharacters.length);
-                for (let i = 0; i < byteCharacters.length; i++) {
-                    byteNumbers[i] = byteCharacters.charCodeAt(i);
-                }
-                const byteArray = new Uint8Array(byteNumbers);
-                const jsonBlob = new Blob([byteArray], { type: 'application/json' });
-                saveAs(jsonBlob, `${id}.json`);
+                fileDownloadFromResponseWithName(res, `${id}.json`, 'application/json')
                 toast.success(context.counterpart('dashboard.iot.message.successExportObjectType'))
                 setLoadingExport(false)
             })

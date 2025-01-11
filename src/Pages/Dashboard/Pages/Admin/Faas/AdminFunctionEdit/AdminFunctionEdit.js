@@ -20,7 +20,7 @@ import SuggestionsAutoComplete from '../../../../../../Components/SuggestionsAut
 import EditorModal from '../../../../../../Components/Modal/EditorModal';
 import BlocklyWorkspace from "../../../../../../Components/BlocklyWorkspace/BlocklyWorkspace"
 import BlocklyModal from '../../../../../../Components/Modal/BlocklyModal';
-import { saveAs } from 'file-saver';
+import { fileDownloadFromResponseWithName } from "../../../../../../utils/fileApiDownloader";
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import getSelectedProgrammingLanguage from '../../../../../../utils/language';
 import EditorBox from '../../../../../../Components/EditorBox/EditorBox';
@@ -226,14 +226,7 @@ function AdminFunctionEdit() {
         setLoadingExport(true)
         axios.get(`/faas/function/${id}/export`)
             .then(res => {
-                const byteCharacters = atob(res.data.blob.toString('base64'));
-                const byteNumbers = new Array(byteCharacters.length);
-                for (let i = 0; i < byteCharacters.length; i++) {
-                    byteNumbers[i] = byteCharacters.charCodeAt(i);
-                }
-                const byteArray = new Uint8Array(byteNumbers);
-                const jsonBlob = new Blob([byteArray], { type: 'application/json' });
-                saveAs(jsonBlob, `${functionName}.json`);
+                fileDownloadFromResponseWithName(res, `${functionName}.json`, 'application/json')
                 toast.success(context.counterpart('dashboard.function.message.successExport'))
                 setLoadingExport(false)
             })

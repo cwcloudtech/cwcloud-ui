@@ -6,7 +6,6 @@ import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
 import { Col, Container, Row } from 'reactstrap';
 import Translate from "react-translate-component";
-// import classes from './PaymentComponent.module.css';
 import '../../../../../../common.css';
 import DataTable from '../../../../../../Components/Table/DataTable';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
@@ -17,7 +16,7 @@ import Checkbox from '@mui/material/Checkbox';
 import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
 import DeleteModal from '../../../../../../Components/Modal/DeleteModal';
 import { Tooltip } from '@mui/material';
-import { saveAs } from 'file-saver';
+import { fileDownloadFromResponse } from "../../../../../../utils/fileApiDownloader";
 
 function PaymentComponent() {
     const context = useContext(GlobalContext);
@@ -158,14 +157,8 @@ function PaymentComponent() {
         const selectedVoucher = voucherId === "none" ? null : voucherId
         axios.post('/pay', { invoice_id: invoiceRef, voucher_id: selectedVoucher })
             .then((res) => {
-                const byteCharacters = atob(res.data.blob.toString("base64"));
-                const byteNumbers = new Array(byteCharacters.length);
-                for (let i = 0; i < byteCharacters.length; i++) {
-                    byteNumbers[i] = byteCharacters.charCodeAt(i);
-                }
-                const byteArray = new Uint8Array(byteNumbers);
-                const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-                saveAs(pdfBlob, res.data.file_name);
+                fileDownloadFromResponse(res, "application/pdf")
+
                 if (!res.data.client_secret) {
                     const invoiceIndex = invoices.findIndex(i => i.ref === invoiceRef)
                     const _invoices = [...invoices]

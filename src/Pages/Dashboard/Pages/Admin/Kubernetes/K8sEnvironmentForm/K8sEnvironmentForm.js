@@ -1,5 +1,4 @@
 import { FormControlLabel } from "@material-ui/core";
-import { saveAs } from "file-saver";
 import { useContext, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -27,6 +26,7 @@ import useTableArgs from "../../../../../../Hooks/subdomain/useSubdomain";
 import "../../../../../../common.css";
 import axios from "../../../../../../utils/axios";
 import IOSSwitch from "../../../../../../utils/iosswitch";
+import { fileDownloadFromResponse } from "../../../../../../utils/fileApiDownloader";
 import AddExternalChartModal from "./AddExternalChartModal/AddExternalChartModal";
 import useEnvironmentForm from "./useEnvironmentForm";
 
@@ -77,14 +77,7 @@ function K8sEnvironmentForm(props) {
     axios
       .get(`/admin/environment/${envId}/export`)
       .then((res) => {
-        const byteCharacters = atob(res.data.blob.toString("base64"));
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const pdfBlob = new Blob([byteArray], { type: "application/json" });
-        saveAs(pdfBlob, res.data.file_name);
+        fileDownloadFromResponse(res, "application/json")
         toast.success("Successfully exported environment");
         setLoadingExport(false);
       })

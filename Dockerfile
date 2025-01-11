@@ -29,7 +29,7 @@ COPY .docker/nginx/docker-entrypoint.sh /docker-entrypoint.sh
 
 COPY --from=cloud_ui_builder /app/build/ /usr/share/nginx/html
 
-COPY --from=cloud_ui_builder /app/VERSION /usr/share/nginx/html/VERSION
+COPY --from=cloud_ui_builder /app/manifest.json /usr/share/nginx/html/manifest.json
 
 RUN chmod +x /docker-entrypoint.sh
 

@@ -16,6 +16,7 @@ import colors from '../../../../../Context/Colors';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
+import { fileDownloadFromResponse } from "../../../../../utils/fileApiDownloader";
 import classes from "./AdminCustomInvoice.module.css";
 import '../../../../../common.css';
 import { Autocomplete } from '@mui/material';
@@ -83,9 +84,9 @@ function AdminCustomInvoice() {
         setLoadingFunction(true)
         axios.post(`/admin/invoice/custom`, invoice)
             .then(response => {
-                setLoadingFunction(false)
-                navigate('/dashboard')
+                fileDownloadFromResponse(response, "application/pdf")
                 toast.success(context.counterpart('dashboard.customInvoice.message.successCustom'))
+                setLoadingFunction(false)
             }).catch(err => {
                 setLoadingFunction(false)
             })
@@ -94,10 +95,12 @@ function AdminCustomInvoice() {
     }
 
     const handleGenerate = () => {
+        setInvoice({...invoice, preview: false})
         return handleSubmit(setLoadingGenerate);
     }
 
     const handlePreview = () => {
+        setInvoice({...invoice, preview: true})
         return handleSubmit(setLoadingPreview);
     }
 

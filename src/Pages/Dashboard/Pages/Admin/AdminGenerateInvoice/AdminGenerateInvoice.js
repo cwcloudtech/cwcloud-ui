@@ -8,7 +8,6 @@ import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { saveAs } from 'file-saver';
 import Translate from 'react-translate-component';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
@@ -16,6 +15,7 @@ import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton
 import { Autocomplete } from '@mui/material';
 import formateDate from '../../../../../utils/FormateDate';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { fileDownloadFromResponse } from "../../../../../utils/fileApiDownloader";
 import IOSSwitch from '../../../../../utils/iosswitch';
 
 function AdminGenerateInvoice() {
@@ -47,33 +47,18 @@ function AdminGenerateInvoice() {
     const handleClickButtonPreview = () => {
         setLoadingPreview(true)
         axios.post(`/admin/invoice/generate`, { ...invoiceDetails, email: userEmail, preview: true, send: false }).then((res) => {
-            const byteCharacters = atob(res.data.blob.toString("base64"));
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-            saveAs(pdfBlob, res.data.file_name);
-            toast.success(context.counterpart('dashboard.generateInvoice..message.successPreview'))
+            fileDownloadFromResponse(res, "application/pdf")
+            toast.success(context.counterpart('dashboard.generateInvoice.message.successPreview'))
             setLoadingPreview(false)
-
         }).catch(err => {
             setLoadingPreview(false)
         })
-
     }
+
     const handleClickButtonSend = () => {
         setLoadingSend(true)
         axios.post(`/admin/invoice/generate`, { ...invoiceDetails, email: userEmail, send: sendMail, preview: false }).then((res) => {
-            const byteCharacters = atob(res.data.blob.toString("base64"));
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-            saveAs(pdfBlob, res.data.file_name);
+            fileDownloadFromResponse(res, "application/pdf")
             toast.success(context.counterpart('dashboard.generateInvoice..message.succcesSent'))
             setLoadingPreview(false)
             setLoadingSend(false)
