@@ -1,7 +1,7 @@
 import { saveAs } from 'file-saver';
 
 export const fileDownloadFromResponse = (response, mimeType) => {
-    fileDownloadFromResponseWithName(response, res.data.file_name, mimeType);
+    fileDownloadFromResponseWithName(response, response.data.file_name, mimeType);
 }
 
 export const fileDownloadFromResponseWithName = (response, fileName, mimeType) => {
