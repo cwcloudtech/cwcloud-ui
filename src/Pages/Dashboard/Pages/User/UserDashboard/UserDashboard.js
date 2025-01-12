@@ -76,7 +76,7 @@ const UserDashboard = () => {
 
       const requests = [
         axios.get(
-          `/environment/all?type=vm&page=0&limit=${MAX_ENV_ITEMS_PER_TYPE}`
+          `/environment/all?type=vm&start_index=0&max_results=${MAX_ENV_ITEMS_PER_TYPE}`
         ),
         axios.get(`/user/statistics`),
         axios.get(`/consumption?from=${startOfMonth}&to=${endOfMonth}`),
@@ -112,7 +112,7 @@ const UserDashboard = () => {
     const fetchk8sData = () => {
       const requests = [
         axios.get(
-          `/environment/all?type=k8s&page=0&limit=${MAX_ENV_ITEMS_PER_TYPE}`
+          `/environment/all?type=k8s&start_index=0&max_results=${MAX_ENV_ITEMS_PER_TYPE}`
         ),
         axios.get(`/kubernetes/deployment`),
       ];
