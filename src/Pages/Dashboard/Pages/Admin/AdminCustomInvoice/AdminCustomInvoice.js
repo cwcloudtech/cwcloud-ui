@@ -75,13 +75,14 @@ function AdminCustomInvoice() {
         setInvoice({ ..._invoice })
     }
 
-    const handleSubmit = (setLoadingFunction) => {
+    const handleSubmit = (setLoadingFunction, prev) => {
         if (isBlank(invoice.email)) {
             setErrorMessage(context.counterpart('dashboard.addUser.errors.missingInputs'))
             return false;
         }
 
         setLoadingFunction(true)
+        setInvoice({...invoice, preview: prev})
         axios.post(`/admin/invoice/custom`, invoice)
             .then(response => {
                 fileDownloadFromResponse(response, "application/pdf")
@@ -95,13 +96,11 @@ function AdminCustomInvoice() {
     }
 
     const handleGenerate = () => {
-        setInvoice({...invoice, preview: false})
-        return handleSubmit(setLoadingGenerate);
+        return handleSubmit(setLoadingGenerate, false);
     }
 
     const handlePreview = () => {
-        setInvoice({...invoice, preview: true})
-        return handleSubmit(setLoadingPreview);
+        return handleSubmit(setLoadingPreview, true);
     }
 
     return (
