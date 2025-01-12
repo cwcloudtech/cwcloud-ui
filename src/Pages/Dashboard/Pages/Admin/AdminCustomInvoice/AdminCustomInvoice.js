@@ -83,7 +83,7 @@ function AdminCustomInvoice() {
 
         setLoadingFunction(true)
         setInvoice({...invoice, preview: prev})
-        axios.post(`/admin/invoice/custom`, invoice)
+        axios.post(`/admin/invoice/custom`, {...invoice, preview: prev})
             .then(response => {
                 fileDownloadFromResponse(response, "application/pdf")
                 toast.success(context.counterpart('dashboard.customInvoice.message.successCustom'))
