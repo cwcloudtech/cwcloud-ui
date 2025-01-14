@@ -23,7 +23,7 @@ import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 
 function ProjectsPage(props) {
     const context = useContext(GlobalContext);
-    const currentPath = location.pathname
+    const currentPath = useLocation()
     const is_admin = currentPath.includes('admin')
     const createLink = is_admin ? "/admin/projects/create" : "/projects/create"
     const [projects, setProjects] = useState([]);
