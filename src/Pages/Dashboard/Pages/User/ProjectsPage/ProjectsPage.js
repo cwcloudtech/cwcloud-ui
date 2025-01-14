@@ -23,10 +23,9 @@ import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 
 function ProjectsPage(props) {
     const context = useContext(GlobalContext);
-    const location = useLocation()
     const currentPath = location.pathname
-    const is_admin = currentPath === "/admin/projects"
-    const [createLink, setCreateLink] = useState("/projects/create")
+    const is_admin = currentPath.includes('admin')
+    const createLink = is_admin ? "/admin/projects/create" : "/projects/create"
     const [projects, setProjects] = useState([]);
     const [filtredProjects, setFiltredProjects] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -104,13 +103,6 @@ function ProjectsPage(props) {
         fetchProjects()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    useEffect(() => {
-        if (is_admin) {
-            setCreateLink("/admin/projects/create")
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPath])
 
     const onPreDeleteHandler = (projectId) => {
         const projectIndex = projects.findIndex(p => p.id === projectId)
@@ -215,7 +207,7 @@ function ProjectsPage(props) {
                         <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                             <Translate content="dashboard.projectsPage.addProject" />
                         </h5>} placement="bottom">
-                            <Fab color="primary" aria-label="add" onClick={() => navigate("/projects/create")} style={{ transform: 'scale(0.7)' }} >
+                            <Fab color="primary" aria-label="add" onClick={() => navigate(createLink)} style={{ transform: 'scale(0.7)' }} >
                                 <AddIcon className="whiteIcon" />
                             </Fab>
                         </Tooltip>
