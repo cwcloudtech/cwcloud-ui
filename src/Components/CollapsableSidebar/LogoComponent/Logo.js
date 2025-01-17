@@ -3,8 +3,8 @@ import classes from "./Logo.module.css"
 import '../../../common.css'
 import { Row, Col } from "reactstrap"
 import logoimage from "../../../utils/customizedLogo";
-import lightLogo from "../../../assets/images/logocomwork.png";
-import darkLogo from "../../../assets/images/whiteLogoComwork.png";
+import lightLogo from "../../../assets/images/cwcloud-whitemode.png";
+import darkLogo from "../../../assets/images/cwcloud-darkmode.png";
 import GlobalContext from "../../../Context/GlobalContext";
 
 function LogoComponent() {

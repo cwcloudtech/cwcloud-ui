@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import classes from '../public.module.css';
 import 'react-toastify/dist/ReactToastify.css';
-import comWorkLogo from '../../../assets/images/logocomwork.png'
+import comWorkLogo from '../../../assets/images/cwcloud-whitemode.png'
 import { Row, Col, Input, Form, FormGroup, Label } from "reactstrap";
 import BackGroundImage from "../../../assets/images/background.png"
 import LoadingButton from "../../../Components/LoadingButton/LoadingButton";
