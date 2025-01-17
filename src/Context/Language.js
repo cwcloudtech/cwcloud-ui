@@ -130,13 +130,9 @@ export const englishLanguage = {
         "disabled_email_service": "The emails are disabled",
         "not_billable": "The user is not billable",
         "not_emailapi": "The user is not granted for the email API",
-        "not_cwaiapi": "The user is not granted for the cwai API",
         "not_faasapi": "The user is not granted for the FaaS API",
         "not_k8sapi": "The user is not granted for the k8s API",
         "not_iotapi": "The user is not granted for the IoT API",
-        "cwaiapi_not_enabled": "The cwai API is not enabled",
-        "cwai_model_mandatory": "The model is mandatory",
-        "cwai_model_notfound": "This model doesn't exists",
         "not_correct_item": "The item is not correcty serialized",
         "bad_date_aaaammdd": "Bad date format (expected: YYYY/MM/DD ou YYYY-MM-DD)",
         "not_valid_email": "The email is not valid",
@@ -443,7 +439,6 @@ export const englishLanguage = {
         manageEmails: {
             title: "Emails"
         },
-        cwai: "Cwai Chat",
         functions: {
             title: "Serverless",
             overview: "Overview",
@@ -852,23 +847,6 @@ export const englishLanguage = {
             table: {
                 name: "Name",
                 language: "Language"
-            }
-        },
-        cwai: {
-            mainTitle: "Cwai chat",
-            model: {
-                title: "Model",
-                placeholder: "Write the model"
-            },
-            prompt: {
-                title: "Your prompt",
-                placeholder: "Write your prompt"
-            },
-            send: "Send",
-            answer: "Cwai answer",
-            regenerate: "Regenerate response",
-            messages: {
-                asyncDownloadTriggered: "The asynchronous download of the model has been triggered"
             }
         },
         sendEmail: {
@@ -1691,7 +1669,9 @@ export const englishLanguage = {
                 errors: {
                     couldntCreate: "Couldn't create the k8s environement, please check your inputs",
                     couldntUpdate: "Couldn't update the k8s environement, please check your inputs",
-                    mustSelectChart: "Please select at least one chart"
+                    mustSelectChart: "Please select at least one chart",
+                    helmChartsFetch: "Unable to fetch Helm charts from GitLab. Please try again later.",
+                    initializationFailed: "Failed to initialize the environment form. Please try again."
                 }
             }
         },
@@ -2541,13 +2521,8 @@ export const frenchLanguage = {
         "disabled_email_service": "Les emails sont désactivés",
         "not_billable": "L'utilisateur n'est pas facturable",
         "not_emailapi": "L'utilisateur n'a pas l'api email activée",
-        "not_cwaiapi": "L'utilisateur n'a pas l'api cwai activée",
-        "not_faasapi": "L'utilisateur n'a pas l'api faas activée",
         "not_k8sapi": "L'utilisateur n'a pas l'api k8s activée",
         "not_iotapi": "L'utilisateur n'a pas l'api iot activée",
-        "cwaiapi_not_enabled": "L'API cwai n'est pas activée",
-        "cwai_model_mandatory": "Le modèle est obligatoire",
-        "cwai_model_notfound": "Le modèle n'existe pas",
         "not_correct_item": "L'item n'est pas correctement serialisé",
         "bad_date_aaaammdd": "Mauvais format de date (attendu : AAAA/MM/JJ ou AAAA-MM-JJ)",
         "not_valid_email": "L'adresse email n'est pas valide",
@@ -2853,7 +2828,6 @@ export const frenchLanguage = {
         manageEmails: {
             title: "Emails"
         },
-        cwai: "Cwai Chat",
         functions: {
             title: "Serverless",
             overview: "Aperçu",
@@ -3261,23 +3235,6 @@ export const frenchLanguage = {
             table: {
                 name: "Nom",
                 language: "Langage"
-            }
-        },
-        cwai: {
-            mainTitle: "Cwai chat",
-            model: {
-                title: "Modèle",
-                placeholder: "Entrez le modèle"
-            },
-            prompt: {
-                title: "Votre prompt",
-                placeholder: "Entrez votre prompt"
-            },
-            send: "Envoyer",
-            answer: "Réponse Cwai",
-            regenerate: "Regénérer la réponse",
-            messages: {
-                asyncDownloadTriggered: "Le téléchargement asynchrone du modèle a été lancé"
             }
         },
         sendEmail: {
@@ -4095,7 +4052,9 @@ export const frenchLanguage = {
                 errors: {
                     couldntCreate: "Impossible de créer l'environnement Kubernetes, veuillez vérifier vos saisies",
                     couldntUpdate: "Impossible de mettre à jour l'environnement Kubernetes, veuillez vérifier vos saisies",
-                    mustSelectChart: "Veuillez sélectionner au moins un graphique"
+                    mustSelectChart: "Veuillez sélectionner au moins un graphique",
+                    helmChartsFetch: "Impossible de récupérer les graphiques Helm de GitLab. Veuillez réessayer plus tard.",
+                    initializationFailed: "Échec de l'initialisation du formulaire d'environnement. Veuillez réessayer."
                 }
             }
         },

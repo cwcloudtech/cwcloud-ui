@@ -45,7 +45,6 @@ function UserAnalytics({ users }) {
         const features = {
             iotapi: 0,
             k8sapi: 0,
-            cwaiapi: 0,
             daasapi: 0,
             faasapi: 0,
             emailapi: 0

@@ -157,14 +157,6 @@ export function useSidebarItems() {
       path: "/email",
       condition: isTrue(context.user.enabled_features.emailapi),
     },
-    {
-      id: "/cwai",
-      items: ["/cwai"],
-      titleKey: "sidebar.cwai",
-      iconClass: "fa-robot",
-      path: "/cwai",
-      condition: isTrue(context.user.enabled_features.cwaiapi),
-    },
   ];
 
   const sidebarAdminItems = [

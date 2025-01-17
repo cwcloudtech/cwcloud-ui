@@ -54,7 +54,6 @@ const TicketModal = (props) => {
                             <MenuItem value={'emailapi'}>Email API</MenuItem>
                             <MenuItem value={'faasapi'}>FaaS API</MenuItem>
                             <MenuItem value={'k8sapi'}>Kubernetes</MenuItem>
-                            <MenuItem value={'cwai'}>CW AI</MenuItem>
                         </Select>
                     </Col>
                 </Row>

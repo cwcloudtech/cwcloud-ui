@@ -168,20 +168,6 @@ function Drawer(props) {
                             </ListItem>
                             <ListItem>
                                 <FormControlLabel
-                                    label={"Cwai API"}
-                                    control={<Switch sx={{ m: 1 }} checked={props.user.enabled_features.cwaiapi}
-                                    />}
-                                    onChange={(e) => props.setUser({
-                                        ...props.user,
-                                        enabled_features: {
-                                            ...props.user.enabled_features,
-                                            cwaiapi: e.target.checked
-                                        }
-                                    })}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <FormControlLabel
                                     label={"FaaS API"}
                                     control={<Switch sx={{ m: 1 }} checked={props.user.enabled_features.faasapi}
                                     />}

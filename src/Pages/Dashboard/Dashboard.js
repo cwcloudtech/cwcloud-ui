@@ -52,7 +52,6 @@ import AdminFunctionsPage from "./Pages/Admin/Faas/AdminFunctionsPage/AdminFunct
 import AdminFunctionEdit from "./Pages/Admin/Faas/AdminFunctionEdit/AdminFunctionEdit";
 import AdminInvocationsPage from "./Pages/Admin/Faas/AdminInvocationsPage/AdminInvocationsPage";
 import AdminTriggersPage from "./Pages/Admin/Faas/AdminTriggersPage/AdminTriggersPage";
-import CwaiChat from "./Pages/User/CwaiChat/Chat";
 import AdminCustomInvoice from "./Pages/Admin/AdminCustomInvoice/AdminCustomInvoice";
 import AdminEditionInvoice from "./Pages/Admin/AdminEditionInvoice/AdminEditionInvoice";
 import ClusterOverview from "./Pages/Admin/Kubernetes/ClusterManagement/Cluster/ClusterOverview";
@@ -376,7 +375,6 @@ function Dashboard() {
                 <Route exact path="/monitors" element={<Monitors />} />
                 <Route exact path="/monitor/add" element={<AddMonitor />} />
                 <Route exact path="/monitor/:id" element={<MonitorOverview />} />
-                <Route exact path="/cwai" element={<CwaiChat />} />
                 <Route exact path="/email" element={<SendEmail />} />
                 <Route exact path="/k8s-applications">
                   <Route exact path="" element={<K8sAppsPage />} />

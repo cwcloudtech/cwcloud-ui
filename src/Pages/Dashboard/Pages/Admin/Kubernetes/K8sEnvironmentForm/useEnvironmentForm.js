@@ -23,7 +23,7 @@ const useEnvironmentForm = () => {
     args: [],
   });
   const [args, setArgs] = useState([]);
-
+  const [error, setError] = useState(null);
   const [allObjects, setAllObjects] = useState([]);
   const [selectedObjects, setSelectedObjects] = useState([]);
   const [unselectedObjects, setUnselectedObjects] = useState([]);
@@ -34,6 +34,7 @@ const useEnvironmentForm = () => {
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     if (envId) {
       initializeEdit();
       return;
@@ -52,9 +53,9 @@ const useEnvironmentForm = () => {
         );
       })
       .catch((err) => {
-        toast.error(
-          counterpart("dashboard.k8sEnvironments.form.errors.couldntCreate")
-        );
+        const errorMessage = err.response?.data?.message || 
+          counterpart("dashboard.k8sEnvironments.form.errors.couldntCreate");
+        toast.error(errorMessage);
       })
       .finally(() => {
         setLoadingSubmit(false);
@@ -83,9 +84,9 @@ const useEnvironmentForm = () => {
         );
       })
       .catch((err) => {
-        toast.error(
-          counterpart("dashboard.k8sEnvironments.form.errors.couldntUpdate")
-        );
+        const errorMessage = err.response?.data?.message || 
+          counterpart("dashboard.k8sEnvironments.form.errors.couldntUpdate");
+        toast.error(errorMessage);
       })
       .finally(() => {
         setLoadingSubmit(false);
@@ -133,7 +134,7 @@ const useEnvironmentForm = () => {
         // set all charts
         setAllObjects(chartsRes.data.map((chart) => chart.name));
 
-        // // set selected charts
+        // set selected charts
         let selectedCharts = envRes.data.roles.split(";");
         if (envRes.data.external_roles) {
           let externalCharts = JSON.parse(envRes.data.external_roles);
@@ -148,10 +149,15 @@ const useEnvironmentForm = () => {
           .filter((chart) => !selectedCharts.includes(chart.name))
           .map((chart) => chart.name);
         setUnselectedObjects(unselected);
-        setLoading(false);
       })
       .catch((err) => {
-        console.error(err);
+        const errorMessage = err.response?.data?.i18n_code === 'can_not_get_helm_charts'
+          ? counterpart("dashboard.k8sEnvironments.form.errors.helmChartsFetch")
+          : err.response?.data?.message || counterpart("dashboard.k8sEnvironments.form.errors.initializationFailed");
+        setError(errorMessage);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -163,10 +169,15 @@ const useEnvironmentForm = () => {
         res.data.map((chart) => chartsNames.push(chart.name));
         setAllObjects(chartsNames);
         setUnselectedObjects(chartsNames);
-        setLoading(false);
       })
       .catch((err) => {
-        console.error(err);
+        const errorMessage = err.response?.data?.i18n_code === 'can_not_get_helm_charts'
+          ? counterpart("dashboard.k8sEnvironments.form.errors.helmChartsFetch")
+          : err.response?.data?.message || counterpart("dashboard.k8sEnvironments.form.errors.initializationFailed");
+        setError(errorMessage);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -207,6 +218,7 @@ const useEnvironmentForm = () => {
     externalRoles,
     handleExternalRoleAdd,
     handleExternalRoleDelete,
+    error,
   };
 };
 

@@ -38,7 +38,6 @@ describe('UserAnalytics', () => {
       enabled_features: {
         iotapi: true,
         k8sapi: false,
-        cwaiapi: true,
         daasapi: false,
         faasapi: true,
         emailapi: false
@@ -50,7 +49,6 @@ describe('UserAnalytics', () => {
       enabled_features: {
         iotapi: true,
         k8sapi: true,
-        cwaiapi: false,
         daasapi: true,
         faasapi: false,
         emailapi: true
