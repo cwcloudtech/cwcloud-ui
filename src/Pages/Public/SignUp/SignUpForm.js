@@ -71,7 +71,7 @@ function SignUpForm() {
             <Col md="4" sm="12" className={classes.mainContainer}>
                 <Row style={{ width: "100%" }}>
                     <Col className={classes.logoContainer}>
-                        <img src={logoimage()} className={classes.comWorkLogo} alt="logo" />
+                        <img src={logoimage()} className={classes.cwcloudLogo} alt="logo" />
                     </Col>
                 </Row>
                 <Row style={{ width: "100%" }}>

@@ -79,7 +79,7 @@ function LoginForm() {
             <Col md="4" sm="12" className={classes.mainContainer}>
                 <Row style={{ width: "100%" }}>
                     <Col className={classes.logoContainer} >
-                        <img src={logoimage()} className={classes.comWorkLogo} alt="logo" />
+                        <img src={logoimage()} className={classes.cwcloudLogo} alt="logo" />
                         <div className="wiki-subtitle">
                             <Translate content="intro.presentation" />
                             <br />

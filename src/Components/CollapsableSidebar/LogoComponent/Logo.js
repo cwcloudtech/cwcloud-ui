@@ -13,8 +13,8 @@ function LogoComponent() {
         <Row className={classes.container} horizontal="center" vertical="center">
             <Col>
             {mode === "dark"? (
-                <img src={logoimage(darkLogo)} className={classes.comWorkLogo} alt="Comwork" />
-                ): (<img src={logoimage(lightLogo)} className={classes.comWorkLogo} alt="Comwork" />
+                <img src={logoimage(darkLogo)} className={classes.cwcloudLogo} alt="CWCloud" />
+                ): (<img src={logoimage(lightLogo)} className={classes.cwcloudLogo} alt="CWCloud" />
             )}
             </Col>
         </Row>

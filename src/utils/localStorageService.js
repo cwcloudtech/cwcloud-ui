@@ -52,10 +52,10 @@ const LocalStorageService = (
             return localStorage.getItem('language')
         }
         const _setMode = (mode) => {
-            localStorage.setItem('modeComworkCloud', mode)
+            localStorage.setItem('modeCWCloud', mode)
         }
         const _getMode = () => {
-            return localStorage.getItem('modeComworkCloud')
+            return localStorage.getItem('modeCWCloud')
         }
         return {
             setToken: _setToken,

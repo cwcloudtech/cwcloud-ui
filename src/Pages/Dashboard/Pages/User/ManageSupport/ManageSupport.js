@@ -83,7 +83,7 @@ function ManageSupport() {
     const checkTicketOnGitlab = (gitlab_issue_id) => {
         const gitlab_url = process.env.REACT_APP_APIURL ? "https://gitlab.comwork.io" : "https://gitlab.com"
         if (gitlab_url.includes("comwork")) {
-            const ticket_url = `${gitlab_url}/comwork/infrastructure/comwork-cloud-ui/-/issues/${gitlab_issue_id}`
+            const ticket_url = `${gitlab_url}/comwork/infrastructure/cwcloud-ui/-/issues/${gitlab_issue_id}`
             window.open(ticket_url, "_blank")
         }
     }
@@ -160,7 +160,7 @@ function ManageSupport() {
                     e.stopPropagation();
                     checkTicketOnGitlab(params.row.gitlab_issue_id)
                 }
-                const showGitlabLink = is_admin && process.env.REACT_APP_APIURL?.includes("comwork");
+                const showGitlabLink = is_admin && (process.env.REACT_APP_APIURL?.includes("cwcloud.tech") || process.env.REACT_APP_APIURL?.includes("cwcloud.tn"))
                 return (
                     <React.Fragment>
                         {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import classes from '../public.module.css';
 import 'react-toastify/dist/ReactToastify.css';
-import comWorkLogo from '../../../assets/images/cwcloud-whitemode.png'
+import cwcloudLogo from '../../../assets/images/cwcloud-whitemode.png'
 import { Row, Col, Input, Form, FormGroup, Label } from "reactstrap";
 import BackGroundImage from "../../../assets/images/background.png"
 import LoadingButton from "../../../Components/LoadingButton/LoadingButton";
@@ -48,7 +48,7 @@ function MultiFactorAuth() {
             <Col md="4" sm="12" className={classes.mainContainer}>
                 <Row style={{ width: "100%" }}>
                     <Col className={classes.logoContainer}>
-                        <img src={comWorkLogo} className={classes.comWorkLogo} alt="logo" />
+                        <img src={cwcloudLogo} className={classes.cwcloudLogo} alt="logo" />
                     </Col>
                 </Row>
                 <Row style={{ width: "100%" }}>
