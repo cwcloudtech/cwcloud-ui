@@ -3,7 +3,6 @@
 // user        300,
 // bucket 400,
 // provider     500,
-// invoice   600
 // consumption 700
 // environment 800
 // general 1000
@@ -62,10 +61,7 @@ export const englishLanguage = {
         "confirm_token_mandatory": "The confirm token is required",
         "invalid_jwt_token": "Invalid jwt token",
         "technical_error": "Unexpected exception",
-        "invalid_payment_method_id": "Invalid payment method id",
-        "payment_method_not_found": "Payment method not found",
-        "payment_method_removed": "Payment method successfully removed",
-        "payment_method_updated": "Payment method successfully updated",
+        "invalid_numeric_id": "Invalid numeric id",
         "invalid_instance_id": "Invalid instance id",        
         "invalid_ticket_id": "Invalid ticket id",        
         "bucket_not_found": "Bucket not found",
@@ -73,9 +69,6 @@ export const englishLanguage = {
         "2fa_method_not_found": "2FA method not found",
         "bucket_refreshed": "Bucket successfully refreshed",
         "provider_not_exist": "Provider does not exist",
-        "invoice_not_found": "Invoice not found",
-        "invoice_paid": "Invoice already paid",
-        "invoice_updated": "Invoice successfully updated",
         "unable_generate_consumption": "Unable to generate consumption",
         "environment_updated": "Environment successfully updated",
         "environment_deleted": "Environment successfully deleted",
@@ -102,16 +95,12 @@ export const englishLanguage = {
         "provide_valid_root_dns_zone": "Please provide a valid root dns zone",
         "zone_not_exist": "zone does not exist",
         "playbook_exists": "Playbook already exist",
-        "could_not_send_invoice_email": "Could not send invoice pdf email",
         "name_contains_invalid_characters": "Name contains invalid caracters",
         "name_is_long": "Name is too long",
         "provide_registry_name": "Please provide registry name",
         "registry_type_not_exist": "Registry type does not exist",
-        "voucher_not_found": "Voucher not found",
-        "voucher_expired": "Voucher has expired",
         "invalid_email": "Invalid email",
         "missing_info": "Missing informations",
-        "payment_method_must_be_selected": "A default payment method must be set and selected",
         "invalid_code": "Invalid otp code",
         "verify_kubeconfig_file": "Please verify the kubeconfig file",
         "can_not_connect_to_cluster": "Couldn't connect to the cluster, verify if the cluster is running and accessible",
@@ -128,7 +117,6 @@ export const englishLanguage = {
         "incomplete_number": "Your card number is incomplete",
         "invalid_number": "Your card number is invalid",
         "disabled_email_service": "The emails are disabled",
-        "not_billable": "The user is not billable",
         "not_emailapi": "The user is not granted for the email API",
         "not_faasapi": "The user is not granted for the FaaS API",
         "not_k8sapi": "The user is not granted for the k8s API",
@@ -142,7 +130,6 @@ export const englishLanguage = {
         "password_no_lower": "The password must contain at least one lowercase letter",
         "password_no_symbol": "The password must contain at least one special char",
         "instance_name_invalid": "The instance's name is invalid (it can only contains unaccentued letters and '-')",
-        "bad_invoice_ref": "The invoice reference is invalid (must contain at least 5 digits)",
         "user_id_or_email_mandatory": "The user's id or email is mandatory",
         "file_not_found": "File not found",
         "invalid_api_key": "Please provide a proper name for the api key",
@@ -277,7 +264,6 @@ export const englishLanguage = {
         service: {
             serviceNotAvailable: "Service not available in region"
         },
-        payment: "Payment",
         confirm: "Confirm",
         admin: {
             renewCredentials: "Renew"
@@ -291,20 +277,7 @@ export const englishLanguage = {
         language: "Language",
         settings: "Settings",
         credentials: "Credentials",
-        vouchers: "Vouchers",
-        billing: "Billing",
         support: "Support"
-    },
-    billing: {
-        method: "Payment methods",
-        add: "Add credit card",
-        invoices: "Invoices",
-        gateway: "Payment gateway",
-        card: {
-            added: "Credit card successfully added",
-            deleted: "Credit card successfully deleted"
-        },
-        cardInformations: "Card informations",
     },
     iam: {
         apikey: {
@@ -433,7 +406,6 @@ export const englishLanguage = {
         projects: "Projects",
         instances: "Instances",
         k8sApplications: "K8s applications",
-        invoices: "Invoices",
         buckets: "Buckets",
         registries: "Registries",
         manageEmails: {
@@ -476,22 +448,10 @@ export const englishLanguage = {
         manageFunctions: {
             title: "Serverless"
         },
-        manageVouchers: {
-            title: "Manage vouchers",
-            overview: "Overview",
-            add: "Add"
-        },
         manageProjects: {
             title: "Manage projects",
             overview: "Overview",
             add: "Add"
-        },
-        manageInvoices: {
-            title: "Manage invoices",
-            overview: "Overview",
-            custom: "Custom",
-            generate: "Generate",
-            edition: "Edit"
         },
         manageBuckets: {
             title: "Manage buckets",
@@ -595,7 +555,7 @@ export const englishLanguage = {
                 registries: "Registries",
                 k8sApplications: "K8s applications",
                 functions: "Serverless Functions",
-                noFlagsActivated: "To see any statistics, please enable at least one of the following features: DaaS, K8S or FaaS."
+                noFlagsActivated: "Please ask via support to enable at least one of the following features: DaaS, K8S or FaaS"
             },
             availableEnvironments: {
                 title: "Available environments",
@@ -1221,82 +1181,6 @@ export const englishLanguage = {
                 successAdd: "User successfully added"
             }
         },
-        customInvoice: {
-            mainTitle: "Custom Invoice",
-            back: "Back to invoices",
-            inputs: {
-                email: {
-                    placeholder: "Email"
-                },
-                date: {
-                    placeholder: "Date"
-                },
-                sendMail: {
-                    title: "Send Email",
-                },
-                items: {
-                    title: "Items",
-                    label: {
-                        placeholder: "Label"
-                    },
-                    price: {
-                        placeholder: "Price"
-                    }
-                },
-            },
-            errors: {
-                missingInputs: "Fill the whole inputs"
-            },
-            message: {
-                successCustom: "Invoice successfully customized",
-                successPreview: "Invoice successfully previewed",
-            }
-        },
-        editionInvoice: {
-            mainTitle: "Edit an invoice",
-            back: "Back to invoices",
-            inputs: {
-                reference: {
-                    placeholder: "Reference"
-                },
-                newReference: {
-                    placeholder: "New Reference"
-                }
-            },
-            errors: {
-                missingInputs: "Fill the whole inputs",
-                referenceIsEmpty: "Reference input is empty",
-                referenceIsInvalid: "Reference input is invalid",
-                emailIsEmpty: "Email is mandatory"
-            },
-            message: {
-                success: "Invoice successfully edited"
-            }
-        },
-        generateInvoice: {
-            inputs: {
-                email: {
-                    placeholder: "Email",
-                },
-                startDate: {
-                    title: "Start date",
-                    placeholder: "Start",
-                },
-                endDate: {
-                    title: "End date",
-                    placeholder: "End",
-                },
-            },
-            buttons: {
-                preview: "Preview",
-                send: "Send"
-
-            },
-            message: {
-                successPreview: "Invoice successfully generated",
-                succcesSent: "Invoice successfully generated and sent to client"
-            }
-        },
         instanceOverview: {
             back: "Back to instances",
             fields: {
@@ -1447,36 +1331,6 @@ export const englishLanguage = {
                 message_deleted: "This message has been deleted",
             },
             attachedFiles: "Attached files",
-        },
-        adminVouchersPage: {
-            title: "Vouchers",
-            description: "Below here's a list of your voucher.",
-            add: "Add new voucher",
-            create: "Create a new voucher",
-            learnMore: "Learn more",
-            emptyMessage: "There is no voucher for the moment",
-            createMessage: "Create your first voucher",
-            activeVouchers: "Active vouchers",
-            OldVouchers: "Old vouchers",
-            warning: "Warning",
-            email: "Email",
-            table: {
-                id: "ID",
-                code: "Code",
-                user: "User",
-                validity: "Validity",
-                created: "Created",
-                actions: "Actions",
-                price: "Price",
-                credit: "Credit"
-            },
-            message: {
-                successMultiDelete: "Vouchers successfully deleted",
-                successDelete: "Voucher successfully deleted"
-            },
-            back: "Back to vouchers",
-            deleteTitle: "Delete voucher",
-            deleteDescription: "This action will delete the voucher and wont be available for future users."
         },
         adminRegistriesPage: {
             title: "Registries",
@@ -2083,37 +1937,6 @@ export const englishLanguage = {
                 }
             }
         },
-        invoicesPage: {
-            inputs: {
-                email: {
-                    title: "Email",
-                    placeholder: "Email"
-                },
-                startDate: {
-                    title: "Start date",
-                    placeholder: "Start",
-                },
-                endDate: {
-                    title: "End date",
-                    placeholder: "End",
-                },
-            },
-            table: {
-                id: "ID",
-                reference: "Reference",
-                date: "Date",
-                period: "Periode",
-                status: "Status",
-                updateStatus: "Update status",
-                download: "Download",
-                totalPrice: 'Total Price',
-                pay: "Pay",
-                receipt: "Receipt"
-            },
-            buttons: {
-                search: "Search",
-            }
-        },
         projectOverview: {
             back: "Back to projects",
             fields: {
@@ -2455,10 +2278,7 @@ export const frenchLanguage = {
         "confirm_token_mandatory": "Le token de confirmation est obligatoire",
         "invalid_jwt_token": "Token jwt invalide",
         "technical_error": "Erreur inattendue",
-        "invalid_payment_method_id": "ID de méthode de paiement invalide",
-        "payment_method_not_found": "Méthode de paiement introuvable",
-        "payment_method_removed": "Méthode de paiement supprimée avec succès",
-        "payment_method_updated": "Méthode de paiement mise à jour avec succès",
+        "invalid_numeric_id": "ID numérique invalide",
         "invalid_instance_id": "ID d'instance invalide",
         "invalid_ticket_id": "ID de ticket invalide",
         "bucket_not_found": "Bucket introuvable",
@@ -2466,9 +2286,6 @@ export const frenchLanguage = {
         "2fa_method_not_found": "Méthode 2fa introuvable",
         "bucket_refreshed": "Bucket rafraichit avec succès",
         "provider_not_exist": "Le fournisseur n'existe pas",
-        "invoice_not_found": "facture introuvable",
-        "invoice_paid": "facture déja payée",
-        "invoice_updated": "facture mise à jour avec succès",
         "unable_generate_consumption": "Impossible de générer la consommation",
         "environment_updated": "Environnement mis à jour avec succès",
         "environment_deleted": "Environnement supprimé avec succès",
@@ -2494,16 +2311,12 @@ export const frenchLanguage = {
         "provide_valid_root_dns_zone": "Veuillez fournir une zone DNS racine valide",
         "zone_not_exist": "La zone n'existe pas",
         "playbook_exists": "Le playbook existe déjà",
-        "could_not_send_invoice_email": "Impossible d'envoyer la facture pdf par e-mail",
         "name_contains_invalid_characters": "Le nom contient des caractères invalides",
         "name_is_long": "Le nom est trop long",
         "provide_registry_name": "Veuillez fournir le nom de la registry",
         "registry_type_not_exist": "Le type de registry n'existe pas",
-        "voucher_not_found": "Bon non trouvé",
-        "voucher_expired": "Bon expiré",
         "invalid_email": "Email invalide",
         "missing_info": "Informations manquantes",
-        "payment_method_must_be_selected": "Une méthode de paiement doit être selectionnée par défaut",
         "invalid_code": "Code otp invalide",
         "verify_kubeconfig_file": "Veuillez vérifier le fichier kubeconfig",
         "can_not_connect_to_cluster": "Impossible de se connecter au cluster, verifier si le cluster est accessible",
@@ -2519,7 +2332,6 @@ export const frenchLanguage = {
         "incomplete_number": "Votre numéro de carte est incomplet",
         "invalid_number": "Votre numéro de carte est invalide",
         "disabled_email_service": "Les emails sont désactivés",
-        "not_billable": "L'utilisateur n'est pas facturable",
         "not_emailapi": "L'utilisateur n'a pas l'api email activée",
         "not_k8sapi": "L'utilisateur n'a pas l'api k8s activée",
         "not_iotapi": "L'utilisateur n'a pas l'api iot activée",
@@ -2532,7 +2344,6 @@ export const frenchLanguage = {
         "password_no_lower": "Le mot de passe doit contenir au moins une minuscule",
         "password_no_symbol": "Le mot de passe doit contenir au moins un caractère spécial",
         "instance_name_invalid": "Le nom de l'instance est invalid (ne peut contenir que des lettres non accentuées, chiffres et '-')",
-        "bad_invoice_ref": "La référence de la facture est incorrect (elle doit contenir au moins 5 chiffres)",
         "user_id_or_email_mandatory": "Il faut obligatoirement préciser l'id de l'utilisateur ou son email",
         "file_not_found": "Fichier non trouvé",
         "invalid_api_key": "Veuillez fournir un nom approprié pour la clé api",
@@ -2666,7 +2477,6 @@ export const frenchLanguage = {
         service: {
             serviceNotAvailable: "Service non disponible dans la région"
         },
-        payment: "Paiement",
         confirm: "Confirmer",
         admin: {
             renewCredentials: "Renouveler"
@@ -2680,20 +2490,7 @@ export const frenchLanguage = {
         language: "Langue",
         settings: "Paramètres",
         credentials: "Sécurité",
-        vouchers: "Vouchers",
-        billing: "Facturation",
         support: "Support"
-    },
-    billing: {
-        method: "Moyens de paiement",
-        add: "Ajouter",
-        invoices: "Factures",
-        gateway: "Gateway de paiement",
-        card: {
-            added: "Carte bancaire ajoutée avec succès",
-            deleted: "Carte bancaire supprimée avec succès"
-        },
-        cardInformations: "Informations de la carte",
     },
     iam: {
         apikey: {
@@ -2822,7 +2619,6 @@ export const frenchLanguage = {
         projects: "Projets",
         instances: "Instances",
         k8sApplications: "Applications k8s",
-        invoices: "Factures",
         buckets: "Buckets",
         registries: "OCI registries",
         manageEmails: {
@@ -2865,22 +2661,10 @@ export const frenchLanguage = {
         manageFunctions: {
             title: "Serverless",
         },
-        manageVouchers: {
-            title: "Gérer les vouchers",
-            overview: "Aperçu",
-            add: "Ajouter"
-        },
         manageProjects: {
             title: "Gérer les projets",
             overview: "Aperçu",
             add: "Ajouter"
-        },
-        manageInvoices: {
-            title: "Gérer les factures",
-            overview: "Aperçu",
-            custom: "Personnalisé",
-            generate: "Générer",
-            edition: "Editer"
         },
         manageBuckets: {
             title: "Gérer les buckets",
@@ -2984,7 +2768,7 @@ export const frenchLanguage = {
                 registries: "Registries",
                 k8sApplications: "Applications k8",
                 functions: "fonctions serverless",
-                noFlagsActivated: "Pour voir les statistiques, veuillez activer au moins l'une des fonctions suivantes : DaaS, K8S ou FaaS."
+                noFlagsActivated: "Demandez à l'assistance d'activer au moins l'une des fonctionnalités suivantes : DaaS, K8S ou FaaS"
             },
             availableEnvironments: {
                 title: "Environnements disponibles",
@@ -3603,85 +3387,6 @@ export const frenchLanguage = {
                 successAdd: "Utilisateur ajouté avec succès"
             }
         },
-        customInvoice: {
-            mainTitle: "Personalisé votre facture",
-            back: "Retour aux factures",
-            inputs: {
-                email: {
-                    placeholder: "Email"
-                },
-                date: {
-                    placeholder: "Date"
-                },
-                sendMail: {
-                    title: "Envoyer par e-mail",
-                },
-                items: {
-                    title: "Articles",
-                    items: {
-                        title: "Items",
-                        label: {
-                            placeholder: "Label"
-                        },
-                        price: {
-                            placeholder: "Prix"
-                        }
-                    },
-                }
-            },
-            errors: {
-                missingInputs: "Remplir toutes les entrées"
-            },
-            message: {
-                successCustom: "La facture a été générée avec succès",
-                successPreview: "La facture a été prévisualisée avec succès",
-            }
-        },
-        editionInvoice: {
-            mainTitle: "Ré-édition de la facture",
-            back: "Retour aux factures",
-            inputs: {
-                reference: {
-                    placeholder: "Référence"
-                },
-                newRefrence: {
-                    placeholder: "Nouvelle référence"
-                }
-            },
-            errors: {
-                missingInputs: "Remplir toutes les entrées",
-                referenceIsEmpty: "L'entrée de référence est vide",
-                referenceIsInvalid: "L'entrée de référence n'est pas valide",
-                emailIsEmpty: "L'email est obligatoire"
-            },
-            message: {
-                success: "La facture a été éditée avec succès"
-            }
-        },
-        generateInvoice: {
-            inputs: {
-                email: {
-                    placeholder: "E-mail",
-                },
-                startDate: {
-                    title: "Date de début",
-                    placeholder: "début",
-                },
-                endDate: {
-                    title: "Date de fin",
-                    placeholder: "fin",
-                },
-            },
-            buttons: {
-                preview: "Aperçu",
-                send: "Envoyer"
-
-            },
-            message: {
-                successPreview: "La facture a été générée avec succès",
-                succcesSent: "La facture a été générée avec succès et envoyée au client"
-            }
-        },
         instanceOverview: {
             back: "Retour aux instances",
             fields: {
@@ -3830,36 +3535,6 @@ export const frenchLanguage = {
                 message_deleted: "Ce message a été supprimé",
             },
             attachedFiles: "Fichiers attachés",
-        },
-        adminVouchersPage: {
-            title: "Vouchers",
-            description: "Ci-dessous, voici une liste de vos vouchers.",
-            add: "Ajouter un nouveau voucher",
-            create: "Créer un nouveau voucher",
-            learnMore: "En savoir plus",
-            emptyMessage: "Il n'y a pas de bons pour le moment.",
-            createMessage: "Créez votre premier voucher",
-            activeVouchers: "Actifs",
-            OldVouchers: "Anciens",
-            warning: "Avertissement",
-            email: "E-mail",
-            table: {
-                id: "ID",
-                code: "Code",
-                user: "User",
-                validity: "Validité",
-                created: "Crée",
-                actions: "Actions",
-                price: "Prix",
-                credit: "Crédit"
-            },
-            message: {
-                successMultiDelete: "Vouchers supprimées avec succès",
-                successDelete: "Voucher supprimées avec succès"
-            },
-            back: "Retour aux vouchers",
-            deleteTitle: "Supprimer le voucher",
-            deleteDescription: "Cette action supprimera le voucher qui ne sera pas disponible pour les utilisateurs.",
         },
         adminRegistriesPage: {
             title: "OCI registries",
@@ -4409,34 +4084,6 @@ export const frenchLanguage = {
                         subtitle: "Choisissez votre projet qui sera utilisé pour gérer vos clusters",
                     }
                 }
-            }
-        },
-        invoicesPage: {
-            inputs: {
-                email: {
-                    title: "E-mail",
-                    placeholder: "E-mail"
-                },
-                startDate: {
-                    title: "Date de début",
-                    placeholder: "début",
-                },
-                endDate: {
-                    title: "Date de fin",
-                    placeholder: "fin",
-                },
-            },
-            table: {
-                id: "ID",
-                reference: "Référence",
-                date: "Date",
-                period: "Période",
-                status: "État",
-                updateStatus: "Mettre à jour le status",
-                totalPrice: 'Prix Total',
-                pay: "Payé",
-                download: "Télécharger",
-                receipt: "Reçu"
             }
         },
         dnsRecordsPage: {

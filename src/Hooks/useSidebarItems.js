@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import GlobalContext from "../Context/GlobalContext";
-import { isFalse, isTrue } from "../utils/common";
+import { isTrue } from "../utils/common";
 
 export function useSidebarItems() {
   const context = useContext(GlobalContext);
@@ -411,55 +411,7 @@ export function useSidebarItems() {
       titleKey: "sidebar.manageEmails.title",
       iconClass: "fa-envelope",
       path: "/admin/email",
-    },
-    {
-      id: "/admin/vouchers",
-      items: ["/admin/vouchers", "/admin/vouchers/create"],
-      titleKey: "sidebar.manageVouchers.title",
-      iconClass: "fa-ticket",
-      children: [
-        {
-          id: "/admin/vouchers",
-          titleKey: "sidebar.manageVouchers.overview",
-          path: "/admin/vouchers",
-        },
-        {
-          id: "/admin/vouchers/create",
-          titleKey: "sidebar.manageVouchers.add",
-          path: "/admin/vouchers/create",
-        },
-      ],
-      condition: isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE),
-    },
-    {
-      id: "/admin/invoice",
-      items: ["/admin/invoice/generate", "/admin/invoice/overview"],
-      titleKey: "sidebar.manageInvoices.title",
-      iconClass: "fa-file-invoice-dollar",
-      children: [
-        {
-          id: "/admin/invoice/overview",
-          titleKey: "sidebar.manageInvoices.overview",
-          path: "/admin/invoice/overview",
-        },
-        {
-          id: "/admin/invoice/generate",
-          titleKey: "sidebar.manageInvoices.generate",
-          path: "/admin/invoice/generate",
-        },
-        {
-          id: "/admin/invoice/custom",
-          titleKey: "sidebar.manageInvoices.custom",
-          path: "/admin/invoice/custom",
-        },
-        {
-          id: "/admin/invoice/edition",
-          titleKey: "sidebar.manageInvoices.edition",
-          path: "/admin/invoice/edition",
-        },
-      ],
-      condition: isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE),
-    },
+    }
   ];
 
   return { sidebarUserItems, sidebarAdminItems };

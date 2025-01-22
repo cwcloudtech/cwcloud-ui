@@ -1,38 +1,16 @@
-import * as moment from "moment";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import colors from "../../../../../Context/Colors";
 import GlobalContext from "../../../../../Context/GlobalContext";
-import { isFalse } from "../../../../../utils/common";
 import axios from "../../../../../utils/axios";
 import EnvironmentSection from "./EnvironmentSection/EnvironmentSection";
 import ResourceItem from "./ResourceItem/ResourceItem";
 import classes from "./UserDashboard.module.css";
 
-import {
-  ArcElement,
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from "chart.js";
 import Translate from "react-translate-component";
-import DoughnutChart from "../../../../../Components/Charts/DoughnutChart/DoughnutChart";
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 
 const MAX_ENV_ITEMS_PER_TYPE = 6;
 
@@ -48,18 +26,8 @@ const UserDashboard = () => {
   const [instances, setInstances] = useState(0);
   const [registries, setRegistries] = useState(0);
   const [buckets, setBuckets] = useState(0);
-  const [currentConsumptions, setCurrentConsumptions] = useState(null);
-  const [currentDataConsumptions, setCurrentDataConsumptions] = useState({
-    labels: [],
-    datasets: [{ data: [] }],
-  });
   const navigate = useNavigate();
-  const showConsumptionsChart =
-    isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE) &&
-    context.user.enabled_features.daasapi;
-  const resourceItemStyle = showConsumptionsChart
-    ? {}
-    : { flex: "1 0 auto", marginRight: "10px", marginBottom: "10px" };
+  const resourceItemStyle = { flex: "1 0 auto", marginRight: "10px", marginBottom: "10px" };
 
   useEffect(() => {
     context.setIsGlobal(false);
@@ -68,47 +36,29 @@ const UserDashboard = () => {
 
   useEffect(() => {
     const fetchDaasData = () => {
-      const startOfMonth = moment()
-        .clone()
-        .startOf("month")
-        .format("YYYY/MM/DD");
-      const endOfMonth = moment().clone().endOf("month").format("YYYY/MM/DD");
-
       const requests = [
         axios.get(
           `/environment/all?type=vm&start_index=0&max_results=${MAX_ENV_ITEMS_PER_TYPE}`
         ),
-        axios.get(`/user/statistics`),
-        axios.get(`/consumption?from=${startOfMonth}&to=${endOfMonth}`),
+        axios.get(`/user/statistics`)
       ];
 
-      Promise.all(requests)
-        .then(
-          ([
+      Promise.all(requests).then(([
             vmEnvironments,
-            responseUserResources,
-            responseCurrentConsumptions,
+            responseUserResources
           ]) => {
             setVmEnvironments(vmEnvironments.data);
             setProjects(responseUserResources.data.projects);
             setInstances(responseUserResources.data.instances);
             setRegistries(responseUserResources.data.registries);
             setBuckets(responseUserResources.data.buckets);
-            setCurrentConsumptions(responseCurrentConsumptions.data);
-            setCurrentDataConsumptions(
-              getPieData(
-                responseCurrentConsumptions.data.map((c) => c.instance_name),
-                responseCurrentConsumptions.data.map((c) => c.total_price)
-              )
-            );
             setLoading(false);
           }
-        )
-        .catch((error) => {
+        ).catch((error) => {
           console.error(error);
-          // handle error here
         });
     };
+
     const fetchk8sData = () => {
       const requests = [
         axios.get(
@@ -116,99 +66,38 @@ const UserDashboard = () => {
         ),
         axios.get(`/kubernetes/deployment`),
       ];
-      Promise.all(requests)
-        .then(([k8sEnvironments, k8sDeployments]) => {
+      Promise.all(requests).then(([k8sEnvironments, k8sDeployments]) => {
           setK8sEnvironments(k8sEnvironments.data);
           setK8sDeployments(k8sDeployments.data.length);
           setLoading(false);
-        })
-        .catch((error) => {
+        }).catch((error) => {
           console.error(error);
-          // handle error here
         });
     };
     const fetchFaasData = () => {
       const requests = [axios.get(`/faas/functions`)];
-      Promise.all(requests)
-        .then(([faasFunctions]) => {
+      Promise.all(requests).then(([faasFunctions]) => {
           setFaasFunctions(faasFunctions.data.results.length);
           setLoading(false);
-        })
-        .catch((error) => {
+        }).catch((error) => {
           console.error(error);
-          // handle error here
         });
     };
+
     if (context.user.enabled_features.k8sapi) {
       fetchk8sData();
     }
+
     if (context.user.enabled_features.daasapi) {
       fetchDaasData();
     }
+
     if (context.user.enabled_features.faasapi) {
       fetchFaasData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.region]);
 
-  const getPieData = (labels, data) => {
-    if (labels === null || !labels) {
-      labels = [];
-    }
-
-    if (data === null || !data) {
-      data = [];
-    }
-
-    return {
-      labels: labels,
-      datasets: [
-        {
-          label: "Total Price",
-          data: data,
-          backgroundColor: [
-            "rgba(54, 162, 235, 0.6)",
-            "rgba(255, 206, 86, 0.6)",
-            "rgba(75, 192, 192, 0.6)",
-            "rgba(153, 102, 255, 0.6)",
-            "rgba(255, 159, 64, 0.6)",
-          ].slice(0, labels.length),
-          borderColor: [
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
-          ].slice(0, labels.length),
-          borderWidth: 2,
-          hoverBackgroundColor: [
-            "rgba(54, 162, 235, 0.8)",
-            "rgba(255, 206, 86, 0.8)",
-            "rgba(75, 192, 192, 0.8)",
-            "rgba(153, 102, 255, 0.8)",
-            "rgba(255, 159, 64, 0.8)",
-          ].slice(0, labels.length),
-          hoverBorderColor: [
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
-          ].slice(0, labels.length),
-          hoverBorderWidth: 3,
-        },
-      ],
-    };
-  };
-
-  const getTotalCurrentConsumptions = () => {
-    if (!currentConsumptions) return 0.0;
-    let total = 0;
-    currentConsumptions.forEach((c) => {
-      total += c.total_price;
-    });
-    return total.toFixed(4);
-  };
   return (
     <Container
       fluid
@@ -233,27 +122,20 @@ const UserDashboard = () => {
               >
                 <Translate content="dashboard.userDashboard.resourceOverview.noFlagsActivated" />
               </h1>
+              <LoadingButton
+                style={{ marginTop: "10px" }}
+                icon={"fa-solid fa-headset"}
+                onClick={() => navigate("/support")}
+              >
+                  <Translate content="navbar.support" />
+              </LoadingButton>
             </CardComponent>
           </Col>
         )}
-        <Col md={showConsumptionsChart ? "3" : "12"}>
-          {(context.user.enabled_features.daasapi ||
-            context.user.enabled_features.k8sapi ||
-            context.user.enabled_features.faasapi) && (
-            <h1
-              className={classes.mainTitleText}
-              style={{
-                color: colors.mainText[_mode],
-                paddingBottom: "10px",
-                paddingLeft: "5px",
-              }}
-            >
-              <Translate content="dashboard.userDashboard.resourceOverview.title" />
-            </h1>
-          )}
+        <Col md="12">
           <div
             style={{
-              display: showConsumptionsChart ? "block" : "flex",
+              display: "flex",
               flexWrap: "wrap",
             }}
           >
@@ -327,33 +209,6 @@ const UserDashboard = () => {
             )}
           </div>
         </Col>
-        {showConsumptionsChart && (
-          <Col md="9">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h1
-                className={classes.mainTitleText}
-                style={{ color: colors.mainText[_mode] }}
-              >
-                <Translate content="dashboard.userDashboard.consumptions.title" />
-              </h1>
-              <Link
-                to={"/billing"}
-                style={{
-                  color: colors.menuText[_mode],
-                  paddingRight: "20px",
-                  textDecoration: "none",
-                }}
-              >
-                <Translate content="navbar.billing" />
-              </Link>
-            </div>
-            <DoughnutChart
-              loading={loading}
-              totalConsumptions={getTotalCurrentConsumptions()}
-              data={currentDataConsumptions}
-            />
-          </Col>
-        )}
       </Row>
       {(context.user.enabled_features.daasapi ||
         context.user.enabled_features.k8sapi) && (

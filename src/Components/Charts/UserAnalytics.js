@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
+
 import {
     Chart as ChartJS,
-    CategoryScale,
     LinearScale,
+    CategoryScale,
     BarElement,
     Title,
     Tooltip,
     Legend,
     ArcElement
 } from 'chart.js';
+
 import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 import classes from './Chart.module.css';
 import GlobalContext from '../../Context/GlobalContext';

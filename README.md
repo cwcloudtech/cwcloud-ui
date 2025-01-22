@@ -26,9 +26,6 @@ REACT_APP_APIVERSION="v1"
 REACT_APP_EMAIL="cloud@comwork.io"
 REACT_APP_DOCURL="https://doc.cloud.comwork.io/docs"
 REACT_APP_STRIPE_PUBLIC_KEY="whatever"
-REACT_APP_DISABLE_PAYMENT_FEATURE="true"
-REACT_APP_DISABLE_PAYMENT_BUTTON="true"
-REACT_APP_DISABLE_STRIPE_FEATURE="true"
 REACT_APP_EXTERNAL_LOGO=""
 REACT_APP_MATOMO_URL="https://matomo.whatever.com"
 REACT_APP_MATOMO_SITE_ID="12345"
@@ -80,7 +77,6 @@ npm run test
 │     ├── ChaMessage
 │     ├── CollapsibleContent
 │     ├── CustomIcon
-│     ├── DoughnutChart
 │     ├── DragDropList
 │     ├── Dropdown
 │     ├── EditorBox

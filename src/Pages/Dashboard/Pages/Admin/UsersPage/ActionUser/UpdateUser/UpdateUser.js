@@ -138,20 +138,6 @@ function Drawer(props) {
                         {
                             props.user.enabled_features &&
                             <>
-                            <ListItem >
-                                <FormControlLabel
-                                    label={"Billable"}
-                                    control={<Switch sx={{ m: 1 }} checked={props.user.enabled_features.billable}
-                                    />}
-                                    onChange={(e) => props.setUser({
-                                        ...props.user,
-                                        enabled_features: {
-                                            ...props.user.enabled_features,
-                                            billable: e.target.checked
-                                        }
-                                    })}
-                                />
-                            </ListItem>
                             <ListItem>
                                 <FormControlLabel
                                     label={"Email API"}

@@ -23,6 +23,7 @@ import CustomEditIcon from '../../../../../Components/CustomIcon/CustomEditIcon'
 import TicketModal from '../../../../../Components/Modal/TicketModal';
 import counterpart from 'counterpart';
 import CustomLinkIcon from '../../../../../Components/CustomIcon/CustomLinkIcon';
+import { isNotEmpty } from '../../../../../utils/common';
 
 function ManageSupport() {
     const context = useContext(GlobalContext);
@@ -64,10 +65,12 @@ function ManageSupport() {
                 setTickets(res.data)
                 setFilteredTickets(res.data)
             })
-        axios.get(api_environment_url)
-        .then(res => {
-            setEnvironments(res.data)
-        })
+        if (isNotEmpty(queryParam)) {
+            axios.get(api_environment_url)
+            .then(res => {
+                setEnvironments(res.data)
+            })
+        }
         if (is_admin) {
             const responseUsers = await axios.get("/admin/user/all")
             setUsers(responseUsers.data.result)

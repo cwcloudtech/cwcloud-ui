@@ -15,7 +15,6 @@ import LanguageDropdown from "../../../Components/Dropdown/LanguageDropdown";
 import SelectDropdown from "../../../Components/Dropdown/SelectDropdown";
 import colors from "../../../Context/Colors";
 import GlobalContext from "../../../Context/GlobalContext";
-import { isFalse } from "../../../utils/common";
 import axios from "../../../utils/axios";
 import localStorage from "../../../utils/localStorageService";
 import srcimage from "../../../utils/regions";
@@ -298,48 +297,6 @@ function IndexNavbar() {
                   </h5>
                 </div>
               </DropdownItem>
-              {isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE) && (
-                <DropdownItem
-                  onClick={() => {
-                    navigate("/vouchers");
-                    setIsOpenUserDropdown(false);
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <i
-                      className="fa-solid fa-ticket"
-                      style={{ color: colors.menuText[_mode] }}
-                    ></i>
-                    <h5
-                      className={classes.dropdownItemText}
-                      style={{ margin: "10px", color: colors.menuText[_mode] }}
-                    >
-                      <Translate content="navbar.vouchers" />
-                    </h5>
-                  </div>
-                </DropdownItem>
-              )}
-              {isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE) && (
-                <DropdownItem
-                  onClick={() => {
-                    navigate("/billing");
-                    setIsOpenUserDropdown(false);
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <i
-                      className="fa-solid fa-credit-card"
-                      style={{ color: colors.menuText[_mode] }}
-                    ></i>
-                    <h5
-                      className={classes.dropdownItemText}
-                      style={{ margin: "10px", color: colors.menuText[_mode] }}
-                    >
-                      <Translate content="navbar.billing" />
-                    </h5>
-                  </div>
-                </DropdownItem>
-              )}
               <DropdownItem
                 onClick={() => {
                   navigate("/support");

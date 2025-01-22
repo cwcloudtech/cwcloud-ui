@@ -5,11 +5,9 @@ import IndexNavbar from "./IndexNavbar/IndexNavbar";
 import { SidebarProvider } from "../../Context/SidebarContext";
 import classes from "./Dashboard.module.css";
 import { toast } from "react-toastify";
-import { isFalse } from "../../utils/common";
 import AddInstance from "./Pages/User/AddInstance/AddInstance";
 import AddProject from "./Pages/User/AddProject/AddProject";
 import AttachInstance from "./Pages/User/AttachInstance/AttachInstance";
-import Billing from "./Pages/User/Billing/Billing";
 import BucketOverview from "./Pages/User/BucketOverview/BucketOverview";
 import BucketsPage from "./Pages/User/BucketsPage/BucketsPage";
 import InstanceOverview from "./Pages/User/InstanceOverview/InstanceOverView";
@@ -20,8 +18,6 @@ import UserDashboard from "./Pages/User/UserDashboard/UserDashboard";
 import AddEnvironment from "./Pages/Admin/AddEnvironment/AddEnvironment";
 import AddUser from "./Pages/Admin/AddUser/AddUser";
 import AdminAddBucket from "./Pages/Admin/AdminAddBucket/AdminAddBucket";
-import AdminGenerateInvoice from "./Pages/Admin/AdminGenerateInvoice/AdminGenerateInvoice";
-import AdminInvoicesOverview from "./Pages/Admin/AdminInvoicesOverview/AdminInvoicesOverview";
 import EnvironmentOverview from "./Pages/Admin/EnvironmentOverview/EnvironmentOverview";
 import EnvironmentsPage from "./Pages/Admin/EnvironmentsPage/EnvironmentsPage";
 import UserOverview from "./Pages/Admin/UserOverview/UserOverview";
@@ -32,13 +28,9 @@ import RegistryOverview from "./Pages/User/RegistryOverview/RegistryOverview";
 import AdminAddRegistry from "./Pages/Admin/AdminAddRegistry/AdminAddRegistry";
 import Credentials from "./Pages/User/Credentials/Credentials";
 import Settings from "./Pages/User/Settings/Settings";
-import AdminAddVoucher from "./Pages/Admin/AdminAddVoucher/AdminAddVoucher";
-import AdminVouchersPage from "./Pages/Admin/AdminVouchersPage/AdminVouchersPage";
-import Vouchers from "./Pages/User/Vouchers/Vouchers";
 import Ticket from "./Pages/User/Ticket/Ticket";
 import ManageSupport from "./Pages/User/ManageSupport/ManageSupport";
 import SendEmail from "./Pages/User/SendEmail/SendEmail";
-import AdminVoucherPage from "./Pages/Admin/AdminVoucherPage/AdminVoucherPage";
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
 import FunctionsPage from "./Pages/User/Faas/FunctionsPage/FunctionsPage";
@@ -52,8 +44,6 @@ import AdminFunctionsPage from "./Pages/Admin/Faas/AdminFunctionsPage/AdminFunct
 import AdminFunctionEdit from "./Pages/Admin/Faas/AdminFunctionEdit/AdminFunctionEdit";
 import AdminInvocationsPage from "./Pages/Admin/Faas/AdminInvocationsPage/AdminInvocationsPage";
 import AdminTriggersPage from "./Pages/Admin/Faas/AdminTriggersPage/AdminTriggersPage";
-import AdminCustomInvoice from "./Pages/Admin/AdminCustomInvoice/AdminCustomInvoice";
-import AdminEditionInvoice from "./Pages/Admin/AdminEditionInvoice/AdminEditionInvoice";
 import ClusterOverview from "./Pages/Admin/Kubernetes/ClusterManagement/Cluster/ClusterOverview";
 import ClusterManagementContainer from "./Pages/Admin/Kubernetes/ClusterManagement/ClusterContainer/ClusterManagementContainer";
 import Services from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Services/Services";
@@ -170,21 +160,6 @@ function Dashboard() {
                   exact
                   path="/admin/registry/:registryId"
                   element={<RegistryOverview />}
-                />
-                <Route
-                  exact
-                  path="/admin/vouchers"
-                  element={<AdminVouchersPage />}
-                />
-                <Route
-                  exact
-                  path="/admin/vouchers/create"
-                  element={<AdminAddVoucher />}
-                />
-                <Route
-                  exact
-                  path="/admin/voucher/:voucherId"
-                  element={<AdminVoucherPage />}
                 />
                 <Route
                   exact
@@ -328,7 +303,6 @@ function Dashboard() {
                   path="/registry/:registryId"
                   element={<RegistryOverview />}
                 />
-                <Route exact path="/vouchers" element={<Vouchers />} />
                 <Route exact path="/support" element={<ManageSupport />} />
                 <Route exact path="/support/:ticketId" element={<Ticket />} />
                 <Route
@@ -433,31 +407,6 @@ function Dashboard() {
                     </Route>
                   </Route>
                 </Route>
-                {isFalse(process.env.REACT_APP_DISABLE_PAYMENT_FEATURE) && (
-                  <React.Fragment>
-                    <Route exact path="/billing" element={<Billing />} />
-                    <Route
-                      exact
-                      path="/admin/invoice/generate"
-                      element={<AdminGenerateInvoice />}
-                    />
-                    <Route
-                      exact
-                      path="/admin/invoice/overview"
-                      element={<AdminInvoicesOverview />}
-                    />
-                    <Route
-                      exact
-                      path="/admin/invoice/custom"
-                      element={<AdminCustomInvoice />}
-                    />
-                    <Route
-                      exact
-                      path="/admin/invoice/edition"
-                      element={<AdminEditionInvoice />}
-                    />
-                  </React.Fragment>
-                )}
                 <Route path="*" element={<Error />} />
               </Routes>
             </div>
