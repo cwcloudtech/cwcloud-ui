@@ -2,10 +2,11 @@ import axios from 'axios';
 import localStorageService from './localStorageService';
 import { toast } from "react-toastify";
 import counterpart from './counterpart';
+import { isBlank, isNotBlank } from "./common";
+
 const apiHost = process.env.REACT_APP_APIURL;
 const apiVersion = process.env.REACT_APP_APIVERSION;
 const axiosInstance = axios.create({ baseURL: apiHost + '/' + apiVersion });
-import { isBlank, isNotBlank } from "./common";
 
 axiosInstance.interceptors.request.use(
     (config) => {
