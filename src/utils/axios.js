@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
     },
     function (error) {
         if (error.response) {
-            cid = error.response.headers['x-cwcloud-cid']
+            let cid = error.response.headers['x-cwcloud-cid']
             if (isBlank(cid) && isNotBlank(error.response.cid)) {
                 cid = error.response.cid
             }
