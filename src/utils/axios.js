@@ -2,7 +2,7 @@ import axios from 'axios';
 import localStorageService from './localStorageService';
 import { toast } from "react-toastify";
 import counterpart from './counterpart';
-import { isBlank, isNotBlank } from "./common";
+import { isBlank, isNotBlank, isNotEmpty } from "./common";
 
 const apiHost = process.env.REACT_APP_APIURL;
 const apiVersion = process.env.REACT_APP_APIVERSION;
@@ -26,8 +26,8 @@ axiosInstance.interceptors.response.use(
     function (error) {
         if (error.response) {
             let cid = error.response.headers['x-cwcloud-cid']
-            if (isBlank(cid) && isNotBlank(error.response.cid)) {
-                cid = error.response.cid
+            if (isBlank(cid) && isNotEmpty(error.response.data) && isNotBlank(error.response.data.cid)) {
+                cid = error.response.data.cid
             }
 
             if (error.response.status === 401) {
