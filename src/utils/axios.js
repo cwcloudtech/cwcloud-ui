@@ -5,6 +5,7 @@ import counterpart from './counterpart';
 const apiHost = process.env.REACT_APP_APIURL;
 const apiVersion = process.env.REACT_APP_APIVERSION;
 const axiosInstance = axios.create({ baseURL: apiHost + '/' + apiVersion });
+import { isBlank, isNotBlank } from "./common";
 
 axiosInstance.interceptors.request.use(
     (config) => {
@@ -23,21 +24,25 @@ axiosInstance.interceptors.response.use(
     },
     function (error) {
         if (error.response) {
+            cid = error.response.headers['x-cwcloud-cid']
+            if (isBlank(cid) && isNotBlank(error.response.cid)) {
+                cid = error.response.cid
+            }
+
             if (error.response.status === 401) {
-                localStorageService.clearToken();
-                window.location.href = "/";
+                localStorageService.clearToken()
+                window.location.href = "/"
             } else if (error.response.status === 500) {
-                toast.error(`Internal Server Error, CID: ${error.response.headers['x-cwcloud-cid']}`)
+                toast.error(`Internal Server Error, CID: ${cid}`)
                 return Promise.reject(error)
             } else if (error.response.status === 422) {
                 toast.error(counterpart(`error_codes.422`))
                 return Promise.reject(error)
+            } else if (error.response.data.i18n_code) {
+                toast.error(counterpart(`error_codes.${error.response.data.i18n_code}`))
+                return Promise.reject(error)
             } else {
-                if (error.response.data.i18n_code) {
-                    toast.error(counterpart(`error_codes.${error.response.data.i18n_code}`))
-                } else {
-                    toast.error(`Error ${error.response.status}, CID: ${error.response.headers['x-cwcloud-cid']}`)
-                }
+                toast.error(`Error ${error.response.status}, CID: ${cid}`)
                 return Promise.reject(error)
             }
         } else if (error.message) {
