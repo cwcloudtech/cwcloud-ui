@@ -30,20 +30,27 @@ axiosInstance.interceptors.response.use(
                 cid = error.response.data.cid
             }
 
+            let i18n_code = ""
+            if (isNotEmpty(error.response.data) && isNotBlank(error.response.data.i18n_code)) {
+                i18n_code = error.response.data.i18n_code
+            }
+
             if (error.response.status === 401) {
                 localStorageService.clearToken()
                 window.location.href = "/"
-            } else if (error.response.status === 500) {
-                toast.error(`Internal Server Error, CID: ${cid}`)
-                return Promise.reject(error)
-            } else if (error.response.status === 422) {
-                toast.error(counterpart(`error_codes.422`))
-                return Promise.reject(error)
-            } else if (error.response.data.i18n_code) {
-                toast.error(counterpart(`error_codes.${error.response.data.i18n_code}`))
-                return Promise.reject(error)
             } else {
-                toast.error(`Error ${error.response.status}, CID: ${cid}`)
+                if (isNotBlank(i18n_code)) {
+                    error_msg = `error_codes.${i18n_code}`
+                } else {
+                    error_msg = `error_codes.${error.response.status}`
+                }
+
+                if (isNotBlank(cid)) {
+                    toast.error(`${error_msg}, CID: ${cid}`)
+                } else {
+                    toast.error(`${error_msg}`)
+                }
+
                 return Promise.reject(error)
             }
         } else if (error.message) {

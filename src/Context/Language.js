@@ -9,8 +9,12 @@
 // inputs error 1100
 export const englishLanguage = {
     error_codes: {
-        "401": "Unauthorized: access to the requested resource requires authentication",
+        "401": "Access to the requested resource requires authentication",
+        "403": "Permission denied",
+        "404": "Resource not found",
+        "409": "Resource in conflict",
         "422": "There's mandatory fields missing",
+        "500": "Internal Server Error",
         "instance_not_found": "Instance not found",
         "instance_updated": "Instance successfully updated",
         "instance_deleted": "Instance successfully deleted",
@@ -2228,8 +2232,12 @@ export const englishLanguage = {
 
 export const frenchLanguage = {
     error_codes: {
-        "401": "Non autorisé : l'accès à la ressource demandée nécessite une authentification",
+        "401": "L'accès à la ressource demandée nécessite une authentification",
+        "403": "Il vous manque des permissions",
+        "404": "Ressource introuvable",
+        "409": "Ressource en conflit",
         "422": "Des champs obligatoires ne sont pas renseignés",
+        "500": "Erreur interne",
         "instance_not_found": "Instance introuvable",
         "instance_updated": "Instance mise à jour avec succès",
         "instance_deleted": "Instance supprimée avec succès",
