@@ -39,10 +39,9 @@ axiosInstance.interceptors.response.use(
                 localStorageService.clearToken()
                 window.location.href = "/"
             } else {
+                let error_msg = `error_codes.${error.response.status}`
                 if (isNotBlank(i18n_code)) {
                     error_msg = `error_codes.${i18n_code}`
-                } else {
-                    error_msg = `error_codes.${error.response.status}`
                 }
 
                 if (isNotBlank(cid)) {
