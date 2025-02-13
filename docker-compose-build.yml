@@ -2,4 +2,7 @@ services:
   cwcloud_ui:
     restart: always
     image: ${CI_REGISTRY}/cwcloud-ui:${VERSION}
-    build: .
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: cloud_ui
