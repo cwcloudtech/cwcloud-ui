@@ -1,5 +1,5 @@
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
+// import Divider from "@mui/material/Divider";
 import GlobalContext from "../../../Context/GlobalContext";
 import { useContext } from "react";
 import { useSidebarItems } from "../../../Hooks/useSidebarItems";
@@ -16,7 +16,13 @@ function Sidebar() {
 
   return (
     <CollapsableSidebar>
-      <List style={{ margin: "20px 0", backgroundColor: colors.navbar[_mode], borderRadius: "25px" }}>
+      <List style={{
+          margin: "20px 0",
+          backgroundColor: colors.navbar[_mode],
+          borderRadius: "25px",
+          borderTopLeftRadius: "0px",
+          borderBottomLeftRadius: "0px",
+        }}>
         {sidebarUserItems.map(
           ({
             id,
@@ -56,8 +62,14 @@ function Sidebar() {
             )
         )}
       </List>
-      <Divider />
-      <List style={{ margin: "20px 0", backgroundColor: colors.navbar[_mode], borderRadius: "25px" }}>
+      {/* <Divider /> */}
+      <List style={{
+          margin: "20px 0",
+          backgroundColor: colors.navbar[_mode],
+          borderRadius: "25px",
+          borderTopLeftRadius: "0px",
+          borderBottomLeftRadius: "0px",
+        }}>
         {context.user.is_admin && sidebarAdminItems.map(
           ({
             id,

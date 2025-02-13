@@ -7,7 +7,7 @@ import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
 import { useSidebar } from "../../Hooks/useSidebar";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { Divider } from "@material-ui/core";
+// import { Divider } from "@material-ui/core";
 
 function CollapsableSidebar(props) {
   const { open, handleDrawerClose, handleDrawerOpen, drawerWidth } = useSidebar();
@@ -83,7 +83,7 @@ function CollapsableSidebar(props) {
       <div
         className={`${classes.drawerHeader} ${classes.noScrollbar}`}
         style={{
-          backgroundColor: colors.secondBackground[_mode],
+          backgroundColor: colors.mainBackground[_mode],
         }}
       >
         <div className={classes.drawerHeaderContent}>
@@ -128,9 +128,15 @@ function CollapsableSidebar(props) {
             )}
           </div>
         </div>
-        <Divider />
+        {/* <Divider /> */}
       </div>
-      {props.children && props.children}
+      <div
+        style={{
+          backgroundColor: colors.mainBackground[_mode]
+        }}
+      >
+        {props.children && props.children}
+      </div>
     </Drawer>
   );
 }

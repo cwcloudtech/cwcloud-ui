@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Input, Form, FormGroup, Col, Row, Label } from "reactstrap"
 import GlobalContext from "../../../../Context/GlobalContext";
 import colors from "../../../../Context/Colors";
-import Translate from "react-translate-component";
 import classes from "./IpAddresses.module.css"
 import LoadingButton from "../../../LoadingButton/LoadingButton";
 import ServiceFormContext from "../../../../Context/kubernetes/ServiceFormContext";
@@ -32,15 +31,24 @@ function ExternalIp(props) {
                 </FormGroup>
             </Col>
             <Col xs="1" style={{ display: "flex", alignItems: "center" }}>
-                <LoadingButton variant="text" className={classes.removeButton} onClick={() => removeExternalIp(id)}>
-                    <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.remove" />
-                </LoadingButton>
+                <LoadingButton 
+                    icon={"fa-solid fa-trash"} 
+                    variant="text" 
+                    className={classes.removeButton} 
+                    onClick={() => removeExternalIp(id)}
+                    tooltip={counterpart('dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.remove')}
+                />
+                <LoadingButton 
+                    icon={"fa-solid fa-plus"} 
+                    variant="text" 
+                    className={classes.removeButton} 
+                    onClick={props.addExternalIp}
+                    tooltip={counterpart('dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.addExternalIp')}
+                />
             </Col>
         </Row>
     );
 }
-
-
 
 export default function IpAddresses() {
     const { counterpart, mode } = useContext(GlobalContext);
@@ -65,11 +73,8 @@ export default function IpAddresses() {
                 </Col>
             </Row>
             {
-                ipAddresses.externalIps.map((item) => <ExternalIp key={`extIpAddress-${item.id}`} externalIp={item} counterpart={counterpart} />)
+                ipAddresses.externalIps.map((item) => <ExternalIp key={`extIpAddress-${item.id}`} externalIp={item} counterpart={counterpart} addExternalIp={addExternalIp} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addExternalIp}>
-                <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.addExternalIp" />
-            </LoadingButton>
         </Form>
     );
 }

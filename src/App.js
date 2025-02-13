@@ -15,8 +15,29 @@ import SetMultiFactor from "./Pages/Public/SetMultiFactor/SetMultiFactor";
 import SetSecurityKey from "./Pages/Public/SetSecurityKey/SetSecurityKey";
 import U2fAuthentification from "./Pages/Public/U2fAuthentification/U2fAuthentification";
 import Contact from "./Pages/Public/Contact/Contact";
+import React, { useState, useEffect } from 'react';
+import SearchModal from './Components/SearchModal/SearchModal';
 
 function App() {
+    const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+    const handleKeyDown = (event) => {
+        if ((event.key === 's' || event.key === 'S' || event.key === '/') && 
+            !isSearchModalOpen && 
+            !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+            event.preventDefault();
+            setIsSearchModalOpen(true);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSearchModalOpen]);
+
     return (
         <AppContext>
             <ToastContainer />
@@ -37,6 +58,12 @@ function App() {
                         <Route exact path="/setup-security-key" element={<SetSecurityKey />} />
                         <Route path="/*" element={LocalStorageService.getAccessToken() ? <Dashboard /> : <Navigate to="/" />} />
                     </Routes>
+                    {LocalStorageService.getAccessToken() && (
+                        <SearchModal
+                            isOpen={isSearchModalOpen}
+                            onClose={() => setIsSearchModalOpen(false)}
+                        />
+                    )}
                 </BrowserRouter>
             </div>
         </AppContext>

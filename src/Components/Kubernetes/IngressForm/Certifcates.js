@@ -26,7 +26,7 @@ const Host = (props) => {
 
   return (
     <Row>
-      <Col xs="6" md="9">
+      <Col xs="9">
         <FormGroup>
           <Label
             for={`host-${props.crtId}-${id}`}
@@ -56,13 +56,22 @@ const Host = (props) => {
           </FormFeedback>
         </FormGroup>
       </Col>
-      <Col xs="3" md="3" style={{ display: "flex", alignItems: "center" }}>
+      <Col xs="3" style={{ display: "flex", alignItems: "center" }}>
         <LoadingButton
+          icon={"fa-solid fa-trash"}
           variant="text"
           className={classes.removeButton}
           onClick={() => props.removeHost(id)}
+          tooltip={counterpart("dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.remove")}
         >
-          <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.remove" />
+        </LoadingButton>
+        <LoadingButton
+          icon={"fa-solid fa-plus"}
+          className={classes.removeButton}
+          variant="text"
+          onClick={() => props.addHost(props.crtId)}
+          tooltip={counterpart("dashboard.kubernetesDashboardPages.serviceDisovery.ingresses.form.addHost")}
+        >
         </LoadingButton>
       </Col>
     </Row>
@@ -89,7 +98,7 @@ function Certificate(props) {
         <CloseIcon />
       </IconButton>
       <Row>
-        <Col xs="6">
+        <Col xs="12">
           <FormGroup>
             <Label for={`certn-${id}`} style={{ color: colors.title[_mode] }}>
               {counterpart(
@@ -116,26 +125,16 @@ function Certificate(props) {
             </FormFeedback>
           </FormGroup>
         </Col>
-        <Col xs="6">
-          {hosts.map((host) => (
-            <Host
-              key={host.id}
-              host={host}
-              crtId={id}
-              removeHost={(hostId) => removeHost(id, hostId)}
-            />
-          ))}
-        </Col>
       </Row>
-
-      <LoadingButton
-        icon={"fa-solid fa-plus"}
-        className="addButton"
-        variant="contained"
-        onClick={() => addHost(id)}
-      >
-        <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.ingresses.form.addHost" />
-      </LoadingButton>
+      {hosts.map((host) => (
+        <Host
+          key={host.id}
+          host={host}
+          crtId={id}
+          removeHost={(hostId) => removeHost(id, hostId)}
+          addHost={addHost}
+        />
+      ))}
     </CardComponent>
   );
 }
@@ -149,14 +148,17 @@ export default function Certificates(props) {
         {certificates.map((crt) => (
           <Certificate key={crt.id} certificate={crt} />
         ))}
-        <LoadingButton
-          icon={"fa-solid fa-plus"}
-          className="addButton"
-          variant="contained"
-          onClick={() => addCertificate()}
-        >
-          <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.ingresses.form.addCertificate" />
-        </LoadingButton>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+          <LoadingButton
+            icon={"fa-solid fa-plus"}
+            className={classes.removeButton}
+            variant="contained"
+            onClick={() => addCertificate()}
+            style={{ width: "200px" }}
+          >
+            <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.ingresses.form.addCertificate" />
+          </LoadingButton>
+        </div>
       </CardComponent>
     </Form>
   );

@@ -285,6 +285,23 @@ export const englishLanguage = {
         credentials: "Credentials",
         support: "Support"
     },
+    searchModal: {
+        searchButton: "Search or go to ...",
+        typeToSearch: "Type to search (↑↓ to navigate, Enter to select)...",
+        noResultsFound: "No results found",
+        startTypingToSearch: "Start typing to search..."
+    },
+    billing: {
+        method: "Payment methods",
+        add: "Add credit card",
+        invoices: "Invoices",
+        gateway: "Payment gateway",
+        card: {
+            added: "Credit card successfully added",
+            deleted: "Credit card successfully deleted"
+        },
+        cardInformations: "Card informations",
+    },
     iam: {
         apikey: {
             generate: "Generate api key",
@@ -2503,6 +2520,23 @@ export const frenchLanguage = {
         settings: "Paramètres",
         credentials: "Sécurité",
         support: "Support"
+    },
+    searchModal: {
+        searchButton: "Rechercher ou aller à ...",
+        typeToSearch: "Tapez pour rechercher (↑↓ pour naviguer, Enter pour sélectionner)...",
+        noResultsFound: "Aucun résultat trouvé",
+        startTypingToSearch: "Commencez à taper pour rechercher..."
+    },
+    billing: {
+        method: "Moyens de paiement",
+        add: "Ajouter",
+        invoices: "Factures",
+        gateway: "Gateway de paiement",
+        card: {
+            added: "Carte bancaire ajoutée avec succès",
+            deleted: "Carte bancaire supprimée avec succès"
+        },
+        cardInformations: "Informations de la carte",
     },
     iam: {
         apikey: {

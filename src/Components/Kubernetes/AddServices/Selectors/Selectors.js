@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Input, Form, FormGroup, Col, Row, Label } from "reactstrap"
 import GlobalContext from "../../../../Context/GlobalContext";
 import colors from "../../../../Context/Colors";
-import Translate from "react-translate-component";
 import classes from "./Selectors.module.css"
 import LoadingButton from "../../../LoadingButton/LoadingButton";
 import ServiceFormContext from "../../../../Context/kubernetes/ServiceFormContext";
@@ -47,26 +46,32 @@ function Selector(props) {
                 </FormGroup>
             </Col>
             <Col xs="1" style={{ display: "flex", alignItems: "center" }}>
-                <LoadingButton variant="text" className={classes.removeButton} onClick={() => removeSelector(id)}>
-                    <Translate content="dashboard.kubernetesDashboardPages.common.form.remove" />
-                </LoadingButton>
+                <LoadingButton 
+                    icon={"fa-solid fa-trash"} 
+                    variant="text" 
+                    className={classes.removeButton} 
+                    onClick={() => removeSelector(id)}
+                    tooltip={counterpart('dashboard.kubernetesDashboardPages.common.form.remove')}
+                />
+                <LoadingButton 
+                    icon={"fa-solid fa-plus"} 
+                    variant="text" 
+                    className={classes.removeButton} 
+                    onClick={props.addSelector}
+                    tooltip={counterpart('dashboard.kubernetesDashboardPages.common.form.addSelector')}
+                />
             </Col>
         </Row>
     );
 }
-
-
 
 export default function Selectors(props) {
     const { selectors, addSelector } = useContext(ServiceFormContext);
     return (
         <Form>
             {
-                selectors.map((item) => <Selector key={`selector-${item.id}`} selector={item} />)
+                selectors.map((item) => <Selector key={`selector-${item.id}`} selector={item} addSelector={addSelector} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addSelector}>
-                <Translate content="dashboard.kubernetesDashboardPages.common.form.addSelector" />
-            </LoadingButton>
         </Form>
     );
 }

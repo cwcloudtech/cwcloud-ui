@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
@@ -23,6 +23,7 @@ import { Button, Switch } from '@material-ui/core';
 import GlobalContext from '../../../../../../../Context/GlobalContext';
 import colors from '../../../../../../../Context/Colors';
 import Translate from 'react-translate-component';
+import axios from '../../../../../../../utils/axios';
 
 function Drawer(props) {
     const _mode = useContext(GlobalContext).mode;
@@ -30,6 +31,7 @@ function Drawer(props) {
     const [showPassConfirm, setShowPassConfirm] = useState(false)
     const [confirmPassword, setConfirmPassword] = useState("")
     const [NotConfirmedPassword, setNotConfirmedPassword] = useState(props.user.password !== confirmPassword)
+    const [userMFAMethods, setUserMFAMethods] = useState([])
 
     const handleClickShowNewPassword = () => {
         setShowPassNew(!showPassNew);
@@ -54,6 +56,14 @@ function Drawer(props) {
     const ClickDelete2faHandler = () => {
         props.onDelete2fa()
     }
+
+    useEffect(() => {
+        axios.get(`/admin/mfa/user/${props.user.id}`)
+            .then(res => {
+                setUserMFAMethods(res.data.methods)
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div>
@@ -371,11 +381,13 @@ function Drawer(props) {
                                 {!props.user.password ? "Reset Password" : "Save"}
                             </LoadingButton>
                         </ListItem>
-                        <ListItem style={{ display: "flex", justifyContent: "center" }}>
-                            <LoadingButton loading={props.loadingDelete2fa} icon="fa-solid fa-trash" className={classes.buttonStyle} onClick={() => ClickDelete2faHandler()}>
-                                <Translate content="common.button.delete2Fa" />
-                            </LoadingButton>
-                        </ListItem>
+                        {userMFAMethods && userMFAMethods.length > 0 &&
+                            <ListItem style={{ display: "flex", justifyContent: "center" }}>
+                                <LoadingButton loading={props.loadingDelete2fa} icon="fa-solid fa-trash" className={classes.buttonStyle} onClick={() => ClickDelete2faHandler()}>
+                                    <Translate content="common.button.delete2Fa" />
+                                </LoadingButton>
+                            </ListItem>
+                        }
                     </List>
                 </div>
             </SwipeableDrawer>

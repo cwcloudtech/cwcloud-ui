@@ -1,7 +1,5 @@
-version: '3.3'
-
 services:
   cwcloud_ui:
     restart: always
-    image: cwcloud-ui:latest
+    image: ${CI_REGISTRY}/cwcloud-ui:${VERSION}
     build: .

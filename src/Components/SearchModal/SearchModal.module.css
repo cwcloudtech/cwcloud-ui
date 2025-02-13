@@ -1,0 +1,125 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalOpen {
+  display: block;
+}
+
+.modalContent {
+  background-color: rgba(60, 73, 86, 0.1);
+  backdrop-filter: blur(10px);
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid var(--modal-border);
+  width: 600px;
+  max-width: 90%;
+  border-radius: 10px;
+  animation: modalFadeIn 0.3s ease-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0 16px 0;
+  box-sizing: border-box;
+  border-radius: 20px; /* Increase border-radius for more rounded corners */
+  background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.searchInput:focus {
+  border-color: var(--input-text);
+}
+
+.searchResults {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.searchResults::-webkit-scrollbar {
+  width: 8px;
+}
+
+.searchResults::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.searchResults::-webkit-scrollbar-thumb {
+  background-color: var(--input-border);
+  border-radius: 4px;
+}
+
+.searchResultCard {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background-color: rgba(60, 73, 86, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--card-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.searchResultCard:hover {
+  background-color: var(--card-hover-background);
+  transform: translateY(-1px);
+}
+
+.searchResultCard.selected {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.searchResultCard.selected .resultPath {
+  opacity: 0.9;
+}
+
+.resultName {
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.resultPath {
+  font-size: 14px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.noResults {
+  text-align: center;
+  padding: 20px;
+  color: var(--input-text);
+  opacity: 0.7;
+  font-size: 14px;
+}

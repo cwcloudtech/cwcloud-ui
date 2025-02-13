@@ -1,4 +1,4 @@
-import { Chip } from "@material-ui/core";
+import { Chip, Tooltip } from "@material-ui/core";
 import { useContext, useEffect, useRef, useState } from "react";
 import Identicon from "react-identicons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ import localStorage from "../../../utils/localStorageService";
 import srcimage from "../../../utils/regions";
 import classes from "./IndexNavbar.module.css";
 import DnsDropdown from "../../../Components/Dropdown/DnsDropdown";
+import SearchIcon from '@mui/icons-material/Search';
 
 function IndexNavbar() {
   const context = useContext(GlobalContext);
@@ -73,6 +74,11 @@ function IndexNavbar() {
       setIsOpenUserDropdown(false);
   };
 
+  const handleSearchButtonClick = () => {
+    const event = new KeyboardEvent('keydown', { key: 's' });
+    window.dispatchEvent(event);
+  };
+
   useEffect(() => {
     context.setIsGlobal(true);
     axios.get("/manifest").then((res) => {
@@ -88,12 +94,25 @@ function IndexNavbar() {
       vertical="center"
       horizontal="space-between"
     >
-      <span
-        className={classes.title}
-        style={{ color: colors.mainTitle[_mode] }}
-      >
-        {title}
-      </span>
+      <Row vertical="center">
+        <span
+          className={classes.title}
+          style={{ color: colors.mainTitle[_mode] }}
+        >
+          {title}
+        </span>
+        <Tooltip title="Type 's' or '/'">
+          <button
+            className={classes.searchButton}
+            onClick={handleSearchButtonClick}
+          >
+            <SearchIcon style={{ color: colors.mainText[_mode] }} />
+            <span style={{ color: colors.mainText[_mode], marginLeft: '5px' }}>
+              <Translate content="searchModal.searchButton" />
+            </span>
+          </button>
+        </Tooltip>
+      </Row>
       <Row className={classes.rightPart} vertical="center">
         {isDNSpage && <Col></Col>}
         <Col>

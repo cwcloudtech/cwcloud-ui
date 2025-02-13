@@ -68,12 +68,19 @@ function Labels(props) {
       </Col>
       <Col xs="1" style={{ display: "flex", alignItems: "center" }}>
         <LoadingButton
+          icon={"fa-solid fa-trash"}
           variant="text"
           className={classes.removeButton}
           onClick={() => removeLabel(id)}
-        >
-          <Translate content="dashboard.kubernetesDashboardPages.common.form.remove" />
-        </LoadingButton>
+          tooltip={counterpart('dashboard.kubernetesDashboardPages.common.form.remove')}
+        />
+        <LoadingButton
+          icon={"fa-solid fa-plus"}
+          variant="text"
+          className={classes.removeButton}
+          onClick={props.addLabel}
+          tooltip={counterpart('dashboard.kubernetesDashboardPages.common.form.label')}
+        />
       </Col>
     </Row>
   );
@@ -137,12 +144,19 @@ function Annotation(props) {
       </Col>
       <Col xs="1" style={{ display: "flex", alignItems: "center" }}>
         <LoadingButton
+          icon={"fa-solid fa-trash"}
           variant="text"
           className={classes.removeButton}
           onClick={()=> removeAnnotation(id)}
-        >
-          <Translate content="dashboard.kubernetesDashboardPages.common.form.remove" />
-        </LoadingButton>
+          tooltip={counterpart('dashboard.kubernetesDashboardPages.common.form.remove')}
+        />
+        <LoadingButton
+          icon={"fa-solid fa-plus"}
+          variant="text"
+          className={classes.removeButton}
+          onClick={props.addAnnotation}
+          tooltip={counterpart('dashboard.kubernetesDashboardPages.common.form.annotation')}
+        />
       </Col>
     </Row>
   );
@@ -169,16 +183,9 @@ export default function LabelsAnnotations() {
           <Labels
             key={`label-${item.id}`}
             data={item}
+            addLabel={addLabel}
           />
         ))}
-        <LoadingButton
-          icon={"fa-solid fa-plus"}
-          className="addButton"
-          variant="contained"
-          onClick={addLabel}
-        >
-          <Translate content="dashboard.kubernetesDashboardPages.common.form.label" />
-        </LoadingButton>
       </div>
       <div>
         <div className={classes.titleContainer} style={{ marginTop: "25px" }}>
@@ -191,16 +198,9 @@ export default function LabelsAnnotations() {
           <Annotation
             key={`annotation-${item.id}`}
             data={item}
+            addAnnotation={addAnnotation}
           />
         ))}
-        <LoadingButton
-          icon={"fa-solid fa-plus"}
-          className="addButton"
-          variant="contained"
-          onClick={addAnnotation}
-        >
-          <Translate content="dashboard.kubernetesDashboardPages.common.form.annotation" />
-        </LoadingButton>
       </div>
     </Form>
   );

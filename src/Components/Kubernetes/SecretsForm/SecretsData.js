@@ -14,19 +14,19 @@ import colors from "../../../Context/Colors";
 import Translate from "react-translate-component";
 import CardComponent from "../../Cards/CardComponent/CardComponent";
 import LoadingButton from "../../LoadingButton/LoadingButton";
-// import classes from "./secrets.module.css";
+import classes from "./secrets.module.css";
 import '../../../common.css';
 import SecretsFormContext from "../../../Context/kubernetes/SecretsFormContext";
 
 function SecretData(props) {
   const { counterpart, mode } = useContext(GlobalContext);
   const { data } = props;
-  const { updateSecretData } = useContext(SecretsFormContext);
+  const { updateSecretData, removeSecretData, addSecretData } = useContext(SecretsFormContext);
   const _mode = mode;
 
   return (
     <Row>
-      <Col xs="6" md="5">
+      <Col xs="5" md="4">
         <FormGroup>
           <Label for={`keyS-${data.id}`} style={{ color: colors.title[_mode] }}>
             {counterpart(
@@ -56,7 +56,7 @@ function SecretData(props) {
           </FormFeedback>
         </FormGroup>
       </Col>
-      <Col xs="6" md="4">
+      <Col xs="5" md="4">
         <FormGroup>
           <Label
             for={`valueS-${data.id}`}
@@ -89,12 +89,26 @@ function SecretData(props) {
           </FormFeedback>
         </FormGroup>
       </Col>
+      <Col xs="2" style={{ display: "flex", alignItems: "center" }}>
+        <LoadingButton
+          icon={"fa-solid fa-trash"}
+          variant="text"
+          className={classes.removeButton}
+          onClick={() => removeSecretData(data.id)}
+        />
+        <LoadingButton
+          icon={"fa-solid fa-plus"}
+          variant="text"
+          className={classes.removeButton}
+          onClick={() => addSecretData()}
+        />
+      </Col>
     </Row>
   );
 }
 
 export default function Rules() {
-  const { secrets, addSecretData } = useContext(SecretsFormContext);
+  const { secrets } = useContext(SecretsFormContext);
 
   return (
     <Form>
@@ -102,14 +116,6 @@ export default function Rules() {
         {secrets.map((rule) => (
           <SecretData key={rule.id} data={rule} />
         ))}
-        <LoadingButton
-          icon={"fa-solid fa-plus"}
-          className="addButton"
-          variant="contained"
-          onClick={() => addSecretData()}
-        >
-          <Translate content="dashboard.kubernetesDashboardPages.storage.secrets.form.addData" />
-        </LoadingButton>
       </CardComponent>
     </Form>
   );

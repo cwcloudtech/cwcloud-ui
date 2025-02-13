@@ -95,9 +95,20 @@ function ServicePort(props) {
                 </FormGroup>
             </Col>
             <Col xs="3" md="1" style={{ display: "flex", alignItems: "center" }}>
-                <LoadingButton variant="text" className={classes.removeButton} onClick={() => removeServicePort(id)}>
-                    <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.remove" />
-                </LoadingButton>
+                <LoadingButton 
+                    icon={"fa-solid fa-trash"} 
+                    variant="text" 
+                    className={classes.removeButton} 
+                    onClick={() => removeServicePort(id)}
+                    tooltip={counterpart('dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.remove')}
+                />
+                <LoadingButton 
+                    icon={"fa-solid fa-plus"} 
+                    variant="text" 
+                    className={classes.removeButton} 
+                    onClick={props.addServicePort}
+                    tooltip={counterpart('dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.addPort')}
+                />
             </Col>
         </Row>
     );
@@ -110,11 +121,8 @@ export default function ServicePorts(props) {
     return (
         <Form>
             {
-                servicePorts.map((sp) => <ServicePort key={`servicePort-${sp.id}`} servicePort={sp} />)
+                servicePorts.map((sp) => <ServicePort key={`servicePort-${sp.id}`} servicePort={sp} addServicePort={addServicePort} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addServicePort}>
-                <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.addPort" />
-            </LoadingButton>
         </Form>
     );
 }

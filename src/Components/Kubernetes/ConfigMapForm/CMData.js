@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Input, Form, FormGroup, Col, Row, Label } from "reactstrap"
 import GlobalContext from "../../../Context/GlobalContext";
 import colors from "../../../Context/Colors";
-import Translate from "react-translate-component";
 import classes from "./configmap.module.css"
 import LoadingButton from "../../LoadingButton/LoadingButton";
 import ConfigMapFormContext from "../../../Context/kubernetes/ConfigMapFormContext";
@@ -46,27 +45,35 @@ function SingleCMData(props) {
                         placeholder={counterpart('dashboard.kubernetesDashboardPages.common.form.valueHolder')} />
                 </FormGroup>
             </Col>
-            <Col xs="1" style={{ display: "flex", alignItems: "center" }}>
-                <LoadingButton variant="text" className={classes.removeButton} onClick={() => removeSingleCmData(id)}>
-                    <Translate content="dashboard.kubernetesDashboardPages.common.form.remove" />
+            <Col xs="2" style={{ display: "flex", alignItems: "center" }}>
+                <LoadingButton 
+                    icon={"fa-solid fa-trash"}
+                    variant="text"
+                    className={classes.removeButton}
+                    tooltip={counterpart('dashboard.kubernetesDashboardPages.common.form.remove')}
+                    onClick={() => removeSingleCmData(id)}
+                >
+                </LoadingButton>
+                <LoadingButton
+                    icon={"fa-solid fa-plus"}
+                    variant="text"
+                    className={classes.removeButton}
+                    onClick={props.addSingleCmData}
+                    tooltip={counterpart('dashboard.kubernetesDashboardPages.common.form.addSelector')}
+                >
                 </LoadingButton>
             </Col>
         </Row>
     );
 }
 
-
-
 export default function CMData(props) {
     const { cmData, addSingleCmData } = useContext(ConfigMapFormContext);
     return (
         <Form>
             {
-                cmData.map((item) => <SingleCMData key={`cmdata-${item.id}`} cmData={item} />)
+                cmData.map((item) => <SingleCMData key={`cmdata-${item.id}`} cmData={item} addSingleCmData={addSingleCmData} />)
             }
-            <LoadingButton icon={"fa-solid fa-plus"} className="addButton" variant="contained" onClick={addSingleCmData}>
-                <Translate content="dashboard.kubernetesDashboardPages.common.form.addSelector" />
-            </LoadingButton>
         </Form>
     );
 }

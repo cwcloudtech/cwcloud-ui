@@ -72,6 +72,23 @@
   width: 20px;
   margin-right: 7px;
 }
+.searchButton {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 15px;
+  width: 300px;
+  backdrop-filter: blur(5px);
+}
+
+.searchButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 @media (max-width: 1080px) {
   .title {
     margin-left: 50px;

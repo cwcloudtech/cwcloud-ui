@@ -33,7 +33,7 @@ const PathForm = (props) => {
 
   return (
       <Row>
-        <Col xs="6" md="5">
+        <Col xs="5" md="4">
           <FormGroup>
             <Label
               for={`path-${id}`}
@@ -84,7 +84,7 @@ const PathForm = (props) => {
             </FormFeedback>
           </FormGroup>
         </Col>
-        <Col xs="6" md="4">
+        <Col xs="5" md="3">
           <FormGroup>
             <Label
               for={`targetService-${id}`}
@@ -144,12 +144,19 @@ const PathForm = (props) => {
         </Col>
         <Col xs="3" md="1" style={{ display: "flex", alignItems: "center" }}>
           <LoadingButton
+            icon={"fa-solid fa-trash"}
             variant="text"
             className={classes.removeButton}
             onClick={() => props.removePath(id)}
-          >
-            <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.remove" />
-          </LoadingButton>
+            tooltip={counterpart('dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.remove')}
+          />
+          <LoadingButton
+            icon={"fa-solid fa-plus"}
+            variant="text"
+            className={classes.removeButton}
+            onClick={() => props.addPath(id)}
+            tooltip={counterpart('dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.addPort')}
+          />
         </Col>
       </Row>
   );
@@ -202,16 +209,9 @@ function Rule(props) {
           path={path}
           removePath={(pathId) => props.removePath(id, pathId)}
           updatePath={(pathId, data) => props.updatePath(id, pathId, data)}
+          addPath={props.addPath}
         />
       ))}
-      <LoadingButton
-        icon={"fa-solid fa-plus"}
-        className="addButton"
-        variant="contained"
-        onClick={() => props.addPath(id)}
-      >
-        <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.services.form.form.addPort" />
-      </LoadingButton>
     </CardComponent>
   );
 }
@@ -241,14 +241,16 @@ export default function Rules() {
             updatePath={updatePath}
           />
         ))}
-        <LoadingButton
-          icon={"fa-solid fa-plus"}
-          className="addButton"
-          variant="contained"
-          onClick={() => addRule()}
-        >
-          <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.ingresses.form.addRule" />
-        </LoadingButton>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <LoadingButton
+            icon={"fa-solid fa-plus"}
+            className={classes.removeButton}
+            variant="contained"
+            onClick={() => addRule()}
+          >
+            <Translate content="dashboard.kubernetesDashboardPages.serviceDisovery.ingresses.form.addRule" />
+          </LoadingButton>
+        </div>
       </CardComponent>
     </Form>
   );

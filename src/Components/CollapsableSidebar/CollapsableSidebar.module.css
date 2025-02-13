@@ -58,4 +58,11 @@
     &:hover {
         cursor: pointer;
     }
+    position: relative;
+    top: 10px;
+    border-radius: 100%;
+    border: 1px solid #aab8c5;
+    height: 45px;
+    width: 45px;
+    padding-top: 3px;
 }
