@@ -9,11 +9,13 @@
 // inputs error 1100
 export const englishLanguage = {
     error_codes: {
+        "400": "Invalid request",
         "401": "Access to the requested resource requires authentication",
         "403": "Permission denied",
         "404": "Resource not found",
         "409": "Resource in conflict",
         "422": "There's mandatory fields missing",
+        "429": "You exceeded the quota",
         "500": "Internal Server Error",
         "instance_not_found": "Instance not found",
         "instance_updated": "Instance successfully updated",
@@ -2249,11 +2251,13 @@ export const englishLanguage = {
 
 export const frenchLanguage = {
     error_codes: {
+        "400": "Requête invalide",
         "401": "L'accès à la ressource demandée nécessite une authentification",
         "403": "Il vous manque des permissions",
         "404": "Ressource introuvable",
         "409": "Ressource en conflit",
         "422": "Des champs obligatoires ne sont pas renseignés",
+        "429": "Le quota a été dépassé",
         "500": "Erreur interne",
         "instance_not_found": "Instance introuvable",
         "instance_updated": "Instance mise à jour avec succès",
