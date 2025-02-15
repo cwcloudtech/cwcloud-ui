@@ -2001,7 +2001,7 @@ export const englishLanguage = {
                 attachInstance: "Attach instance",
             },
             message: {
-                successDelete: "Project Successfully deleted",
+                successDelete: "Project successfully deleted",
                 successMultiDelete: "Projects successfully deleted"
             }
         },
