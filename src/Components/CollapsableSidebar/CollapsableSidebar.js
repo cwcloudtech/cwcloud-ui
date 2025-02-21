@@ -15,6 +15,7 @@ function CollapsableSidebar(props) {
   const _mode = context.mode;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
+  const isAdmin = context.user?.is_admin;
 
   useEffect(() => {
     if (matches) {
@@ -27,6 +28,8 @@ function CollapsableSidebar(props) {
 
   const openedMixin = (theme) => ({
     width: drawerWidth,
+    height: isAdmin ? '100%' : 'auto',
+    maxHeight: '100vh',
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -40,7 +43,9 @@ function CollapsableSidebar(props) {
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: `calc(${theme.spacing(7)} + 1px)`,
+    height: isAdmin ? '100%' : 'auto',
+    maxHeight: '100vh',
+    width: `calc(${theme.spacing(9)} + 1px)`,
     [theme.breakpoints.up("sm")]: {
       width: `calc(${theme.spacing(8)} + 1px)`,
     },
