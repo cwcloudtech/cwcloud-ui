@@ -22,7 +22,7 @@ function App() {
     const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
     const handleKeyDown = (event) => {
-        if ((event.key === 's' || event.key === 'S' || event.key === '/') && 
+        if (event.ctrlKey && (event.key === 's' || event.key === '/') && 
             !isSearchModalOpen && 
             !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
             event.preventDefault();

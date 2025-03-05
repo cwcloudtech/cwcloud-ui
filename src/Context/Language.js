@@ -2420,7 +2420,7 @@ export const frenchLanguage = {
         "cluster_not_found": "Cluster introuvable",
         "clusters_not_found": "Clusters introuvables",
         "cluster_info_failed": "Récupération des informations du cluster échouée",
-        "invalid_severity": "Gravité non valide",
+        "invalid_severity": "Sévérité non valide",
         "invalid_ticket_reply_id": "ID de réponse ou ticket non valide",
         "ticket_not_found": "Ticket introuvable",
         "ticket_deleted_successfully": "Ticket supprimé avec succès",
@@ -3529,12 +3529,12 @@ export const frenchLanguage = {
             editTicketReply: "Modifier la réponse du ticket",
             selectedProduct: "Produit sélectionné",
             selectProduct: "Sélectionner un produit",
-            severityText: "Gravité",
+            severityText: "Sévérité",
             ticketTitle: "Titre du ticket",
             openedTickets: "Ouverts",
             closedTickets: "Fermés",
             createdBy: "Créé par",
-            selectSeverity: "Sélectionner la gravité",
+            selectSeverity: "Sélectionner la sévérité",
             back: "Retour aux tickets",
             description: "Description",
             dragAndDrop: "Glisser-déposer des fichiers ici, ou cliquer pour sélectionner des fichiers",
@@ -3547,9 +3547,9 @@ export const frenchLanguage = {
             closed: "fermé",
             enterMessage: "Entrez votre message ici",
             severity: {
-                low: 'Bas',
-                medium: 'Moyen',
-                high: 'Elevé'
+                low: 'Basse',
+                medium: 'Moyenne',
+                high: 'Elevée'
             },
             table: {
                 id: "Ticket ID",

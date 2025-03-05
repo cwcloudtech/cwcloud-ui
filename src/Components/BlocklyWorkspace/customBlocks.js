@@ -138,7 +138,6 @@ export const customizeBlocks = () => {
       this.setOutput(true, null);
       this.setColour("#745BA5");
       this.setTooltip('Calls the http_request function.');
-      this.setHelpUrl('https://example.com');
     }
   };
 
@@ -164,7 +163,6 @@ export const customizeBlocks = () => {
       this.setInputsInline(false);
       this.setColour("#0860AF");
       this.setTooltip('Calls a serverless function you own with the given ID');
-      this.setHelpUrl('https://example.com');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
     }
@@ -182,7 +180,6 @@ export const customizeBlocks = () => {
       this.setInputsInline(false);
       this.setColour("#0860AF");
       this.setTooltip('Set an argument with a given name, key, and value');
-      this.setHelpUrl('https://example.com');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
     }
@@ -191,12 +188,11 @@ export const customizeBlocks = () => {
   Blockly.Blocks['get_argument'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField('argument with key')
+        .appendField('argumemnt with key')
         .appendField(new Blockly.FieldTextInput('key'), 'ARG_KEY');
       this.setOutput(true, 'String');
       this.setColour("#0860AF");
       this.setTooltip('Get the value of an argument with a given key');
-      this.setHelpUrl('https://example.com');
     }
   };
 
@@ -207,7 +203,6 @@ export const customizeBlocks = () => {
       this.setOutput(true, 'String');
       this.setColour("#0860AF");
       this.setTooltip('Get the value of an arguments list');
-      this.setHelpUrl('https://example.com');
     }
   };  
 
@@ -296,6 +291,5 @@ Blockly.Blocks['env'] = {
     this.setOutput(true, null);
     this.setColour("#9F5B92");
     this.setTooltip('Represents an environment variable.');
-    this.setHelpUrl('https://example.com');
   }
 };

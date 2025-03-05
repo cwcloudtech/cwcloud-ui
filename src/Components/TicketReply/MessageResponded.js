@@ -9,7 +9,7 @@ import colors from '../../Context/Colors';
 import ReactMarkdown from 'react-markdown';
 import ReplyTicketModal from '../Modal/ReplyTicketModal';
 import { formatDateTime } from '../../utils/FormateDate';
-import Translate from 'react-translate-component'
+import Translate from 'react-translate-component';
 
 const ChatMessageEntered = ({ ticket_id, reply_id, text, user, creation_date, change_date }) => {
   const context = useContext(GlobalContext);
@@ -22,57 +22,56 @@ const ChatMessageEntered = ({ ticket_id, reply_id, text, user, creation_date, ch
   const [edited, setEdited] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [replyText, setReplyText] = useState(text);
+  
   const redirectUserHandler = () => {
-      if (is_admin) {
-          navigate(`/user/${user.id}`)
-      }
-  }
+    if (is_admin) {
+      navigate(`/user/${user.id}`);
+    }
+  };
 
   const onPreUpdateHandler = () => {
     setShowModal(true);
-  }
+  };
 
   const onUpdateHandler = (message) => {
-    const body = {
-      message: message
-    }
+    const body = { message };
     setLoading(true);
     axios.patch(`/admin/support/${ticket_id}/reply/${reply_id}`, body)
-      .then(res => {
+      .then(() => {
         setLoading(false);
         setShowModal(false);
         axios.get(`/admin/support/${ticket_id}`)
           .then(res => {
-            var replies = res.data.replies
-            replies.forEach((reply, index) => {
+            const replies = res.data.replies;
+            replies.forEach((reply) => {
               if (reply.id === reply_id) {
-                setReplyText(replies[index].message)
-                setChangeDate(formatDateTime(replies[index].change_date))
-                setEdited(true)
+                setReplyText(reply.message);
+                setChangeDate(formatDateTime(reply.change_date));
+                setEdited(true);
               }
-            })
-          })
+            });
+          });
       })
       .catch(err => {
         setLoading(false);
         console.log(err);
-      })
-  }
+      });
+  };
 
   const onDeleteHandler = () => {
     setLoading(true);
     axios.delete(`/admin/support/${ticket_id}/reply/${reply_id}`)
-      .then(res => {
-        setLoading(false)
-        setShowModal(false)
-        setDeleted(true)
-        setReplyText(`『 ${context.counterpart('dashboard.support.message.message_deleted')} 』`)
+      .then(() => {
+        setLoading(false);
+        setShowModal(false);
+        setDeleted(true);
+        setReplyText(`『 ${context.counterpart('dashboard.support.message.message_deleted')} 』`);
       })
       .catch(err => {
         setLoading(false);
         console.log(err);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     if (creation_date !== change_date) {
@@ -84,25 +83,26 @@ const ChatMessageEntered = ({ ticket_id, reply_id, text, user, creation_date, ch
     backgroundColor: _mode === "dark" ? '#37404a' : '#ecf5fe',
     color: _mode === "dark" ? 'white' : '#2775ba',
     borderRadius: '15px',
-    borderBottomLeftRadius: '0px',
+    borderTopLeftRadius: '0px',
     padding: '15px',
     marginBottom: '5px',
     maxWidth: '100%',
     fontSize: '20px',
     wordWrap: 'break-word',
     overflowWrap: 'break-word'
-  };    
+  };
 
   const message = {
     display: 'flex',
-    alignItems: 'center',
-  }
+    alignItems: 'flex-start',
+  };
 
   const iconResponse = {
-    marginRight: '20px',
-    marginLeft: '22px',
-    height: '25px',
-    width: '20px',
+    marginRight: '10px',
+    marginLeft: '0px',
+    height: '28px',
+    width: '28px',
+    flexShrink: 0
   };
 
   return (
@@ -121,12 +121,61 @@ const ChatMessageEntered = ({ ticket_id, reply_id, text, user, creation_date, ch
             <Identicon string={user.email} size="28" style={iconResponse} />
           </div>
           <div style={{width: '10px'}}></div>
-          <div style={messageResponse} className='container-fluid'>
-            <Row style={{ paddingRight: "20px", paddingLeft: "10px" }}>
-              <Col md="12">
-                <p style={{ margin: '0', paddingLeft: "20px", direction: 'ltr' }}>
-                    <ReactMarkdown>{replyText}</ReactMarkdown>
-                </p>
+          <div style={{...messageResponse, width: '100%'}} className='container-fluid'>
+            <Row style={{ width: "100%", margin: 0 }}>
+              <Col md="12" style={{ padding: 0 }}>
+                <div style={{ margin: '0', paddingLeft: "20px", direction: 'ltr', maxWidth: '100%' }}>
+                  <ReactMarkdown components={{
+                    code: ({node, inline, className, children, ...props}) => {
+                      return inline ? (
+                        <code className={className} {...props}>{children}</code>
+                      ) : (
+                        <div style={{ position: 'relative', maxWidth: '100%' }}>
+                          <pre
+                            style={{
+                              margin: 0,
+                              padding: 0,
+                              maxWidth: '100%',
+                              overflow: 'hidden',
+                            }}
+                          >
+                            <code
+                              className={className}
+                              style={{
+                                display: 'block',
+                                overflowX: 'auto',
+                                maxWidth: '100%',
+                                padding: '8px',
+                                backgroundColor: _mode === 'dark' ? '#1e2227' : '#f5f5f5',
+                                borderRadius: '4px',
+                                whiteSpace: 'pre-wrap',
+                                wordBreak: 'break-all',
+                              }}
+                              {...props}
+                            >
+                              {children}
+                            </code>
+                          </pre>
+                        </div>
+                      );
+                    },
+                    p: ({node, children, ...props}) => (
+                      <p 
+                        style={{ 
+                          margin: '0', 
+                          overflowWrap: 'break-word', 
+                          wordBreak: 'break-word',
+                          maxWidth: '100%' 
+                        }} 
+                        {...props}
+                      >
+                        {children}
+                      </p>
+                    )
+                  }}>
+                    {replyText}
+                  </ReactMarkdown>
+                </div>
               </Col>
             </Row>
           </div>
