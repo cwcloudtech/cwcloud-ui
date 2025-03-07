@@ -101,7 +101,7 @@ function IndexNavbar() {
         >
           {title}
         </span>
-        <Tooltip title='Type "CTRL + s" or "CTRL + /"'>
+        <Tooltip title='Type CTRL + s'>
           <button
             className={classes.searchButton}
             onClick={handleSearchButtonClick}
