@@ -19,7 +19,6 @@ import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import DataTable from "../../../../../../Components/Table/DataTable";
 import GlobalContext from "../../../../../../Context/GlobalContext";
 import axios from "../../../../../../utils/axios";
-import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import classes from "./AdminDnsOverview.module.css";
 import colors from "../../../../../../Context/Colors";
 import CustomCopyIcon from "../../../../../../Components/CustomIcon/CustomCopyIcon";
@@ -216,16 +215,18 @@ export default function AdminDnsOverview(props) {
       });
     })
       .then((deleted_envs) => {
-        setDnsRecords([
-          ...dnsRecords.filter((p) => !deleted_envs.includes(p.id)),
-        ]);
-        setFilteredDnsRecords([
-          ...dnsRecords.filter((p) => !deleted_envs.includes(p.id)),
-        ]);
+        //? Update raw records first
+        const deletedIds = deleted_envs.map(env => env.id);
+        const updatedRawRecords = rawDnsRecords.filter(r => !deletedIds.includes(r.id));
+        setRawDnsRecords(updatedRawRecords);
+        
+        //? Rebuild grouped records
+        const updatedGroupedRecords = regroupRecords(updatedRawRecords);
+        setDnsRecords(updatedGroupedRecords);
+        setFilteredDnsRecords(updatedGroupedRecords);
+        
         if (deleted_envs.length > 0)
-          toast.success(
-            counterpart("dashboard.dnsRecordsPage.message.successDeleteAll")
-          );
+          toast.success(counterpart("dashboard.dnsRecordsPage.message.successDeleteAll"));
         setLoading(false);
         setShowConfirmDeleteModal(false);
       })
@@ -244,15 +245,16 @@ export default function AdminDnsOverview(props) {
     axios
       .patch(`/admin/dns/${context.selectedDnsProvider}/delete`, payload)
       .then((response) => {
-        setDnsRecords(
-          filteredListWithoutRemovedElement(selectedDnsRecord.id, dnsRecords)
-        );
-        setFilteredDnsRecords(
-          filteredListWithoutRemovedElement(selectedDnsRecord.id, dnsRecords)
-        );
-        toast.success(
-          counterpart("dashboard.dnsRecordsPage.message.successDelete")
-        );
+        //? Update raw records first
+        const updatedRawRecords = rawDnsRecords.filter(r => r.id !== selectedDnsRecord.id);
+        setRawDnsRecords(updatedRawRecords);
+        
+        //? Rebuild grouped records
+        const updatedGroupedRecords = regroupRecords(updatedRawRecords);
+        setDnsRecords(updatedGroupedRecords);
+        setFilteredDnsRecords(updatedGroupedRecords);
+        
+        toast.success(counterpart("dashboard.dnsRecordsPage.message.successDelete"));
         setShowConfirmDeleteModal(false);
         setLoading(false);
       })
@@ -260,6 +262,30 @@ export default function AdminDnsOverview(props) {
         setShowConfirmDeleteModal(false);
         setLoading(false);
       });
+  };
+
+  const regroupRecords = (records) => {
+    const groupedData = records.reduce((acc, item) => {
+      const zone = item.zone;
+      if (!acc[zone]) {
+        acc[zone] = {
+          zone: zone,
+          data: [],
+        };
+      }
+
+      const formattedData = Array.isArray(item.data)
+        ? item.data.join(" | ")
+        : item.data.replace(/,/g, " | ");
+  
+      acc[zone].data.push({
+        ...item,
+        data: formattedData,
+      });
+      return acc;
+    }, {});
+    
+    return Object.values(groupedData);
   };
 
   const handleAddDnsRecord = () => {

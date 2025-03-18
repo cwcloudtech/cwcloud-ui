@@ -107,18 +107,22 @@ export const customizePythonGenerator = () => {
         var url = `${apiHost}/${apiVersion}/faas/invocation`;
         console.log(`url=${url}, apiVersion=${apiVersion}`)
         var syncUrlAddition = executionType === 'sync' ? '/sync' : '';
+        var callFunctionId = generateUUID().replace(/-/g, '_');
         var headers = `{"accept": "application/json", "Content-Type": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
-        var body = `{ 'content': {"function_id": ${functionId},"args": ${args}} }`;
-        var request = `requests.post(nested_func_url, headers=nested_func_headers, json=nested_func_body)`;
+        var body = `{"content": {"function_id": ${functionId}, "args": ${args}} }`;
+        var nested_func_url_name = `_${callFunctionId}_url`;
+        var nested_func_headers_name = `_${callFunctionId}_headers`;
+        var nested_func_body_name = `_${callFunctionId}_body`;
+        var nested_func_request_name = `_${callFunctionId}_r`;
+        var request = `requests.post(${nested_func_url_name}, headers=${nested_func_headers_name}, json=${nested_func_body_name})`;
         var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
-        var callFunctionId = "_" + generateUUID().replace(/-/g, '_');
-        var resultLine = resultVariable ? `${resultVariable} = ${callFunctionId}()` : `${callFunctionId}()`;
-        return `def ${callFunctionId}():\n`
-                + `  nested_func_url = "${url}${syncUrlAddition}"\n`
-                + `  nested_func_headers = ${headers}\n`
-                + `  nested_func_body = ${body}\n`
-                + `  nested_func_r = ${request}\n`
-                + `  return cwcloud_parse_response(nested_func_r)\n`
+        var resultLine = resultVariable ? `${resultVariable} = _${callFunctionId}()` : `_${callFunctionId}()`;
+        return `def _${callFunctionId}():\n`
+                + `  ${nested_func_url_name} = "${url}${syncUrlAddition}"\n`
+                + `  ${nested_func_headers_name} = ${headers}\n`
+                + `  ${nested_func_body_name} = ${body}\n`
+                + `  ${nested_func_request_name} = ${request}\n`
+                + `  return cwcloud_parse_response(${nested_func_request_name})\n`
                 + `\n${resultLine}\n`;
     }
 
