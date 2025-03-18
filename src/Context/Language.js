@@ -1550,9 +1550,8 @@ export const englishLanguage = {
                 learnMore: "Learn more",
                 addDnsRecord: "Add DNS Record",
                 emptyMessage: "There is no DNS records to display right now",
+                copyRecord: "Copy record url",
                 searchPlaceholder: "Search for a DNS record by name",
-                successDelete: "DNS record deleted successfully",
-                successDeleteAll: "All selected DNS records deleted successfully",
                 table: {
                     name: "Name",
                     zone: "Zone",
@@ -1581,6 +1580,9 @@ export const englishLanguage = {
             },
             message: {
                 searchTip: "Tip: you can filter the DNS records by their type by writing ':' before the name of the type in the search bar",
+                successDelete: "DNS record deleted successfully",
+                successDeleteAll: "All selected DNS records deleted successfully",
+                successCopyRecord: "Record url copied with success",
             }
         },
         kubernetesDashboardPages: {
@@ -4122,8 +4124,7 @@ export const frenchLanguage = {
                 addDnsRecord: "Ajouter un nouvel enregistrement DNS",
                 emptyMessage: "Il n'y a pas d'enregistrement DNS pour le moment.",
                 searchPlaceholder: "Rechercher un enregistrement DNS par nom",
-                successDelete: "Enregistrement DNS supprimé avec succès",
-                successDeleteAll: "Tous les enregistrements DNS sélectionnés ont été supprimés avec succès",
+                copyRecord: "Copier url de l'enregistrement",
                 table: {
                     name: "Nom",
                     zone: "Zone",
@@ -4152,6 +4153,9 @@ export const frenchLanguage = {
             },
             message: {
                 searchTip: "Astuce : vous pouvez filtrer les enregistrements DNS par leur type en écrivant ':' devant le nom du type dans la barre de recherche",
+                successDelete: "Enregistrement DNS supprimé avec succès",
+                successDeleteAll: "Tous les enregistrements DNS sélectionnés ont été supprimés avec succès",
+                successCopyRecord: "Enregistrement DNS copié avec succès",
             }
         },
         projectOverview: {

@@ -109,16 +109,16 @@ export const customizePythonGenerator = () => {
         var syncUrlAddition = executionType === 'sync' ? '/sync' : '';
         var headers = `{"accept": "application/json", "Content-Type": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
         var body = `{ 'content': {"function_id": ${functionId},"args": ${args}} }`;
-        var request = `requests.post(url, headers=headers, json=body)`;
+        var request = `requests.post(nested_func_url, headers=nested_func_headers, json=nested_func_body)`;
         var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
         var callFunctionId = "_" + generateUUID().replace(/-/g, '_');
         var resultLine = resultVariable ? `${resultVariable} = ${callFunctionId}()` : `${callFunctionId}()`;
         return `def ${callFunctionId}():\n`
-                + `  url = "${url}${syncUrlAddition}"\n`
-                + `  headers = ${headers}\n`
-                + `  body = ${body}\n`
-                + `  r = ${request}\n`
-                + `  return cwcloud_parse_response(r)\n`
+                + `  nested_func_url = "${url}${syncUrlAddition}"\n`
+                + `  nested_func_headers = ${headers}\n`
+                + `  nested_func_body = ${body}\n`
+                + `  nested_func_r = ${request}\n`
+                + `  return cwcloud_parse_response(nested_func_r)\n`
                 + `\n${resultLine}\n`;
     }
 

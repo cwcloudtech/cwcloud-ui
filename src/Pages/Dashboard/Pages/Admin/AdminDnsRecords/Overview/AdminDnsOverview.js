@@ -22,6 +22,7 @@ import axios from "../../../../../../utils/axios";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import classes from "./AdminDnsOverview.module.css";
 import colors from "../../../../../../Context/Colors";
+import CustomCopyIcon from "../../../../../../Components/CustomIcon/CustomCopyIcon";
 
 export default function AdminDnsOverview(props) {
   const { counterpart } = useContext(GlobalContext);
@@ -42,12 +43,19 @@ export default function AdminDnsOverview(props) {
     {
       field: "record",
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.name"),
-      width: 200,
+      width: 400,
+      renderCell: (params) => (
+        <Tooltip title={params.value} placement="top">
+          <div className={classes.truncatedText}>
+            {params.value}
+          </div>
+        </Tooltip>
+      ),
     },
     {
       field: "data",
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.data"),
-      width: 900,
+      width: 700,
     },
     {
       field: "ttl",
@@ -75,11 +83,27 @@ export default function AdminDnsOverview(props) {
       headerName: counterpart("dashboard.dnsRecordsPage.explore.table.actions"),
       flex: 2,
       renderCell: (params) => {
-        const onClick = (e) => {
+        const onDelete = (e) => {
           e.stopPropagation();
           onPreDeleteHandler(params.id);
         };
-        return <CustomDeleteIcon onClick={onClick} />;
+        
+        const copyDnsRecord = (e) => {
+          e.stopPropagation();
+          navigator.clipboard.writeText(params.row.record);
+          toast.success(counterpart("dashboard.dnsRecordsPage.message.successCopyRecord"));
+        };
+        
+        return (
+          <React.Fragment>
+            <CustomCopyIcon
+              onClick={copyDnsRecord} 
+              title={counterpart("dashboard.dnsRecordsPage.explore.copyRecord")} 
+            />
+            &nbsp;
+            <CustomDeleteIcon onClick={onDelete} />
+          </React.Fragment>
+        );
       },
     },
   ];
@@ -171,12 +195,13 @@ export default function AdminDnsOverview(props) {
     new Promise((r, j) => {
       const deletedEnvs = [];
       selectedDeletionItems.forEach((item, index) => {
+        var payload = {
+          id: `${item.id}`,
+          record_name: item.record,
+          dns_zone: item.zone,
+        }
         axios
-          .patch(`/admin/dns/${context.selectedDnsProvider}/delete`, {
-            id: item.id,
-            record_name: item.record,
-            dns_zone: item.zone,
-          })
+          .patch(`/admin/dns/${context.selectedDnsProvider}/delete`, payload)
           .then(() => {
             deletedEnvs.push(item);
             if (index === selectedDeletionItems.length - 1) {
@@ -199,7 +224,7 @@ export default function AdminDnsOverview(props) {
         ]);
         if (deleted_envs.length > 0)
           toast.success(
-            counterpart("dashboard.dnsRecordsPage.explore.successDeleteAll")
+            counterpart("dashboard.dnsRecordsPage.message.successDeleteAll")
           );
         setLoading(false);
         setShowConfirmDeleteModal(false);
@@ -211,12 +236,13 @@ export default function AdminDnsOverview(props) {
 
   const deleteDnsHandler = () => {
     setLoading(true);
+    const payload = {
+      id: `${selectedDnsRecord.id}`,
+      record_name: selectedDnsRecord.record,
+      dns_zone: selectedDnsRecord.zone,
+    }
     axios
-      .patch(`/admin/dns/${context.selectedDnsProvider}/delete`, {
-        id: selectedDnsRecord.id,
-        record_name: selectedDnsRecord.record,
-        dns_zone: selectedDnsRecord.zone,
-      })
+      .patch(`/admin/dns/${context.selectedDnsProvider}/delete`, payload)
       .then((response) => {
         setDnsRecords(
           filteredListWithoutRemovedElement(selectedDnsRecord.id, dnsRecords)
@@ -225,7 +251,7 @@ export default function AdminDnsOverview(props) {
           filteredListWithoutRemovedElement(selectedDnsRecord.id, dnsRecords)
         );
         toast.success(
-          counterpart("dashboard.dnsRecordsPage.explore.successDelete")
+          counterpart("dashboard.dnsRecordsPage.message.successDelete")
         );
         setShowConfirmDeleteModal(false);
         setLoading(false);
