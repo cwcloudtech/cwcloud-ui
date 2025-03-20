@@ -89,7 +89,8 @@ export default function AdminDnsOverview(props) {
         
         const copyDnsRecord = (e) => {
           e.stopPropagation();
-          navigator.clipboard.writeText(params.row.record);
+          const fullDomain = `${params.row.record}.${params.row.zone}`;
+          navigator.clipboard.writeText(fullDomain);
           toast.success(counterpart("dashboard.dnsRecordsPage.message.successCopyRecord"));
         };
         
