@@ -8,7 +8,41 @@ import { Tooltip } from '@mui/material';
 import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
 import Translate from 'react-translate-component';
 import GlobalContext from '../../Context/GlobalContext';
+import { toast } from 'react-toastify';
 
+const patchBlocklyRendering = () => {
+  const originalRender = Blockly.BlockSvg.prototype.renderEfficiently;
+  const originalFieldDropdownRender = Blockly.FieldDropdown.prototype.render_;
+  const originalGetTextContent = Blockly.FieldDropdown.prototype.getTextContent;
+
+  Blockly.FieldDropdown.prototype.getTextContent = function() {
+    try {
+      return originalGetTextContent.call(this);
+    } catch (e) {
+      console.warn("Error in Blockly FieldDropdown.getTextContent:", e);
+      return "";
+    }
+  };
+
+  Blockly.FieldDropdown.prototype.render_ = function() {
+    try {
+      return originalFieldDropdownRender.call(this);
+    } catch (e) {
+      console.warn("Error in Blockly FieldDropdown.render_:", e);
+    }
+  };
+
+  Blockly.BlockSvg.prototype.renderEfficiently = function() {
+    try {
+      return originalRender.call(this);
+    } catch (e) {
+      console.warn("Error rendering Blockly block:", e);
+      if (this.svgGroup_) {
+        this.svgGroup_.setAttribute('opacity', '0.5');
+      }
+    }
+  };
+}
 
 function BlocklyWorkspace(props) {
   const context = useContext(GlobalContext);
@@ -19,17 +53,33 @@ function BlocklyWorkspace(props) {
 
   useEffect(() => {
     if (blocklyDivRef.current) {
-      customizeBlocks();
-      customizePythonGenerator();
-      workspaceRef.current = Blockly.inject(blocklyDivRef.current, {
-        toolbox: document.getElementById('toolbox'),
-        theme: _mode === 'dark' ? DarkTheme : null,
-        trashcan: false,
-        scrollbars: props.showBlocklyFullScreen,
-      });
+      try {
+        patchBlocklyRendering();
+        
+        customizeBlocks();
+        customizePythonGenerator();
+        
+        workspaceRef.current = Blockly.inject(blocklyDivRef.current, {
+          toolbox: document.getElementById('toolbox'),
+          theme: _mode === 'dark' ? DarkTheme : null,
+          trashcan: false,
+          scrollbars: props.showBlocklyFullScreen,
+        });
 
-      if (props.state) {
-        Blockly.serialization.workspaces.load(props.state, workspaceRef.current);
+        if (props.state) {
+          try {
+            Blockly.serialization.workspaces.load(props.state, workspaceRef.current);
+          } catch (error) {
+            console.error("Error loading Blockly state:", error);
+            toast.error(context.counterpart('dashboard.function.message.blocklyBreakingChanges'));
+            props.onWorkspaceChange(props.code, { error: true });
+            return;
+          }
+        }
+      } catch (error) {
+        console.error("Error initializing Blockly:", error);
+        toast.error(context.counterpart('dashboard.function.message.blocklyInitError'));
+        return;
       }
     }
 
@@ -68,9 +118,13 @@ function BlocklyWorkspace(props) {
     }
 
     workspaceRef.current.addChangeListener(() => {
-      var code = generateTheCode();
-      const state = Blockly.serialization.workspaces.save(workspaceRef.current);
-      props.onWorkspaceChange(code, state);
+      try {
+        var code = generateTheCode();
+        const state = Blockly.serialization.workspaces.save(workspaceRef.current);
+        props.onWorkspaceChange(code, state);
+      } catch (error) {
+        console.error("Error in Blockly change listener:", error);
+      }
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

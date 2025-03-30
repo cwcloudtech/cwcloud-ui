@@ -205,6 +205,7 @@ export const englishLanguage = {
         "monitor_check_failed": "Monitor check failed",
         "invalid_http_status_code": "Invalid http status code",
         "invalid_tcp_url_format": "Invalid tcp url format",
+        "not_monitorapi": "The user is not granted for the monitor API"
     },
     common: {
         ok: "OK",
@@ -812,7 +813,9 @@ export const englishLanguage = {
                 createMessage: "Create your first function",
                 blocklyWarning: "Beware! Once you click below, you will override your code with code generated from blockly.",
                 searchbartip: "Tip: you can filter the functions by their language by writing ':' before the name of the language in the search bar",
-                unsavedChangesWarning: "You have unsaved changes, do you want to leave the page?"
+                unsavedChangesWarning: "You have unsaved changes, do you want to leave the page?",
+                blocklyBreakingChanges: "Blockly workspace cannot read the custom blocks provided",
+                blocklyInitError: "An error occured while initializing the blockly workspace",
             },
             actions: {
                 copyFunctionId: "Copy function id",
@@ -2434,7 +2437,9 @@ export const frenchLanguage = {
         "monitor_deleted": "Monitor supprimé",
         "monitor_check_failed": "Vérification du monitor échouée",
         "invalid_http_status_code": "Code HTTP invalide",
-        "invalid_tcp_url_format": "Format d'URL TCP invalide"
+        "invalid_tcp_url_format": "Format d'URL TCP invalide",
+        "not_faasapi": "L'utilisateur n'a pas l'api FaaS activée",
+        "not_monitorapi": "L'utilisateur n'a pas l'api Monitor activée",
     },
     common: {
         ok: "OK",
@@ -3040,7 +3045,9 @@ export const frenchLanguage = {
                 createMessage: "Créer une fonction",
                 blocklyWarning: "Attention ! Une fois que vous aurez cliqué ci-dessous, vous remplacerez votre code par le code généré par blockly.",
                 searchbartip: "Astuce : vous pouvez filtrer les fonctions par leur langage de programmation en écrivant ':' devant le nom de la langue dans la barre de recherche",
-                unsavedChangesWarning: "Attention ! Vous avez des modifications non sauvegardées. Si vous continuez, vous perdrez ces modifications."
+                unsavedChangesWarning: "Attention ! Vous avez des modifications non sauvegardées. Si vous continuez, vous perdrez ces modifications.",
+                blocklyBreakingChanges: "Blockly workspace ne peut pas lire les blocs personnalisés fournis",
+                blocklyInitError: "Une erreur s'est produite lors de l'initialisation de workspace blockly"
             },
             actions: {
                 copyFunctionId: "Copier l'id de la fonction",

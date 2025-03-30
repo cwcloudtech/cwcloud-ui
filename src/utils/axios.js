@@ -44,7 +44,7 @@ axiosInstance.interceptors.response.use(
                     error_msg = counterpart(`error_codes.${i18n_code}`)
                 }
 
-                if (isNotBlank(cid)) {
+                if (isNotBlank(cid) && error.response.status !== 401) {
                     toast.error(`${error_msg}, CID: ${cid}`)
                 } else {
                     toast.error(`${error_msg}`)

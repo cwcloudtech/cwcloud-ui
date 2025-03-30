@@ -34,7 +34,7 @@ export const customizeBlocks = () => {
     init: function () {
       this.appendValueInput('PARAMS')
         .setCheck(null)
-        .appendField(new Blockly.FieldDropdown([["async", "async"], ["", ""]]), "ASYNC")
+        .appendField(new Blockly.FieldDropdown([["async", "async"], ["sync", "sync"]]), "ASYNC")
         .appendField('function');
       this.appendDummyInput()
         .appendField('named')
@@ -79,18 +79,18 @@ export const customizeBlocks = () => {
 
   Blockly.Blocks['http_request'] = {
     init: function () {
+      const dropdown = new Blockly.FieldDropdown([
+        ['GET', 'GET'],
+        ['POST', 'POST'],
+        ['PUT', 'PUT'],
+        ['PATCH', 'PATCH'],
+        ['DELETE', 'DELETE']
+      ]);
+      
       this.appendValueInput('URL')
         .setCheck('String')
         .appendField('make a')
-        .appendField(new Blockly.FieldDropdown([
-          ['GET', 'GET'],
-          ['POST', 'POST'],
-          ['PUT', 'PUT'],
-          ['PATCH', 'PATCH'],
-          ['DELETE', 'DELETE']
-        ], function (option) {
-          this.getSourceBlock().updateShape_(option);
-        }), 'REQUEST_TYPE')
+        .appendField(dropdown, 'REQUEST_TYPE')
         .appendField('request named')
         .appendField(new Blockly.FieldTextInput('request1'), 'REQUEST_NAME')
         .appendField('to');
@@ -112,10 +112,19 @@ export const customizeBlocks = () => {
       this.setColour("#745BA5");
       this.setTooltip('Makes an HTTP request to the specified URL with the provided data, headers, and returns the response.');
       this.setHelpUrl('https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods');
+
+      this.setOnChange(function(event) {
+        if (event.type === Blockly.Events.BLOCK_CHANGE && 
+            event.element === 'field' && 
+            event.name === 'REQUEST_TYPE') {
+          this.updateShape_(event.newValue);
+        }
+      });
     },
-    updateShape_: function (option) {
+    
+    updateShape_: function (requestType) {
       const dataInput = this.getInput('DATA');
-      if (['POST', 'PUT', 'PATCH'].includes(option)) {
+      if (['POST', 'PUT', 'PATCH'].includes(requestType)) {
         if (!dataInput) {
           this.appendValueInput('DATA')
             .setCheck('String')

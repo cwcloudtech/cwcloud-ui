@@ -198,6 +198,14 @@ function FunctionOverview() {
     };
 
     const handleCodeAndStateChange = (newCode, newState) => {
+        if (newState.error) {
+            setOpenedBlockly(false);
+            setWithBlockly(false);
+            setSelectedLanguage('python');
+            setFunctionBlockly('');
+            return;
+        }
+
         if (JSON.stringify(newState) !== JSON.stringify(currentState)) {
             setChangesAreSaved(false)
         }

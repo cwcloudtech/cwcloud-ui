@@ -271,6 +271,13 @@ function AddFunction() {
     }
 
     const handleCodeAndStateChange = (newCode, newState) => {
+        if (newState.error) {
+            setWithBlockly(false);
+            setSelectedLanguage('python');
+            setBlockly('');
+            return;
+        }
+
         setCurrentCode(newCode)
         setCurrentState(newState)
         setCode(newCode)
