@@ -35,6 +35,7 @@ function CollapsableSidebar(props) {
       duration: theme.transitions.duration.enteringScreen,
     }),
     overflowX: "hidden",
+    borderRight: 'none',
   });
 
   const closedMixin = (theme) => ({
@@ -49,6 +50,7 @@ function CollapsableSidebar(props) {
     [theme.breakpoints.up("sm")]: {
       width: `calc(${theme.spacing(8)} + 1px)`,
     },
+    borderRight: 'none',
   });
 
   const Drawer = styled(MuiDrawer, {

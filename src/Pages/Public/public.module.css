@@ -1,3 +1,19 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  .buttonStyle {
+    margin: 20px 0 0 0 !important;
+    width: 100% !important;
+    background-color: #37404aff !important;
+    color: white !important;
+}ing: 0;
+}
+
+#root {
+    height: 100vh;
+    overflow: hidden;
+}
+
 .mainContainer {
     background: #F3F3F3;
     overflow: 0 !important;
@@ -17,7 +33,7 @@
     align-self: center;
     justify-self: flex-end;
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .logoContainer {
@@ -56,12 +72,15 @@
 .buttonStyle {
     margin: 50px 0 0 0 !important;
     width: 100% !important;
-    background-color: #165EA2 !important;
+    background-color: #37404aff !important;
     color: white !important;
+    transition: all 0.2s ease;
+    border-color: #37404aff !important;
 }
 
 .buttonStyle:hover {
-    background-color: #0C345A !important;
+    background-color: #2a3038 !important;
+    border-color: #2a3038 !important;
 }
 
 .form {
@@ -70,27 +89,38 @@
 }
 
 .cwcloudLogo {
-    padding-top: 25px;
+    padding-top: 10px;
     width: 13em;
     display: block;
     margin: auto;
+    margin-bottom: 5px;
 }
 
 .row {
     margin: 0 !important;
     height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 .imageStyle {
     box-sizing: border-box;
     width: 100%;
     height: 100vh;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
+    display: block;
 }
 
 .backgroundLogin {
     padding: 0px;
-    background-color: #0C345A;
+    background-image: url('../../assets/images/login_background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 .itemTextError {
@@ -128,4 +158,74 @@
     .imageStyle {
         display: none;
     }
+    
+    .backgroundLogin {
+        background-image: url('../../assets/images/login_background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        max-height: 100vh;
+        overflow: hidden;
+    }
+    
+    .mainContainer {
+        height: 100vh;
+        max-height: 100vh;
+        overflow: hidden;
+    }
+    
+    .form {
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+}
+
+.orDivider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #868c96;
+    margin: 20px 0;
+}
+
+.orDivider::before,
+.orDivider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #DBDFE3;
+}
+
+.orDivider::before {
+    margin-right: 15px;
+}
+
+.orDivider::after {
+    margin-left: 15px;
+}
+
+.text-center {
+    padding: 0 !important;
+    width: 100%;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.text-center > div {
+    width: 100% !important;
+}
+
+.text-center iframe {
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 40px;
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+    flex-grow: 1;
 }

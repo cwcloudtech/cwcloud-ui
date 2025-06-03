@@ -156,6 +156,8 @@ export const englishLanguage = {
         "faas_state_not_known": "Invalid state (not known)",
         "faas_invalid_function_id": "The function id is not valid",
         "faas_trigger_kind_not_supported": "The trigger's kind is invalid",
+        "faas_function_not_found": "Function not found",
+        "faas_function_protected": "You cannot delete a protected function",
         "cron_expr_invalid": "Not a valid crontab expr",
         "faas_function_name_missing": "Function name is required",
         "object_type_created": "Object type successfully created",
@@ -205,7 +207,15 @@ export const englishLanguage = {
         "monitor_check_failed": "Monitor check failed",
         "invalid_http_status_code": "Invalid http status code",
         "invalid_tcp_url_format": "Invalid tcp url format",
-        "not_monitorapi": "The user is not granted for the monitor API"
+        "not_monitorapi": "The user is not granted for the monitor API",
+        "storage_kv_created": "Storage key-value successfully created",
+        "storage_kv_updated": "Storage key-value successfully updated",
+        "storage_kv_conflict": "Storage key-value already exists",
+        "storage_kv_not_found": "Storage key-value not found",
+        "storage_kv_deleted": "Storage key-value successfully deleted",
+        "not_storageapi": "The user is not granted for the storage API",
+        "storage_kv_error": "Error retrieving Storage KV",
+        "storage_kv_delete_error": "Error deleting Storage KV",
     },
     common: {
         ok: "OK",
@@ -495,6 +505,14 @@ export const englishLanguage = {
             title: "Observability",
             monitors: "Monitors",
             addMonitor: "Add monitor",
+        },
+        kvStorage: {
+            title: "Key-Value storage",
+            overview: "Overview",
+            create: "Create new KV"
+        },
+        manageCwai: {
+            title: "CWAI Analytics",
         }
     },
     dashboard: {
@@ -734,6 +752,8 @@ export const englishLanguage = {
                 }
             },
             is_public: "Public endpoint",
+            is_protected: "Protected function",
+            is_unprotected: "Unprotected function",
             by: "by",
             inputs: {
                 name: {
@@ -816,14 +836,159 @@ export const englishLanguage = {
                 unsavedChangesWarning: "You have unsaved changes, do you want to leave the page?",
                 blocklyBreakingChanges: "Blockly workspace cannot read the custom blocks provided",
                 blocklyInitError: "An error occured while initializing the blockly workspace",
+                successProtect: "Function protected successfully",
+                successUnprotect: "Function unprotected successfully",
+                errorToggleProtection: "An error occured while toggling the callback protection"
             },
             actions: {
                 copyFunctionId: "Copy function id",
-                copyPublicIp: "Copy public IP"
+                copyPublicIp: "Copy public IP",
+                protect: "Protect function",
+                unprotect: "Unprotect function",
             },
             table: {
                 name: "Name",
                 language: "Language"
+            }
+        },
+        kv: {
+            overview: {
+                mainTitle: "Key-Value storage",
+                addKV: "Add new KV",
+                emptyMessage: "No KV found",
+                createMessage: "Create a new KV",
+            },
+            addKV: {
+                mainTitle: "Create new Key-Value storage",
+                back: "Back to KV storage",
+                inputs: {
+                    key: {
+                        title: "Key",
+                        placeholder: "Enter a key name",
+                        subtitle: "Enter a unique identifier for your key-value pair"
+                    },
+                    payload: {
+                        title: "Payload",
+                        placeholder: "{\"key\": \"value\"}",
+                        subtitle: "Enter your JSON payload"
+                    },
+                    ttl: {
+                        title: "Time to Live (Optional)",
+                        placeholder: "Enter TTL in hours",
+                        subtitle: "Specify how long the key-value should be stored (in hours). Leave empty for permanent storage."
+                    }
+                }
+            },
+            editKV: {
+                mainTitle: "Edit Key-Value storage",
+                back: "Back to KV storage",
+                inputs: {
+                    key: {
+                        title: "Key",
+                        placeholder: "Enter a key name",
+                        subtitle: "Enter a unique identifier for your key-value pair"
+                    },
+                    payload: {
+                        title: "Payload",
+                        placeholder: "{\"key\": \"value\"}",
+                        subtitle: "Enter your JSON payload"
+                    },
+                    ttl: {
+                        title: "Time to Live (Optional)",
+                        placeholder: "Enter TTL in hours",
+                        subtitle: "Specify how long the key-value should be stored (in hours). Leave empty for permanent storage."
+                    }
+                }
+            },
+            table: {
+                id: "Id",
+                key: "Key",
+                payload: "Payload",
+                source: "Source",
+                ownedBy: "Owned by",
+                ttl: "TTL (hours)",
+                createdAt: "Created at",
+                updatedAt: "Updated at",
+            },
+            inputs: {
+                source: {
+                    title: "Source",
+                    all: "All",
+                }
+            },
+            name: "KV Entry",
+            message: {
+                errorFetchEntries: "Error fetching KV entries",
+                successDelete: "KV entry deleted successfully",
+                errorDelete: "An error occured while deleting the KV entry",
+                successDeleteMultiple: "KV entries deleted successfully",
+                emptyMessage: "No KV entries available",
+                createMessage: "Create your first KV entry",
+                successAdd: "KV created successfully",
+                errorAdd: "Error creating KV",
+                invalidJson: "Invalid JSON format",
+                successUpdate: "KV updated successfully",
+            }
+        },
+        cwai: {
+            mainTitle: "CwAI Chat",
+            model: {
+                title: "Model",
+                placeholder: "Write the model"
+            },
+            prompt: {
+                title: "Your prompt",
+                placeholder: "Write your prompt"
+            },
+            send: "Send",
+            answer: "Cwai answer",
+            regenerate: "Regenerate response",
+            helpText: "How can I help you today?",
+            conversationHistory: "Conversation history",
+            newConversation: "New conversation",
+            noConversations: "No conversations available",
+            emptyConversation: {
+                title: "This conversation is now empty",
+                message: "Restart a new conversation by providing a new prompt."
+            },
+            searchConversations: "Search conversations by title...",
+            searchResults: "Search results",
+            noSearchResults: "No search results",
+            messages: {
+                conversationDeletedSuccess: "Conversation deleted successfully",
+                conversationRenamedSuccess: "Conversation renamed successfully",
+                promptDeletedSuccess: "Prompt deleted successfully",
+            },
+            actions: {
+                regenerateResponse: "Regenerate response",
+                editPrompt: "Edit prompt",
+                deletePrompt: "Delete prompt",
+            },
+            features: {
+                title: "Features",
+                featureAskQuestion: {
+                    title: "Ask questions",
+                    description: "Get instant answers to your queries"
+                },
+                featureDraftContent: {
+                    title: "Draft content",
+                    description: "Generate text for various purposes"
+                },
+                featureGetIdeas: {
+                    title: "Get ideas",
+                    description: "Brainstorm solutions to problems"
+                },
+                featureSwitchModels: {
+                    title: "Switch Models",
+                    description: "Toggle between multiple AI models"
+                }
+            },
+            promptTime: {
+                today: "Today",
+                yesterday: "Yesterday",
+                lastWeek: "Previous 7 days",
+                lastMonth: "Previous 30 days",
+                older: "Older"
             }
         },
         sendEmail: {
@@ -2389,6 +2554,8 @@ export const frenchLanguage = {
         "faas_state_not_known": "Etat inconnu",
         "faas_invalid_function_id": "L'id de la fonction est invalide",
         "faas_trigger_kind_not_supported": "Le type de trigger est invalide",
+        "faas_function_not_found": "La fonction n'existe pas",
+        "faas_function_protected": "Vous ne pouvez pas supprimer une fonction protégée",
         "cron_expr_invalid": "L'expression cron est invalide",
         "faas_function_name_missing": "Le nom de la fonction est obligatoire",
         "object_type_created": "Type d'objet créé avec succès",
@@ -2440,6 +2607,14 @@ export const frenchLanguage = {
         "invalid_tcp_url_format": "Format d'URL TCP invalide",
         "not_faasapi": "L'utilisateur n'a pas l'api FaaS activée",
         "not_monitorapi": "L'utilisateur n'a pas l'api Monitor activée",
+        "storage_kv_created": "Création réussie de stockage clé-valeur",
+        "storage_kv_updated": "Mise à jour réussie de stockage clé-valeur",
+        "storage_kv_conflict": "Conflit de stockage clé-valeur",
+        "storage_kv_not_found": "Stockage clé-valeur introuvable",
+        "storage_kv_deleted": "Suppression réussie de stockage clé-valeur",
+        "not_storageapi": "L'utilisateur n'a pas l'api de stockage activée",
+        "storage_kv_error": "Erreur de stockage clé-valeur",
+        "storage_kv_delete_error": "Erreur de suppression de stockage clé-valeur"
     },
     common: {
         ok: "OK",
@@ -2728,6 +2903,14 @@ export const frenchLanguage = {
             title: "Observabilité",
             monitors: "Moniteurs",
             addMonitor: "Ajouter un moniteur",
+        },
+        kvStorage: {
+            title: "Stockage clé-valeur",
+            overview: "Aperçu",
+            create: "Créer une nouvelle KV"
+        },
+        manageCwai: {
+            title: "CWAI Analytics",
         }
     },
     dashboard: {
@@ -2967,6 +3150,8 @@ export const frenchLanguage = {
                 }
             },
             is_public: "Endpoint publique",
+            is_protected: "Fonction protégée",
+            is_unprotected: "Fonction non protégée",
             by: "par",
             inputs: {
                 name: {
@@ -3047,15 +3232,160 @@ export const frenchLanguage = {
                 searchbartip: "Astuce : vous pouvez filtrer les fonctions par leur langage de programmation en écrivant ':' devant le nom de la langue dans la barre de recherche",
                 unsavedChangesWarning: "Attention ! Vous avez des modifications non sauvegardées. Si vous continuez, vous perdrez ces modifications.",
                 blocklyBreakingChanges: "Blockly workspace ne peut pas lire les blocs personnalisés fournis",
-                blocklyInitError: "Une erreur s'est produite lors de l'initialisation de workspace blockly"
+                blocklyInitError: "Une erreur s'est produite lors de l'initialisation de workspace blockly",
+                successProtect: "Function protected successfully",
+                successUnprotect: "Function unprotected successfully",
+                errorToggleProtection: "An error occured while toggling the callback protection"
             },
             actions: {
                 copyFunctionId: "Copier l'id de la fonction",
-                copyPublicIp: "Copier l'ip public"
+                copyPublicIp: "Copier l'ip public",
+                protect: "Protéger la fonction",
+                unprotect: "Déprotéger la fonction",
             },
             table: {
                 name: "Nom",
                 language: "Langage"
+            }
+        },
+        kv: {
+            overview: {
+                mainTitle: "Stockage Clé-Valeur",
+                addKV: "Ajouter une nouvelle KV",
+                emptyMessage: "Aucune KV trouvée",
+                createMessage: "Créer une nouvelle KV"
+            },
+            addKV: {
+                mainTitle: "Créer un nouveau stockage Clé-Valeur",
+                back: "Retour au stockage KV",
+                inputs: {
+                    key: {
+                        title: "Clé",
+                        placeholder: "Entrez un nom de clé",
+                        subtitle: "Entrez un identifiant unique pour votre paire clé-valeur"
+                    },
+                    payload: {
+                        title: "Contenu",
+                        placeholder: "{\"cle\": \"valeur\"}",
+                        subtitle: "Entrez votre contenu JSON"
+                    },
+                    ttl: {
+                        title: "Durée de vie (Optionnel)",
+                        placeholder: "Entrez la durée de vie en heures",
+                        subtitle: "Spécifiez combien de temps la clé-valeur doit être stockée (en heures). Laissez vide pour un stockage permanent."
+                    }
+                }
+            },
+            editKV: {
+                mainTitle: "Modifier le stockage Clé-Valeur",
+                back: "Retour au stockage KV",
+                inputs: {
+                    key: {
+                        title: "Clé",
+                        placeholder: "Entrez un nom de clé",
+                        subtitle: "Entrez un identifiant unique pour votre paire clé-valeur"
+                    },
+                    payload: {
+                        title: "Contenu",
+                        placeholder: "{\"cle\": \"valeur\"}",
+                        subtitle: "Entrez votre contenu JSON"
+                    },
+                    ttl: {
+                        title: "Durée de vie (Optionnel)",
+                        placeholder: "Entrez la durée de vie en heures",
+                        subtitle: "Spécifiez combien de temps la clé-valeur doit être stockée (en heures). Laissez vide pour un stockage permanent."
+                    }
+                }
+            },
+            table: {
+                id: "Id",
+                key: "Clé",
+                payload: "Contenu",
+                source: "Source",
+                ownedBy: "Propriétaire",
+                ttl: "TTL (heures)",
+                createdAt: "Créé le",
+                updatedAt: "Mis à jour le"
+            },
+            inputs: {
+                source: {
+                    title: "Source",
+                    all: "Tous"
+                }
+            },
+            name: "entrée KV",
+            message: {
+                errorFetchEntries: "Erreur lors de la récupération des entrées KV",
+                successDelete: "Entrée KV supprimée avec succès",
+                errorDelete: "Erreur lors de la suppression de l'entrée KV",
+                successDeleteMultiple: "Entrées KV sélectionnées supprimées avec succès",
+                emptyMessage: "Aucune entrée KV disponible",
+                createMessage: "Créer une entrée KV",
+                successAdd: "KV créée avec succès",
+                errorAdd: "Erreur lors de la création de la KV",
+                invalidJson: "Format JSON invalide",
+                successUpdate: "KV mise à jour avec succès",
+            }
+        },
+        cwai: {
+            mainTitle: "CwAI Chat",
+            model: {
+                title: "Modèle",
+                placeholder: "Entrez le modèle"
+            },
+            prompt: {
+                title: "Votre prompt",
+                placeholder: "Entrez votre prompt"
+            },
+            send: "Envoyer",
+            answer: "Réponse Cwai",
+            regenerate: "Regénérer la réponse",
+            helpText: "Comment puis-je vous aider aujourd'hui ?",
+            conversationHistory: "Historique de la conversation",
+            newConversation: "Nouvelle conversation",
+            noConversations: "Il n'y a pas encore de conversation",
+            emptyConversation: {
+                title: "Cette conversation est maintenant vide",
+                message: "Redemarrez la conversation par un nouveau prompt",
+            },
+            searchConversations: "Rechercher une conversation par titre...",
+            searchResults: "Résultats de la recherche",
+            noSearchResults: "Aucun résultat de recherche",
+            messages: {
+                conversationDeletedSuccess: "Conversation supprimée avec succès",
+                conversationRenamedSuccess: "Conversation renommée avec succès",
+                promptDeletedSuccess: "Prompt supprimé avec succès",
+            },
+            actions: {
+                regenerateResponse: "Regénérer la réponse",
+                editPrompt: "Editer le prompt",
+                deletePrompt: "Supprimer le prompt",
+            },
+            features: {
+                title: "Fonctionnalités",
+                featureAskQuestion: {
+                    title: "Poser une question",
+                    description: "Obtenez des réponses instantanées à vos questions"
+                },
+                featureDraftContent: {
+                    title: "Brouillon de contenu",
+                    description: "Générer du texte à des fins diverses"
+                },
+                featureGetIdeas: {
+                    title: "Obtenir des idées",
+                    description: "Réfléchir à des solutions aux problèmes"
+                },
+                featureSwitchModels: {
+                    title: "Changer de modèle",
+                    description: "Toggle between multiple AI models"
+                }
+            },
+            promptTime: {
+                today: "Aujourd'hui",
+                yesterday: "Hier",
+                lastWeek: "Les derniers 7 jours",
+                lastMonth: "Les derniers 30 jours",
+                older: "Plus vieux"
             }
         },
         sendEmail: {

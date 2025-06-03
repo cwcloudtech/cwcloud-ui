@@ -74,6 +74,9 @@ import { Box } from "@mui/material";
 import AddMonitor from "./Pages/User/Observability/AddMonitor/AddMonitor";
 import Monitors from "./Pages/User/Observability/Monitors/Monitors";
 import MonitorOverview from "./Pages/User/Observability/MonitorOverview/MonitorOverview";
+import KVStorage from "./Pages/User/KVStorage/Overview/KVStorage";
+import AddKV from "./Pages/User/KVStorage/AddKV/AddKV";
+import EditKV from "./Pages/User/KVStorage/EditKV/EditKV";
 
 function Dashboard() {
   const _mode = useContext(GlobalContext).mode;
@@ -206,6 +209,8 @@ function Dashboard() {
                   path="/admin/schedule/:id"
                   element={<AddCronFunction />}
                 />
+                <Route exact path="/admin/kv" element={<KVStorage />} />
+                <Route exact path="/admin/kv/edit/:key" element={<EditKV />} />
                 <Route
                   exact
                   path="/admin/iot/overview"
@@ -328,6 +333,9 @@ function Dashboard() {
                   path="/schedule/:id"
                   element={<AddCronFunction />}
                 />
+                <Route exact path="/kv" element={<KVStorage />} />
+                <Route exact path="/kv/create" element={<AddKV />} />
+                <Route exact path="/kv/edit/:key" element={<EditKV />} />
                 <Route
                   exact
                   path="/iot/overview"

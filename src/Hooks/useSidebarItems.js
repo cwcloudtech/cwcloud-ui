@@ -88,6 +88,28 @@ export function useSidebarItems() {
       condition: isTrue(context.user.enabled_features.faasapi),
     },
     {
+      id: "/kv",
+      items: [
+        "/kv",
+        "/kv/create"
+      ],
+      titleKey: "sidebar.kvStorage.title",
+      iconClass: "fa-database",
+      children: [
+        {
+          id: "/kv",
+          titleKey: "sidebar.kvStorage.overview",
+          path: "/kv",
+        },
+        {
+          id: "/kv/create",
+          titleKey: "sidebar.kvStorage.create",
+          path: "/kv/create",
+        },
+      ],
+      condition: isTrue(context.user.enabled_features.storageapi),
+    },
+    {
       id: "/iot",
       items: [
         "/iot/overview",
@@ -343,6 +365,22 @@ export function useSidebarItems() {
           path: "/admin/triggers",
         },
       ],
+    },
+    {
+      id: "/admin/kv",
+      items: [
+        "/admin/kv"
+      ],
+      titleKey: "sidebar.kvStorage.title",
+      iconClass: "fa-database",
+      children: [
+        {
+          id: "/admin/kv",
+          titleKey: "sidebar.kvStorage.overview",
+          path: "/admin/kv",
+        },
+      ],
+      condition: isTrue(context.user.enabled_features.storageapi),
     },
     {
       id: "/admin/iot",

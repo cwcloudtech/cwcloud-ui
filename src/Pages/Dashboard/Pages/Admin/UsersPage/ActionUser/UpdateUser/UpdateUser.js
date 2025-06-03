@@ -274,6 +274,20 @@ function Drawer(props) {
                                     })}
                                 />
                             </ListItem>
+                            <ListItem >
+                                <FormControlLabel
+                                    label={"Storage API"}
+                                    control={<Switch sx={{ m: 1 }} checked={props.user.enabled_features.storageapi}
+                                    />}
+                                    onChange={(e) => props.setUser({
+                                        ...props.user,
+                                        enabled_features: {
+                                            ...props.user.enabled_features,
+                                            storageapi: e.target.checked
+                                        }
+                                    })}
+                                />
+                            </ListItem>
                             </>
                         }
                         <ListItem style={{ display: "block" }}>

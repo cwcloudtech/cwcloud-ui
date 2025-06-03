@@ -21,6 +21,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import CustomCopyIcon from '../../../../../../Components/CustomIcon/CustomCopyIcon';
 import formateDate from '../../../../../../utils/FormateDate';
@@ -42,7 +44,7 @@ function FunctionsPage(props) {
         { field: 'id', headerName: context.counterpart("dashboard.table.id"), width: 340, renderCell: (params) => (<Link to={`/function/${params.id}`}>{params.id}</Link>) },
         { field: 'name', headerName: context.counterpart("dashboard.function.table.name"), width: 200, renderCell: (params) => (params.row.content.name) },
         { field: 'language', headerName: (<Tooltip title={context.counterpart("dashboard.function.message.searchbartip")} placement='top'><span>{context.counterpart("dashboard.function.table.language")}</span> </Tooltip>), width: 100, renderCell: (params) => (isNotBlank(params.row.content.blockly) ? "blockly" : params.row.content.language) },
-        { field: 'actions', headerName: context.counterpart("dashboard.table.actions"), width: 130, renderCell: (params) => {
+        { field: 'actions', headerName: context.counterpart("dashboard.table.actions"), width: 150, renderCell: (params) => {
                 const deleteFunction = (e) => {
                     e.stopPropagation();
                     preDeleteServerlessFunctionHandler(params.id)
@@ -51,7 +53,12 @@ function FunctionsPage(props) {
                     e.stopPropagation();
                     navigator.clipboard.writeText(params.id)
                     toast.success(context.counterpart("dashboard.function.message.successCopyId"))
-                }
+                };
+                const toggleProtection = (e) => {
+                    e.stopPropagation();
+                    const currentProtectionStatus = params.row.is_protected || false;
+                    handleProtectionToggle(params.row, !currentProtectionStatus);
+                };
                 return (    
                     <React.Fragment>
                         <CustomCopyIcon onClick={copyFunctionId} title={counterpart("dashboard.function.actions.copyFunctionId")} />
@@ -69,6 +76,13 @@ function FunctionsPage(props) {
                         </Link>
                         &nbsp;
                         <CustomDeleteIcon onClick={deleteFunction} />
+                        &nbsp;
+                        <Tooltip title={params.row.is_protected ? context.counterpart("dashboard.function.actions.unprotect") : context.counterpart("dashboard.function.actions.protect")} placement='right'>
+                            {params.row.is_protected ? 
+                                <LockOutlinedIcon className={`${classes.protectButton} protectBtn`} onClick={toggleProtection} /> : 
+                                <LockOpenOutlinedIcon className={`${classes.protectButton} unprotectBtn`} onClick={toggleProtection} />
+                            }
+                        </Tooltip>
                     </React.Fragment>
                 )
             }
@@ -180,6 +194,34 @@ function FunctionsPage(props) {
                 })
         }
     }
+
+    const handleProtectionToggle = (functionObj, newProtectionStatus) => {
+        const updatedFunction = {
+            ...functionObj,
+            is_protected: newProtectionStatus
+        };
+        
+        axios.put(`/faas/function/${functionObj.id}`, updatedFunction)
+            .then(res => {
+                const updatedFunctions = serverlessFunctions.map(func => 
+                    func.id === functionObj.id ? {...func, is_protected: newProtectionStatus} : func
+                );
+                setServerlessFunctions(updatedFunctions);
+                setFiltredServerlessFunctions(
+                    filtredServerlessFunctions.map(func => 
+                        func.id === functionObj.id ? {...func, is_protected: newProtectionStatus} : func
+                    )
+                );
+                
+                toast.success(context.counterpart(newProtectionStatus ? 
+                    'dashboard.function.message.successProtect' : 
+                    'dashboard.function.message.successUnprotect')
+                );
+            })
+            .catch(err => {
+                toast.error(context.counterpart('dashboard.function.message.errorToggleProtection'));
+            });
+    };
 
     return (
         <CardComponent

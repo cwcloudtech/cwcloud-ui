@@ -14,6 +14,11 @@
     gap: 10px;
 }
 
+.cardColumn {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
 @media screen and (max-width: 768px) {
     .seeMoreContainer {
         width: 85%;

@@ -302,3 +302,266 @@ Blockly.Blocks['env'] = {
     this.setTooltip('Represents an environment variable.');
   }
 };
+
+Blockly.Blocks['storage_kv_create'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('create kv entry');
+    this.appendValueInput('KEY')
+      .setCheck('String')
+      .setAlign(Blockly.ALIGN_LEFT)
+      .appendField('with key');
+    this.appendValueInput('PAYLOAD')
+      .setCheck('Object')
+      .setAlign(Blockly.ALIGN_LEFT)
+      .appendField('and payload');
+    this.appendValueInput('TTL')
+      .setCheck('Number')
+      .setAlign(Blockly.ALIGN_LEFT)
+      .appendField('with TTL (hours, optional)');
+    this.appendValueInput('RESULT_VAR')
+      .setCheck('String')
+      .setAlign(Blockly.ALIGN_LEFT)
+      .appendField('set result in variable');
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour("#A55B5B");
+    this.setTooltip('Creates a new storage key-value pair');
+  }
+};
+
+Blockly.Blocks['storage_kv_get'] = {
+  init: function () {
+    this.appendValueInput('KEY')
+      .setCheck('String')
+      .appendField('get value for key');
+    this.appendValueInput('RESULT_VAR')
+      .setCheck('String')
+      .setAlign(Blockly.ALIGN_LEFT)
+      .appendField('set result in variable');
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour("#A55B5B");
+    this.setTooltip('Gets a storage value by its key');
+  }
+};
+
+Blockly.Blocks['storage_kv_update'] = {
+  init: function () {
+    this.appendValueInput('KEY')
+      .setCheck('String')
+      .appendField('update entry with key');
+    this.appendValueInput('PAYLOAD')
+      .setCheck('Object')
+      .setAlign(Blockly.ALIGN_LEFT)
+      .appendField('with payload');
+    this.appendValueInput('TTL')
+      .setCheck('Number')
+      .setAlign(Blockly.ALIGN_LEFT)
+      .appendField('with TTL (hours, optional)');
+    this.appendValueInput('RESULT_VAR')
+      .setCheck('String')
+      .setAlign(Blockly.ALIGN_LEFT)
+      .appendField('set result in variable');
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour("#A55B5B");
+    this.setTooltip('Updates an existing storage key-value pair');
+  }
+};
+
+  Blockly.Blocks['storage_kv_delete'] = {
+    init: function () {
+      this.appendValueInput('KEY')
+        .setCheck('String')
+        .appendField('delete entry with key');
+      this.appendValueInput('RESULT_VAR')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set result in variable');
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#A55B5B");
+      this.setTooltip('Deletes a storage key-value pair');
+    }
+  };
+
+  Blockly.Blocks['send_email'] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField('send email');
+      this.appendValueInput('FROM')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('from');
+      this.appendValueInput('TO')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('to');
+      this.appendValueInput('CC')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('cc (optional)');
+      this.appendValueInput('BCC')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('bcc (optional)');
+      this.appendValueInput('SUBJECT')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('subject');
+      this.appendValueInput('CONTENT')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('content');
+      this.appendValueInput('RESULT_VAR')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set result in variable');
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#E67E22");
+      this.setTooltip('Sends an email to the specified recipient');
+    }
+  };
+
+  Blockly.Blocks['webhook_notification'] = {
+    init: function() {
+      this.appendDummyInput()
+        .appendField("Send message to")
+        .appendField(new Blockly.FieldDropdown([
+          ["Slack", "SLACK"],
+          ["Discord", "DISCORD"]
+        ]), "PLATFORM");
+      this.appendValueInput('WEBHOOK_URL')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('with webhook URL');
+      this.appendValueInput('MESSAGE')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set message content');
+      this.appendValueInput('BOT_NAME')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set bot name (optional)');
+      this.appendValueInput('AVATAR_URL')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set avatar URL (optional)');
+      this.appendValueInput('RESULT_VAR')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set result in variable');
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#c47538");
+      this.setTooltip('Sends a message to Slack or Discord using a webhook URL.');
+
+      const thisBlock = this;
+      this.updateShape_ = function() {
+        const platform = thisBlock.getFieldValue('PLATFORM');
+        const isDiscord = platform === 'DISCORD';
+
+        if (isDiscord) {
+          if (!thisBlock.getInput('BOT_NAME')) {
+            thisBlock.appendValueInput('BOT_NAME')
+              .setCheck('String')
+              .setAlign(Blockly.ALIGN_LEFT)
+              .appendField('set bot name (optional)');
+          }
+        } else {
+          if (thisBlock.getInput('BOT_NAME')) {
+            thisBlock.removeInput('BOT_NAME');
+          }
+        }
+
+        if (isDiscord) {
+          if (!thisBlock.getInput('AVATAR_URL')) {
+            thisBlock.appendValueInput('AVATAR_URL')
+              .setCheck('String')
+              .setAlign(Blockly.ALIGN_LEFT)
+              .appendField('avatar URL (optional)');
+          }
+        } else {
+          if (thisBlock.getInput('AVATAR_URL')) {
+            thisBlock.removeInput('AVATAR_URL');
+          }
+        }
+      };
+
+      this.setOnChange(function() {
+        this.updateShape_();
+      });
+      
+      this.updateShape_();
+    },
+    
+    mutationToDom: function() {
+      const container = document.createElement('mutation');
+      container.setAttribute('platform', this.getFieldValue('PLATFORM'));
+      return container;
+    },
+    
+    domToMutation: function(xmlElement) {
+      const platform = xmlElement.getAttribute('platform');
+      if (platform) {
+        this.getField('PLATFORM').setValue(platform);
+      }
+      if (this.updateShape_) {
+        this.updateShape_();
+      }
+    }
+  };
+
+  Blockly.Blocks['token_notification'] = {
+    init: function() {
+      this.appendDummyInput()
+        .appendField("Send message to")
+        .appendField(new Blockly.FieldDropdown([
+          ["Slack", "SLACK"],
+          ["Discord", "DISCORD"],
+          ["Telegram", "TELEGRAM"]
+        ]), "PLATFORM");
+      this.appendValueInput('TOKEN')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('with bot token');
+      this.appendValueInput('CHANNEL')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set channel (name, link, ID, or Chat ID)');
+      this.appendValueInput('MESSAGE')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set message content');
+      this.appendValueInput('RESULT_VAR')
+        .setCheck('String')
+        .setAlign(Blockly.ALIGN_LEFT)
+        .appendField('set result in variable');
+      this.setInputsInline(false);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#bf5c0b");
+      this.setTooltip('Sends a message to Slack, Discord, or Telegram using a bot token.');
+    },
+    
+    mutationToDom: function() {
+      const container = document.createElement('mutation');
+      container.setAttribute('platform', this.getFieldValue('PLATFORM'));
+      return container;
+    },
+    
+    domToMutation: function(xmlElement) {
+      const platform = xmlElement.getAttribute('platform');
+      if (platform) {
+        this.getField('PLATFORM').setValue(platform);
+      }
+    }
+  };

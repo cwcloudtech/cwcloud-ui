@@ -251,6 +251,17 @@ function BlocklyWorkspace(props) {
           <block type="get_argument"></block>
           <block type="get_arguments"></block>
         </category>
+        <category name="KV" colour="#A55B5B">
+          <block type="storage_kv_create"></block>
+          <block type="storage_kv_get"></block>
+          <block type="storage_kv_update"></block>
+          <block type="storage_kv_delete"></block>
+        </category>
+        <category name="Notifications" colour="#E67E22">
+          <block type="send_email"></block>
+          <block type="webhook_notification"></block>
+          <block type="token_notification"></block>
+        </category>
       </xml>
     </div>
   );

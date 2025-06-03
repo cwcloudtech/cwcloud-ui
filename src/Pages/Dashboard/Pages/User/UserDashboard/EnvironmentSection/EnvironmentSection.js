@@ -34,7 +34,7 @@ function EnvironmentSection({
       <Row>
         {!loading
           ? environments.map((environment) => (
-            <Col xs='5' md='3'>
+            <Col xs='5' md='3' className={classes.cardColumn}>
               <EnvironmentCard
                   key={environment.id}
                   name={environment.name}
@@ -53,7 +53,7 @@ function EnvironmentSection({
             </Col>
             ))
           : Array.from(maxItems).map((_, index) => (
-            <Col xs='5' md='3'>
+            <Col xs='5' md='3' className={classes.cardColumn}>
               <EnvironmentCard loading key={index} onClick={() => {}} />
             </Col>
             ))}

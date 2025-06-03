@@ -79,6 +79,7 @@ function FunctionOverview() {
     const { id } = useParams()
     const [showEditorFullScreen, setShowEditorFullScreen] = useState(false)
     const [showBlocklyFullScreen, setShowBlocklyFullScreen] = useState(false)
+    const [functionIsProtected, setFunctionIsProtected] = useState(false)
     const message = context.counterpart("dashboard.function.message.unsavedChangesWarning")
 
     useEffect(() => {
@@ -90,6 +91,7 @@ function FunctionOverview() {
                 axios.get(`/faas/function/${id}`)
                     .then(res => {
                         setFunctionIsPublic(res.data.is_public)
+                        setFunctionIsProtected(res.data.is_protected)
                         setFunctionCode(res.data.content.code)
                         setFunctionName(res.data.content.name)
                         setFunctionBlockly(res.data.content.blockly)
@@ -308,12 +310,32 @@ function FunctionOverview() {
                     </Col>
                 </Row>
                 <Container fluid style={{ padding: "5px 20px 20px 20px", marginTop: "20px" }}>
-                    <Row >
+                    <Row>
                         <Col className="borderCol" style={{boxShadow: "0 3px " + colors.bottomShaddow[_mode]}}>
                             <h5 className='textTitle' style={{color: colors.title[_mode]}}>
                                 <Translate content="dashboard.function.title.overview" />
                             </h5>
-                            <h4 className="createdStyle" style={{color: colors.smallTitle[_mode]}}><Translate content="dashboard.table.createdAt" /> : {formateDate(functionCreatedAt)}</h4>
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <h4 className="createdStyle" style={{color: colors.smallTitle[_mode]}}>
+                                    <Translate content="dashboard.table.createdAt" /> : {formateDate(functionCreatedAt)}
+                                </h4>
+                                <div 
+                                    style={{ 
+                                        marginLeft: "15px",
+                                        padding: "3px 10px", 
+                                        borderRadius: "16px",
+                                        backgroundColor: functionIsProtected ? "#4caf50" : "#f50057", 
+                                        color: "#fff",
+                                        fontSize: "12px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        height: "24px"
+                                    }}
+                                >
+                                    <i className={`fa-solid ${functionIsProtected ? "fa-lock" : "fa-lock-open"}`} style={{ marginRight: "5px" }}></i>
+                                    <Translate content={functionIsProtected ? "dashboard.function.is_protected" : "dashboard.function.is_unprotected"} />
+                                </div>
+                            </div>
                         </Col>
                     </Row>
                     <Row>

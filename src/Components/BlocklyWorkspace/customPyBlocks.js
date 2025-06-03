@@ -182,8 +182,265 @@ export const customizePythonGenerator = () => {
         return `${object} = {}\n${object}[${key}] = ${newValue};\n`; // Added semicolon to end the statement
     };
 
+    // Update the Python generator for the "env" block
     pythonGenerator['env'] = function (block) {
         var key = block.getFieldValue('KEY');
         return [`"{{ env['${key}'] }}"`, PY_Order.MEMBER];
-    };      
+    };   
+    
+    // Update the Python generator for the "storage_kv_create" block
+    pythonGenerator['storage_kv_create'] = function (block) {
+        var key = pythonGenerator.valueToCode(block, 'KEY', PY_Order.MEMBER) || '""';
+        var payload = pythonGenerator.valueToCode(block, 'PAYLOAD', PY_Order.MEMBER) || '{}';
+        var ttl = pythonGenerator.valueToCode(block, 'TTL', PY_Order.MEMBER) || 'None';
+        var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
+        
+        const apiHost = process.env.REACT_APP_APIURL;
+        const apiVersion = process.env.REACT_APP_APIVERSION || 'v1';
+        var url = `${apiHost}/${apiVersion}/storage/kv`;
+        console.log(`url=${url}, apiVersion=${apiVersion}`);
+        var operationId = generateUUID().replace(/-/g, '_');
+        var funcName = `_kv_create_${operationId}`;
+        var reqUrlVar = `${funcName}_url`;
+        var reqHeadersVar = `${funcName}_headers`;
+        var reqBodyVar = `${funcName}_body`;
+        var reqVar = `${funcName}_r`;
+        
+        var headers = `{"accept": "application/json", "Content-Type": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
+        var body = `{"key": ${key}, "payload": ${payload}, "ttl": ${ttl}}`;
+        var request = `requests.post(${reqUrlVar}, headers=${reqHeadersVar}, json=${reqBodyVar})`;
+        
+        var resultLine = resultVariable ? `${resultVariable} = ${funcName}()` : `${funcName}()`;
+        
+        return `def ${funcName}():\n`
+                + `  ${reqUrlVar} = "${url}"\n`
+                + `  ${reqHeadersVar} = ${headers}\n`
+                + `  ${reqBodyVar} = ${body}\n`
+                + `  ${reqVar} = ${request}\n`
+                + `  return cwcloud_parse_response(${reqVar})\n`
+                + `\n${resultLine}\n`;
+    };
+
+    // Update the Python generator for the "storage_kv_get" block
+    pythonGenerator['storage_kv_get'] = function (block) {
+        var key = pythonGenerator.valueToCode(block, 'KEY', PY_Order.MEMBER) || '""';
+        var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
+        
+        const apiHost = process.env.REACT_APP_APIURL;
+        const apiVersion = process.env.REACT_APP_APIVERSION || 'v1';
+        var url = `${apiHost}/${apiVersion}/storage/kv/`;
+        console.log(`url=${url}, apiVersion=${apiVersion}`);
+        
+        var operationId = generateUUID().replace(/-/g, '_');
+        var funcName = `_kv_get_${operationId}`;
+        var reqUrlVar = `${funcName}_url`;
+        var reqHeadersVar = `${funcName}_headers`;
+        var reqVar = `${funcName}_r`;
+        
+        var headers = `{"accept": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
+        var request = `requests.get(${reqUrlVar}, headers=${reqHeadersVar})`;
+        
+        var resultLine = resultVariable ? `${resultVariable} = ${funcName}()` : `${funcName}()`;
+        
+        return `def ${funcName}():\n`
+                + `  ${reqUrlVar} = "${url}" + str(${key})\n`
+                + `  ${reqHeadersVar} = ${headers}\n`
+                + `  ${reqVar} = ${request}\n`
+                + `  return cwcloud_parse_response(${reqVar})\n`
+                + `\n${resultLine}\n`;
+    };
+
+    // Update the Python generator for the "storage_kv_update" block
+    pythonGenerator['storage_kv_update'] = function (block) {
+        var key = pythonGenerator.valueToCode(block, 'KEY', PY_Order.MEMBER) || '""';
+        var payload = pythonGenerator.valueToCode(block, 'PAYLOAD', PY_Order.MEMBER) || '{}';
+        var ttl = pythonGenerator.valueToCode(block, 'TTL', PY_Order.MEMBER) || 'None';
+        var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
+        
+        const apiHost = process.env.REACT_APP_APIURL;
+        const apiVersion = process.env.REACT_APP_APIVERSION || 'v1';
+        var url = `${apiHost}/${apiVersion}/storage/kv/`;
+        console.log(`url=${url}, apiVersion=${apiVersion}`);
+        
+        var operationId = generateUUID().replace(/-/g, '_');
+        var funcName = `_kv_update_${operationId}`;
+        var reqUrlVar = `${funcName}_url`;
+        var reqHeadersVar = `${funcName}_headers`;
+        var reqBodyVar = `${funcName}_body`;
+        var reqVar = `${funcName}_r`;
+        
+        var headers = `{"accept": "application/json", "Content-Type": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
+        var body = `{"payload": ${payload}, "ttl": ${ttl}}`;
+        var request = `requests.put(${reqUrlVar}, headers=${reqHeadersVar}, json=${reqBodyVar})`;
+        
+        var resultLine = resultVariable ? `${resultVariable} = ${funcName}()` : `${funcName}()`;
+        
+        return `def ${funcName}():\n`
+                + `  ${reqUrlVar} = "${url}" + str(${key})\n`
+                + `  ${reqHeadersVar} = ${headers}\n`
+                + `  ${reqBodyVar} = ${body}\n`
+                + `  ${reqVar} = ${request}\n`
+                + `  return cwcloud_parse_response(${reqVar})\n`
+                + `\n${resultLine}\n`;
+    };
+
+    // Update the Python generator for the "storage_kv_delete" block
+    pythonGenerator['storage_kv_delete'] = function (block) {
+        var key = pythonGenerator.valueToCode(block, 'KEY', PY_Order.MEMBER) || '""';
+        var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
+        
+        const apiHost = process.env.REACT_APP_APIURL;
+        const apiVersion = process.env.REACT_APP_APIVERSION || 'v1';
+        var url = `${apiHost}/${apiVersion}/storage/kv/`;
+        console.log(`url=${url}, apiVersion=${apiVersion}`);
+        
+        var operationId = generateUUID().replace(/-/g, '_');
+        var funcName = `_kv_delete_${operationId}`;
+        var reqUrlVar = `${funcName}_url`;
+        var reqHeadersVar = `${funcName}_headers`;
+        var reqVar = `${funcName}_r`;
+        
+        var headers = `{"accept": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
+        var request = `requests.delete(${reqUrlVar}, headers=${reqHeadersVar})`;
+        
+        var resultLine = resultVariable ? `${resultVariable} = ${funcName}()` : `${funcName}()`;
+        
+        return `def ${funcName}():\n`
+                + `  ${reqUrlVar} = "${url}" + str(${key})\n`
+                + `  ${reqHeadersVar} = ${headers}\n`
+                + `  ${reqVar} = ${request}\n`
+                + `  return cwcloud_parse_response(${reqVar})\n`
+                + `\n${resultLine}\n`;
+    };
+
+    // Update the Python generator for the "send_email" block
+    pythonGenerator['send_email'] = function (block) {
+        var from = pythonGenerator.valueToCode(block, 'FROM', PY_Order.MEMBER) || '""';
+        var to = pythonGenerator.valueToCode(block, 'TO', PY_Order.MEMBER) || '""';
+        var cc = pythonGenerator.valueToCode(block, 'CC', PY_Order.MEMBER) || 'None';
+        var bcc = pythonGenerator.valueToCode(block, 'BCC', PY_Order.MEMBER) || 'None';
+        var subject = pythonGenerator.valueToCode(block, 'SUBJECT', PY_Order.MEMBER) || '""';
+        var content = pythonGenerator.valueToCode(block, 'CONTENT', PY_Order.MEMBER) || '""';
+        var resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
+        
+        const apiHost = process.env.REACT_APP_APIURL;
+        const apiVersion = process.env.REACT_APP_APIVERSION || 'v1';
+        var url = `${apiHost}/${apiVersion}/email`;
+        console.log(`url=${url}, apiVersion=${apiVersion}`);
+        
+        var operationId = generateUUID().replace(/-/g, '_');
+        var funcName = `_send_email_${operationId}`;
+        var reqUrlVar = `${funcName}_url`;
+        var reqHeadersVar = `${funcName}_headers`;
+        var reqBodyVar = `${funcName}_body`;
+        var reqVar = `${funcName}_r`;
+        
+        var headers = `{"accept": "application/json", "Content-Type": "application/json", "{{ user_auth_key }}" : "{{ user_auth_value }}" }`;
+        var bodyParts = [
+            `"from": ${from}`,
+            `"to": ${to}`,
+            `"subject": ${subject}`,
+            `"content": ${content}`
+        ];
+        if (cc !== 'None') bodyParts.push(`"cc": ${cc}`);
+        if (bcc !== 'None') bodyParts.push(`"bcc": ${bcc}`);
+        var body = `{${bodyParts.join(', ')}}`;
+        
+        var request = `requests.post(${reqUrlVar}, headers=${reqHeadersVar}, json=${reqBodyVar})`;
+        var resultLine = resultVariable ? `${resultVariable} = ${funcName}()` : `${funcName}()`;
+        
+        return `def ${funcName}():\n`
+                + `  ${reqUrlVar} = "${url}"\n`
+                + `  ${reqHeadersVar} = ${headers}\n`
+                + `  ${reqBodyVar} = ${body}\n`
+                + `  ${reqVar} = ${request}\n`
+                + `  return cwcloud_parse_response(${reqVar})\n`
+                + `\n${resultLine}\n`;
+    };
+
+    // Update the Python generator for the "webhook_notification" block
+    pythonGenerator['webhook_notification'] = function(block) {
+        const platform = block.getFieldValue('PLATFORM');
+        const webhookUrl = pythonGenerator.valueToCode(block, 'WEBHOOK_URL', PY_Order.MEMBER) || "''";
+        const message = pythonGenerator.valueToCode(block, 'MESSAGE', PY_Order.MEMBER) || "''";
+        const resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
+        
+        const uniqueId = generateUUID().replace(/-/g, '_');
+        const funcName = `_webhook_${uniqueId}`;
+        const urlVar = `${funcName}_url`;
+        const headersVar = `${funcName}_headers`;
+        const dataVar = `${funcName}_data`;
+        const reqVar = `${funcName}_r`;
+        
+        let code = `def ${funcName}():\n`;
+        code += `  ${urlVar} = ${webhookUrl}\n`;
+        code += `  ${headersVar} = {"Content-Type": "application/json"}\n`;
+        
+        if (platform === 'SLACK') {
+        code += `  data_payload = {"text": ${message}}\n`;
+        code += `  ${dataVar} = data_payload\n`;
+        code += `  ${reqVar} = requests.post(${urlVar}, headers=${headersVar}, json=${dataVar})\n`;
+        code += `  return {"status": "success" if ${reqVar}.status_code == 200 else "error", "response": ${reqVar}.text}\n`;
+        } else {
+        const botName = pythonGenerator.valueToCode(block, 'BOT_NAME', PY_Order.MEMBER) || '"Discord Bot"';
+        const avatarUrl = pythonGenerator.valueToCode(block, 'AVATAR_URL', PY_Order.MEMBER) || 'None';
+        
+        code += `  data_payload = {"username": ${botName}, "content": ${message}}\n`;
+        code += `  # Handle avatar URL if provided\n`;
+        code += `  avatar_url_value = ${avatarUrl}\n`;
+        code += `  if avatar_url_value != None and avatar_url_value != "":\n`;
+        code += `    data_payload["avatar_url"] = avatar_url_value\n`;
+        code += `  ${dataVar} = data_payload\n`;
+        code += `  ${reqVar} = requests.post(${urlVar}, headers=${headersVar}, json=${dataVar})\n`;
+        code += `  return {"status": "success" if ${reqVar}.status_code == 204 else "error", "response": ${reqVar}.text}\n`;
+        }
+
+        const resultLine = resultVariable ? `${resultVariable} = ${funcName}()` : `${funcName}()`;
+        code += `\n${resultLine}\n`;
+        
+        return code;
+    };
+  
+    // Update the Python generator for the "token_notification" block
+    pythonGenerator['token_notification'] = function(block) {
+        const platform = block.getFieldValue('PLATFORM');
+        const token = pythonGenerator.valueToCode(block, 'TOKEN', PY_Order.MEMBER) || "''";
+        const channel = pythonGenerator.valueToCode(block, 'CHANNEL', PY_Order.MEMBER) || "''";
+        const message = pythonGenerator.valueToCode(block, 'MESSAGE', PY_Order.MEMBER) || "''";
+        const resultVariable = pythonGenerator.valueToCode(block, 'RESULT_VAR', PY_Order.MEMBER) || '';
+        
+        const uniqueId = generateUUID().replace(/-/g, '_');
+        const funcName = `_token_notification_${uniqueId}`;
+        const reqVar = `${funcName}_r`;
+        
+        let code = `def ${funcName}():\n`;
+        
+        if (platform === 'SLACK') {
+        const slackApiUrl = 'https://slack.com/api/chat.postMessage';
+        code += `  slack_data = {\n`;
+        code += `    'text': ${message},\n`;
+        code += `    'channel': ${channel}\n`;
+        code += `  }\n`;
+        code += `  ${reqVar} = requests.post("${slackApiUrl}", headers={'Authorization': f"Bearer {${token}}"}, json=slack_data)\n`;
+        code += `  return {"status": "success" if ${reqVar}.status_code == 200 else "error", "response": ${reqVar}.text}\n`;
+        } else if (platform === 'DISCORD') {
+        code += `  token = ${token}\n`;
+        code += `  channel = ${channel}\n`;
+        code += `  url = f"https://discord.com/api/v10/channels/{channel}/messages"\n`;
+        code += `  headers = {"Authorization": f"Bot {token}", "Content-Type": "application/json"}\n`;
+        code += `  data_payload = {"content": ${message}}\n`;
+        code += `  ${reqVar} = requests.post(url, headers=headers, json=data_payload)\n`;
+        code += `  return {"status": "success" if ${reqVar}.status_code in [200, 201, 204] else "error", "response": ${reqVar}.text}\n`;
+        } else if (platform === 'TELEGRAM') {
+        code += `  url = f"https://api.telegram.org/bot{${token}}/sendMessage"\n`;
+        code += `  data_payload = {"chat_id": ${channel}, "text": ${message}}\n`;
+        code += `  ${reqVar} = requests.post(url, json=data_payload)\n`;
+        code += `  return {"status": "success" if ${reqVar}.status_code == 200 else "error", "response": ${reqVar}.text}\n`;
+        }
+
+        const resultLine = resultVariable ? `${resultVariable} = ${funcName}()` : `${funcName}()`;
+        code += `\n${resultLine}\n`;
+        
+        return code;
+    };
 }
