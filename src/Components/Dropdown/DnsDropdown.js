@@ -36,7 +36,7 @@ const DnsDropdown = ({ labelId, id, value, onChange, itemsList, classes, withIma
     const _mode = context.mode;
     return (
         <Select
-            labelId={labelId}
+            labelid={labelId}
             id={id}
             value={value}
             style={{ marginLeft: '10px', marginRight: '10px', background: colors.secondBackground[_mode] + ' !important'}}
@@ -44,7 +44,7 @@ const DnsDropdown = ({ labelId, id, value, onChange, itemsList, classes, withIma
             input={<BootstrapInput />}>
             {itemsList?.map((item, index) => (
                 <MenuItem value={item} key={index} style={{background: colors.secondBackground[_mode]}}>
-                    <span>{item}</span>
+                    {item}
                 </MenuItem>
             ))}
         </Select>

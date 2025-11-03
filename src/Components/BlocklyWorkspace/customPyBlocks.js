@@ -35,6 +35,20 @@ export const customizePythonGenerator = () => {
         return `${list} = []\n${list}.append(${value})\n`;
     };
 
+    // Update the Python generator for the "get_value_at_index" block
+    pythonGenerator['get_value_at_index'] = function (block) {
+        var list = pythonGenerator.valueToCode(block, 'LIST', PY_Order.MEMBER) || '[]';
+        var index = block.getFieldValue('INDEX') || '0';
+        return [`${list}[${index}]`, PY_Order.MEMBER];
+    };
+
+    // Update the Python generator for the "get_value_at_index_variable" block
+    pythonGenerator['get_value_at_index_var'] = function (block) {
+        var list = pythonGenerator.valueToCode(block, 'LIST', PY_Order.MEMBER) || '[]';
+        var index = pythonGenerator.valueToCode(block, 'INDEX', PY_Order.MEMBER) || '0';
+        return [`${list}[${index}]`, PY_Order.MEMBER];
+    };
+
     // Update the Python generator for the "async_function" block
     pythonGenerator['async_function'] = function (block) {
         var asyncKeyword = block.getFieldValue('ASYNC') === 'async' ? 'async ' : '';
@@ -443,4 +457,14 @@ export const customizePythonGenerator = () => {
         
         return code;
     };
-}
+
+    // Update the Python generator for the "forEach" block
+    pythonGenerator['controls_forEach'] = function(block) {
+        const variable = pythonGenerator.nameDB_.getName(block.getFieldValue('VAR'), 'VARIABLE');
+        const list = pythonGenerator.valueToCode(block, 'LIST', PY_Order.ATOMIC) || '[]';
+        const statements = pythonGenerator.statementToCode(block, 'DO');
+        
+        const code = `for ${variable} in ${list}:\n${statements || '    pass\n'}`;
+        return code;
+    };
+};

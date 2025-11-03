@@ -21,9 +21,10 @@ export default function FilterSwitch({
           color: colors.mainText[_mode],
         }}
       >
-        {filters.map((filter) => {
+        {filters.map((filter, index) => {
           return (
             <div
+              key={index}
               className={
                 selectedValue === filter.value
                   ? "activeToggleItemContainer"

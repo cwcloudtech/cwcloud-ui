@@ -10,9 +10,9 @@ jest.mock('@mui/material', () => ({
   Select: ({ children, ...props }) => <select {...props}>{children}</select>,
 }));
 
-// Mock the Translate component
+// Mock the Translate component - return string instead of JSX
 jest.mock('react-translate-component', () => {
-  return ({ content }) => <span>{content}</span>;
+  return ({ content }) => content;
 });
 
 describe('SimpleDropdown', () => {
@@ -22,6 +22,10 @@ describe('SimpleDropdown', () => {
     placeholder: 'Select an item',
     items: ['item1', 'item2', 'item3'],
   };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   test('renders placeholder', () => {
     render(<SimpleDropdown {...mockProps} />);
@@ -40,17 +44,33 @@ describe('SimpleDropdown', () => {
     expect(screen.getByRole('combobox')).toHaveValue('item1');
   });
 
+  test('handles no selected item', () => {
+    const propsWithNoSelection = { ...mockProps, selectedItem: null };
+    render(<SimpleDropdown {...propsWithNoSelection} />);
+    expect(screen.getByRole('combobox')).toHaveValue('none');
+  });
+
   test('calls onChange when selection changes', () => {
     render(<SimpleDropdown {...mockProps} />);
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'item2' } });
-    expect(mockProps.onChange).toHaveBeenCalled();
+    const select = screen.getByRole('combobox');
+    fireEvent.change(select, { target: { value: 'item2' } });
+    expect(mockProps.onChange).toHaveBeenCalledTimes(1);
   });
 
   test('applies correct styles', () => {
     const { container } = render(<SimpleDropdown {...mockProps} />);
+    const select = container.querySelector('select');
+    
+    expect(select).toHaveStyle({
+      'padding-left': '10px',
+      'margin': '10px',
+      'min-width': '100px'
+    });
+  });
 
-    expect(container.firstChild).toHaveStyle('padding-left: 10px');
-    expect(container.firstChild).toHaveStyle('margin: 10px');
-    expect(container.firstChild).toHaveStyle('min-width: 100px');
+  test('placeholder option is disabled', () => {
+    const { container } = render(<SimpleDropdown {...mockProps} />);
+    const placeholderOption = container.querySelector('option[value="none"]');
+    expect(placeholderOption).toBeDisabled();
   });
 });

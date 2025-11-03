@@ -30,6 +30,54 @@ export const customizeBlocks = () => {
     }
   };
 
+  Blockly.Blocks['get_object_value'] = {
+    init: function () {
+      this.appendValueInput('OBJECT')
+        .setCheck('Object')
+        .appendField('get value');
+      this.appendValueInput('KEY')
+        .setCheck('String')
+        .appendField('from key');
+      this.setInputsInline(true);
+      this.setOutput(true, null);
+      this.setColour("#5B5BA5");
+      this.setTooltip('Gets the value from a specific key in a JSON object.');
+      this.setHelpUrl('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON');
+    }
+  };
+
+  Blockly.Blocks['get_value_at_index'] = {
+    init: function () {
+      this.appendValueInput('LIST')
+        .setCheck('Array')
+        .appendField('get value from');
+      this.appendDummyInput()
+        .appendField('at index')
+        .appendField(new Blockly.FieldNumber(0), 'INDEX');
+      this.setInputsInline(true);
+      this.setOutput(true, null);
+      this.setColour("745BA5");
+      this.setTooltip('Get the value of the list at a defined index.');
+      this.setHelpUrl('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array');
+    }
+  };
+
+  Blockly.Blocks['get_value_at_index_var'] = {
+    init: function () {
+      this.appendValueInput('LIST')
+        .setCheck('Array')
+        .appendField('get value from');
+      this.appendValueInput('INDEX')
+        .setCheck('Number')
+        .appendField('at index');
+      this.setInputsInline(true);
+      this.setOutput(true, null);
+      this.setColour("745BA5");
+      this.setTooltip('Get the value of the list at a defined index.');
+      this.setHelpUrl('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array');
+    }
+  };
+
   Blockly.Blocks['async_function'] = {
     init: function () {
       this.appendValueInput('PARAMS')
@@ -563,5 +611,22 @@ Blockly.Blocks['storage_kv_update'] = {
       if (platform) {
         this.getField('PLATFORM').setValue(platform);
       }
+    }
+  };
+
+  Blockly.Blocks['controls_forEach'] = {
+    init: function() {
+      this.appendValueInput("LIST")
+          .setCheck("Array")
+          .appendField("for each item")
+          .appendField(new Blockly.FieldVariable("item"), "VAR")
+          .appendField("in list");
+      this.appendStatementInput("DO")
+          .appendField("do");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#5BA55B");
+      this.setTooltip("Execute statements for each item in a list");
+      this.setHelpUrl("");
     }
   };

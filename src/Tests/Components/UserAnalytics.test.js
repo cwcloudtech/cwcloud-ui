@@ -40,7 +40,8 @@ describe('UserAnalytics', () => {
         k8sapi: false,
         daasapi: false,
         faasapi: true,
-        emailapi: false
+        emailapi: false,
+        ban: false
       }
     },
     {
@@ -51,7 +52,8 @@ describe('UserAnalytics', () => {
         k8sapi: true,
         daasapi: true,
         faasapi: false,
-        emailapi: true
+        emailapi: true,
+        ban: false
       }
     }
   ];

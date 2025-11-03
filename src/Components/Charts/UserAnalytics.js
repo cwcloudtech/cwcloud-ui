@@ -49,7 +49,8 @@ function UserAnalytics({ users }) {
             k8sapi: 0,
             daasapi: 0,
             faasapi: 0,
-            emailapi: 0
+            emailapi: 0,
+            ban: 0
         };
 
         users.forEach(user => {

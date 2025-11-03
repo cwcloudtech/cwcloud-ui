@@ -96,7 +96,7 @@ function AttachInstance(props) {
                         <Translate content="dashboard.attachInstance.inputs.instance.title" />
                     </InputLabel>
                     <Select
-                        labelId="demo-multiple-name-label"
+                        labelid="demo-multiple-name-label"
                         id="demo-multiple-name"
                         value={instanceInfo.name || 'none'}
                         onChange={(e) => setInstanceInfo({ ...instanceInfo.type, name: e.target.value })}

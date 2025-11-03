@@ -13,7 +13,7 @@ const SimpleDropdown = ({selectedItem, onChange, placeholder, items}) => {
             </MenuItem>
             {items.map(item => (
                 <MenuItem value={item} key={item}>
-                    <span>{item}</span>
+                    {item}
                 </MenuItem>
             ))}
         </Select>

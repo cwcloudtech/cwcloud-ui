@@ -378,7 +378,7 @@ function AddInstance(props) {
           <DropdownComponentWithoutId
             inputLabelId="dns-zone-label"
             name="DNS"
-            labelId="dns-zone-label"
+            labelid="dns-zone-label"
             selectId="dns-zone-multiple-name"
             selectedItem={selectedDnsZone}
             onChange={(e) => setSelectedDnsZone(e.target.value)}

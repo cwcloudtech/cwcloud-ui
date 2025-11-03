@@ -182,6 +182,7 @@ function BlocklyWorkspace(props) {
           <block type="controls_whileUntil"></block>
           <block type="controls_for"></block>
           <block type="controls_flow_statements"></block>
+          <block type="controls_forEach"></block>
         </category>
         <category name="Math" colour="#5B67A5">
           <block type="string_length"></block>
@@ -213,6 +214,8 @@ function BlocklyWorkspace(props) {
           <block type="lists_create_with"></block>
           <block type="lists_length"></block>
           <block type="append_value_to_list"></block>
+          <block type="get_value_at_index"></block>
+          <block type="get_value_at_index_var"></block>
         </category>
         <category name="Variables" custom="VARIABLE" colour="#A55B80">
           <block type="variables_get"></block>

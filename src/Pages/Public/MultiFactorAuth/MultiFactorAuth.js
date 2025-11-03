@@ -33,10 +33,13 @@ function MultiFactorAuth() {
             })
             .catch(err => {
                 setLoading(false)
-                if (err.response.status === 400)
+                if (err.response.status === 400) {
                     setErrorMessage(counterpart('multiFactorAuth.error'))
-                else if (err.response.status === 401)
+                } else if (err.response.status === 401) {
                     toast.error(counterpart('multiFactorAuth.unauthorized'))
+                } else if (err.response.status === 403) {
+                    toast.error(counterpart('error_codes.blocked_account'))
+                }
             })
     }
 

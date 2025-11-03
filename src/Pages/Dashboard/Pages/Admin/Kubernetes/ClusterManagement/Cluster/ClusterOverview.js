@@ -16,6 +16,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { getUniqueNamespaces } from "../../../../../../../utils/kubernetes";
 import Tooltip from '@mui/material/Tooltip';
+import { Link } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 export default function ClusterOverview() {
   const context = useContext(GlobalContext);
@@ -27,7 +29,7 @@ export default function ClusterOverview() {
   const [namespaces, setNamespaces] = useState([]);
   const [selectedPodNamespace, setSelectedPodNamespace] = useState("All");
   const [selectedDeploymentNamespace, setSelectedDeploymentNamespace] = useState("All");
-
+  const { clusterId } = useParams();
 
   const columns = [
     {
@@ -86,7 +88,68 @@ export default function ClusterOverview() {
           </div>
         }
       }
-    }
+    },
+   {
+  field: "actions",
+  headerName: "Actions",
+  flex: 2,
+  renderCell: (params) => {
+    const _mode = context.mode;
+    const isDark = _mode === "dark";
+
+    const iconColor = isDark ? "#f8fafc" : "#4b5563";
+    const iconHoverColor = isDark ? "#60a5fa" : "#2563eb";
+
+    const baseIconStyle = {
+      fontSize: 18,
+      color: iconColor,
+      cursor: "pointer",
+      transition: "color 0.2s ease, transform 0.2s ease",
+    };
+
+    return (
+      <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+        <div
+          className={classes["tooltip-container"]}
+          onMouseEnter={(e) => e.currentTarget.querySelector("i").style.color = iconHoverColor}
+          onMouseLeave={(e) => e.currentTarget.querySelector("i").style.color = iconColor}
+        >
+          <Link
+            to={`/kubernetes/pod-logs/${params.row.name}/${params.row.namespace}`}
+            state={{ pod: { ...params.row, cluster_id: clusterId } }}
+          >
+            <i
+              className="fas fa-file-alt"
+              aria-label="View Logs"
+              role="img"
+              style={baseIconStyle}
+            />
+          </Link>
+          <span className={classes["tooltip"]}>Logs</span>
+        </div>
+
+        <div
+          className={classes["tooltip-container"]}
+          onMouseEnter={(e) => e.currentTarget.querySelector("i").style.color = iconHoverColor}
+          onMouseLeave={(e) => e.currentTarget.querySelector("i").style.color = iconColor}
+        >
+          <Link
+            to={`/kubernetes/pod-terminal/${params.row.name}/${params.row.namespace}`}
+            state={{ pod: { ...params.row, cluster_id: clusterId } }}
+          >
+            <i
+              className="fas fa-terminal"
+              aria-label="Open Terminal"
+              role="img"
+              style={baseIconStyle}
+            />
+          </Link>
+          <span className={classes["tooltip"]}>Terminal</span>
+        </div>
+      </div>
+    );
+  }
+}
   ];
 
   const deploymentColumns = [
@@ -190,7 +253,9 @@ export default function ClusterOverview() {
     setFilteredDeployments(filteredDeploymentsByNamespace)
   }
 
+
   useEffect(() => {
+    console.log("Cluster ID from params:", clusterId);
     setFilteredPods(pods)
     setFilteredDeployments(deployments)
     var namespaces = getUniqueNamespaces(pods)
@@ -385,4 +450,5 @@ export default function ClusterOverview() {
       }
     </Container>
   );
+  
 }

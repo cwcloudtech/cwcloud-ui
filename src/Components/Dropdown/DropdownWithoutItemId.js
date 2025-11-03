@@ -5,7 +5,7 @@ const DropdownComponentWithoutId = ({ inputLabelId, name, selectLabelId, selectI
         <FormControl sx={{ m: 1, width: 300 }}>
             <InputLabel id={inputLabelId}>{name}</InputLabel>
             <Select
-                labelId={selectLabelId}
+                labelid={selectLabelId}
                 id={selectId}
                 value={selectedItem || 'none'}
                 onChange={onChange}

@@ -177,7 +177,7 @@ function AddUser() {
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label"><Translate content="dashboard.addUser.inputs.access.title" /></InputLabel>
                                     <Select
-                                        labelId="admin"
+                                        labelid="admin"
                                         id="admin"
                                         value={user.is_admin}
                                         label="Is_Admin"

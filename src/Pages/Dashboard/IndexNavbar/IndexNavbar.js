@@ -118,7 +118,7 @@ function IndexNavbar() {
         <Col>
           {isDNSpage ? (
             <DnsDropdown
-              labelId="demo-customized-select-label"
+              labelid="demo-customized-select-label"
               id="demo-customized-select"
               value={selectedDnsProvider}
               onChange={(e) => {
@@ -133,7 +133,7 @@ function IndexNavbar() {
             <>
               {showProviderAndRegion && (
                 <SelectDropdown
-                  labelId="demo-customized-select-label"
+                  labelid="demo-customized-select-label"
                   id="demo-customized-select"
                   value={
                     showProviderAndRegion
@@ -156,7 +156,7 @@ function IndexNavbar() {
           <Col>
             {showProviderAndRegion && (
               <SelectDropdown
-                labelId="demo-customized-select-label"
+                labelid="demo-customized-select-label"
                 id="demo-customized-select"
                 value={showProviderAndRegion ? context.region.name : "global"}
                 onChange={(e) => {

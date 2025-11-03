@@ -38,7 +38,7 @@ const SelectDropdown = ({ labelId, id, value, onChange, itemsList, classes, with
     const _mode = context.mode;
     return (
         <Select
-            labelId={labelId}
+            labelid={labelId}
             id={id}
             value={value}
             style={{ marginLeft: '10px', marginRight: '10px', background: colors.secondBackground[_mode] + ' !important'}}
@@ -53,7 +53,7 @@ const SelectDropdown = ({ labelId, id, value, onChange, itemsList, classes, with
                 <MenuItem disabled={disabled} value={item.name} key={item.name} style={{background: colors.secondBackground[_mode]}}>
                     <div className={classes.regionItemStyles} style={{color: colors.mainText[_mode]}}>
                         {withImage && <img src={srcimage(item.name)} alt="fr" className={classes.ImageRegionStyles} />}
-                        <span>{item.name}</span>
+                        {item.name}
                     </div>
                 </MenuItem>
             ))}

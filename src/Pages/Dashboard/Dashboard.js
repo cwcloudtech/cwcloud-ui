@@ -77,7 +77,8 @@ import MonitorOverview from "./Pages/User/Observability/MonitorOverview/MonitorO
 import KVStorage from "./Pages/User/KVStorage/Overview/KVStorage";
 import AddKV from "./Pages/User/KVStorage/AddKV/AddKV";
 import EditKV from "./Pages/User/KVStorage/EditKV/EditKV";
-
+import PodLogs from "./Pages/Admin/Kubernetes/ClusterManagement/PodLogs/PodLogs";
+import PodTerminal from "./Pages/Admin/Kubernetes/ClusterManagement/PodTerminal/PodTerminal";
 function Dashboard() {
   const _mode = useContext(GlobalContext).mode;
   const { pathname } = useLocation();
@@ -107,6 +108,16 @@ function Dashboard() {
                   exact
                   path="/admin/projects"
                   element={<ProjectsPage />}
+                />
+                <Route 
+                path="/kubernetes/pod-logs/:podName/:namespace" 
+                 element={<PodLogs />}
+                exact 
+                />
+                <Route 
+                  path="/kubernetes/pod-terminal/:podName/:namespace" 
+                   element={<PodTerminal />}
+                  exact 
                 />
                 <Route
                   exact
