@@ -89,8 +89,9 @@ const AppContext = (props) => {
                             setUserAuthMethods(res.data.methods)
                         })
                 }).catch(err => {
-                    setLoading(false)
-                    console.log(err)
+                    LocalStorageService.clearToken()
+                    window.location.href = "/"
+                    throw err
                 })
         } else {
             setLoading(false)
