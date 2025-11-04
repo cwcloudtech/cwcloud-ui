@@ -37,8 +37,6 @@ function MultiFactorAuth() {
                     setErrorMessage(counterpart('multiFactorAuth.error'))
                 } else if (err.response.status === 401) {
                     toast.error(counterpart('multiFactorAuth.unauthorized'))
-                } else if (err.response.status === 403) {
-                    toast.error(counterpart('error_codes.blocked_account'))
                 }
             })
     }

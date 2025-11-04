@@ -32,6 +32,7 @@ function UsersPage(props) {
         { field: 'email', headerName: context.counterpart("dashboard.usersPage.table.email"), width: 200 },
         { field: 'is_admin', headerName: context.counterpart("dashboard.usersPage.table.adminAccess"), width: 200, renderCell: (params) => (params.row.is_admin ? <i className={["fa-solid fa-check", classes.iconStyle].join(' ')}></i> : <i className={["fa-solid fa-xmark", classes.iconStyle].join(' ')}></i>) },
         { field: 'confirmed', headerName: context.counterpart("dashboard.usersPage.table.confirmation"), width: 200, renderCell: (params) => (params.row.confirmed ? <i className={["fa-solid fa-check", classes.iconStyle].join(' ')}></i> : <i className={["fa-solid fa-xmark", classes.iconStyle].join(' ')} ></i>) },
+        { field: 'block', headerName: context.counterpart("dashboard.usersPage.table.block"), width: 200, renderCell: (params) => (params.row.enabled_features.block ? <i className={["fa-solid fa-check", classes.iconStyle].join(' ')}></i> : <i className={["fa-solid fa-xmark", classes.iconStyle].join(' ')} ></i>) },
         { field: 'created_at', headerName: context.counterpart("dashboard.usersPage.table.created"), width: 200, renderCell: (params) => (formateDate(params.row.created_at)) },
         {
             field: 'actions', headerName: context.counterpart("dashboard.usersPage.table.actions"), width: 200, renderCell: (params) => {

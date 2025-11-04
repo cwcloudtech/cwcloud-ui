@@ -59,8 +59,6 @@ function U2fAuthentification() {
                     setErrorMessage(context.counterpart('multiFactorAuth.error'))
                 } else if (err.response.status === 401) {
                     toast.error(context.counterpart('multiFactorAuth.unauthorized'))
-                } else if (err.response.status === 403) {
-                    toast.error(context.counterpart('error_codes.blocked_account'))
                 }
             })
     }

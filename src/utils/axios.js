@@ -35,23 +35,29 @@ axiosInstance.interceptors.response.use(
                 i18n_code = error.response.data.i18n_code
             }
 
-            if (error.response.status === 401) {
-                localStorageService.clearToken()
-                window.location.href = "/"
-            } else {
-                let error_msg = counterpart(`error_codes.${error.response.status}`)
-                if (isNotBlank(i18n_code)) {
-                    error_msg = counterpart(`error_codes.${i18n_code}`)
-                }
+            let auth_failed = error.response.status === 401 && i18n_code === "auth_failed"
+            let blocked_account = error.response.status === 403 && i18n_code === "blocked_account"
+            let error_msg = counterpart(`error_codes.${error.response.status}`)
 
-                if (isNotBlank(cid) && error.response.status !== 401) {
-                    toast.error(`${error_msg}, CID: ${cid}`)
-                } else {
-                    toast.error(`${error_msg}`)
-                }
-
-                return Promise.reject(error)
+            if (isNotBlank(i18n_code)) {
+                error_msg = counterpart(`error_codes.${i18n_code}`)
             }
+
+            if (isNotBlank(cid) && !auth_failed && !blocked_account) {
+                error_msg = `${error_msg}, CID: ${cid}`
+            }
+
+            toast.error(error_msg, {
+                autoClose: 3000,
+                onClose: () => {
+                    if (error.response.status === 401 || blocked_account) {
+                        localStorageService.clearToken()
+                        window.location.href = "/"
+                    }
+                }
+            })
+
+            return Promise.reject(error)
         } else if (error.message) {
             toast.error(error.message)
             return Promise.reject(error)
