@@ -56,15 +56,13 @@ axiosInstance.interceptors.response.use(
                     }
                 }
             })
-
-            return Promise.reject(error)
         } else if (error.message) {
             toast.error(error.message)
-            return Promise.reject(error)
         } else {
             toast.error(`Error ${error}`)
-            return Promise.reject(error)
         }
+
+        return Promise.reject(error)
     }
 );
 export default axiosInstance;

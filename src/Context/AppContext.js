@@ -88,6 +88,9 @@ const AppContext = (props) => {
                         .then(res => {
                             setUserAuthMethods(res.data.methods)
                         })
+                }).catch(err => {
+                    setLoading(false)
+                    console.log(err)
                 })
         } else {
             setLoading(false)
