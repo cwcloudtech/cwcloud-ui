@@ -28,14 +28,14 @@ function UsersPage(props) {
     const [filtredUsers, setFiltredUsers] = useState([]);
     const navigate = useNavigate()
     const columns = [
-        { field: 'id', headerName: context.counterpart("dashboard.usersPage.table.id"), width: 80, renderCell: (params) => (<Link to={`/user/${params.id}`}>{params.id}</Link>) },
-        { field: 'email', headerName: context.counterpart("dashboard.usersPage.table.email"), width: 220 },
+        { field: 'id', headerName: context.counterpart("dashboard.usersPage.table.id"), width: 90, renderCell: (params) => (<Link to={`/user/${params.id}`}>{params.id}</Link>) },
+        { field: 'email', headerName: context.counterpart("dashboard.usersPage.table.email"), width: 230 },
         { field: 'is_admin', headerName: context.counterpart("dashboard.usersPage.table.adminAccess"), width: 180, renderCell: (params) => (params.row.is_admin ? <i className={["fa-solid fa-check", classes.iconStyle].join(' ')}></i> : <i className={["fa-solid fa-xmark", classes.iconStyle].join(' ')}></i>) },
         { field: 'confirmed', headerName: context.counterpart("dashboard.usersPage.table.confirmation"), width: 180, renderCell: (params) => (params.row.confirmed ? <i className={["fa-solid fa-check", classes.iconStyle].join(' ')}></i> : <i className={["fa-solid fa-xmark", classes.iconStyle].join(' ')} ></i>) },
         { field: 'block', headerName: context.counterpart("dashboard.usersPage.table.block"), width: 180, renderCell: (params) => (params.row.enabled_features.block ? <i className={["fa-solid fa-check", classes.iconStyle].join(' ')}></i> : <i className={["fa-solid fa-xmark", classes.iconStyle].join(' ')} ></i>) },
-        { field: 'created_at', headerName: context.counterpart("dashboard.usersPage.table.created"), width: 200, renderCell: (params) => (formateDate(params.row.created_at)) },
+        { field: 'created_at', headerName: context.counterpart("dashboard.usersPage.table.created"), width: 180, renderCell: (params) => (formateDate(params.row.created_at)) },
         {
-            field: 'actions', headerName: context.counterpart("dashboard.usersPage.table.actions"), width: 200, renderCell: (params) => {
+            field: 'actions', headerName: context.counterpart("dashboard.usersPage.table.actions"), width: 160, renderCell: (params) => {
                 const userIndex = users.findIndex(u => u.id === params.id)
                 return (<ActionUser
                     user={users[userIndex]}
