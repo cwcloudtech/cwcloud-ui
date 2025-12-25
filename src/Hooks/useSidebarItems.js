@@ -11,7 +11,7 @@ export function useSidebarItems() {
       items: ["/dashboard"],
       titleKey: "sidebar.dashboard",
       iconClass: "fa-gauge",
-      path: "/dashboard",
+      path: "/dashboard"
     },
     {
       id: "/projects",
@@ -19,23 +19,21 @@ export function useSidebarItems() {
       titleKey: "sidebar.projects",
       iconClass: "fa-layer-group",
       path: "/projects",
-      condition:
-        isTrue(context.user.enabled_features.k8sapi) ||
-        isTrue(context.user.enabled_features.daasapi),
+      condition: isTrue(context.user.enabled_features.k8sapi) || isTrue(context.user.enabled_features.daasapi)
     },
     {
       id: "/buckets",
       items: ["/buckets"],
       titleKey: "sidebar.buckets",
       iconClass: "fa-cube",
-      path: "/buckets",
+      path: "/buckets"
     },
     {
       id: "/registries",
       items: ["/registries"],
       titleKey: "sidebar.registries",
       iconClass: "fa-brands fa-docker",
-      path: "/registries",
+      path: "/registries"
     },
     {
       id: "/instances",
@@ -43,7 +41,7 @@ export function useSidebarItems() {
       titleKey: "sidebar.instances",
       iconClass: "fa-microchip",
       path: "/instances",
-      condition: isTrue(context.user.enabled_features.daasapi),
+      condition: isTrue(context.user.enabled_features.daasapi)
     },
     {
       id: "/k8s-applications",
@@ -51,7 +49,7 @@ export function useSidebarItems() {
       titleKey: "sidebar.k8sApplications",
       iconClass: "fa-dharmachakra",
       path: "/k8s-applications",
-      condition: isTrue(context.user.enabled_features.k8sapi),
+      condition: isTrue(context.user.enabled_features.k8sapi)
     },
     {
       id: "/function",
@@ -59,7 +57,7 @@ export function useSidebarItems() {
         "/function/overview",
         "/function/add",
         "/invocations",
-        "/triggers",
+        "/triggers"
       ],
       titleKey: "sidebar.functions.title",
       iconClass: "fa-code",
@@ -67,23 +65,23 @@ export function useSidebarItems() {
         {
           id: "/function/overview",
           titleKey: "sidebar.functions.overview",
-          path: "/function/overview",
+          path: "/function/overview"
         },
         {
           id: "/function/add",
           titleKey: "sidebar.functions.add",
-          path: "/function/add",
+          path: "/function/add"
         },
         {
           id: "/invocations",
           titleKey: "sidebar.invocations.overview",
-          path: "/invocations",
+          path: "/invocations"
         },
         {
           id: "/triggers",
           titleKey: "sidebar.triggers.overview",
-          path: "/triggers",
-        },
+          path: "/triggers"
+        }
       ],
       condition: isTrue(context.user.enabled_features.faasapi),
     },
@@ -99,13 +97,13 @@ export function useSidebarItems() {
         {
           id: "/kv",
           titleKey: "sidebar.kvStorage.overview",
-          path: "/kv",
+          path: "/kv"
         },
         {
           id: "/kv/create",
           titleKey: "sidebar.kvStorage.create",
-          path: "/kv/create",
-        },
+          path: "/kv/create"
+        }
       ],
       condition: isTrue(context.user.enabled_features.storageapi),
     },
@@ -116,7 +114,7 @@ export function useSidebarItems() {
         "/iot/devices",
         "/iot/add/object-type",
         "/iot/add/device",
-        "/iot/add/data",
+        "/iot/add/data"
       ],
       titleKey: "sidebar.iot.title",
       iconClass: "fa-wifi",
@@ -124,28 +122,28 @@ export function useSidebarItems() {
         {
           id: "/iot/overview",
           titleKey: "sidebar.iot.overview",
-          path: "/iot/overview",
+          path: "/iot/overview"
         },
         {
           id: "/iot/devices",
           titleKey: "sidebar.iot.devices",
-          path: "/iot/devices",
+          path: "/iot/devices"
         },
         {
           id: "/iot/add/object-type",
           titleKey: "sidebar.iot.addObjectType",
-          path: "/iot/add/object-type",
+          path: "/iot/add/object-type"
         },
         {
           id: "/iot/add/device",
           titleKey: "sidebar.iot.addDevice",
-          path: "/iot/add/device",
+          path: "/iot/add/device"
         },
         {
           id: "/iot/add/data",
           titleKey: "sidebar.iot.addData",
-          path: "/iot/add/data",
-        },
+          path: "/iot/add/data"
+        }
       ],
       condition: isTrue(context.user.enabled_features.iotapi),
     },
@@ -161,22 +159,42 @@ export function useSidebarItems() {
         {
           id: "/monitors",
           titleKey: "sidebar.observability.monitors",
-          path: "/monitors",
+          path: "/monitors"
         },
         {
           id: "/monitor/add",
           titleKey: "sidebar.observability.addMonitor",
-          path: "/monitor/add",
-        },
+          path: "/monitor/add"
+        }
       ],
       condition: isTrue(context.user.enabled_features.monitorapi),
     },
     {
       id: "/email",
-      items: ["/email"],
+      items: [
+        "/email",
+        "/contactForms",
+        "/contactForm/add"
+      ],
       titleKey: "sidebar.manageEmails.title",
       iconClass: "fa-envelope",
-      path: "/email",
+      children: [
+        {
+          id: "/email",
+          titleKey: "sidebar.manageEmails.send",
+          path: "/email"
+        },
+        {
+          id: "/contactForms",
+          titleKey: "sidebar.manageEmails.contactForm.all",
+          path: "/contactForms"
+        },
+        {
+          id: "/contactForm/add",
+          titleKey: "sidebar.manageEmails.contactForm.add",
+          path: "/contactForm/add"
+        }
+      ],
       condition: isTrue(context.user.enabled_features.emailapi),
     },
   ];
@@ -187,7 +205,7 @@ export function useSidebarItems() {
       items: ["/admin/support"],
       titleKey: "sidebar.manageSupport.title",
       iconClass: "fa-comment-alt",
-      path: "/admin/support",
+      path: "/admin/support"
     },
     {
       id: "/users",
@@ -198,14 +216,14 @@ export function useSidebarItems() {
         {
           id: "/users/overview",
           titleKey: "sidebar.manageUsers.overview",
-          path: "/users/overview",
+          path: "/users/overview"
         },
         {
           id: "/users/add",
           titleKey: "sidebar.manageUsers.add",
-          path: "/users/add",
-        },
-      ],
+          path: "/users/add"
+        }
+      ]
     },
     {
       id: "/environment",
@@ -216,14 +234,14 @@ export function useSidebarItems() {
         {
           id: "/admin/environment/overview",
           titleKey: "sidebar.manageEnvironments.overview",
-          path: "/admin/environment/overview",
+          path: "/admin/environment/overview"
         },
         {
           id: "/admin/environment/add",
           titleKey: "sidebar.manageEnvironments.add",
-          path: "/admin/environment/add",
-        },
-      ],
+          path: "/admin/environment/add"
+        }
+      ]
     },
     {
       id: "/kubernetes",
@@ -234,14 +252,14 @@ export function useSidebarItems() {
         {
           id: "/kubernetes/clusters",
           titleKey: "sidebar.kubernetes.clusters",
-          path: "/kubernetes/clusters",
+          path: "/kubernetes/clusters"
         },
         {
           id: "/kubernetes/environments",
           titleKey: "sidebar.kubernetes.environments",
-          path: "kubernetes/environments",
+          path: "kubernetes/environments"
         },
-      ],
+      ]
     },
     {
       id: "/admin/projects",
@@ -252,14 +270,14 @@ export function useSidebarItems() {
         {
           id: "/admin/projects",
           titleKey: "sidebar.manageProjects.overview",
-          path: "/admin/projects",
+          path: "/admin/projects"
         },
         {
           id: "/admin/projects/create",
           titleKey: "sidebar.manageProjects.add",
-          path: "/admin/projects/create",
-        },
-      ],
+          path: "/admin/projects/create"
+        }
+      ]
     },
     {
       id: "/admin/buckets",
@@ -270,14 +288,14 @@ export function useSidebarItems() {
         {
           id: "/admin/buckets",
           titleKey: "sidebar.manageBuckets.overview",
-          path: "/admin/buckets",
+          path: "/admin/buckets"
         },
         {
           id: "/admin/buckets/create",
           titleKey: "sidebar.manageBuckets.add",
-          path: "/admin/buckets/create",
+          path: "/admin/buckets/create"
         },
-      ],
+      ]
     },
     {
       id: "/admin/registries",
@@ -293,8 +311,8 @@ export function useSidebarItems() {
         {
           id: "/admin/registries/create",
           titleKey: "sidebar.manageRegistries.add",
-          path: "/admin/registries/create",
-        },
+          path: "/admin/registries/create"
+        }
       ],
     },
     {
@@ -306,13 +324,13 @@ export function useSidebarItems() {
         {
           id: "/admin/instances",
           titleKey: "sidebar.manageInstances.overview",
-          path: "/admin/instances",
+          path: "/admin/instances"
         },
         {
           id: "/admin/instances/create",
           titleKey: "sidebar.manageInstances.add",
-          path: "/admin/instances/create",
-        },
+          path: "/admin/instances/create"
+        }
       ],
     },
     {
@@ -330,7 +348,7 @@ export function useSidebarItems() {
           id: "/admin/dns-records/create",
           titleKey: "sidebar.manageDnsRecords.add",
           path: "/admin/dns-records/add",
-        },
+        }
       ],
     },
     {
@@ -339,7 +357,7 @@ export function useSidebarItems() {
         "/admin/function/overview",
         "/admin/function/add",
         "/admin/triggers",
-        "/admin/invocations",
+        "/admin/invocations"
       ],
       titleKey: "sidebar.manageFunctions.title",
       iconClass: "fa-code",
@@ -347,22 +365,22 @@ export function useSidebarItems() {
         {
           id: "/admin/function/overview",
           titleKey: "sidebar.functions.overview",
-          path: "/admin/function/overview",
+          path: "/admin/function/overview"
         },
         {
           id: "/admin/function/add",
           titleKey: "sidebar.functions.add",
-          path: "/admin/function/add",
+          path: "/admin/function/add"
         },
         {
           id: "/admin/invocations",
           titleKey: "sidebar.invocations.overview",
-          path: "/admin/invocations",
+          path: "/admin/invocations"
         },
         {
           id: "/admin/triggers",
           titleKey: "sidebar.triggers.overview",
-          path: "/admin/triggers",
+          path: "/admin/triggers"
         },
       ],
     },
@@ -377,7 +395,7 @@ export function useSidebarItems() {
         {
           id: "/admin/kv",
           titleKey: "sidebar.kvStorage.overview",
-          path: "/admin/kv",
+          path: "/admin/kv"
         },
       ],
       condition: isTrue(context.user.enabled_features.storageapi),
@@ -389,7 +407,7 @@ export function useSidebarItems() {
         "/admin/iot/devices",
         "/admin/iot/add/object-type",
         "/admin/iot/add/device",
-        "/admin/iot/add/data",
+        "/admin/iot/add/data"
       ],
       titleKey: "sidebar.iot.title",
       iconClass: "fa-wifi",
@@ -397,27 +415,27 @@ export function useSidebarItems() {
         {
           id: "/admin/iot/overview",
           titleKey: "sidebar.iot.overview",
-          path: "/admin/iot/overview",
+          path: "/admin/iot/overview"
         },
         {
           id: "/admin/iot/devices",
           titleKey: "sidebar.iot.devices",
-          path: "/admin/iot/devices",
+          path: "/admin/iot/devices"
         },
         {
           id: "/admin/iot/add/object-type",
           titleKey: "sidebar.iot.addObjectType",
-          path: "/admin/iot/add/object-type",
+          path: "/admin/iot/add/object-type"
         },
         {
           id: "/admin/iot/add/device",
           titleKey: "sidebar.iot.addDevice",
-          path: "/admin/iot/add/device",
+          path: "/admin/iot/add/device"
         },
         {
           id: "/admin/iot/add/data",
           titleKey: "sidebar.iot.addData",
-          path: "/admin/iot/add/data",
+          path: "/admin/iot/add/data"
         },
       ],
     },
@@ -433,22 +451,41 @@ export function useSidebarItems() {
         {
           id: "/admin/monitors",
           titleKey: "sidebar.observability.monitors",
-          path: "/admin/monitors",
+          path: "/admin/monitors"
         },
         {
           id: "/admin/monitor/add",
           titleKey: "sidebar.observability.addMonitor",
-          path: "/admin/monitor/add",
+          path: "/admin/monitor/add"
         },
-      ],
-      condition: isTrue(context.user.enabled_features.monitorapi),
+      ]
     },
     {
       id: "/admin/email",
-      items: ["/admin/email"],
+      items: [
+        "/admin/email",
+        "/admin/contactForms",
+        "/admin/contactForm/add"
+      ],
       titleKey: "sidebar.manageEmails.title",
       iconClass: "fa-envelope",
-      path: "/admin/email",
+      children: [
+        {
+          id: "/admin/email",
+          titleKey: "sidebar.manageEmails.send",
+          path: "/admin/email"
+        },
+        {
+          id: "/admin/contactForms",
+          titleKey: "sidebar.manageEmails.contactForm.all",
+          path: "/admin/contactForms"
+        },
+        {
+          id: "/admin/contactForm/add",
+          titleKey: "sidebar.manageEmails.contactForm.add",
+          path: "/admin/contactForm/add"
+        }
+      ]
     }
   ];
 

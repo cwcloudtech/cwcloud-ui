@@ -144,13 +144,13 @@ function AddProject(props) {
                                 <SuggestionsAutoComplete
                                     id="combo-box-email"
                                     onChange={(event, newValue) => {
-                                    setProject({ ...project, email: newValue });
+                                        setProject({ ...project, email: newValue });
                                     }}
                                     options={users.map((u) => u.email)}
                                     renderInput={(params) => (
                                     <TextField
                                         onChange={(e) =>
-                                        setProject({ ...project, email: e.target.value })
+                                            setProject({ ...project, email: e.target.value })
                                         }
                                         {...params}
                                         label={context.counterpart(

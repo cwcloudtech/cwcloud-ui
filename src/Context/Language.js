@@ -190,7 +190,6 @@ export const englishLanguage = {
         "can_not_get_roles": "Can not get roles from GitLab repository",
         "unexpected_chart_format": "Unexpected charts format",
         "can_not_get_helm_charts": "Can not get helm charts from GitLab repository",
-        "2fa_deleted": "2FA methods successfully deleted",
         "user_no_2fa_methods": "User has no 2FA methods",
         "kubeconfig_not_found": "Kubeconfig not found",
         "cluster_not_found": "Cluster not found",
@@ -203,21 +202,16 @@ export const englishLanguage = {
         "ticket_status_updated_successfully": "Ticket status updated successfully",
         "monitor_not_found": "Monitor not found",
         "max_monitors_reached": "Max monitors reached",
-        "monitor_created": "Monitor created",
-        "monitor_updated": "Monitor updated",
-        "monitor_deleted": "Monitor deleted",
         "monitor_check_failed": "Monitor check failed",
         "invalid_http_status_code": "Invalid http status code",
         "invalid_tcp_url_format": "Invalid tcp url format",
         "not_monitorapi": "The user is not granted for the monitor API",
-        "storage_kv_created": "Storage key-value successfully created",
-        "storage_kv_updated": "Storage key-value successfully updated",
         "storage_kv_conflict": "Storage key-value already exists",
         "storage_kv_not_found": "Storage key-value not found",
-        "storage_kv_deleted": "Storage key-value successfully deleted",
         "not_storageapi": "The user is not granted for the storage API",
         "storage_kv_error": "Error retrieving Storage KV",
         "storage_kv_delete_error": "Error deleting Storage KV",
+        "contact_form_not_found": "Contact form not found"
     },
     common: {
         ok: "OK",
@@ -436,7 +430,12 @@ export const englishLanguage = {
         buckets: "Buckets",
         registries: "Registries",
         manageEmails: {
-            title: "Emails"
+            title: "Emails",
+            send: "Sending emails",
+            contactForm: {
+                all: "Contact forms",
+                add: "Add contact from"
+            }
         },
         functions: {
             title: "Serverless",
@@ -844,9 +843,8 @@ export const englishLanguage = {
             },
             actions: {
                 copyFunctionId: "Copy function id",
-                copyPublicIp: "Copy public IP",
                 protect: "Protect function",
-                unprotect: "Unprotect function",
+                unprotect: "Unprotect function"
             },
             table: {
                 name: "Name",
@@ -1994,17 +1992,15 @@ export const englishLanguage = {
                             age: "Age",
                             actions: "Actions",
                         },
-                        successDelete: "Ingress deleted successfully",
+                        successDelete: "Ingress deleted successfully"
                     },
                     form: {
                         title: "Create Ingress",
                         updateTitle: "Update Ingress: ",
-
                         rules: "Rules",
                         defaultBackend: "Default Backend",
                         Certificates: "Certificates",
                         ingressClass: "Ingress Class",
-
                         requestHost: "Request Host",
                         requestHostHolder: "e.g. example.com",
                         path: "Path",
@@ -2022,11 +2018,10 @@ export const englishLanguage = {
                         addRule: "Add Rule",
                         addHost: "Add Host",
                         addCertificate: "Add Certificate",
-
                         backToExplore: "Back to exploring ingresses",
                         successCreate: "Ingress created successfully"
                     }
-                },
+                }
             },
             storage: {
                 secrets: {
@@ -2265,6 +2260,64 @@ export const englishLanguage = {
                 successUpdate: "User successfully updated"
             }
         },
+        contactForm: {
+            name: "Name",
+            back: "Back to forms",
+            addNew: "Add new form",
+            formOverview: "Form overview",
+            overview: {
+                mainTitle: "Contact forms",
+            },
+            message: {
+                fieldsRequired: "Missing some required fields",
+                errorFetchingForms: "Couldn't fetch forms",
+                created: "Form successfully created",
+                updated: "Form successfully updated",
+                deleted: "Form successfully deleted",
+                errorUpdatingContactForm: "Couldn't update form",
+                userRequired: "User is required",
+                emptyMessage: "There is no form to display right now",
+                createMessage: "Create your first form",
+                creationError: "Couldn't create form",
+                successCopyId: "Form id copied with success"
+            },
+            actions: {
+               copyFormId: "Copy form id"
+            },
+            table: {
+                name: "Name",
+                mail_from: "Expeditor",
+                mail_to: "Recipient",
+                updatedAt: "Updated at",
+                ownedBy: "Owned by"
+            },
+            inputs: {
+                name: {
+                    title: "Name",
+                    placeholder: "Enter a name for this form"
+                },
+                mail_from: {
+                    title: "Expeditor",
+                    placeholder: "Enter an expeditor's email for this form"
+                },
+                mail_to: {
+                    title: "Recipient",
+                    placeholder: "Enter a recipient's email for this form"
+                },
+                copyright_name: {
+                    title: "Copyright's name",
+                    placeholder: "Enter the copyright's name for the footer"
+                },
+                logo_url: {
+                    title: "Logo URL",
+                    placeholder: "Enter the logo's URL for the footer"
+                },
+                owner: {
+                    title: "Owner",
+                    placeholder: "Select an owner for this form"
+                }
+            }
+        },
         monitor: {
             name: "Name",
             back: "Back to monitors",
@@ -2273,9 +2326,6 @@ export const englishLanguage = {
             addNewMonitor: "Add new monitor",
             optionalSettings: "Optional settings",
             monitorOverview: "Monitor overview",
-            title: {
-                overview: "Overview",
-            },
             overview: {
                 mainTitle: "Monitors",
             },
@@ -2310,97 +2360,97 @@ export const englishLanguage = {
                 errorFetchingMonitor: "Couldn't fetch monitor",
                 monitorUpdated: "Monitor successfully updated",
                 errorUpdatingMonitor: "Couldn't update monitor",
-                userRequired: "User is required",
+                userRequired: "User is required"
             },
             actions: {
-                copyId: "Copy ID",
+                copyId: "Copy ID"
             },
             inputs: {
                 name: {
                     title: "Name",
-                    placeholder: "Enter a name for this monitor",
+                    placeholder: "Enter a name for this monitor"
                 },
                 url: {
                     title: "URL",
-                    placeholder: "Enter the URL for this monitor",
+                    placeholder: "Enter the URL for this monitor"
                 },
                 family: {
                     title: "Family",
                     placeholder: "Select a family for this monitor",
-                    all: "All",
+                    all: "All"
                 },
                 method: {
                     title: "Method",
-                    placeholder: "Select a method for this monitor",
+                    placeholder: "Select a method for this monitor"
                 },
                 requestConfiguration: {
-                    title: "Request configuration",
+                    title: "Request configuration"
                 },
                 expectedHttpCode: {
                     title: "Expected HTTP code",
-                    placeholder: "Enter the expected HTTP code for this monitor",
+                    placeholder: "Enter the expected HTTP code for this monitor"
                 },
                 timeout: {
                     title: "Timeout (Seconds)",
-                    placeholder: "Enter the timeout for this monitor",
+                    placeholder: "Enter the timeout for this monitor"
                 },
                 description: {
                     title: "Description",
-                    placeholder: "Enter a description for this monitor",
+                    placeholder: "Enter a description for this monitor"
                 },
                 type: {
                     title: "Type",
-                    placeholder: "Select a type for this monitor",
+                    placeholder: "Select a type for this monitor"
                 },
                 expectedContain: {
                     title: "Response body contains",
-                    placeholder: "Enter an expected response body extract",
+                    placeholder: "Enter an expected response body extract"
                 },
                 authentification: {
-                    title: "Authentification",
+                    title: "Authentification"
                 },
                 username: {
                     title: "Username",
-                    placeholder: "Enter the username for this monitor",
+                    placeholder: "Enter the username for this monitor"
                 },
                 password: {
                     title: "Password",
-                    placeholder: "Enter the password for this monitor",
+                    placeholder: "Enter the password for this monitor"
                 },
                 headers: {
                     title: "Headers",
                     placeholder: "Enter the headers for this monitor",
                     noHeaders: "No headers",
                     addHeader: "Add header",
-                    editHeader: "Edit header",
+                    editHeader: "Edit header"
                 },
                 headerName: {
                     title: "Header name",
-                    placeholder: "Enter the header name for this monitor",
+                    placeholder: "Enter the header name for this monitor"
                 },
                 headerValue: {
                     title: "Header value",
-                    placeholder: "Enter the header value for this monitor",
+                    placeholder: "Enter the header value for this monitor"
                 },
                 owner: {
                     title: "Owner",
-                    placeholder: "Select an owner for this monitor",
+                    placeholder: "Select an owner for this monitor"
                 },
                 body: {
                     title: "Body",
-                    placeholder: "Enter the body for the request",
+                    placeholder: "Enter the body for the request"
                 },
                 checkTls: {
                     title: "Check TLS",
-                    placeholder: "Check TLS",
+                    placeholder: "Check TLS"
                 },
                 logLevel: {
                     title: "Notify only for failures",
-                    placeholder: "Select a log level for this monitor",
+                    placeholder: "Select a log level for this monitor"
                 }
             },
             buttons: {
-                addHeader: "Add header",
+                addHeader: "Add header"
             }
         },
         pageNotFound: {
@@ -2588,10 +2638,8 @@ export const frenchLanguage = {
         "not_daasapi_nor_k8sapi": "L'utilisateur n'a pas l'api DaaS ni l'api k8s activée",
         "not_implemented": "Fonctionnalité non implémentée",
         "unexpected_role_format": "Format des rôles inattendu",
-        "can_not_get_roles_from": "Impossible de récupérer les rôles depuis le dépôt gitlab",
         "unexpected_chart_format": "Format du chart inattendu",
-        "can_not_get_charts_from": "Impossible de récupérer les charts depuis le dépôt gitlab",
-        "2fa_deleted": "Méthodes MFA/2FA désactivé avec succès",
+        "can_not_get_helm_charts": "Impossible de récupérer les charts depuis le dépôt gitlab",
         "user_no_2fa_methods": "L'utilisateur n'a pas de méthode MFA/2FA",
         "kubeconfig_not_found": "Kubeconfig introuvable",
         "cluster_not_found": "Cluster introuvable",
@@ -2604,22 +2652,17 @@ export const frenchLanguage = {
         "ticket_status_updated_successfully": "Statut du ticket mis à jour avec succès",
         "monitor_not_found": "Monitor introuvable",
         "max_monitors_reached": "Nombre maximum de monitors atteint",
-        "monitor_created": "Monitor créé",
-        "monitor_updated": "Monitor mis à jour",
-        "monitor_deleted": "Monitor supprimé",
         "monitor_check_failed": "Vérification du monitor échouée",
         "invalid_http_status_code": "Code HTTP invalide",
         "invalid_tcp_url_format": "Format d'URL TCP invalide",
         "not_faasapi": "L'utilisateur n'a pas l'api FaaS activée",
         "not_monitorapi": "L'utilisateur n'a pas l'api Monitor activée",
-        "storage_kv_created": "Création réussie de stockage clé-valeur",
-        "storage_kv_updated": "Mise à jour réussie de stockage clé-valeur",
         "storage_kv_conflict": "Conflit de stockage clé-valeur",
         "storage_kv_not_found": "Stockage clé-valeur introuvable",
-        "storage_kv_deleted": "Suppression réussie de stockage clé-valeur",
         "not_storageapi": "L'utilisateur n'a pas l'api de stockage activée",
         "storage_kv_error": "Erreur de stockage clé-valeur",
-        "storage_kv_delete_error": "Erreur de suppression de stockage clé-valeur"
+        "storage_kv_delete_error": "Erreur de suppression de stockage clé-valeur",
+        "contact_form_not_found": "Formulaire de contact non trouvé"
     },
     common: {
         ok: "OK",
@@ -2837,7 +2880,12 @@ export const frenchLanguage = {
         buckets: "Buckets",
         registries: "OCI registries",
         manageEmails: {
-            title: "Emails"
+            title: "Emails",
+            send: "Envoyer des emails",
+            contactForm: {
+                all: "Formulaires de contacts",
+                add: "Ajouter un formulaire"
+            }
         },
         functions: {
             title: "Serverless",
@@ -3244,9 +3292,8 @@ export const frenchLanguage = {
             },
             actions: {
                 copyFunctionId: "Copier l'id de la fonction",
-                copyPublicIp: "Copier l'ip public",
                 protect: "Protéger la fonction",
-                unprotect: "Déprotéger la fonction",
+                unprotect: "Déprotéger la fonction"
             },
             table: {
                 name: "Nom",
@@ -4642,6 +4689,64 @@ export const frenchLanguage = {
                 successUpdate: "L'utilisateur a été mis à jour avec succès"
             }
         },
+        contactForm: {
+            name: "Nom",
+            back: "Retour aux formulaires",
+            addNew: "Ajouter un nouveau formulaire",
+            formOverview: "Vue d'ensemble du formulaire",
+            overview: {
+                mainTitle: "Formulaires de contact",
+            },
+            message: {
+                fieldsRequired: "Il manque des champs obligatoires",
+                errorFetchingForms: "Impossible de récupérer les formulaires",
+                created: "Formulaire crée avec succès",
+                updated: "Formulaire mis à jour avec succès",
+                deleted: "Formulaire supprimé avec succès",
+                errorUpdatingContactForm: "Impossible de mettre à jour le formulaire",
+                userRequired: "L'utilisateur est requis",
+                emptyMessage: "Aucun formulaire à afficher pour le moment",
+                createMessage: "Créez votre premier formulaire",
+                creationError: "Impossible de créer le formulaire",
+                successCopyId: "Id du formulaire copié avec succès"
+            },
+            table: {
+                name: "Nom",
+                mail_from: "Expéditeur",
+                mail_to: "Destinataire",
+                updatedAt: "Mis à jour le",
+                ownedBy: "Propriétaire"
+            },
+            actions: {
+               copyFormId: "Copier l'id du formulaire"
+            },
+            inputs: {
+                name: {
+                    title: "Nom",
+                    placeholder: "Entrez un nom pour ce formulaire"
+                },
+                mail_from: {
+                    title: "Expéditeur",
+                    placeholder: "Entrez un email d'expédition pour ce formulaire"
+                },
+                mail_to: {
+                    title: "Destinataire",
+                    placeholder: "Entrez un email de destinataire pour ce formulaire"
+                },
+                copyright_name: {
+                    title: "Nom du copyright",
+                    placeholder: "Entrez le nom du copyright pour le footer"
+                },
+                logo_url: {
+                    title: "Logo URL",
+                    placeholder: "Entrez l'URL du logo pour le footer"
+                },
+                owner: {
+                    title: "Propriétaire",
+                    placeholder: "Sélectionnez un propriétaire pour ce formulaire",
+                }
+            }
+        },
         monitor: {
             name: "Nom",
             back: "Retour aux moniteurs",
@@ -4650,11 +4755,8 @@ export const frenchLanguage = {
             addNewMonitor: "Ajouter un nouveau moniteur",
             optionalSettings: "Paramètres optionnels",
             monitorOverview: "Vue d'ensemble du moniteur",
-            title: {
-                overview: "Aperçu",
-            },
             overview: {
-                mainTitle: "Moniteurs",
+                mainTitle: "Moniteurs"
             },
             table: {
                 name: "Nom",
@@ -4662,12 +4764,12 @@ export const frenchLanguage = {
                 type: "Type",
                 url: "URL",
                 status: "Statut",
-                updatedAt: "Mis à jour à",
+                updatedAt: "Mis à jour le",
                 actions: "Actions",
                 method: "Méthode",
                 timeout: "Délai",
                 ownedBy: "Propriétaire",
-                responseTime: "Temps de réponse",
+                responseTime: "Temps de réponse"
             },
             message: {
                 successCopyId: "ID du moniteur copié dans le presse-papiers",
@@ -4687,97 +4789,97 @@ export const frenchLanguage = {
                 errorFetchingMonitor: "Impossible de récupérer le moniteur",
                 monitorUpdated: "Moniteur mis à jour avec succès",
                 errorUpdatingMonitor: "Impossible de mettre à jour le moniteur",
-                userRequired: "L'utilisateur est requis",
+                userRequired: "L'utilisateur est requis"
             },
             actions: {
-                copyId: "Copier l'ID",
+                copyId: "Copier l'ID"
             },
             inputs: {
                 name: {
                     title: "Nom",
-                    placeholder: "Entrez un nom pour ce moniteur",
+                    placeholder: "Entrez un nom pour ce moniteur"
                 },
                 url: {
                     title: "URL",
-                    placeholder: "Entrez l'URL pour ce moniteur",
+                    placeholder: "Entrez l'URL pour ce moniteur"
                 },
                 family: {
                     title: "Famille",
                     placeholder: "Sélectionnez une famille pour ce moniteur",
-                    all: "Tous",
+                    all: "Tous"
                 },
                 method: {
                     title: "Méthode",
-                    placeholder: "Sélectionnez une méthode pour ce moniteur",
+                    placeholder: "Sélectionnez une méthode pour ce moniteur"
                 },
                 requestConfiguration: {
-                    title: "Configuration de la requête",
+                    title: "Configuration de la requête"
                 },
                 expectedHttpCode: {
                     title: "Code HTTP attendu",
-                    placeholder: "Entrez le code HTTP attendu pour ce moniteur",
+                    placeholder: "Entrez le code HTTP attendu pour ce moniteur"
                 },
                 timeout: {
                     title: "Délai (Secondes)",
-                    placeholder: "Entrez le délai pour ce moniteur",
+                    placeholder: "Entrez le délai pour ce moniteur"
                 },
                 description: {
                     title: "Description",
-                    placeholder: "Entrez une description pour ce moniteur",
+                    placeholder: "Entrez une description pour ce moniteur"
                 },
                 type: {
                     title: "Type",
-                    placeholder: "Sélectionnez un type pour ce moniteur",
+                    placeholder: "Sélectionnez un type pour ce moniteur"
                 },
                 expectedContain: {
                     title: "Body doit contenir",
-                    placeholder: "Entrez un extrait du body attendu par la réponse de ce moniteur",
+                    placeholder: "Entrez un extrait du body attendu par la réponse de ce moniteur"
                 },
                 authentification: {
-                    title: "Authentification",
+                    title: "Authentification"
                 },
                 username: {
                     title: "Nom d'utilisateur",
-                    placeholder: "Entrez le nom d'utilisateur pour ce moniteur",
+                    placeholder: "Entrez le nom d'utilisateur pour ce moniteur"
                 },
                 password: {
                     title: "Mot de passe",
-                    placeholder: "Entrez le mot de passe pour ce moniteur",
+                    placeholder: "Entrez le mot de passe pour ce moniteur"
                 },
                 headers: {
                     title: "En-têtes",
                     placeholder: "Entrez les en-têtes pour ce moniteur",
                     noHeaders: "Aucun en-tête",
                     addHeader: "Ajouter un en-tête",
-                    editHeader: "Modifier l'en-tête",
+                    editHeader: "Modifier l'en-tête"
                 },
                 headerName: {
                     title: "Nom de l'en-tête",
-                    placeholder: "Entrez le nom de l'en-tête pour ce moniteur",
+                    placeholder: "Entrez le nom de l'en-tête pour ce moniteur"
                 },
                 headerValue: {
                     title: "Valeur de l'en-tête",
-                    placeholder: "Entrez la valeur de l'en-tête pour ce moniteur",
+                    placeholder: "Entrez la valeur de l'en-tête pour ce moniteur"
                 },
                 owner: {
                     title: "Propriétaire",
-                    placeholder: "Sélectionnez un propriétaire pour ce moniteur",
+                    placeholder: "Sélectionnez un propriétaire pour ce moniteur"
                 },
                 body: {
                     title: "Body",
-                    placeholder: "Entrez le body pour la requête",
+                    placeholder: "Entrez le body pour la requête"
                 },
                 checkTls: {
                     title: "Vérifier le TLS",
-                    placeholder: "Vérifiez le TLS pour ce moniteur",
+                    placeholder: "Vérifiez le TLS pour ce moniteur"
                 },
                 logLevel: {
                     title: "Notifier que les échecs",
-                    placeholder: "Sélectionnez un log level pour ce moniteur",
+                    placeholder: "Sélectionnez un log level pour ce moniteur"
                 }
             },
             buttons: {
-                addHeader: "Ajouter un en-tête",
+                addHeader: "Ajouter un en-tête"
             }
         },        
         pageNotFound: {

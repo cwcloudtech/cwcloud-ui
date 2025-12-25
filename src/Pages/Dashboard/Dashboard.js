@@ -31,6 +31,9 @@ import Settings from "./Pages/User/Settings/Settings";
 import Ticket from "./Pages/User/Ticket/Ticket";
 import ManageSupport from "./Pages/User/ManageSupport/ManageSupport";
 import SendEmail from "./Pages/User/SendEmail/SendEmail";
+import ContactForms from "./Pages/User/ContactForm/ContactForms/ContactForms";
+import AddContactForm from "./Pages/User/ContactForm/AddContactForm/AddContactForm";
+import ContactFormOverview from "./Pages/User/ContactForm/ContactFormOverview/ContactFormOverview";
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
 import FunctionsPage from "./Pages/User/Faas/FunctionsPage/FunctionsPage";
@@ -263,6 +266,9 @@ function Dashboard() {
                   element={<EnvironmentOverview />}
                 />
                 <Route exact path="/admin/email" element={<SendEmail />} />
+                <Route exact path="/admin/contactForms" element={<ContactForms />} />
+                <Route exact path="/admin/contactForm/add" element={<AddContactForm />} />
+                <Route exact path="/admin/contactForm/:id" element={<ContactFormOverview />} />
                 <Route
                   exact
                   path="/admin/dns-records/overview"
@@ -369,6 +375,9 @@ function Dashboard() {
                 <Route exact path="/monitor/add" element={<AddMonitor />} />
                 <Route exact path="/monitor/:id" element={<MonitorOverview />} />
                 <Route exact path="/email" element={<SendEmail />} />
+                <Route exact path="/contactForms" element={<ContactForms />} />
+                <Route exact path="/contactForm/add" element={<AddContactForm />} />
+                <Route exact path="/contactForm/:id" element={<ContactFormOverview />} />
                 <Route exact path="/k8s-applications">
                   <Route exact path="" element={<K8sAppsPage />} />
                   <Route exact path="app/:appId" element={<K8sAppOverview />} />

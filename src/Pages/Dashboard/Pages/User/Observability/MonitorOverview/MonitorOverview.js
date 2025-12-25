@@ -21,7 +21,8 @@ import HttpHeadersTable from '../../../../../../Components/Table/HeadersTable';
 import colors from '../../../../../../Context/Colors';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import axios from '../../../../../../utils/axios';
-import { field_from_input_name, shortname } from '../../../../../../utils/monitor';
+import { field_from_input_name } from '../../../../../../utils/monitor';
+import { shortname } from '../../../../../../utils/hash';
 import CallbackTable from '../../../../../../Components/Table/CallbackTable';
 import CallbackModal from '../../../../../../Components/Modal/CallbackModal';
 
