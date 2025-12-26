@@ -228,7 +228,7 @@ const ContactFormOverview = () => {
                         <Row style={{ display: "flex", alignItems: "center" }}>
                             <Col md="4">
                                 <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                    <Translate content="dashboard.contactForm.inputs.copyright_name.title" />
+                                    <Translate content="dashboard.contactForm.inputs.logo_url.title" />
                                 </h5>
                             </Col>
                             <Col md="6">
