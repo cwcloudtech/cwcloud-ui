@@ -2306,11 +2306,11 @@ export const englishLanguage = {
                 },
                 copyright_name: {
                     title: "Copyright's name",
-                    placeholder: "Enter the copyright's name for the footer"
+                    placeholder: "Enter the copyright's name"
                 },
                 logo_url: {
                     title: "Logo URL",
-                    placeholder: "Enter the logo's URL for the footer"
+                    placeholder: "Enter the logo's URL"
                 },
                 owner: {
                     title: "Owner",
@@ -4735,11 +4735,11 @@ export const frenchLanguage = {
                 },
                 copyright_name: {
                     title: "Nom du copyright",
-                    placeholder: "Entrez le nom du copyright pour le footer"
+                    placeholder: "Entrez le nom du copyright"
                 },
                 logo_url: {
                     title: "Logo URL",
-                    placeholder: "Entrez l'URL du logo pour le footer"
+                    placeholder: "Entrez l'URL du logo"
                 },
                 owner: {
                     title: "Propriétaire",

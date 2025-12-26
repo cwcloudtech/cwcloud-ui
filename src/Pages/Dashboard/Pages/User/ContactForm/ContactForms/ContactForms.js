@@ -274,7 +274,7 @@ function ContactForms(props) {
             </Row>
 
             <DataTable
-                icon={'fa-solid fa-chart-line'}
+                icon={'fa-solid fa-envelope'}
                 createUrl={nextPath}
                 emptyMessage={counterpart('dashboard.contactForm.message.emptyMessage')}
                 createMessage={counterpart('dashboard.contactForm.message.createMessage')}
