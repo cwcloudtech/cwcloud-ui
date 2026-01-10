@@ -1165,14 +1165,14 @@ export const englishLanguage = {
                 },
                 project: {
                     title: "Select your project",
-                    subtitle: "Choose your project that will be associeted with this instance"
+                    subtitle: "Choose your project that will be associated with this instance"
                 },
                 addProject: {
                     title: "Add new project"
                 },
                 dns: {
                     title: "Select the dns zone",
-                    subtitle: "Choose the dns zone that will be associeted with this instance"
+                    subtitle: "Choose the dns zone that will be associated with this instance"
                 },
                 environment: {
                     title: "Select your environment",
@@ -1212,7 +1212,7 @@ export const englishLanguage = {
                 },
                 dns: {
                     title: "Select the dns zone",
-                    subtitle: "Choose the dns zone that will be associeted with this instance"
+                    subtitle: "Choose the dns zone that will be associated with this instance"
                 },
             },
             message: {
