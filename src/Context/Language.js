@@ -214,7 +214,8 @@ export const englishLanguage = {
         "contact_form_not_found": "Contact form not found",
         "gibberish": "Email detected as spam: looks like gibberish",
         "low_confidence_lang": "Email detected as spam: low confidence in the detected language",
-        "lang_not_allowed": "Email detected as spam: lang not allowed"
+        "lang_not_allowed": "Email detected as spam: lang not allowed",
+        "message_too_short": "Email detected as spam: message too short"
     },
     common: {
         ok: "OK",
@@ -2666,9 +2667,10 @@ export const frenchLanguage = {
         "storage_kv_error": "Erreur de stockage clé-valeur",
         "storage_kv_delete_error": "Erreur de suppression de stockage clé-valeur",
         "contact_form_not_found": "Formulaire de contact non trouvé",
-        "gibberish": "Mail detecté comme spam: ressemble à du texte aléatoire",
-        "low_confidence_lang": "Mail detecté comme spam: basse confiance dans la langue détectée",
-        "lang_not_allowed": "Mail detecté comme spam: langue interdite"
+        "gibberish": "Mail détecté comme spam: ressemble à du texte aléatoire",
+        "low_confidence_lang": "Mail détecté comme spam: basse confiance dans la langue détectée",
+        "lang_not_allowed": "Mail détecté comme spam: langue interdite",
+        "message_too_short": "Mail détecté comme spam: message trop court"
     },
     common: {
         ok: "OK",
