@@ -215,7 +215,8 @@ export const englishLanguage = {
         "gibberish": "Email detected as spam: looks like gibberish",
         "low_confidence_lang": "Email detected as spam: low confidence in the detected language",
         "lang_not_allowed": "Email detected as spam: lang not allowed",
-        "message_too_short": "Email detected as spam: message too short"
+        "message_too_short": "Email detected as spam: message too short",
+        "cf_rate_limiting": "You exceed the rate limiting, retry later..."
     },
     common: {
         ok: "OK",
@@ -2670,7 +2671,8 @@ export const frenchLanguage = {
         "gibberish": "Mail détecté comme spam: ressemble à du texte aléatoire",
         "low_confidence_lang": "Mail détecté comme spam: basse confiance dans la langue détectée",
         "lang_not_allowed": "Mail détecté comme spam: langue interdite",
-        "message_too_short": "Mail détecté comme spam: message trop court"
+        "message_too_short": "Mail détecté comme spam: message trop court",
+        "cf_rate_limiting": "Vous avez déjà envoyé un email, ré-essayez plus tard..."
     },
     common: {
         ok: "OK",
