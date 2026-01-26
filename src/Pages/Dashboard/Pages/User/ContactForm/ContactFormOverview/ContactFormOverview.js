@@ -27,6 +27,7 @@ const ContactFormOverview = () => {
         mail_to: '',
         copyright_name: '',
         logo_url: '',
+        trusted_ips: '',
         ...(is_admin && { user_id: 0 })
     });
     const [users, setUsers] = useState([]);
@@ -143,7 +144,7 @@ const ContactFormOverview = () => {
                                     <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="cf_name"
                                     name="cf_name"
                                     label={context.counterpart('dashboard.contactForm.inputs.name.placeholder')}
@@ -166,7 +167,7 @@ const ContactFormOverview = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="cf_mail_from"
                                     name="cf_mail_from"
                                     label={context.counterpart('dashboard.contactForm.inputs.mail_from.placeholder')}
@@ -189,7 +190,7 @@ const ContactFormOverview = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="cf_mail_to"
                                     name="cf_mail_to"
                                     label={context.counterpart('dashboard.contactForm.inputs.mail_to.placeholder')}
@@ -211,7 +212,7 @@ const ContactFormOverview = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="cf_copyright_name"
                                     name="cf_copyright_name"
                                     label={context.counterpart('dashboard.contactForm.inputs.copyright_name.placeholder')}
@@ -232,12 +233,33 @@ const ContactFormOverview = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="cf_logo_url"
                                     name="cf_logo_url"
                                     label={context.counterpart('dashboard.contactForm.inputs.logo_url.placeholder')}
                                     value={form.logo_url}
                                     onChange={e => setForm({ ...form, logo_url: e.target.value })}
+                                    fullWidth
+                                />
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+                <Row style={{ margin: "30px 0px" }}>
+                    <Col>
+                        <Row style={{ display: "flex", alignItems: "center" }}>
+                            <Col md="4">
+                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                    <Translate content="dashboard.contactForm.trusted_ips.logo_url.title" />
+                                </h5>
+                            </Col>
+                            <Col md="6">
+                                <TextField
+                                    id="cf_trusted_ips"
+                                    name="cf_trusted_ips"
+                                    label={context.counterpart('dashboard.contactForm.inputs.trusted_ips.placeholder')}
+                                    value={form.logo_url}
+                                    onChange={e => setForm({ ...form, trusted_ips: e.target.value })}
                                     fullWidth
                                 />
                             </Col>

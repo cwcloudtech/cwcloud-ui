@@ -2317,6 +2317,10 @@ export const englishLanguage = {
                     title: "Logo URL",
                     placeholder: "Enter the logo's URL"
                 },
+                trusted_ips: {
+                    title: "Trusted IPs",
+                    placeholder: "Put the trusted ips separated by ;"
+                },
                 owner: {
                     title: "Owner",
                     placeholder: "Select an owner for this form"
@@ -4750,6 +4754,10 @@ export const frenchLanguage = {
                 logo_url: {
                     title: "Logo URL",
                     placeholder: "Entrez l'URL du logo"
+                },
+                trusted_ips: {
+                    title: "IPs de confiance",
+                    placeholder: "Entrez les ips de confiance séparées par ;"
                 },
                 owner: {
                     title: "Propriétaire",

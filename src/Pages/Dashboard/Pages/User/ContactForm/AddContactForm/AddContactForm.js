@@ -26,6 +26,7 @@ const AddContactForm = () => {
         mail_to: '',
         copyright_name: '',
         logo_url: '',
+        trusted_ips: '',
         ...(is_admin && { user_id: 0 })
     });
     const [users, setUsers] = useState([]);
@@ -97,7 +98,7 @@ const AddContactForm = () => {
                                     <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="name"
                                     name="name"
                                     label={context.counterpart('dashboard.contactForm.inputs.name.placeholder')}
@@ -119,7 +120,7 @@ const AddContactForm = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="mail_from"
                                     name="mail_from"
                                     label={context.counterpart('dashboard.contactForm.inputs.mail_from.placeholder')}
@@ -141,7 +142,7 @@ const AddContactForm = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="mail_to"
                                     name="mail_to"
                                     label={context.counterpart('dashboard.contactForm.inputs.mail_to.placeholder')}
@@ -162,7 +163,7 @@ const AddContactForm = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="copyright_name"
                                     name="copyright_name"
                                     label={context.counterpart('dashboard.contactForm.inputs.copyright_name.placeholder')}
@@ -182,11 +183,31 @@ const AddContactForm = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="logo_url"
                                     name="logo_url"
                                     label={context.counterpart('dashboard.contactForm.inputs.logo_url.placeholder')}
                                     onChange={e => setForm({ ...form, logo_url: e.target.value })}
+                                    fullWidth
+                                />
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+                <Row style={{ margin: "30px 0px" }}>
+                    <Col>
+                        <Row style={{ display: "flex", alignItems: "center" }}>
+                            <Col md="4">
+                                <h5 className="labelName" style={{color: colors.title[_mode]}}>
+                                    <Translate content="dashboard.contactForm.inputs.trusted_ips.title" />
+                                </h5>
+                            </Col>
+                            <Col md="6">
+                                <TextField
+                                    id="trusted_ips"
+                                    name="trusted_ips"
+                                    label={context.counterpart('dashboard.contactForm.inputs.trusted_ips.placeholder')}
+                                    onChange={e => setForm({ ...form, trusted_ips: e.target.value })}
                                     fullWidth
                                 />
                             </Col>

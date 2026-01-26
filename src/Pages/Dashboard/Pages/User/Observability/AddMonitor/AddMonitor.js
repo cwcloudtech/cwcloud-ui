@@ -316,7 +316,7 @@ const AddMonitor = () => {
                                     <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="monitor_name"
                                     name="monitor_name"
                                     label={context.counterpart('dashboard.monitor.inputs.name.placeholder')}
@@ -338,7 +338,7 @@ const AddMonitor = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="monitor_url"
                                     name="monitor_url"
                                     label={context.counterpart('dashboard.monitor.inputs.url.placeholder')}
@@ -359,7 +359,7 @@ const AddMonitor = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="monitor_family"
                                     name="monitor_family"
                                     autoComplete='new-family'
@@ -570,7 +570,7 @@ const AddMonitor = () => {
                                                 </h5>
                                             </Col>
                                             <Col md="6">
-                                                <TextField 
+                                                <TextField
                                                     id="monitor_username"
                                                     name="monitor_username"
                                                     autoComplete='new-username'
@@ -591,7 +591,7 @@ const AddMonitor = () => {
                                                 </h5>
                                             </Col>
                                             <Col md="6">
-                                            <TextField 
+                                            <TextField
                                                 id="monitor_password"
                                                 name="monitor_password"
                                                 autoComplete='new-password'

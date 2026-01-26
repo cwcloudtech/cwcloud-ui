@@ -373,7 +373,7 @@ const MonitorOverview = () => {
                                     <span style={{ marginLeft: "2px", color: "red" }}>*</span></h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="monitor_name"
                                     name="monitor_name"
                                     label={context.counterpart('dashboard.monitor.inputs.name.placeholder')}
@@ -396,7 +396,7 @@ const MonitorOverview = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="monitor_url"
                                     name="monitor_url"
                                     label={context.counterpart('dashboard.monitor.inputs.url.placeholder')}
@@ -418,7 +418,7 @@ const MonitorOverview = () => {
                                 </h5>
                             </Col>
                             <Col md="6">
-                                <TextField 
+                                <TextField
                                     id="monitor_family"
                                     name="monitor_family"
                                     label={context.counterpart('dashboard.monitor.inputs.family.placeholder')}
@@ -525,7 +525,7 @@ const MonitorOverview = () => {
                                                 </h5>
                                             </Col>
                                             <Col md="6">
-                                                <TextField 
+                                                <TextField
                                                     id="monitor_expected_contain"
                                                     name="monitor_expected_contain"
                                                     label={context.counterpart('dashboard.monitor.inputs.expectedContain.placeholder')}
@@ -630,7 +630,7 @@ const MonitorOverview = () => {
                                                 </h5>
                                             </Col>
                                             <Col md="6">
-                                                <TextField 
+                                                <TextField
                                                     id="monitor_username"
                                                     name="monitor_username"
                                                     label={context.counterpart('dashboard.monitor.inputs.username.placeholder')}
@@ -651,7 +651,7 @@ const MonitorOverview = () => {
                                                 </h5>
                                             </Col>
                                             <Col md="6">
-                                            <TextField 
+                                            <TextField
                                                 id="monitor_password"
                                                 name="monitor_password"
                                                 type={showPassword ? 'text' : 'password'}
