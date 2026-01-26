@@ -85,7 +85,8 @@ const ContactFormOverview = () => {
             mail_from: form.mail_from,
             mail_to: form.mail_to,
             copyright_name: form.copyright_name || null,
-            logo_url: form.logo_url || null
+            logo_url: form.logo_url || null,
+            trusted_ips: form.trusted_ips || null
         };
 
         if (is_admin && form.user_id) {
@@ -250,7 +251,7 @@ const ContactFormOverview = () => {
                         <Row style={{ display: "flex", alignItems: "center" }}>
                             <Col md="4">
                                 <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                    <Translate content="dashboard.contactForm.input.trusted_ips.title" />
+                                    <Translate content="dashboard.contactForm.inputs.trusted_ips.title" />
                                 </h5>
                             </Col>
                             <Col md="6">
