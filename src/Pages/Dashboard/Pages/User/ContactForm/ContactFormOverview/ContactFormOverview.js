@@ -250,7 +250,7 @@ const ContactFormOverview = () => {
                         <Row style={{ display: "flex", alignItems: "center" }}>
                             <Col md="4">
                                 <h5 className="labelName" style={{color: colors.title[_mode]}}>
-                                    <Translate content="dashboard.contactForm.trusted_ips.logo_url.title" />
+                                    <Translate content="dashboard.contactForm.input.trusted_ips.title" />
                                 </h5>
                             </Col>
                             <Col md="6">
@@ -258,7 +258,7 @@ const ContactFormOverview = () => {
                                     id="cf_trusted_ips"
                                     name="cf_trusted_ips"
                                     label={context.counterpart('dashboard.contactForm.inputs.trusted_ips.placeholder')}
-                                    value={form.logo_url}
+                                    value={form.trusted_ips}
                                     onChange={e => setForm({ ...form, trusted_ips: e.target.value })}
                                     fullWidth
                                 />
