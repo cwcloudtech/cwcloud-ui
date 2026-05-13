@@ -1,4 +1,4 @@
-ARG NODE_VERSION=18.12-alpine
+ARG NODE_VERSION=22.13-alpine
 ARG NGINX_VERSION=1.26.3-alpine
 
 # Stage build
@@ -8,6 +8,7 @@ FROM node:${NODE_VERSION} AS cloud_ui_builder
 WORKDIR /app
 
 COPY package*.json /app/
+COPY pnpm* /app/
 COPY .env.dist /app/.env
 COPY VERSION /app/VERSION
 
