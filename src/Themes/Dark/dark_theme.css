@@ -96,6 +96,14 @@ a {
     color: #6eb4f7 !important;
 }
 
+.viewBtn {
+    color: #4ea8f7 !important;
+}
+
+.viewBtn:hover {
+    color: #6eb4f7 !important;
+}
+
 .pairBtn {
     color: #E493B3 !important;
 }

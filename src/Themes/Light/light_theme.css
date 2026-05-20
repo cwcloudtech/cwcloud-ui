@@ -48,3 +48,11 @@ a {
 .errorText {
     color: #DE4452;
 }
+
+.viewBtn {
+    color: #0861AF !important;
+}
+
+.viewBtn:hover {
+    color: #1f79c8 !important;
+}

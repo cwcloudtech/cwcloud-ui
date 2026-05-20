@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import axios from '../../../../../utils/axios';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 // import classes from './Credentials.module.css';
 import '../../../../../common.css';
 import DataTable from '../../../../../Components/Table/DataTable';
@@ -21,6 +21,7 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import CardComponent from '../../../../../Components/Cards/CardComponent/CardComponent';
 import CustomDownloadIcon from '../../../../../Components/CustomIcon/CustomDownloadIcon';
+import CustomViewIcon from '../../../../../Components/CustomIcon/CustomViewIcon';
 
 function Credentials() {
     const _mode = useContext(GlobalContext).mode;
@@ -42,6 +43,9 @@ function Credentials() {
     const [userRegistries, setUserRegistries] = useState([])
     const [loadingAddAccess, setLoadingAddAccess] = useState(false)
     const [accesses, setAccesses] = useState({})
+    const [showQrModal, setShowQrModal] = useState(false)
+    const [loadingQr, setLoadingQr] = useState(false)
+    const [qrImageUrl, setQrImageUrl] = useState('')
 
     useEffect(() => {
         context.setIsGlobal(true)
@@ -64,16 +68,27 @@ function Credentials() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    useEffect(() => {
+        return () => {
+            if (qrImageUrl) {
+                window.URL.revokeObjectURL(qrImageUrl)
+            }
+        }
+    }, [qrImageUrl])
+
     const columns = [
         { field: 'id', headerName: 'ID', width: 250 },
         { field: 'name', headerName: 'Name', width: 200 },
         {
-            field: 'actions', headerName: 'Actions', width: 200, renderCell: (params) => {
+            field: 'actions', headerName: 'Actions', width: 250, renderCell: (params) => {
                 return <>
                     <CustomDeleteIcon onClick={() => preDeleteApiKeyHandler(params.id)} />
                     <CustomDownloadIcon onClick={() => {
                         downloadConfigFileHandler(params.id)
                     } } />
+                    <CustomViewIcon title={'View QR code'} onClick={() => {
+                        viewQrCodeHandler(params.id)
+                    }} />
                 </>
             }
         },
@@ -171,6 +186,34 @@ function Credentials() {
             })
     }
 
+    const closeQrModalHandler = () => {
+        setShowQrModal(false)
+        if (qrImageUrl) {
+            window.URL.revokeObjectURL(qrImageUrl)
+            setQrImageUrl('')
+        }
+    }
+
+    const viewQrCodeHandler = (api_key_id) => {
+        setLoadingQr(true)
+        setShowQrModal(true)
+        if (qrImageUrl) {
+            window.URL.revokeObjectURL(qrImageUrl)
+            setQrImageUrl('')
+        }
+
+        axios.get(`/config/${api_key_id}/qr`, { responseType: 'blob' })
+            .then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data], { type: 'image/png' }))
+                setQrImageUrl(url)
+                setLoadingQr(false)
+            })
+            .catch(() => {
+                setLoadingQr(false)
+                setShowQrModal(false)
+            })
+    }
+
     return (
         <Container fluid style={{ padding: "0px 20px 20px 20px", }} >
             <DeleteModal resourceName={'api key'} isOpen={showConfirmDeleteApiKeyModal} toggle={() => setShowConfirmDeleteApiKeyModal(!showConfirmDeleteApiKeyModal)} onDelete={deleteApiKeyHandler} loading={loadingDeletion} />
@@ -185,6 +228,15 @@ function Credentials() {
                 userProjects={userProjects}
                 userInstances={userInstances}
                 onSave={addAccessHandler} />
+            <Modal centered isOpen={showQrModal} toggle={closeQrModalHandler}>
+                <ModalHeader toggle={closeQrModalHandler}>API Key QR Code</ModalHeader>
+                <ModalBody style={{ textAlign: 'center' }}>
+                    {loadingQr && <p>Loading QR code...</p>}
+                    {!loadingQr && qrImageUrl && (
+                        <img src={qrImageUrl} alt="API key QR code" style={{ maxWidth: '100%', height: 'auto' }} />
+                    )}
+                </ModalBody>
+            </Modal>
             <GeneratedApiKeyModal isOpen={showGeneratedApiKeyModal} apiKey={createdApiKey} toggle={() => setShowGeneratedApiKeyModal(!showGeneratedApiKeyModal) && setCreatedApiKey({})} />
             <CardComponent>
                 <Row>
