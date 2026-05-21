@@ -233,7 +233,7 @@ function Credentials() {
                 <ModalBody style={{ textAlign: 'center' }}>
                     {loadingQr && <p>Loading QR code...</p>}
                     {!loadingQr && qrImageUrl && (
-                        <img src={qrImageUrl} alt="API key QR code" style={{ maxWidth: '100%', height: 'auto' }} />
+                        <img src={qrImageUrl} alt="API key QR code" style={{ maxWidth: '100%', height: 'auto', margin: '0 auto' }} />
                     )}
                 </ModalBody>
             </Modal>
