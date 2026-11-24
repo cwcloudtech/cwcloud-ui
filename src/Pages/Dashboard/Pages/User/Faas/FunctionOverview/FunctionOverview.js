@@ -9,13 +9,13 @@ import { toast } from "react-toastify";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import LoadingSpinner from '../../../../../../Components/LoadingSpinner/LoadingSpinner';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import IOSSwitch from '../../../../../../utils/iosswitch';
 import formateDate from '../../../../../../utils/FormateDate';
-import { OutlinedInput, MenuItem, Select } from '@material-ui/core';
+import { OutlinedInput, MenuItem, Select } from '@mui/material';
 import EditorModal from '../../../../../../Components/Modal/EditorModal';
 import BlocklyWorkspace from '../../../../../../Components/BlocklyWorkspace/BlocklyWorkspace';
 import BlocklyModal from '../../../../../../Components/Modal/BlocklyModal';
@@ -340,7 +340,7 @@ function FunctionOverview() {
                     </Row>
                     <Row>
                         <Col style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-                            <LoadingButton loading={loadingExport} onClick={exportFunctionHandler}>Export</LoadingButton>
+                            <LoadingButton icon="fa-solid fa-file-export" loading={loadingExport} onClick={exportFunctionHandler}>Export</LoadingButton>
                         </Col>
                     </Row>
                     <Row style={{ margin: "30px 0px" }}>
@@ -550,7 +550,7 @@ function FunctionOverview() {
                     </Row>
                     <Row>
                         <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "20px" }}>
-                            <Button onClick={handleClickButton} style={{ width: "250px", height: "50px" }} variant="outlined"
+                            <Button onClick={handleClickButton} variant="outlined"
                                 size="large">
                                 {loadingSubmit ? <Spinner size="sm" style={{ marginRight: "8px" }} />
                                     : <i className="fa-solid fa-floppy-disk" style={{ marginRight: "8px" }}></i>}

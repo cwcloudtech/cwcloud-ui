@@ -1,7 +1,7 @@
 import { useContext, Fragment } from "react";
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Translate from 'react-translate-component';
+import Translate from '../../Translate/Translate';
 import colors from "../../../Context/Colors"
 import GlobalContext from "../../../Context/GlobalContext";
 import '../../../common.css';

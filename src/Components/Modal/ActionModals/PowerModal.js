@@ -9,7 +9,7 @@ import {
     Row,
     Col,
 } from "reactstrap";
-import Translate from "react-translate-component";
+import Translate from "../../Translate/Translate";
 import LoadingButton from "../../LoadingButton/LoadingButton";
 
 const PowerModal = (props) => {
@@ -54,7 +54,7 @@ const PowerModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-power-off"
                     color="error"
                     loading={props.loading}
                     onClick={props.onPower}

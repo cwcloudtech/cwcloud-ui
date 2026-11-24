@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
 import TextField from '@mui/material/TextField';

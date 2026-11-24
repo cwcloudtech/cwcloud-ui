@@ -1,4 +1,13 @@
-import { saveAs } from 'file-saver';
+export const saveAs = (blob, fileName) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
 export const fileDownloadFromResponse = (response, mimeType) => {
     fileDownloadFromResponseWithName(response, response.data.file_name, mimeType);

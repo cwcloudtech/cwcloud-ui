@@ -430,6 +430,9 @@ export const englishLanguage = {
         }
     },
     sidebar: {
+        administration: "Administration",
+        showPanel: "Show panel",
+        hidePanel: "Hide panel",
         dashboard: "Dashboard",
         projects: "Projects",
         instances: "Instances",
@@ -2891,6 +2894,9 @@ export const frenchLanguage = {
         }
     },
     sidebar: {
+        administration: "Administration",
+        showPanel: "Afficher le panneau",
+        hidePanel: "Masquer le panneau",
         dashboard: "Tableau de bord",
         projects: "Projets",
         instances: "Instances",

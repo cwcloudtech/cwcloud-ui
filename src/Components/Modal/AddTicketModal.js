@@ -1,7 +1,8 @@
-import { useContext, useState, useEffect, useCallback } from "react";
-import { MenuItem, Select } from "@material-ui/core";
+import { useContext, useState, useEffect, useCallback, useRef } from "react";
+import { MenuItem, Select } from "@mui/material";
 import { Chip, TextField } from "@mui/material";
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
+import MarkdownEditor from '../MarkdownEditor/MarkdownEditor';
 import GlobalContext from '../../Context/GlobalContext'; 
 import colors from '../../Context/Colors'; 
 import {
@@ -15,7 +16,6 @@ import {
 } from "reactstrap";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import SuggestionsAutoComplete from "../SuggestionsAutoComplete/SuggestionsAutoComplete";
-import { useDropzone } from 'react-dropzone';
 
 const AddTicketModal = (props) => {
     const _mode = useContext(GlobalContext).mode;
@@ -23,7 +23,7 @@ const AddTicketModal = (props) => {
     const [files, setFiles] = useState([]);
 
     const dropzoneStyle = {
-        border: '1px dashed #AAB8C5',
+        border: '1px dashed #94a3b8',
         borderRadius: '5px',
         padding: '20px',
         textAlign: 'center',
@@ -40,7 +40,27 @@ const AddTicketModal = (props) => {
         setFiles(prevFiles => [...prevFiles, ...acceptedFiles]);
     }, []);
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    const fileInputRef = useRef(null);
+    const [isDragActive, setIsDragActive] = useState(false);
+
+    const onFilesSelected = (e) => {
+        onDrop(Array.from(e.target.files || []));
+        e.target.value = '';
+    };
+
+    const dropzoneHandlers = {
+        onClick: () => fileInputRef.current?.click(),
+        onDragOver: (e) => {
+            e.preventDefault();
+            setIsDragActive(true);
+        },
+        onDragLeave: () => setIsDragActive(false),
+        onDrop: (e) => {
+            e.preventDefault();
+            setIsDragActive(false);
+            onDrop(Array.from(e.dataTransfer.files || []));
+        },
+    };
 
     const handleDeleteFile = (file) => {
         setFiles(prevFiles => prevFiles.filter(f => f !== file));
@@ -152,17 +172,16 @@ const AddTicketModal = (props) => {
                 </Row>
                 <Row>
                     <Col>
-                        <textarea
-                            style={{ width: '100%', backgroundColor: colors.secondBackground[_mode], color: colors.menuText[_mode], border: "1px solid "+ colors.textAreaBorder[_mode], borderRadius: "5px", padding: '10px' }}
+                        <MarkdownEditor
                             value={ticket.message || ''}
-                            onChange={(e) => setTicket({ ...ticket, message: e.target.value })}
+                            onChange={(message) => setTicket({ ...ticket, message })}
                         />
                     </Col>                    
                 </Row>
                 <Row style={{ marginTop: '20px' }}>
                     <Col>
-                        <div {...getRootProps({ style: dropzoneStyle })}>
-                            <input {...getInputProps()} />
+                        <div role="button" tabIndex={0} {...dropzoneHandlers} style={{ ...dropzoneStyle, opacity: isDragActive ? 0.8 : 1 }}>
+                            <input ref={fileInputRef} type="file" multiple hidden onChange={onFilesSelected} />
                             <p>
                                 <Translate content="dashboard.support.dragAndDrop" />
                             </p>
@@ -178,7 +197,7 @@ const AddTicketModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-floppy-disk"
                     loading={props.loading}
                     onClick={() => props.onSave(ticket, files)}
                     style={{ width: "100%" }}

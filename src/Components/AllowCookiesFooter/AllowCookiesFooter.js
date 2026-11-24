@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import GlobalContext from '../../Context/GlobalContext'
 import classes from './AllowCookiesFooter.module.css';
 import '../../common.css';
-import Translate from 'react-translate-component'
+import Translate from '../Translate/Translate'
 
 const AllowCookiesFooter = () => {
     const context = React.useContext(GlobalContext)
@@ -19,6 +19,7 @@ const AllowCookiesFooter = () => {
             </div>
             <div className={classes.containerControl}>
                 <Button className={classes.buttonAllow} onClick={context.allowCookies}>
+                    <i className="icon fa-solid fa-check"></i>
                     <Translate content="cookies.understand" />
                 </Button>
             </div>

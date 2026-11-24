@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import colors from "../../../../../../Context/Colors";
 import GlobalContext from "../../../../../../Context/GlobalContext";
 import {
@@ -38,7 +38,7 @@ const AddApiKeyModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-floppy-disk"
                     loading={props.loading}
                     onClick={() => props.onSave(apiKeyName)}
                     style={{ width: "100%" }}

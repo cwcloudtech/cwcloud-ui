@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import GlobalContext from "../../../../../Context/GlobalContext";
 import colors from "../../../../../Context/Colors";
 import { TextField } from "@mui/material";
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 import ServiceNotAvailable from "../../../../../Components/ServiceNotAvailable/ServiceNotAvailable";
 import MiniCardComponent from "../../../../../Components/Cards/MiniCardComponent/MiniCardComponent";

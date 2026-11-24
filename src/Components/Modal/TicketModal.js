@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
-import { MenuItem, Select } from "@material-ui/core";
-import Translate from "react-translate-component";
+import { MenuItem, Select } from "@mui/material";
+import Translate from "../Translate/Translate";
 import GlobalContext from '../../Context/GlobalContext'; 
 import colors from '../../Context/Colors'; 
 import {
@@ -114,7 +114,7 @@ const TicketModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-pen"
                     loading={props.loading}
                     onClick={() => props.onUpdate(ticket)}
                     style={{ width: "100%" }}

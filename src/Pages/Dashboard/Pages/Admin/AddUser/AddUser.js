@@ -17,7 +17,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';

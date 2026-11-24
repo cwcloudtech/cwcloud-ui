@@ -5,7 +5,7 @@ import CardComponent from "../../../../../Components/Cards/CardComponent/CardCom
 import { Box, TextField } from "@mui/material";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import { Container } from 'reactstrap';
 import SimpleDropdown from "../../../../../Components/Dropdown/SimpleDropdown";
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";

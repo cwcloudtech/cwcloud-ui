@@ -51,7 +51,7 @@ const EnvironmentCard = (props) => {
             style={{
                 backgroundColor: colors.secondBackground[_mode], 
                 border: '1px solid '+ colors.border[_mode],
-                '--hover-border-color': dominantColor || '#0861AF'
+                '--hover-border-color': dominantColor || '#0a6eb4'
             }}
         >
             <canvas ref={canvasRef} style={{ display: 'none' }} />

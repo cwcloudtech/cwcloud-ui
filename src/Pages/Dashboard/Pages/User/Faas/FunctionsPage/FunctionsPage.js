@@ -11,7 +11,7 @@ import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import AddIcon from '@mui/icons-material/Add';
 import PublishOutlinedIcon from '@mui/icons-material/PublishOutlined';
 import DataTable from '../../../../../../Components/Table/DataTable';

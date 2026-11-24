@@ -1,118 +1,84 @@
-import React, { useContext, useState } from "react";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import { useNavigate } from "react-router-dom";
-import { createUseStyles } from "react-jss";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FiChevronDown } from "react-icons/fi";
 import CollapsibleContent from "../../CollapsibleContent/CollapsibleContent";
+import Tooltip from "../../Common/Tooltip";
+import SidebarIcon from "../SidebarIcon";
+import { useSidebar } from "../../../Hooks/useSidebar";
 import { convertSlugToUrl } from "../../../utils/sidebar";
-import colors from "../../../Context/Colors";
-import GlobalContext from "../../../Context/GlobalContext";
+import styles from "./SidebarMenuItem.module.css";
 
-const useStyles = createUseStyles({
-  item: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "self-start",
-    minHeight: ({ level }) => (level > 1 ? 35 : 48),
-    padding: "0 20px",
-    "&:hover": {
-      cursor: "pointer",
-    },
-    borderLeft: ({ level, blue, isActivated }) =>
-      level > 1 && isActivated ? "3px solid " + blue : "none",
-  },
-  spacer: {
-    display: "flex",
-    flex: 1,
-  },
-  title: {
-    fontSize: 14,
-    letterSpacing: "0.3px",
-    color: ({ isActivated, blue, blueText }) => (isActivated ? blue : blueText),
-    marginLeft: 4,
-    fontWeight: ({ isActivated }) => (isActivated ? "600" : "400"),
-  },
-  icon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 2,
-    color: ({ isActivated, blue, blueText }) => (isActivated ? blue : blueText),
-  },
-  expandIcon: {
-    fontSize: "13px",
-    color: ({ isActivated, blue, blueText }) => (isActivated ? blue : blueText),
-  },
-  leftBar: {
-    borderLeft: ({ level, blue }) => (level > 1 ? "3px solid " + blue : "none"),
-  },
-});
-
-function SidebarMenuItem(props) {
-  const navigate = useNavigate();
+// cwclock's SidebarNav link: icon only on the collapsed rail (label in a
+// tooltip), icon + label once expanded. An entry with children is a group:
+// expanded it toggles its sub-links, collapsed it expands the sidebar first.
+function SidebarMenuItem({ id, items, path, title, iconClass, icon, level = 1, children }) {
   const { pathname } = useLocation();
-  const mode = useContext(GlobalContext).mode;
-  const blue = colors.blue[mode];
-  const blueText = colors.blueText[mode];
-  const isActivated =
-    pathname === props.id || (props.items && props.items.includes(pathname));
-  const [isExpanded, setIsExpanded] = useState(isActivated);
-  const classes = useStyles({
-    level: props.level || 1,
-    isActivated,
-    blue,
-    blueText,
-    open: props.open,
-  });
+  const { open, handleDrawerOpen } = useSidebar();
+  const isActive = pathname === id || (items || []).includes(pathname);
+  const [isExpanded, setIsExpanded] = useState(isActive);
+  const hasChildren = React.Children.count(children) > 0;
 
-  function handleNavigation(slug, parameters = {}) {
-    if (props.children) {
-      setIsExpanded((prev) => !prev);
-      return;
-    }
-    navigate(convertSlugToUrl(slug, parameters));
+  const iconNode = iconClass ? <SidebarIcon iconClass={iconClass} className={styles.icon} /> : icon;
+
+  if (level > 1) {
+    return (
+      <Link
+        to={convertSlugToUrl(path, {})}
+        className={`${styles.subLink} ${isActive ? styles.subLinkActive : ""}`}
+      >
+        {title}
+      </Link>
+    );
   }
 
+  const content = (
+    <>
+      {iconNode && <span className={styles.iconWrap}>{iconNode}</span>}
+      {open && <span className={styles.label}>{title}</span>}
+      {open && hasChildren && (
+        <FiChevronDown className={`${styles.chevron} ${isExpanded ? styles.chevronOpen : ""}`} />
+      )}
+    </>
+  );
+  const groupOpen = hasChildren && open && isExpanded;
+  const linkClass = [
+    styles.link,
+    isActive ? styles.linkActive : "",
+    groupOpen ? styles.linkExpanded : "",
+    open ? "" : styles.linkCollapsed,
+  ].filter(Boolean).join(" ");
+
   return (
-    <ListItem style={{padding: "0px"}} sx={{ display: "block" }}>
-      <div
-        onClick={() => handleNavigation(props.path)}
-        className={classes.item}
-      >
-        <ListItemIcon
-          sx={{
-            minWidth: 0,
-            mr: props.open ? 3 : "auto",
-            justifyContent: "center",
-          }}
-        >
-          <div className={classes.icon}>{props.icon}</div>
-        </ListItemIcon>
-        {props.open && (
-          <>
-            <span className={classes.title}>{props.title}</span>
-            {props.children && (
-              <>
-                <div className={classes.spacer} />
-                <i
-                  className={`fa-solid fa-chevron-${
-                    isExpanded ? "up" : "down"
-                  } ${classes.expandIcon}`}
-                />
-              </>
-            )}
-          </>
+    <div className={`${styles.item} ${groupOpen ? styles.itemExpanded : ""}`}>
+      <Tooltip label={open ? null : title} position="right" className={styles.tooltipWrapper}>
+        {hasChildren ? (
+          <button
+            type="button"
+            className={linkClass}
+            aria-expanded={open && isExpanded}
+            onClick={() => {
+              if (!open) {
+                handleDrawerOpen();
+                setIsExpanded(true);
+                return;
+              }
+              setIsExpanded((prev) => !prev);
+            }}
+          >
+            {content}
+          </button>
+        ) : (
+          <Link to={convertSlugToUrl(path || id, {})} className={linkClass}>
+            {content}
+          </Link>
         )}
-      </div>
-      {props.children && props.open && (
+      </Tooltip>
+      {hasChildren && open && (
         <CollapsibleContent expanded={isExpanded}>
-          {React.Children.map(props.children, (child) =>
-            React.cloneElement(child, { open: props.open })
-          )}
+          <div className={styles.subList}>{children}</div>
         </CollapsibleContent>
       )}
-    </ListItem>
+    </div>
   );
 }
 

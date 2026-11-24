@@ -8,7 +8,7 @@ import EnvironmentSection from "./EnvironmentSection/EnvironmentSection";
 import ResourceItem from "./ResourceItem/ResourceItem";
 import classes from "./UserDashboard.module.css";
 
-import Translate from "react-translate-component";
+import Translate from "../../../../../Components/Translate/Translate";
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, Fragment } from "react";
 import { MenuItem, Select } from "@mui/material";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import colors from "../../../../../../Context/Colors";
 import GlobalContext from "../../../../../../Context/GlobalContext";
 import {
@@ -115,7 +115,7 @@ const AddAccessModal = (props) => {
                 }
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-floppy-disk"
                     loading={props.loading}
                     onClick={() => props.onSave(access)}
                     style={{ width: "100%" }}

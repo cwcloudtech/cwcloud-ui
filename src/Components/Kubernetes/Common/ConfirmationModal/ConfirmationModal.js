@@ -1,5 +1,5 @@
 import React from "react";
-import Translate from "react-translate-component";
+import Translate from "../../../Translate/Translate";
 import {
     Modal,
     ModalHeader,
@@ -28,13 +28,13 @@ const ConfirmationModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-check"
                     style={{ marginRight: "10px" }}
                     onClick={(e) => props.onConfirm(e)}
                 >
                     <Translate content="common.confirm" />
                 </LoadingButton>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-xmark"
                     color={"error"}
                     onClick={() => props.onCancel()}
                 >

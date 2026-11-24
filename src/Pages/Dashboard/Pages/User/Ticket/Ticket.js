@@ -1,4 +1,4 @@
-import {useContext, useState, useEffect} from 'react';
+import {useContext, useState, useEffect, useRef} from 'react';
 import { Container } from 'reactstrap';
 import '../../../../../common.css';
 import { Row, Col } from "reactstrap";
@@ -9,7 +9,7 @@ import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import TicketReply from '../../../../../Components/TicketReply/TicketReply';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import formateDate from '../../../../../utils/FormateDate';
 import { isBlank, sortObjectsByDate } from '../../../../../utils/common';
 import { BarLoader } from 'react-spinners';
@@ -17,6 +17,8 @@ import TicketDescription from '../../../../../Components/TicketReply/TicketDescr
 import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import MarkdownEditor from '../../../../../Components/MarkdownEditor/MarkdownEditor';
 import Attachments from '../../../../../Components/Attachments';
+import BottomDock from '../../../../../Components/Common/BottomDock';
+import classes from './Ticket.module.css';
 
 function Ticket() {
     const context = useContext(GlobalContext)
@@ -27,6 +29,7 @@ function Ticket() {
     const nextPath = is_admin ? '/admin/support' : '/support'
     const { ticketId } = useParams()
     const [ticket, setTicket] = useState(null)
+    const pageRef = useRef(null)
     const [loadingReply, setLoadingReply] = useState(false)
     const [loadingAttach, setLoadingAttach] = useState(false)
     const [loadingDelete, setLoadingDelete] = useState(false)
@@ -138,6 +141,7 @@ function Ticket() {
     if (!ticket)
         return null
     return (
+        <div ref={pageRef}>
         <Container fluid>
             <DeleteModal 
                 resourceName={context.counterpart("common.word.file")}
@@ -175,7 +179,7 @@ function Ticket() {
                 </Row>
             }
             <TicketDescription reply={{ ...ticket, change_date: ticket.created_at }} />
-            <hr style={{ width: '100%', border: '1px solid #E5E5E5' }} />
+            <hr style={{ width: '100%', border: 'none', borderTop: `1px solid ${colors.border[_mode]}`, opacity: 1 }} />
             <Row style={{ marginTop: '30px', marginBottom: '30px' }}>
                 <Col>
                     {replies?.map(reply => (
@@ -212,59 +216,47 @@ function Ticket() {
                     </Col>
                 </Row>
             )}
-            <Row>
-                <Col>
-                    <Row>
-                        <Col>
-                            <MarkdownEditor
-                                value={replyMessage}
-                                onChange={setReplyMessage} 
-                            />
-                        </Col>
-                    </Row>
+            {/* Reply box pinned to the bottom of the screen, like the CWAI prompt bar. */}
+            <BottomDock anchorRef={pageRef} className={classes.replyDock}>
+                <MarkdownEditor
+                    value={replyMessage}
+                    onChange={setReplyMessage}
+                />
+                <div className={classes.replyActions}>
                     {
                         is_admin &&
-                        <Row style={{ marginTop: '20px' }}>
-                            <Col>
-                                <Select value={replyStatus} onChange={(e) => setReplyStatus(e.target.value)}>
-                                    <MenuItem value={'await agent'}>
-                                        <Translate content="dashboard.support.awaitAgent" />
-                                    </MenuItem>
-                                    <MenuItem value={'await customer'}>
-                                        <Translate content="dashboard.support.awaitCustomer" />
-                                    </MenuItem>
-                                    <MenuItem value={'closed'}>
-                                        <Translate content="dashboard.support.closed" />
-                                    </MenuItem>
-                                </Select>
-                            </Col>
-                        </Row>
+                        <Select size="small" value={replyStatus} onChange={(e) => setReplyStatus(e.target.value)}>
+                            <MenuItem value={'await agent'}>
+                                <Translate content="dashboard.support.awaitAgent" />
+                            </MenuItem>
+                            <MenuItem value={'await customer'}>
+                                <Translate content="dashboard.support.awaitCustomer" />
+                            </MenuItem>
+                            <MenuItem value={'closed'}>
+                                <Translate content="dashboard.support.closed" />
+                            </MenuItem>
+                        </Select>
                     }
-                    <Row>
-                        <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: "10px" }}>
-                            <LoadingButton loading={loadingReply} onClick={replyHandler}>
-                                <Translate content={is_admin ? "common.button.update" : "dashboard.support.reply"} />
-                            </LoadingButton>
-                            <div style={{ paddingLeft: "10px" }}>
-                                <input
-                                    type="file"
-                                    id="fileInput"
-                                    style={{ display: "none" }}
-                                    multiple
-                                    onChange={attachFile}
-                                />
-                                <LoadingButton loading={loadingAttach} onClick={() => document.getElementById('fileInput').click()}>
-                                    {
-                                        !loadingAttach &&
-                                        <Translate content={"common.button.attachFile"} />
-                                    }
-                                </LoadingButton>
-                            </div>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
+                    <input
+                        type="file"
+                        id="fileInput"
+                        style={{ display: "none" }}
+                        multiple
+                        onChange={attachFile}
+                    />
+                    <LoadingButton icon="fa-solid fa-paperclip" loading={loadingAttach} onClick={() => document.getElementById('fileInput').click()}>
+                        {
+                            !loadingAttach &&
+                            <Translate content={"common.button.attachFile"} />
+                        }
+                    </LoadingButton>
+                    <LoadingButton icon="fa-solid fa-paper-plane" loading={loadingReply} onClick={replyHandler}>
+                        <Translate content={is_admin ? "common.button.update" : "dashboard.support.reply"} />
+                    </LoadingButton>
+                </div>
+            </BottomDock>
         </Container >
+        </div>
     )
 }
 

@@ -16,7 +16,7 @@ import axios from "../../../../../../utils/axios";
 import { isBlank } from "../../../../../../utils/common";
 import { shortname } from '../../../../../../utils/hash';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 
 function Monitors(props) {
     const location = useLocation();

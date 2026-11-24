@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Translate from "react-translate-component";
+import Translate from "./Translate/Translate";
 import colors from "../Context/Colors";
 import GlobalContext from "../Context/GlobalContext";
 

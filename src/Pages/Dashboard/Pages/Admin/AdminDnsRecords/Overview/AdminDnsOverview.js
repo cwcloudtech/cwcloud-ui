@@ -10,7 +10,7 @@ import Tooltip from "@mui/material/Tooltip";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import { Col, Row } from "reactstrap";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import CustomDeleteIcon from "../../../../../../Components/CustomIcon/CustomDeleteIcon";

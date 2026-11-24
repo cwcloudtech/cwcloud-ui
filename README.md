@@ -55,8 +55,9 @@ docker-compose -f docker-compose-local.yml up --build -d
 Or if you have Node.js installed on your local machine you can install dependencies and run the project using the following commands:
 
 ```shell
-npm install
-npm run start
+npm i -g pnpm
+pnpm install
+pnpm run start
 ```
 
 You'll be able to see the web console on http://localhost:3000
@@ -75,7 +76,7 @@ And updating this environment variable: `REACT_APP_APIURL=http://localhost:8000`
 For unit tests we are using `Jest`. To run unit tests you can run the following command:
 
 ```shell
-npm run test
+pnpm run test
 ```
 
 ## Project architecture

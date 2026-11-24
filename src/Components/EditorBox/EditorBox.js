@@ -11,7 +11,7 @@ const EditorBox = (props) => {
   return (
     <Row>
       <Col> 
-        <div style={{ background: isDark ? "#2C3139" : "#0861AF", padding: "10px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", borderTopLeftRadius: "10px", borderTopRightRadius: "10px"  }}>
+        <div style={{ background: isDark ? "#111a2b" : "#0a6eb4", padding: "10px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", borderTopLeftRadius: "10px", borderTopRightRadius: "10px"  }}>
             <div>{props.title}</div>
             <EditorActions textToCopy={props.textToCopy} handleFullScreen={props.handleFullScreen} />
         </div>

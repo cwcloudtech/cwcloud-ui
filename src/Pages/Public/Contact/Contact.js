@@ -7,7 +7,7 @@ import { isBlank } from "../../../utils/common";
 import { toast } from "react-toastify";
 import GlobalContext from '../../../Context/GlobalContext';
 import BackGroundImage from "../../../assets/images/background.png"
-import Translate from "react-translate-component";
+import Translate from "../../../Components/Translate/Translate";
 import LoadingButton from '../../../Components/LoadingButton/LoadingButton';
 import logoimage from '../../../utils/logo';
 import resetField from '../../../utils/resetField';
@@ -152,7 +152,7 @@ function Contact() {
                         <h4 style={{ color: "rgb(130,130,130)", fontSize: '14px', textAlign: "center" }}>
                             <Translate content="login.question" /> {"     "}
                             <NavLink to="/signup" style={{ textDecoration: "none" }}>
-                                <Translate content="login.signup" style={{color: '#0861AF'}}/>
+                                <Translate content="login.signup" style={{color: '#0a6eb4'}}/>
                             </NavLink>
                         </h4>
                     </Col>

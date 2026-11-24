@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Col, Row, Container, Form, FormGroup, Label, Input, FormFeedback } from "reactstrap";
 // import classes from "./ObjectType.module.css";
 import '../../../../../../common.css';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
 import { NavLink, useNavigate, useLocation, useParams } from 'react-router-dom';
@@ -212,7 +212,7 @@ function ObjectType() {
                     </Row>
                     <Row>
                         <Col style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-                            <LoadingButton loading={loadingExport} onClick={exportObjectTypeHandler}>Export</LoadingButton>
+                            <LoadingButton icon="fa-solid fa-file-export" loading={loadingExport} onClick={exportObjectTypeHandler}>Export</LoadingButton>
                         </Col>
                     </Row>
                     <Row style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "20px", marginTop: "10px" }}>
@@ -381,7 +381,7 @@ function ObjectType() {
                     }
                     <Row>
                         <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "20px" }}>
-                            <LoadingButton icon="fa-solid fa-floppy-disk" loading={loadingSubmit} onClick={handleClickButton} style={{ width: "250px", height: "50px" }} variant="outlined">
+                            <LoadingButton icon="fa-solid fa-floppy-disk" loading={loadingSubmit} onClick={handleClickButton} variant="outlined">
                                 <Translate content="common.button.update" />
                             </LoadingButton>
                         </Col>

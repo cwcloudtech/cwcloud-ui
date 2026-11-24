@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';

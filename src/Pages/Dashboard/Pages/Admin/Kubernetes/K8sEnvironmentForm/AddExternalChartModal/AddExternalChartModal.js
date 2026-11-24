@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../../Components/Translate/Translate";
 import {
     Modal,
     ModalBody,

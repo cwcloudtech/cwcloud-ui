@@ -11,7 +11,7 @@ import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import Fade from '@mui/material/Fade';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import TransferProjectModal from '../../../../../Components/Modal/TransferModals/TransferProjectModal';
 import colors from '../../../../../Context/Colors';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
@@ -261,7 +261,7 @@ function ProjectOverview() {
                                 </h6>
                             </Col>
                             <Col xs="4" md="4" className="row">
-                                <LoadingButton
+                                <LoadingButton icon="fa-solid fa-link"
                                     color="warning"
                                     onClick={() => navigate(`/instances/attach/${project.id}`)}
                                     style={{ width: '300px', height: '40px', marginLeft: '10px', marginTop: "20px"}}>

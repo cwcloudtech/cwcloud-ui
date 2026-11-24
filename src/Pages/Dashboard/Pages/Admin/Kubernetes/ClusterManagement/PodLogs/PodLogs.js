@@ -226,6 +226,7 @@ const PodLogs = ({
           <h2>Invalid Pod Reference</h2>
           <p>Missing pod name or namespace in URL parameters.</p>
           <button className={`${classes.iconButton} ${classes.primaryButton}`} onClick={() => navigate('/kubernetes')}>
+            <i className="icon fa-solid fa-arrow-left"></i>
             Back to Kubernetes Dashboard
           </button>
         </div>

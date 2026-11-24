@@ -1,64 +1,43 @@
-import Translate from "react-translate-component";
-import { MenuItem, Select } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
-import colors from "../../Context/Colors";
-import GlobalContext from "../../Context/GlobalContext";
-import { useContext } from "react";
+import Dropdown, { DropdownItem } from "../Common/Dropdown";
+import Translate from "../Translate/Translate";
 import srcimage from "../../utils/regions";
+import styles from "./NavbarSelect.module.css";
 
-const BootstrapInput = withStyles((theme) => ({
-    root: {
-        'label + &': {
-            marginTop: theme.spacing(3),
-        },
-    },
-    input: {
-        borderRadius: 4,
-        position: 'relative',
-        fontSize: 13,
-        fontWeight: 800,
-        padding: '10px 26px 10px 12px',
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ]
-    },
-}))(InputBase);
+// Provider / region picker of the navbar, same look as cwclock's organization
+// switcher. onChange keeps the event-like ({ target: { value } }) signature of
+// the MUI Select it replaces.
+const SelectDropdown = ({ id, value, onChange, itemsList = [], withImage, disabled }) => {
+  const selected = itemsList.find((item) => item.name === value);
 
-const SelectDropdown = ({ labelId, id, value, onChange, itemsList, classes, withImage, disabled}) => {
-    const context = useContext(GlobalContext);
-    const _mode = context.mode;
-    return (
-        <Select
-            labelid={labelId}
-            id={id}
-            value={value}
-            style={{ marginLeft: '10px', marginRight: '10px', background: colors.secondBackground[_mode] + ' !important'}}
-            onChange={onChange}
-            input={<BootstrapInput />}>
-            <MenuItem style={{display: 'none', background: colors.secondBackground[_mode]}} disabled value="global">
-                <div className={classes.regionItemStyles} style={{color: colors.mainText[_mode]}}>
-                    <span><Translate content="navbar.provider" /></span>
-                </div>
-            </MenuItem>
-            {itemsList.map(item => (
-                <MenuItem disabled={disabled} value={item.name} key={item.name} style={{background: colors.secondBackground[_mode]}}>
-                    <div className={classes.regionItemStyles} style={{color: colors.mainText[_mode]}}>
-                        {withImage && <img src={srcimage(item.name)} alt="fr" className={classes.ImageRegionStyles} />}
-                        {item.name}
-                    </div>
-                </MenuItem>
-            ))}
-        </Select>
-    );
-}
+  return (
+    <Dropdown
+      className={styles.select}
+      triggerClassName={styles.trigger}
+      disabled={disabled}
+      trigger={
+        <span id={id} className={styles.triggerContent}>
+          {withImage && selected && <img src={srcimage(selected.name)} alt="" className={styles.flag} />}
+          <span className={styles.value}>{selected ? selected.name : <Translate content="navbar.provider" />}</span>
+        </span>
+      }
+    >
+      {(close) =>
+        itemsList.map((item) => (
+          <DropdownItem
+            key={item.name}
+            active={item.name === value}
+            onClick={() => {
+              onChange({ target: { value: item.name } });
+              close();
+            }}
+          >
+            {withImage && <img src={srcimage(item.name)} alt="" className={styles.flag} />}
+            {item.name}
+          </DropdownItem>
+        ))
+      }
+    </Dropdown>
+  );
+};
 
 export default SelectDropdown;

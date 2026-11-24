@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 import {
     Modal,
     ModalHeader,
@@ -36,14 +36,14 @@ const ReplyTicketModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter style={{ display: "flex", justifyContent: "center" }}>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-pen"
                     loading={props.loading}
                     onClick={() => props.onUpdate(message)}
                     style={{ width: "45%", marginRight: "10px" }}
                 >
                     <Translate content="common.button.edit" />
                 </LoadingButton>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-trash"
                     color="error"
                     loading={props.loading}
                     onClick={() => props.onDelete()}

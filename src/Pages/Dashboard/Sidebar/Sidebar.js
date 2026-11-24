@@ -1,114 +1,48 @@
-import List from "@mui/material/List";
-// import Divider from "@mui/material/Divider";
-import GlobalContext from "../../../Context/GlobalContext";
 import { useContext } from "react";
+import GlobalContext from "../../../Context/GlobalContext";
 import { useSidebarItems } from "../../../Hooks/useSidebarItems";
 import SidebarMenuItem from "../../../Components/CollapsableSidebar/SidebarMenuItem/SidebarMenuItem";
-import CollapsableSidebar from "../../../Components/CollapsableSidebar/CollapsableSidebar";
-import { useSidebar } from "../../../Hooks/useSidebar";
-import colors from "../../../Context/Colors";
+import CollapsableSidebar, { SidebarSection } from "../../../Components/CollapsableSidebar/CollapsableSidebar";
 
+// One sidebar, like cwclock, with the admin features in their own section
+// below the user ones (for admins only), like uprodit.
 function Sidebar() {
   const context = useContext(GlobalContext);
-  const _mode = context.mode;
-  const { open } = useSidebar();
   const { sidebarAdminItems, sidebarUserItems } = useSidebarItems();
+  const visible = (items) => items.filter(({ condition = true }) => condition);
+  const userEntries = visible(sidebarUserItems);
+  const adminEntries = context.user.is_admin ? visible(sidebarAdminItems) : [];
+
+  const renderEntry = (prefix) => ({ id, titleKey, iconClass, path, items, children }) => (
+    <SidebarMenuItem
+      key={`${prefix}-${id}`}
+      id={id}
+      items={items}
+      title={context.counterpart(titleKey)}
+      iconClass={iconClass}
+      path={path}
+    >
+      {children &&
+        children.map((child) => (
+          <SidebarMenuItem
+            key={child.id}
+            id={child.id}
+            title={context.counterpart(child.titleKey)}
+            level={2}
+            path={child.path}
+          />
+        ))}
+    </SidebarMenuItem>
+  );
 
   return (
     <CollapsableSidebar>
-      <List style={{
-          margin: "20px 0",
-          backgroundColor: colors.navbar[_mode],
-          borderRadius: "25px",
-          borderTopLeftRadius: "0px",
-          borderBottomLeftRadius: "0px",
-        }}>
-        {sidebarUserItems.map(
-          ({
-            id,
-            titleKey,
-            iconClass,
-            path,
-            items,
-            children,
-            condition = true,
-          }) =>
-            condition && (
-              <SidebarMenuItem
-                key={`user-${id}`}
-                id={id}
-                items={items}
-                open={open}
-                title={context.counterpart(titleKey)}
-                icon={
-                  <i
-                    className={`fa-solid ${iconClass}`}
-                    style={{ fontSize: "18px" }}
-                  ></i>
-                }
-                path={path}
-              >
-                {children &&
-                  children.map(({ id, titleKey, path }) => (
-                    <SidebarMenuItem
-                      key={id}
-                      id={id}
-                      title={context.counterpart(titleKey)}
-                      level={2}
-                      path={path}
-                    />
-                  ))}
-              </SidebarMenuItem>
-            )
-        )}
-      </List>
-      {/* <Divider /> */}
-      <List style={{
-          margin: "20px 0",
-          backgroundColor: colors.navbar[_mode],
-          borderRadius: "25px",
-          borderTopLeftRadius: "0px",
-          borderBottomLeftRadius: "0px",
-        }}>
-        {context.user.is_admin && sidebarAdminItems.map(
-          ({
-            id,
-            titleKey,
-            iconClass,
-            path,
-            items,
-            children,
-            condition = true,
-          }) =>
-            condition && (
-              <SidebarMenuItem
-                key={`admin-${id}`}
-                id={id}
-                items={items}
-                open={open}
-                title={context.counterpart(titleKey)}
-                icon={
-                  <i
-                    className={`fa-solid ${iconClass}`}
-                    style={{ fontSize: "18px" }}
-                  ></i>
-                }
-                path={path}
-              >
-                {children &&
-                  children.map(({ id, titleKey, path }) => (
-                    <SidebarMenuItem
-                      key={id}
-                      id={id}
-                      title={context.counterpart(titleKey)}
-                      level={2}
-                      path={path}
-                    />
-                  ))}
-              </SidebarMenuItem>
-            )
-        )}
-      </List>
+      {userEntries.map(renderEntry("user"))}
+      {adminEntries.length > 0 && (
+        <SidebarSection title={context.counterpart("sidebar.administration")}>
+          {adminEntries.map(renderEntry("admin"))}
+        </SidebarSection>
+      )}
     </CollapsableSidebar>
   );
 }

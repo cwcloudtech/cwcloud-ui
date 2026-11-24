@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import GlobalContext from "../../../../Context/GlobalContext";
 import colors from "../../../../Context/Colors";
-import Translate from "react-translate-component";
+import Translate from "../../../Translate/Translate";
 import CardComponent from "../../../Cards/CardComponent/CardComponent";
 import MetadataFormContext from "../../../../Context/kubernetes/MetadataFormContext";
 

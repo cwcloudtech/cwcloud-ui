@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import AllowCookiesFooter from '../../Components/AllowCookiesFooter/AllowCookiesFooter';
 import GlobalContext from '../../Context/GlobalContext';
 
-jest.mock('react-translate-component', () => ({
+jest.mock('../../Components/Translate/Translate', () => ({
   __esModule: true,
   default: ({ content }) => <span>{content}</span>
 }));

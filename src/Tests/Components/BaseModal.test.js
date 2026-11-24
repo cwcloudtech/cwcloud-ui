@@ -5,7 +5,7 @@ import BaseModal from '../../Components/Modal/InputModals/BaseModal';
 import GlobalContext from '../../Context/GlobalContext';
 
 // Mock the required components and modules
-jest.mock('react-translate-component', () => ({
+jest.mock('../../Components/Translate/Translate', () => ({
   __esModule: true,
   default: ({ content }) => <span>{content}</span>
 }));

@@ -6,7 +6,7 @@ import ServiceNotAvailable from '../../Components/ServiceNotAvailable/ServiceNot
 import GlobalContext from '../../Context/GlobalContext';
 
 // Mock the react-translate-component
-jest.mock('react-translate-component', () => ({ content }) => <span>{content}</span>);
+jest.mock('../../Components/Translate/Translate', () => ({ content }) => <span>{content}</span>);
 
 // Mock the colors module
 jest.mock('../../Context/Colors', () => ({
@@ -33,7 +33,7 @@ describe('ServiceNotAvailable', () => {
   const renderComponent = (contextValue = mockContextValue, props = mockProps) => {
     return render(
       <GlobalContext.Provider value={contextValue}>
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ServiceNotAvailable {...props} />
         </BrowserRouter>
       </GlobalContext.Provider>

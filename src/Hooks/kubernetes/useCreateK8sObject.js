@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "../../utils/axios";
 import { toast } from "react-toastify";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import GlobalContext from "../../Context/GlobalContext";
 
 export default function useCreateK8sObject() {

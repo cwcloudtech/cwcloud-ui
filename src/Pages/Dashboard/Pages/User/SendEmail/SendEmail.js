@@ -7,7 +7,7 @@ import { isBlank } from "../../../../../utils/common";
 import { toast } from "react-toastify";
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
@@ -172,7 +172,7 @@ function SendEmail() {
                 </Row>
                 <Row>
                     <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "40px" }}>
-                        <LoadingButton icon="fa-solid fa-paper-plane" loading={loadingSubmit} onClick={handleClickButton} style={{ width: "250px", height: "50px" }} variant="outlined">
+                        <LoadingButton icon="fa-solid fa-paper-plane" loading={loadingSubmit} onClick={handleClickButton} variant="outlined">
                             <Translate content="dashboard.sendEmail.send" />
                         </LoadingButton>
                     </Col>

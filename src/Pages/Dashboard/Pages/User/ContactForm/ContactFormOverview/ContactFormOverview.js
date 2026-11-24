@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 import { useContext, useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import { Col, Container, Row } from "reactstrap";
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import SuggestionsAutoComplete from '../../../../../../Components/SuggestionsAutoComplete/SuggestionsAutoComplete';
@@ -308,7 +308,7 @@ const ContactFormOverview = () => {
                             icon="fa-solid fa-floppy-disk"
                             loading={loadingSubmit}
                             onClick={handleSubmit}
-                            style={{ width: "250px", height: "50px" }}
+                           
                             variant="outlined"
                         >
                             <Translate content="common.button.update" />

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 import GlobalContext from "../../Context/GlobalContext";
-import { Tooltip } from '@material-ui/core';
+import { Tooltip } from '@mui/material';
 import { Row, Col, Table } from "reactstrap";
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -24,7 +24,7 @@ const GenericTable = ({
     <Row>
       <Col md="12">
         <div style={{ 
-          background: _mode === "dark" ? "#2C3139" : "#0861AF", 
+          background: _mode === "dark" ? "#111a2b" : "#0a6eb4", 
           padding: "10px", 
           color: "#fff", 
           display: "flex", 

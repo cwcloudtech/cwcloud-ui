@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import LocalStorage from '../../../utils/localStorageService';
 import GlobalContext from '../../../Context/GlobalContext';
 import BackGroundImage from "../../../assets/images/background.png";
-import Translate from "react-translate-component";
+import Translate from "../../../Components/Translate/Translate";
 import LoadingButton from '../../../Components/LoadingButton/LoadingButton';
 import logoimage from '../../../utils/logo';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -136,7 +136,7 @@ function LoginForm() {
                             </Col>
                             <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', fontSize: '15px'}}>
                                 <Link to="/forget-password" >
-                                    <Translate content="login.forgottenpassword" style={{color: '#0861AF'}}/>
+                                    <Translate content="login.forgottenpassword" style={{color: '#0a6eb4'}}/>
                                 </Link>
                             </Col>
                             <Col style={{ padding: "0" }}>
@@ -154,11 +154,11 @@ function LoginForm() {
                                 <h4 style={{ color: "rgb(130,130,130)", fontSize: '14px', textAlign: "center" }}>
                                     <Translate content="login.question" /> {"     "}
                                     <NavLink  to="/signup" style={{ textDecoration: "none" }}>
-                                        <Translate content="login.signup" style={{color: '#0861AF'}}/>
+                                        <Translate content="login.signup" style={{color: '#0a6eb4'}}/>
                                     </NavLink>
                                     {" | "}
                                     <NavLink  to="/contact" style={{ textDecoration: "none" }}>
-                                        <Translate content="login.contact" style={{color: '#0861AF'}}/>
+                                        <Translate content="login.contact" style={{color: '#0a6eb4'}}/>
                                     </NavLink>
                                 </h4>
                             </Col>

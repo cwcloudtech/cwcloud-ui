@@ -5,8 +5,8 @@ import GlobalContext from '../../../../Context/GlobalContext';
 import colors from '../../../../Context/Colors';
 import classes from './ResourceUsage.module.css';
 import { Stack } from '@mui/material';
-import Translate from 'react-translate-component';
-import { LinearProgress } from '@material-ui/core';
+import Translate from '../../../Translate/Translate';
+import { LinearProgress } from '@mui/material';
 
 const ResourceUsage = (props) => {
     const context = useContext(GlobalContext);

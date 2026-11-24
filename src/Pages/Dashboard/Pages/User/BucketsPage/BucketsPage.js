@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import formateDate from "../../../../../utils/FormateDate";
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";

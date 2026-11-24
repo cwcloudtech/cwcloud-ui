@@ -1,10 +1,9 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from '../public.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 import { Row, Col, Spinner } from "reactstrap";
 import BackGroundImage from "../../../assets/images/background.png"
-import Translate from "react-translate-component";
+import Translate from "../../../Components/Translate/Translate";
 import { toast } from "react-toastify";
 import axios from "../../../utils/axios";
 import GlobalContext from "../../../Context/GlobalContext";
@@ -81,7 +80,7 @@ function SetSecurityKey() {
                             </Col>
                             {loading ?
                                 <Col style={{ padding: "0", display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '10px 0px 10px 0px' }}>
-                                    <Spinner style={{ height: '50px', width: '50px', color: '#0861AF', borderWidth: '8px' }} />
+                                    <Spinner style={{ height: '50px', width: '50px', color: '#0a6eb4', borderWidth: '8px' }} />
                                 </Col>
                                 : <Col style={{ padding: "0" }}>
                                     <input ref={inputRef}

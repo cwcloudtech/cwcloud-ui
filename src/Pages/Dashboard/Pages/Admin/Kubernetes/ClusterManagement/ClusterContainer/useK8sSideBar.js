@@ -6,13 +6,6 @@ export function useK8sSideBar() {
 
   const sidebarKubernetesItems = [
     {
-      id: "/kubernetes/clusters",
-      items: ["/kubernetes/clusters"],
-      titleKey: "common.button.goBack",
-      iconClass: "fa-reply",
-      path: "/kubernetes/clusters",
-    },
-    {
       id: k8sPrefix,
       items: [k8sPrefix],
       titleKey:

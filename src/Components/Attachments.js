@@ -55,6 +55,7 @@ const Attachments = ({ ticket, is_admin, downloadFile, preDeleteFile }) => {
                         </Box>
                     }
                 >
+                    <i className="icon fa-solid fa-paperclip"></i>
                     {attachment.name}
                 </Button>
             ))}

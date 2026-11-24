@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Col, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 import GlobalContext from "../../../Context/GlobalContext";
 import colors from "../../../Context/Colors";
-import Translate from "react-translate-component";
+import Translate from "../../Translate/Translate";
 import IngressFormContext from "../../../Context/kubernetes/IngressFormContext";
 
 export default function DefaultBackend() {

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import GlobalContext from "../../../../../../Context/GlobalContext";
 import colors from "../../../../../../Context/Colors";
@@ -107,7 +107,7 @@ const GeneratedApiKeyModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-check"
                     onClick={props.toggle}
                     style={{ width: "100%" }}
                 >

@@ -11,7 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import ActionUser from './ActionUser/ActionUser';
 import formateDate from '../../../../../utils/FormateDate';

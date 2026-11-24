@@ -2,7 +2,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from "reactstrap";
 import LoadingButton from "../../LoadingButton/LoadingButton";
-import Translate from "react-translate-component";
+import Translate from "../../Translate/Translate";
 
 const TransferModal = ({ isOpen, toggle, onSave, loading, users, title }) => {
   const [userEmail, setUserEmail] = useState("");
@@ -45,7 +45,7 @@ const TransferModal = ({ isOpen, toggle, onSave, loading, users, title }) => {
         </Row>
       </ModalBody>
       <ModalFooter>
-        <LoadingButton
+        <LoadingButton icon="fa-solid fa-floppy-disk"
           loading={loading}
           onClick={() => onSave(userEmail)}
           style={{ width: "100%" }}

@@ -30,24 +30,14 @@ const PodTerminal = ({
   const [prompt, setPrompt] = useState('$ ');
 
   const wsRef = useRef(null);
+  const lineStateRef = useRef({ line: '', cursor: 0 });
+  lineStateRef.current = { line: currentLine, cursor: cursorPosition };
   const terminalRef = useRef(null);
   const inputRef = useRef(null);
   const reconnectTimeoutRef = useRef(null);
   const reconnectAttemptsRef = useRef(0);
   const maxReconnectAttempts = 5;
 
-  const keyMappings = {
-    'ArrowUp': () => navigateHistory(-1),
-    'ArrowDown': () => navigateHistory(1),
-    'ArrowLeft': () => moveCursor(-1),
-    'ArrowRight': () => moveCursor(1),
-    'Home': () => setCursorPosition(0),
-    'End': () => setCursorPosition(currentLine.length),
-    'Backspace': () => handleBackspace(),
-    'Delete': () => handleDelete(),
-    'Tab': () => handleTab(),
-    'Enter': () => handleEnter(),
-  };
 
 const navigateHistory = useCallback((direction) => {
   if (commandHistory.length === 0) return;
@@ -96,6 +86,21 @@ const navigateHistory = useCallback((direction) => {
     }
   }, [currentLine, cursorPosition]);
 
+  const appendToOutput = useCallback((text) => {
+    setTerminalOutput(prev => prev + text);
+    setTimeout(() => {
+      if (terminalRef.current) {
+        terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+      }
+    }, 0);
+  }, []);
+
+  const handleClearTerminal = useCallback(() => {
+    setTerminalOutput('');
+    setCurrentLine('');
+    setCursorPosition(0);
+  }, []);
+
   const handleEnter = useCallback(() => {
     if (!currentLine.trim()) {
       appendToOutput(`${prompt}\n`);
@@ -116,18 +121,22 @@ const navigateHistory = useCallback((direction) => {
 
     setCurrentLine('');
     setCursorPosition(0);
-  }, [currentLine, prompt]);
-
-  const appendToOutput = useCallback((text) => {
-    setTerminalOutput(prev => prev + text);
-    setTimeout(() => {
-      if (terminalRef.current) {
-        terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-      }
-    }, 0);
-  }, []);
+  }, [currentLine, prompt, appendToOutput]);
 
   const handleKeyDown = useCallback((e) => {
+    const keyMappings = {
+      'ArrowUp': () => navigateHistory(-1),
+      'ArrowDown': () => navigateHistory(1),
+      'ArrowLeft': () => moveCursor(-1),
+      'ArrowRight': () => moveCursor(1),
+      'Home': () => setCursorPosition(0),
+      'End': () => setCursorPosition(currentLine.length),
+      'Backspace': () => handleBackspace(),
+      'Delete': () => handleDelete(),
+      'Tab': () => handleTab(),
+      'Enter': () => handleEnter(),
+    };
+
     if (keyMappings[e.key]) {
       e.preventDefault();
       keyMappings[e.key]();
@@ -174,7 +183,7 @@ const navigateHistory = useCallback((direction) => {
       setCurrentLine(newLine);
       setCursorPosition(prev => prev + 1);
     }
-  }, [currentLine, cursorPosition, keyMappings, appendToOutput]);
+  }, [currentLine, cursorPosition, navigateHistory, moveCursor, handleBackspace, handleDelete, handleTab, handleEnter, appendToOutput, handleClearTerminal]);
 
   const handlePaste = useCallback((e) => {
     e.preventDefault();
@@ -232,9 +241,10 @@ const navigateHistory = useCallback((direction) => {
             case 'completion':
               if (message.completions && message.completions.length > 0) {
                 const completion = message.completions[0];
-                const newLine = currentLine.slice(0, cursorPosition) + completion + currentLine.slice(cursorPosition);
+                const { line, cursor } = lineStateRef.current;
+                const newLine = line.slice(0, cursor) + completion + line.slice(cursor);
                 setCurrentLine(newLine);
-                setCursorPosition(cursorPosition + completion.length);
+                setCursorPosition(cursor + completion.length);
               }
               break;
             case 'error':
@@ -276,7 +286,7 @@ const navigateHistory = useCallback((direction) => {
       setError(`Failed to establish terminal connection to ${namespace}/${podName}`);
       setConnectionStatus('error');
     }
-  }, [websocketUrl, podName, namespace, autoReconnect, reconnectInterval, appendToOutput, podInfo.container]);
+  }, [websocketUrl, podName, namespace, autoReconnect, reconnectInterval, appendToOutput, podInfo.container, podInfo.cluster_id]);
 
   const disconnectWebSocket = useCallback(() => {
     if (reconnectTimeoutRef.current) {
@@ -291,12 +301,6 @@ const navigateHistory = useCallback((direction) => {
     
     setConnectionStatus('disconnected');
     setIsConnected(false);
-  }, []);
-
-  const handleClearTerminal = useCallback(() => {
-    setTerminalOutput('');
-    setCurrentLine('');
-    setCursorPosition(0);
   }, []);
 
   const handleReconnect = useCallback(() => {

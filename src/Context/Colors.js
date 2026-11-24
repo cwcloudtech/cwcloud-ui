@@ -1,127 +1,150 @@
+// Design tokens shared with cwclock & cwcloud-website:
+// slate neutrals, CWCloud navy/sky brand blues, soft surfaces and borders.
 const colors = {
     sideBackground: {
-        light: 'rgb(236 245 254)',
-        dark: '#37404a'
+        light: '#ffffff',
+        dark: '#111a2b'
     },
     navbar : {
-        light: "#cce3f98a",
-        dark: "#3c4956ad"
+        light: "rgba(255, 255, 255, 0.85)",
+        dark: "rgba(17, 26, 43, 0.85)"
     },
     dashboardEnvs: {
-        dark: "#4b5866",
-        light: 'rgb(236 245 254)'
+        dark: "#1b2538",
+        light: '#f1f5f9'
     },
     mainBackground: {
-        light: '#ffffff',
-        dark: '#31373d'
+        light: '#f8fafc',
+        dark: '#0b1220'
     },
     secondBackground: {
         light: '#ffffff',
-        dark: '#37404a'
+        dark: '#141d2e'
     },
     formBackground: {
-        light: '#F2F5F9',
-        dark: '#37404a'
+        light: '#f1f5f9',
+        dark: '#141d2e'
     },
     link:{
-        light: '#0861AF',
-        dark: '#4ea8f7'
+        light: '#0a6eb4',
+        dark: '#38bdf8'
     },
     mainTitle:{
-        light: '#0861AF',
-        dark: '#FFFFFF'
+        light: '#0b2e4f',
+        dark: '#f1f5f9'
     },
     mainText:{
-        light: '#000000',
-        dark: '#f0f0f0'
+        light: '#0f172a',
+        dark: '#f1f5f9'
     },
     secondText:{
-        light: '#686868',
-        dark: '#aab8c5'
+        light: '#64748b',
+        dark: '#94a3b8'
     },
     menuText:{
-        light: '#000000',
-        dark: '#aab8c5'
+        light: '#334155',
+        dark: '#cbd5e1'
     },
     blue:{
-        light: '#0861AF',
-        dark: '#4ea8f7'
+        light: '#0a6eb4',
+        dark: '#38bdf8'
     },
     blueHover:{
-        light: '#a90000',
-        dark: '#e4505c'
+        light: '#b91c1c',
+        dark: '#f87171'
     },
     blueText: {
-        light: '#4A5061',
-        dark: '#aab8c5'
+        light: '#334155',
+        dark: '#cbd5e1'
     },
     border: {
-        light: '#d8d8d8',
-        dark: '#31363a'
+        light: '#e2e8f0',
+        dark: '#2a3750'
     },
     textAreaBorder: {
-        light: '#d8d8d8',
-        dark: '#aab8c5'
+        light: '#cbd5e1',
+        dark: '#3b4a66'
     },
     opacity: {
         light: '1.0',
         dark: '0.15'
     },
     gridBorder: {
-        light: '#d8d8d8',
-        dark: '#51575d'
+        light: '#e2e8f0',
+        dark: '#2a3750'
     },
     title: {
-        light: '#4a4f62',
-        dark: '#ffffff'
+        light: '#0f172a',
+        dark: '#f1f5f9'
     },
     smallTitle: {
-        light: '#4a4f62',
-        dark: '#aab8c5'
+        light: '#475569',
+        dark: '#94a3b8'
     },
     bottomShaddow: {
-        light: '#c7c3c3',
-        dark: '#51575d'
+        light: '#e2e8f0',
+        dark: '#2a3750'
     },
     spinload: {
         light: 'rgba(255, 255, 255, 0.8)',
-        dark: '#31373d'
+        dark: 'rgba(11, 18, 32, 0.8)'
     },
     avatarBorder: {
-        light: '#dfe0eb',
-        dark: '#41474d'
+        light: '#e2e8f0',
+        dark: '#2a3750'
     },
     ticketUser: {
-        light: '#cadff1',
-        dark: 'rgb(45 125 194)'
+        light: '#e0f2fe',
+        dark: '#0c3a5c'
     },
     ticketAdmin: {
-        light: '#F6F6F8',
-        dark: 'rgb(197 138 55)'
+        light: '#ffffff',
+        dark: '#1b2538'
     },
     stripe: {
-        light: '#32325d',
-        dark: 'rgb(197 138 55)'
+        light: '#0f172a',
+        dark: '#f1f5f9'
     },
     stripeIcon: {
-        light: '#999999',
-        dark: '#4ea8f7'
+        light: '#94a3b8',
+        dark: '#38bdf8'
     },
     userCard: {
-        light: "#F6FBF4",
-        dark: "#37404a"
+        light: "#ffffff",
+        dark: "#141d2e"
     },
     shadow: {
-        light: "0 0px 0px #fff",
-        dark: "0 1px 2px rgb(0 0 0 / 5%)"
+        light: "0 1px 2px rgba(15, 23, 42, 0.06)",
+        dark: "0 1px 2px rgba(0, 0, 0, 0.4)"
     },
     menuitem: {
         light: '#ffffff',
-        dark: '#31373d'
+        dark: '#141d2e'
     },
     FaUserAdmin:{
-        light: '#0861AF',
-        dark: '#4ea8f7'
+        light: '#0a6eb4',
+        dark: '#38bdf8'
+    },
+    // Chat / support message bubbles
+    bubbleUser: {
+        light: '#e0f2fe',
+        dark: '#0c3a5c'
+    },
+    bubbleUserText: {
+        light: '#0b2e4f',
+        dark: '#e0f2fe'
+    },
+    bubbleAssistant: {
+        light: '#ffffff',
+        dark: '#141d2e'
+    },
+    bubbleAssistantText: {
+        light: '#0f172a',
+        dark: '#f1f5f9'
+    },
+    codeBackground: {
+        light: '#f1f5f9',
+        dark: '#0b1220'
     }
 }
 export default colors;

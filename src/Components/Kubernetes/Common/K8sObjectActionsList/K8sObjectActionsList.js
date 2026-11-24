@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import GlobalContext from "../../../../Context/GlobalContext";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip } from "@mui/material";
 
 export default function K8sObjectActionsList(props) {
     const { counterpart } = useContext(GlobalContext);

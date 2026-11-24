@@ -3,13 +3,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import classes from '../public.module.css';
 import axios from "../../../utils/axios";
 import { isBlank } from "../../../utils/common";
-import 'react-toastify/dist/ReactToastify.css';
 import { toast } from "react-toastify";
 import GlobalContext from "../../../Context/GlobalContext";
 import { Row, Col, Input, Form, FormGroup, Label} from "reactstrap";
 import Alert from '@mui/material/Alert';
 import BackGroundImage from "../../../assets/images/background.png"
-import Translate from "react-translate-component";
+import Translate from "../../../Components/Translate/Translate";
 import LoadingButton from "../../../Components/LoadingButton/LoadingButton";
 import logoimage from "../../../utils/logo";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -227,7 +226,7 @@ function SignUpForm() {
                                             <h5 onClick={() => setAcceptTerms(!acceptTerms)} style={{ fontSize: '13px', fontWeight: '500', margin: '0' }}>
                                                 <Translate content="signup.acceptTerms" />{' '}
                                                 <a href={`${process.env.REACT_APP_DOCURL}/docs/terms/`}>
-                                                    <Translate content="signup.terms" style={{color: '#0861AF'}}/>
+                                                    <Translate content="signup.terms" style={{color: '#0a6eb4'}}/>
                                                 </a>.
                                             </h5>
                                             </Label>
@@ -248,7 +247,7 @@ function SignUpForm() {
                         <h4 style={{ color: "rgb(130,130,130)", fontSize: '14px', textAlign: "center" }}>
                             <Translate content="signup.question" /> {"     "}
                             <NavLink to="/" style={{ textDecoration: "none" }}>
-                                <Translate content="signup.login" style={{color: '#0861AF'}}/>
+                                <Translate content="signup.login" style={{color: '#0a6eb4'}}/>
                             </NavLink>
                         </h4>
                     </Col>

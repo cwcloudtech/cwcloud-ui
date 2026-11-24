@@ -41,19 +41,19 @@
 }
 
 .miniContainer:hover {
-    border-color: #0861AF;
+    border-color: #0a6eb4;
 }
 
 .darkContainer:hover {
-    border-color: #4ea8f7;
+    border-color: #38bdf8;
 }
 
 .miniContainerChecked {
-    background-color: #0861AF;
-    border: 1px solid #0861AF;
+    background-color: #0a6eb4;
+    border: 1px solid #0a6eb4;
 }
 
 .darkContainerChecked {
-    background-color: #4ea8f7;
-    border: 1px solid #4ea8f7;
+    background-color: #38bdf8;
+    border: 1px solid #38bdf8;
 }

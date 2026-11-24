@@ -11,7 +11,7 @@
 
 .mainContainer:hover {
     transition: all 0.2s ease-in-out;
-    border-color: #0861AF !important;
+    border-color: #0a6eb4 !important;
     box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
 }
 

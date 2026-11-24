@@ -11,7 +11,7 @@ import LoadingSpinner from "../../../../../../../../Components/LoadingSpinner/Lo
 // import classes from "../../styles.module.css";
 import '../../../../../../../../common.css';
 import { Row, Col, FormGroup, Input } from "reactstrap";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../../../Components/Translate/Translate";
 import Fade from "@mui/material/Fade";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Tooltip from "@mui/material/Tooltip";

@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import InfoCard from '../../Components/Cards/InfoCard/InfoCard';
 import GlobalContext from '../../Context/GlobalContext';
+import colors from '../../Context/Colors';
 
 // Mock context value
 const mockContextValue = {
@@ -18,7 +19,7 @@ const mockColors = {
 };
 
 // Mock translations for Translate component
-jest.mock('react-translate-component', () => ({ content }) => <span>{content}</span>);
+jest.mock('../../Components/Translate/Translate', () => ({ content }) => <span>{content}</span>);
 
 // Mock colors module
 jest.mock('../../Context', () => mockColors);
@@ -56,7 +57,7 @@ describe('InfoCard', () => {
     renderComponent(mockProps);
 
     const lengthText = screen.getByText('10');
-    expect(lengthText).toHaveStyle(`color: ${mockColors.mainText.light}`);
+    expect(lengthText).toHaveStyle(`color: ${colors.mainText.light}`);
   });
 
 });

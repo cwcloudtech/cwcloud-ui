@@ -1,87 +1,89 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
 import IndexNavbar from "./IndexNavbar/IndexNavbar";
 import { SidebarProvider } from "../../Context/SidebarContext";
+import SecondarySidebarSlot from "../../Components/CollapsableSidebar/SecondarySidebar/SecondarySidebarSlot";
 import classes from "./Dashboard.module.css";
 import { toast } from "react-toastify";
-import AddInstance from "./Pages/User/AddInstance/AddInstance";
-import AddProject from "./Pages/User/AddProject/AddProject";
-import AttachInstance from "./Pages/User/AttachInstance/AttachInstance";
-import BucketOverview from "./Pages/User/BucketOverview/BucketOverview";
-import BucketsPage from "./Pages/User/BucketsPage/BucketsPage";
-import InstanceOverview from "./Pages/User/InstanceOverview/InstanceOverView";
-import InstancesPage from "./Pages/User/InstancesPage/InstancesPage";
-import ProjectOverview from "./Pages/User/ProjectOverview/ProjectOverview";
-import ProjectsPage from "./Pages/User/ProjectsPage/ProjectsPage";
-import UserDashboard from "./Pages/User/UserDashboard/UserDashboard";
-import AddEnvironment from "./Pages/Admin/AddEnvironment/AddEnvironment";
-import AddUser from "./Pages/Admin/AddUser/AddUser";
-import AdminAddBucket from "./Pages/Admin/AdminAddBucket/AdminAddBucket";
-import EnvironmentOverview from "./Pages/Admin/EnvironmentOverview/EnvironmentOverview";
-import EnvironmentsPage from "./Pages/Admin/EnvironmentsPage/EnvironmentsPage";
-import UserOverview from "./Pages/Admin/UserOverview/UserOverview";
-import UsersPage from "./Pages/Admin/UsersPage/UsersPage";
-import Error from "./Pages/Error/Error";
-import RegistriesPage from "./Pages/User/RegistriesPage/RegistriesPage";
-import RegistryOverview from "./Pages/User/RegistryOverview/RegistryOverview";
-import AdminAddRegistry from "./Pages/Admin/AdminAddRegistry/AdminAddRegistry";
-import Credentials from "./Pages/User/Credentials/Credentials";
-import Settings from "./Pages/User/Settings/Settings";
-import Ticket from "./Pages/User/Ticket/Ticket";
-import ManageSupport from "./Pages/User/ManageSupport/ManageSupport";
-import SendEmail from "./Pages/User/SendEmail/SendEmail";
-import ContactForms from "./Pages/User/ContactForm/ContactForms/ContactForms";
-import AddContactForm from "./Pages/User/ContactForm/AddContactForm/AddContactForm";
-import ContactFormOverview from "./Pages/User/ContactForm/ContactFormOverview/ContactFormOverview";
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
-import FunctionsPage from "./Pages/User/Faas/FunctionsPage/FunctionsPage";
-import AddFunction from "./Pages/User/Faas/AddFunction/AddFunction";
-import FunctionOverview from "./Pages/User/Faas/FunctionOverview/FunctionOverview";
-import TriggersPage from "./Pages/User/Faas/TriggersPage/TriggersPage";
-import AddCronFunction from "./Pages/User/Faas/AddCronFunction/AddCronFunction";
-import InvocationsPage from "./Pages/User/Faas/InvocationsPage/InvocationsPage";
-import InvokeFunction from "./Pages/User/Faas/InvokeFunction/InvokeFunction";
-import AdminFunctionsPage from "./Pages/Admin/Faas/AdminFunctionsPage/AdminFunctionsPage";
-import AdminFunctionEdit from "./Pages/Admin/Faas/AdminFunctionEdit/AdminFunctionEdit";
-import AdminInvocationsPage from "./Pages/Admin/Faas/AdminInvocationsPage/AdminInvocationsPage";
-import AdminTriggersPage from "./Pages/Admin/Faas/AdminTriggersPage/AdminTriggersPage";
-import ClusterOverview from "./Pages/Admin/Kubernetes/ClusterManagement/Cluster/ClusterOverview";
-import ClusterManagementContainer from "./Pages/Admin/Kubernetes/ClusterManagement/ClusterContainer/ClusterManagementContainer";
-import Services from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Services/Services";
-import ServiceForm from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Services/ServiceForm";
-import Ingress from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Ingresses/Ingresses";
-import HorizontalPodAutoscaler from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/HorizontalPodAutoscaler";
-import Secrets from "./Pages/Admin/Kubernetes/ClusterManagement/Storage/Secrets/Secrets";
-import IngressForm from "./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Ingresses/IngressForm";
-import ConfigMapForm from "./Pages/Admin/Kubernetes/ClusterManagement/Storage/ConfigMaps/ConfigMapForm";
-import ConfigMaps from "./Pages/Admin/Kubernetes/ClusterManagement/Storage/ConfigMaps/ConfigMaps";
-import SecretsForm from "./Pages/Admin/Kubernetes/ClusterManagement/Storage/Secrets/SecretsForm";
-import K8sAppsPage from "./Pages/User/K8sApplications/Page/K8sAppsPage";
-import AddK8sApplication from "./Pages/User/K8sApplications/Create/AddK8sApplication";
-import K8sEnvironements from "./Pages/Admin/Kubernetes/Environments/K8sEnvironements";
-import K8sClusters from "./Pages/Admin/Kubernetes/Clusters/K8sClusters";
-import K8sEnvironmentForm from "./Pages/Admin/Kubernetes/K8sEnvironmentForm/K8sEnvironmentForm";
-import K8sAppOverview from "./Pages/User/K8sApplications/Overview/K8sOverview";
-import AddObjectType from "./Pages/User/iot/AddObjectType/AddObjectType";
-import IotOverviewPage from "./Pages/User/iot/Overview/IotOverview";
-import ObjectType from "./Pages/User/iot/ObjectType/ObjectType";
-import Device from "./Pages/User/iot/Device/Device";
-import Devices from "./Pages/User/iot/Devices/Devices";
-import AddData from "./Pages/User/iot/AddData/AddData";
-import Environments from "./Pages/User/UserDashboard/Environments";
-import AddDnsRecord from "./Pages/Admin/AdminDnsRecords/Create/AddDnsRecord";
-import AdminDnsOverview from "./Pages/Admin/AdminDnsRecords/Overview/AdminDnsOverview";
 import { Box } from "@mui/material";
-import AddMonitor from "./Pages/User/Observability/AddMonitor/AddMonitor";
-import Monitors from "./Pages/User/Observability/Monitors/Monitors";
-import MonitorOverview from "./Pages/User/Observability/MonitorOverview/MonitorOverview";
-import KVStorage from "./Pages/User/KVStorage/Overview/KVStorage";
-import AddKV from "./Pages/User/KVStorage/AddKV/AddKV";
-import EditKV from "./Pages/User/KVStorage/EditKV/EditKV";
-import PodLogs from "./Pages/Admin/Kubernetes/ClusterManagement/PodLogs/PodLogs";
-import PodTerminal from "./Pages/Admin/Kubernetes/ClusterManagement/PodTerminal/PodTerminal";
+
+const AddInstance = lazy(() => import("./Pages/User/AddInstance/AddInstance"));
+const AddProject = lazy(() => import("./Pages/User/AddProject/AddProject"));
+const AttachInstance = lazy(() => import("./Pages/User/AttachInstance/AttachInstance"));
+const BucketOverview = lazy(() => import("./Pages/User/BucketOverview/BucketOverview"));
+const BucketsPage = lazy(() => import("./Pages/User/BucketsPage/BucketsPage"));
+const InstanceOverview = lazy(() => import("./Pages/User/InstanceOverview/InstanceOverView"));
+const InstancesPage = lazy(() => import("./Pages/User/InstancesPage/InstancesPage"));
+const ProjectOverview = lazy(() => import("./Pages/User/ProjectOverview/ProjectOverview"));
+const ProjectsPage = lazy(() => import("./Pages/User/ProjectsPage/ProjectsPage"));
+const UserDashboard = lazy(() => import("./Pages/User/UserDashboard/UserDashboard"));
+const AddEnvironment = lazy(() => import("./Pages/Admin/AddEnvironment/AddEnvironment"));
+const AddUser = lazy(() => import("./Pages/Admin/AddUser/AddUser"));
+const AdminAddBucket = lazy(() => import("./Pages/Admin/AdminAddBucket/AdminAddBucket"));
+const EnvironmentOverview = lazy(() => import("./Pages/Admin/EnvironmentOverview/EnvironmentOverview"));
+const EnvironmentsPage = lazy(() => import("./Pages/Admin/EnvironmentsPage/EnvironmentsPage"));
+const UserOverview = lazy(() => import("./Pages/Admin/UserOverview/UserOverview"));
+const UsersPage = lazy(() => import("./Pages/Admin/UsersPage/UsersPage"));
+const Error = lazy(() => import("./Pages/Error/Error"));
+const RegistriesPage = lazy(() => import("./Pages/User/RegistriesPage/RegistriesPage"));
+const RegistryOverview = lazy(() => import("./Pages/User/RegistryOverview/RegistryOverview"));
+const AdminAddRegistry = lazy(() => import("./Pages/Admin/AdminAddRegistry/AdminAddRegistry"));
+const Credentials = lazy(() => import("./Pages/User/Credentials/Credentials"));
+const Settings = lazy(() => import("./Pages/User/Settings/Settings"));
+const Ticket = lazy(() => import("./Pages/User/Ticket/Ticket"));
+const ManageSupport = lazy(() => import("./Pages/User/ManageSupport/ManageSupport"));
+const SendEmail = lazy(() => import("./Pages/User/SendEmail/SendEmail"));
+const ContactForms = lazy(() => import("./Pages/User/ContactForm/ContactForms/ContactForms"));
+const AddContactForm = lazy(() => import("./Pages/User/ContactForm/AddContactForm/AddContactForm"));
+const ContactFormOverview = lazy(() => import("./Pages/User/ContactForm/ContactFormOverview/ContactFormOverview"));
+const FunctionsPage = lazy(() => import("./Pages/User/Faas/FunctionsPage/FunctionsPage"));
+const AddFunction = lazy(() => import("./Pages/User/Faas/AddFunction/AddFunction"));
+const FunctionOverview = lazy(() => import("./Pages/User/Faas/FunctionOverview/FunctionOverview"));
+const TriggersPage = lazy(() => import("./Pages/User/Faas/TriggersPage/TriggersPage"));
+const AddCronFunction = lazy(() => import("./Pages/User/Faas/AddCronFunction/AddCronFunction"));
+const InvocationsPage = lazy(() => import("./Pages/User/Faas/InvocationsPage/InvocationsPage"));
+const InvokeFunction = lazy(() => import("./Pages/User/Faas/InvokeFunction/InvokeFunction"));
+const AdminFunctionsPage = lazy(() => import("./Pages/Admin/Faas/AdminFunctionsPage/AdminFunctionsPage"));
+const AdminFunctionEdit = lazy(() => import("./Pages/Admin/Faas/AdminFunctionEdit/AdminFunctionEdit"));
+const AdminInvocationsPage = lazy(() => import("./Pages/Admin/Faas/AdminInvocationsPage/AdminInvocationsPage"));
+const AdminTriggersPage = lazy(() => import("./Pages/Admin/Faas/AdminTriggersPage/AdminTriggersPage"));
+const ClusterOverview = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/Cluster/ClusterOverview"));
+const ClusterManagementContainer = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/ClusterContainer/ClusterManagementContainer"));
+const Services = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Services/Services"));
+const ServiceForm = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Services/ServiceForm"));
+const Ingress = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Ingresses/Ingresses"));
+const HorizontalPodAutoscaler = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/HorizontalPodAutoscaler"));
+const Secrets = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/Storage/Secrets/Secrets"));
+const IngressForm = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/ServiceDiscovery/Ingresses/IngressForm"));
+const ConfigMapForm = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/Storage/ConfigMaps/ConfigMapForm"));
+const ConfigMaps = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/Storage/ConfigMaps/ConfigMaps"));
+const SecretsForm = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/Storage/Secrets/SecretsForm"));
+const K8sAppsPage = lazy(() => import("./Pages/User/K8sApplications/Page/K8sAppsPage"));
+const AddK8sApplication = lazy(() => import("./Pages/User/K8sApplications/Create/AddK8sApplication"));
+const K8sEnvironements = lazy(() => import("./Pages/Admin/Kubernetes/Environments/K8sEnvironements"));
+const K8sClusters = lazy(() => import("./Pages/Admin/Kubernetes/Clusters/K8sClusters"));
+const K8sEnvironmentForm = lazy(() => import("./Pages/Admin/Kubernetes/K8sEnvironmentForm/K8sEnvironmentForm"));
+const K8sAppOverview = lazy(() => import("./Pages/User/K8sApplications/Overview/K8sOverview"));
+const AddObjectType = lazy(() => import("./Pages/User/iot/AddObjectType/AddObjectType"));
+const IotOverviewPage = lazy(() => import("./Pages/User/iot/Overview/IotOverview"));
+const ObjectType = lazy(() => import("./Pages/User/iot/ObjectType/ObjectType"));
+const Device = lazy(() => import("./Pages/User/iot/Device/Device"));
+const Devices = lazy(() => import("./Pages/User/iot/Devices/Devices"));
+const AddData = lazy(() => import("./Pages/User/iot/AddData/AddData"));
+const Environments = lazy(() => import("./Pages/User/UserDashboard/Environments"));
+const AddDnsRecord = lazy(() => import("./Pages/Admin/AdminDnsRecords/Create/AddDnsRecord"));
+const AdminDnsOverview = lazy(() => import("./Pages/Admin/AdminDnsRecords/Overview/AdminDnsOverview"));
+const AddMonitor = lazy(() => import("./Pages/User/Observability/AddMonitor/AddMonitor"));
+const Monitors = lazy(() => import("./Pages/User/Observability/Monitors/Monitors"));
+const MonitorOverview = lazy(() => import("./Pages/User/Observability/MonitorOverview/MonitorOverview"));
+const KVStorage = lazy(() => import("./Pages/User/KVStorage/Overview/KVStorage"));
+const AddKV = lazy(() => import("./Pages/User/KVStorage/AddKV/AddKV"));
+const EditKV = lazy(() => import("./Pages/User/KVStorage/EditKV/EditKV"));
+const PodLogs = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/PodLogs/PodLogs"));
+const PodTerminal = lazy(() => import("./Pages/Admin/Kubernetes/ClusterManagement/PodTerminal/PodTerminal"));
 function Dashboard() {
   const _mode = useContext(GlobalContext).mode;
   const { pathname } = useLocation();
@@ -101,9 +103,11 @@ function Dashboard() {
           style={{ background: colors.mainBackground[_mode] }}
         >
           <Sidebar />
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <SecondarySidebarSlot />
+          <Box component="main" sx={{ flexGrow: 1, minWidth: 0, p: 3 }}>
             <IndexNavbar />
             <div className={classes.contentBlock}>
+              <Suspense fallback={null}>
               <Routes>
                 {/* Admin Routes */}
                 <Route exact path="/dashboard" element={<UserDashboard />} />
@@ -437,6 +441,7 @@ function Dashboard() {
                 </Route>
                 <Route path="*" element={<Error />} />
               </Routes>
+              </Suspense>
             </div>
           </Box>
         </Box>

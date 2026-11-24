@@ -11,7 +11,7 @@ jest.mock('@mui/material', () => ({
 }));
 
 // Mock the Translate component - return string instead of JSX
-jest.mock('react-translate-component', () => {
+jest.mock('../../Components/Translate/Translate', () => {
   return ({ content }) => content;
 });
 

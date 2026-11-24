@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 import {
     Modal,
     ModalHeader,
@@ -34,7 +34,7 @@ const ConfirmModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-check"
                     onClick={(e) => props.onConfirm(e)}
                     style={{ width: "100%" }}
                 >

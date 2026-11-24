@@ -10,7 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import { useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import colors from '../../../../../Context/Colors';
@@ -280,7 +280,7 @@ function Settings(props) {
                             <Translate content="common.button.delete2Fa" />
                         </LoadingButton>
                         :
-                        <LoadingButton onClick={() => navigate('/setup-2fa')} style={{ width: '100%' }}>
+                        <LoadingButton icon="fa-solid fa-mobile-screen" onClick={() => navigate('/setup-2fa')} style={{ width: '100%' }}>
                             <Translate content="common.button.activate2Fa" />
                         </LoadingButton>
                     }
@@ -295,7 +295,7 @@ function Settings(props) {
                             <Translate content="common.button.deleteU2f" />
                         </LoadingButton>
                         :
-                        <LoadingButton onClick={() => navigate('/setup-security-key')} style={{ width: '100%' }}>
+                        <LoadingButton icon="fa-solid fa-key" onClick={() => navigate('/setup-security-key')} style={{ width: '100%' }}>
                             <Translate content="common.button.activateU2f" />
                         </LoadingButton>
                     }

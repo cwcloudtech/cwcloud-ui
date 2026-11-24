@@ -5,7 +5,7 @@ import LocalStorageService from '../../../utils/localStorageService'
 import axios from '../../../utils/axios'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner'
-import Translate from 'react-translate-component'
+import Translate from '../../../Components/Translate/Translate'
 import { toast } from 'react-toastify'
 import LoadingButton from '../../../Components/LoadingButton/LoadingButton'
 import BackGroundImage from "../../../assets/images/background.png"
@@ -145,7 +145,7 @@ const ResetPassword = (props) => {
                         <h4 style={{ color: "rgb(130,130,130)", fontSize: '14px', textAlign: "center" }}>
                             <Translate content="password.reset.backToLoginQuestion" /> {"     "}
                             <NavLink to="/" style={{ textDecoration: "none" }}>
-                                <Translate content="signup.login" style={{color: '#0861AF'}}/>
+                                <Translate content="signup.login" style={{color: '#0a6eb4'}}/>
                             </NavLink>
                         </h4>
                     </Col>

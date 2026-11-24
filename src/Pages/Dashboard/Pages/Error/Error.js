@@ -1,5 +1,5 @@
 import React from 'react';
-import Translate from 'react-translate-component'
+import Translate from '../../../../Components/Translate/Translate'
 import { Row } from 'reactstrap';
 import FileSearching from "../../../../assets/images/file-searching.svg"
 import classes from "./Error.module.css"

@@ -10,7 +10,7 @@ import GlobalContext from '../../../../../../Context/GlobalContext';
 import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
 import DataTable from '../../../../../../Components/Table/DataTable';
 import { toast } from 'react-toastify';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';

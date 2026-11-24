@@ -4,35 +4,19 @@ import '@testing-library/jest-dom';
 import MarkdownEditor from '../../Components/MarkdownEditor/MarkdownEditor';
 import GlobalContext from '../../Context/GlobalContext';
 
-// Mock ReactMde
-jest.mock('react-mde', () => {
-  return function DummyMde({ value, onChange, selectedTab, onTabChange }) {
-    return (
-      <div data-testid="react-mde">
-        <textarea
-          data-testid="mde-textarea"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-        />
-        <button onClick={() => onTabChange('write')}>Write</button>
-        <button onClick={() => onTabChange('preview')}>Preview</button>
-      </div>
-    );
-  };
-});
-
-// Mock Showdown
-jest.mock('showdown', () => ({
-  Converter: jest.fn().mockImplementation(() => ({
-    makeHtml: jest.fn((md) => `<p>${md}</p>`),
-  })),
-}));
+jest.mock('../../Components/Markdown/Markdown', () => ({ children }) => (
+  <div data-testid="markdown-preview-content">{children}</div>
+));
 
 describe('MarkdownEditor', () => {
   const mockProps = {
     value: 'Initial markdown',
     onChange: jest.fn(),
   };
+
+  beforeEach(() => {
+    mockProps.onChange.mockClear();
+  });
 
   const renderComponent = (contextValue = { mode: 'light' }, props = mockProps) => {
     return render(
@@ -42,14 +26,14 @@ describe('MarkdownEditor', () => {
     );
   };
 
-  test('renders ReactMde component', () => {
+  test('renders the editor', () => {
     renderComponent();
-    expect(screen.getByTestId('react-mde')).toBeInTheDocument();
+    expect(screen.getByTestId('markdown-editor')).toBeInTheDocument();
   });
 
-  test('passes value and onChange props to ReactMde', () => {
+  test('passes value and onChange props to the textarea', () => {
     renderComponent();
-    const textarea = screen.getByTestId('mde-textarea');
+    const textarea = screen.getByTestId('markdown-editor-textarea');
     expect(textarea).toHaveValue('Initial markdown');
 
     fireEvent.change(textarea, { target: { value: 'New markdown' } });
@@ -58,16 +42,26 @@ describe('MarkdownEditor', () => {
 
   test('does not apply dark mode class when context mode is light', () => {
     renderComponent({ mode: 'light' });
-    // eslint-disable-next-line testing-library/no-node-access
-    const editorContainer = screen.getByTestId('react-mde').closest('div');
-    expect(editorContainer).not.toHaveClass('dark-mode');
+    expect(screen.getByTestId('markdown-editor')).not.toHaveClass('dark-mode');
   });
 
-  test('changes selected tab', () => {
+  test('applies dark mode class when context mode is dark', () => {
+    renderComponent({ mode: 'dark' });
+    expect(screen.getByTestId('markdown-editor')).toHaveClass('dark-mode');
+  });
+
+  test('switches to the preview tab', () => {
     renderComponent();
     fireEvent.click(screen.getByText('Preview'));
-    // In a real scenario, we would expect the selected tab to change.
-    // However, since we're using a mock, we can't directly test this.
-    // In a more comprehensive test, you might want to check if onTabChange was called with 'preview'.
+    expect(screen.getByTestId('markdown-preview-content')).toHaveTextContent('Initial markdown');
+    expect(screen.queryByTestId('markdown-editor-textarea')).not.toBeInTheDocument();
+  });
+
+  test('toolbar wraps the selection with markdown syntax', () => {
+    renderComponent();
+    const textarea = screen.getByTestId('markdown-editor-textarea');
+    textarea.setSelectionRange(0, 7);
+    fireEvent.click(screen.getByLabelText('Bold'));
+    expect(mockProps.onChange).toHaveBeenCalledWith('**Initial** markdown');
   });
 });

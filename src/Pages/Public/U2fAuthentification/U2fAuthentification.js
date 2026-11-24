@@ -1,15 +1,13 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import classes from '../public.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 import { Row, Col, Spinner } from "reactstrap";
 import BackGroundImage from "../../../assets/images/background.png"
-import Translate from "react-translate-component";
+import Translate from "../../../Components/Translate/Translate";
 import axios from 'axios'
 import { toast } from "react-toastify";
 import GlobalContext from "../../../Context/GlobalContext";
 import logoimage from '../../../utils/logo';
-import * as queryString from 'query-string';
 import LoadingButton from "../../../Components/LoadingButton/LoadingButton";
 import LocalStorageService from "../../../utils/localStorageService";
 const apiHost = process.env.REACT_APP_APIURL;
@@ -28,7 +26,7 @@ function U2fAuthentification() {
 
     useEffect(() => {
         setLoading(false)
-        const parsedQuery = queryString.parse(location.search);
+        const parsedQuery = Object.fromEntries(new URLSearchParams(location.search));
         if (parsedQuery.app === 'true')
             setAllowAuthApp(true)
     }, [location])
@@ -111,7 +109,7 @@ function U2fAuthentification() {
                                     </Col>}
                             </Col>
                             {allowAuthApp && <Col style={{ padding: "0" }}>
-                                <LoadingButton style={{ width: '100%' }} className={classes.buttonStyle} onClick={() => navigate(`/2fa-authentification/${token}`)}>
+                                <LoadingButton icon="fa-solid fa-mobile-screen" style={{ width: '100%' }} className={classes.buttonStyle} onClick={() => navigate(`/2fa-authentification/${token}`)}>
                                     <Translate content="setup2fa.withapp" style={{color: 'white'}}/>
                                 </LoadingButton>
                             </Col>}

@@ -1,5 +1,5 @@
 import { Autocomplete } from "@mui/material";
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 import { Form, FormFeedback, FormGroup, FormText } from "reactstrap";
 
 const SuggestionsAutoComplete = ({ id, onChange, options, renderInput, feedbackMessage, hint, length, value, defaultValue }) => {

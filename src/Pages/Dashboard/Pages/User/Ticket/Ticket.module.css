@@ -1,5 +1,5 @@
 .iconProcessStyle {
-    color: #0861AF;
+    color: #0a6eb4;
     font-size: 50px;
 }
 
@@ -23,7 +23,7 @@
 .colInlineValue {
     letter-spacing: 0.1px;
     font-weight: 400;
-    color: #4A4F62;
+    color: #334155;
     margin: 0 0 0 8px;
     font-size: 16px;
     line-height: 24px;
@@ -32,7 +32,7 @@
 .colInlineValueSpec {
     letter-spacing: 0.1px;
     font-weight: 400;
-    color: #4A4F62;
+    color: #334155;
     margin: 0;
     font-size: 16px;
     line-height: 24px;
@@ -61,4 +61,26 @@
     margin: 0;
     font-size: 16px;
     line-height: 24px;
+}
+
+/* Bottom-docked reply box: a compact editor so the thread keeps the screen. */
+.replyDock :global(.markdown-editor-textarea),
+.replyDock :global(.markdown-editor-preview) {
+    min-height: 90px;
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+.replyActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.replyActions :global(.MuiSelect-select) {
+    padding-top: 6px;
+    padding-bottom: 6px;
 }

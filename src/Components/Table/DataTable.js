@@ -27,7 +27,7 @@ const DataTable = (props) => {
                                 props.emptyMessage || counterpart('common.table.emptyRowsMessage')
                             }</h5>
                             {(!props.noCreate && props.createMessage) && <div style={{ zIndex: '999', marginTop: '10px' }}>
-                                <LoadingButton
+                                <LoadingButton icon="fa-solid fa-plus"
                                     onClick={() => props.createUrl ? navigate(props.createUrl) : props.onCreate()}
                                     style={{ fontSize: '13px', textTransform: 'none', whiteSpace: 'nowrap', width: 'auto' }}>
                                     {props.createMessage}

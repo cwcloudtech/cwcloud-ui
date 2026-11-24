@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useContext, useEffect, useState } from 'react';
 import { NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import { Col, Container, Row, Spinner } from "reactstrap";
 import axios from "../../../../../../src/utils/axios";
 import DragDropList from '../../../../../Components/DragDropList/DragDropList';
@@ -172,7 +172,7 @@ function EnvironmentOverview(props) {
                     </Row>
                     <Row>
                         <Col style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-                            <LoadingButton loading={loadingExport} onClick={exportEnvironmentHandler}>Export</LoadingButton>
+                            <LoadingButton icon="fa-solid fa-file-export" loading={loadingExport} onClick={exportEnvironmentHandler}>Export</LoadingButton>
                         </Col>
                     </Row>
                     <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
@@ -276,7 +276,7 @@ function EnvironmentOverview(props) {
                     </Row>
                     <Row>
                         <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "20px" }}>
-                            <Button onClick={handleClickButton} style={{ width: "250px", height: "50px" }} variant="outlined"
+                            <Button onClick={handleClickButton} variant="outlined"
                                 size="large">
                                 {loadingSubmit ? <Spinner size="sm" style={{ marginRight: "8px" }} />
                                     : <i className="fa-solid fa-floppy-disk" style={{ marginRight: "8px" }}></i>}

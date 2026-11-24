@@ -1,6 +1,34 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useScrollHeight } from 'react-collapsible-content';
+
+// Measures the content height and forwards max-height transition events.
+const useScrollHeight = (ref, { onTransitionStart, onTransitionEnd } = {}) => {
+    const [scrollHeight, setScrollHeight] = useState(0);
+
+    useEffect(() => {
+        const element = ref.current;
+        if (!element) return undefined;
+        const update = () => setScrollHeight(element.scrollHeight);
+        update();
+        const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(update) : null;
+        observer?.observe(element);
+        const handleStart = (e) => e.propertyName === 'max-height' && onTransitionStart?.(e);
+        const handleEnd = (e) => {
+            if (e.propertyName !== 'max-height') return;
+            update();
+            onTransitionEnd?.(e);
+        };
+        element.addEventListener('transitionstart', handleStart);
+        element.addEventListener('transitionend', handleEnd);
+        return () => {
+            observer?.disconnect();
+            element.removeEventListener('transitionstart', handleStart);
+            element.removeEventListener('transitionend', handleEnd);
+        };
+    }, [ref, onTransitionStart, onTransitionEnd]);
+
+    return { scrollHeight };
+};
 
 const STATUS = {
     COLLAPSED: 'COLLAPSED',
@@ -13,8 +41,8 @@ function CollapsibleContent({
     children,
     expanded,
     style,
-    transitionDuration,
-    transitionTimingFunction,
+    transitionDuration = '.425s',
+    transitionTimingFunction = 'ease-in-out',
     onTransitionStart,
     onTransitionEnd,
     ...others
@@ -86,11 +114,6 @@ CollapsibleContent.propTypes = {
     style: PropTypes.object,
     transitionDuration: PropTypes.string,
     transitionTimingFunction: PropTypes.string
-};
-
-CollapsibleContent.defaultProps = {
-    transitionDuration: '.425s',
-    transitionTimingFunction: 'ease-in-out'
 };
 
 export default CollapsibleContent;

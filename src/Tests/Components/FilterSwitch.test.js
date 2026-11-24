@@ -5,7 +5,7 @@ import FilterSwitch from '../../Components/FilterSwitch';
 import GlobalContext from '../../Context/GlobalContext';
 
 // Mock the Translate component
-jest.mock('react-translate-component', () => {
+jest.mock('../../Components/Translate/Translate', () => {
   return function DummyTranslate({ content }) {
     return <span>{content}</span>;
   };

@@ -12,7 +12,7 @@ import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import CustomDeleteIcon from '../../../../../Components/CustomIcon/CustomDeleteIcon';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import formateDate from '../../../../../utils/FormateDate';
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import AddIcon from '@mui/icons-material/Add';

@@ -1,5 +1,5 @@
 import * as React from "react";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import axiosInstance from "../../../../../../../../../utils/axios";
 
 function useFormYaml(props) {

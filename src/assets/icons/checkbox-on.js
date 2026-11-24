@@ -8,7 +8,7 @@ const IconCheckboxOn = (props) => (
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <circle cx="10" cy="10" r="10" fill="#0861AF" />
+        <circle cx="10" cy="10" r="10" fill="#0a6eb4" />
         <path
             d="M5 11L7.92929 13.9293C7.96834 13.9683 8.03166 13.9683 8.07071 13.9293L15 7"
             stroke="white"

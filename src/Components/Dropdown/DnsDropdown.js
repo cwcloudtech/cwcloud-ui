@@ -1,54 +1,33 @@
-import { MenuItem, Select } from '@material-ui/core';
-import InputBase from '@material-ui/core/InputBase';
-import { withStyles } from '@material-ui/core/styles';
-import { useContext } from "react";
-import colors from "../../Context/Colors";
-import GlobalContext from "../../Context/GlobalContext";
+import Dropdown, { DropdownItem } from "../Common/Dropdown";
+import styles from "./NavbarSelect.module.css";
 
-const BootstrapInput = withStyles((theme) => ({
-    root: {
-        'label + &': {
-            marginTop: theme.spacing(3),
-        },
-    },
-    input: {
-        borderRadius: 4,
-        position: 'relative',
-        fontSize: 13,
-        fontWeight: 800,
-        padding: '10px 26px 10px 12px',
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ]
-    },
-}))(InputBase);
-
-const DnsDropdown = ({ labelId, id, value, onChange, itemsList, classes, withImage, disabled}) => {
-    const context = useContext(GlobalContext);
-    const _mode = context.mode;
-    return (
-        <Select
-            labelid={labelId}
-            id={id}
-            value={value}
-            style={{ marginLeft: '10px', marginRight: '10px', background: colors.secondBackground[_mode] + ' !important'}}
-            onChange={onChange}
-            input={<BootstrapInput />}>
-            {itemsList?.map((item, index) => (
-                <MenuItem value={item} key={index} style={{background: colors.secondBackground[_mode]}}>
-                    {item}
-                </MenuItem>
-            ))}
-        </Select>
-    );
-}
+// DNS provider picker of the navbar, same look as SelectDropdown.
+const DnsDropdown = ({ id, value, onChange, itemsList = [], disabled }) => (
+  <Dropdown
+    className={styles.select}
+    triggerClassName={styles.trigger}
+    disabled={disabled}
+    trigger={
+      <span id={id} className={styles.triggerContent}>
+        <span className={styles.value}>{value}</span>
+      </span>
+    }
+  >
+    {(close) =>
+      itemsList.map((item) => (
+        <DropdownItem
+          key={item}
+          active={item === value}
+          onClick={() => {
+            onChange({ target: { value: item } });
+            close();
+          }}
+        >
+          {item}
+        </DropdownItem>
+      ))
+    }
+  </Dropdown>
+);
 
 export default DnsDropdown;

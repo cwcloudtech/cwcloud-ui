@@ -1,12 +1,11 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from '../public.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 import { Row, Col, Input, Form, FormGroup, Label } from "reactstrap";
 import BackGroundImage from "../../../assets/images/background.png"
-import Translate from "react-translate-component";
+import Translate from "../../../Components/Translate/Translate";
 import LoadingButton from "../../../Components/LoadingButton/LoadingButton";
-import QRCode from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react';
 import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 import { toast } from "react-toastify";
 import axios from "../../../utils/axios";
@@ -91,7 +90,7 @@ function SetMultiFactor() {
                                     <Translate content="setup2fa.scan" />
                                 </h4>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-                                    <QRCode size={200} value={`${otpUri}`} renderAs="canvas" />
+                                    <QRCodeCanvas size={200} value={`${otpUri}`} />
                                 </div>
                             </Col>
                             <Col style={{ padding: "0" }}>

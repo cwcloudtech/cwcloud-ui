@@ -29,8 +29,8 @@ const ChatMessage = ({ text }) => {
   }, [isTyping, text, typedText]);
 
   const messageStyle = {
-    backgroundColor: _mode === "dark" ? '#37404a' : '#ecf5fe',
-    color: _mode === "dark" ? 'white' : '#2775ba',
+    backgroundColor: _mode === "dark" ? '#141d2e' : '#f0f9ff',
+    color: _mode === "dark" ? 'white' : '#0a6eb4',
     borderRadius: '5px',
     padding: '15px',
     marginBottom: '5px',

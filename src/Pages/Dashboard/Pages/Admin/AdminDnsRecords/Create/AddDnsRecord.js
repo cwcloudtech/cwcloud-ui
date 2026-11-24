@@ -1,7 +1,7 @@
 import { OutlinedInput, Stack } from "@mui/material";
 import { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import {
   Col,
   Form,

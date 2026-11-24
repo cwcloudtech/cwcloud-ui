@@ -6,7 +6,7 @@ import { customizeBlocks } from './customBlocks';
 import { customizePythonGenerator } from './customPyBlocks';
 import { Tooltip } from '@mui/material';
 import FullscreenOutlinedIcon from '@mui/icons-material/FullscreenOutlined';
-import Translate from 'react-translate-component';
+import Translate from '../Translate/Translate';
 import GlobalContext from '../../Context/GlobalContext';
 import { toast } from 'react-toastify';
 
@@ -158,7 +158,7 @@ function BlocklyWorkspace(props) {
     <div>
       <div>
         {!props.showBlocklyFullScreen &&
-          <div style={{ background: _mode === "dark" ? "#2C3139" : "#0861AF", padding: "10px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", borderTopLeftRadius: "10px", borderTopRightRadius: "10px"  }}>
+          <div style={{ background: _mode === "dark" ? "#111a2b" : "#0a6eb4", padding: "10px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", borderTopLeftRadius: "10px", borderTopRightRadius: "10px"  }}>
             <div><Translate content="dashboard.function.inputs.blockly.title" /></div>
             <Tooltip title={context.counterpart('common.button.goFullScreen')}>
                 <FullscreenOutlinedIcon className='fullscreenbtn' onClick={props.handleFullScreen} style={{ height: "30px" }} />
@@ -248,7 +248,7 @@ function BlocklyWorkspace(props) {
           <block type="set_object_value"></block>
           <block type="get_object_value"></block>
         </category>
-        <category name="FaaS" colour="#0860AF">
+        <category name="FaaS" colour="#0a6eb4">
           <block type="call_serverless_function"></block>
           <block type="set_argument"></block>
           <block type="get_argument"></block>

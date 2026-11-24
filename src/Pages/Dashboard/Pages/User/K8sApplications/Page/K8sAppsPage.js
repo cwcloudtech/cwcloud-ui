@@ -7,7 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import { toast } from 'react-toastify';
 import DataTable from "../../../../../../Components/Table/DataTable";
@@ -43,7 +43,7 @@ function K8sAppsPage(props) {
       headerName: counterpart("dashboard.kubernetesDashboardPages.deployedApplications.explore.table.name"),
       flex: 2,
       renderCell: (params) => (
-        <Link to={`app/${params.row.id}`}>{params.row.name}</Link>
+        <Link to={`/k8s-applications/app/${params.row.id}`}>{params.row.name}</Link>
       ),
     },
     {

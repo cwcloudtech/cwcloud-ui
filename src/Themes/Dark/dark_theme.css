@@ -1,27 +1,27 @@
 body {
-    background-color: #31373d !important;
+    background-color: #0b1220 !important;
 }
 
 .dropdown-item:hover {
-    background-color: #41474d !important;
+    background-color: #1b2538 !important;
 }
 
 .btn-info,
 .MuiFab-root,
 .MuiButton-containedPrimary,
 .css-113qkos-MuiSwitch-root .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track {
-    background-color: #4ea8f7 !important;
+    background-color: #38bdf8 !important;
 }
 
 .MuiButton-textPrimary,
 .MuiButton-outlinedPrimary,
 a {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 /* Active tab style */
 .MuiTabs-flexContainer .MuiTab-root.Mui-selected {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 /* Inactive tab style */
@@ -36,7 +36,7 @@ a {
 }
 
 .MuiSvgIcon-root:hover {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
     transition: color 0.15s ease-in-out;
 }
 
@@ -73,11 +73,11 @@ a {
 }
 
 .sendBtn {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 .sendBtn:hover {
-    color: #6eb4f7 !important;
+    color: #7dd3fc !important;
 }
 
 .scheduleBtn {
@@ -89,19 +89,19 @@ a {
 }
 
 .downloadBtn {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 .downloadBtn:hover {
-    color: #6eb4f7 !important;
+    color: #7dd3fc !important;
 }
 
 .viewBtn {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 .viewBtn:hover {
-    color: #6eb4f7 !important;
+    color: #7dd3fc !important;
 }
 
 .pairBtn {
@@ -122,7 +122,7 @@ a {
 .MuiDataGrid-columnSeparator,
 .MuiDataGrid-columnSeparator>.MuiSvgIcon-root,
 .MuiDataGrid-columnSeparator>.MuiSvgIcon-root:hover {
-    color: #aab8c5 !important;
+    color: #94a3b8 !important;
 }
 
 .Mui-disabled,
@@ -136,19 +136,19 @@ a {
 .MuiDataGrid-cell,
 .MuiDataGrid-columnHeaders,
 .css-1nitb7c {
-    border-bottom: 1px solid #51575d !important;
+    border-bottom: 1px solid #2a3750 !important;
 }
 
 .MuiDataGrid-footerContainer,
 .css-1yy0dv2 {
-    border-top: 1px solid #51575d !important;
+    border-top: 1px solid #2a3750 !important;
 }
 
 .form-text,
 .invalid-feedback,
 .MuiTablePagination-toolbar,
 .css-8nphli {
-    color: #aab8c5 !important;
+    color: #94a3b8 !important;
 }
 
 .CustomDeleteIcon_deleteIcon__KT7k5 {
@@ -156,18 +156,18 @@ a {
 }
 
 .DataTable_selectionDeleteContainer__LvaIB {
-    background-color: #37404a !important;
+    background-color: #141d2e !important;
     color: white !important;
     box-shadow: none !important;
     border-radius: 3px !important;
-    border: 1px solid #41474d !important;
+    border: 1px solid #1b2538 !important;
 }
 
 .blackableInput {
     transition: border 0.2s ease-in-out, outline 0.2s ease-in-out;
     color: #bbd6e0 !important;
-    background-color: #47505a !important;
-    border: 1px solid #51575d !important;
+    background-color: #2a3750 !important;
+    border: 1px solid #2a3750 !important;
 }
 
 .blackableInput::placeholder {
@@ -177,19 +177,19 @@ a {
 .blackableInput:active,
 .blackableInput:focus {
     transition: border 0.2s ease-in-out, outline 0.2s ease-in-out;
-    border: 1px solid #4ea8f7 !important;
-    outline: 1px solid #4ea8f7 !important;
+    border: 1px solid #38bdf8 !important;
+    outline: 1px solid #38bdf8 !important;
     box-shadow: none !important;
 }
 
 .miniContainer:hover {
-    border-color: #4ea8f7 !important;
-    color: #4ea8f7 !important;
+    border-color: #38bdf8 !important;
+    color: #38bdf8 !important;
 }
 
 .miniContainerChecked {
-    background-color: #4ea8f7 !important;
-    border: 1px solid #4ea8f7 !important;
+    background-color: #38bdf8 !important;
+    border: 1px solid #38bdf8 !important;
 }
 
 .MuiSelect-select,
@@ -197,7 +197,7 @@ a {
 .MuiInputBase-input,
 .MuiOutlinedInput-input,
 .css-qiwgdb {
-    color: #aab8c5 !important;
+    color: #94a3b8 !important;
 }
 
 fieldset,
@@ -209,13 +209,13 @@ fieldset,
 .MuiInputBase-root>*>.css-igs3ac,
 .MuiFormControl-root>*>.MuiOutlinedInput-notchedOutline,
 .MuiFormControl-root>*>.css-igs3ac {
-    border: 1px solid #aab8c5 !important;
+    border: 1px solid #94a3b8 !important;
 }
 
 .MuiFormControl-root>label,
 .css-1mzc8>label,
 .css-u9osun {
-    color: #aab8c5 !important;
+    color: #94a3b8 !important;
 }
 
 .css-1v4ccyo:hover>*>.MuiOutlinedInput-notchedOutline,
@@ -251,7 +251,7 @@ fieldset,
 .MuiFormControl-root:active>*>.css-igs3ac,
 .MuiFormControl-root:focus>*>.MuiOutlinedInput-notchedOutline,
 .MuiFormControl-root:focus>*>.css-igs3ac {
-    border: 1px solid #4ea8f7 !important;
+    border: 1px solid #38bdf8 !important;
 }
 
 .MuiFormControl-root:focus>label,
@@ -259,7 +259,7 @@ fieldset,
 .MuiFormControl-root:active>label,
 .css-1mzc8:active>label,
 .css-u9osun.Mui-focused {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 .MuiInput-underline:before,
@@ -267,7 +267,7 @@ fieldset,
 .css-1vv4lmi::before,
 .css-1yf1g2m::before {
     transition: border 0.1s ease-in-out;
-    border-bottom: 1px solid #aab8c5 !important;
+    border-bottom: 1px solid #94a3b8 !important;
 }
 
 .MuiInput-underline:hover:before,
@@ -287,13 +287,13 @@ fieldset,
 .css-1vv4lmi:active::before,
 .css-1yf1g2m:active::before {
     transition: border 0.15s ease-in-out;
-    border-bottom: 2px solid #4ea8f7 !important;
+    border-bottom: 2px solid #38bdf8 !important;
 }
 
 ::placeholder,
 ::-ms-input-placeholder,
 :-ms-input-placeholder {
-    color: #aab8c5 !important;
+    color: #94a3b8 !important;
     outline: none !important;
 }
 
@@ -305,20 +305,20 @@ fieldset,
 
 .MuiFormHelperText-root,
 .css-v7esy {
-    color: #aab8c5 !important;
+    color: #94a3b8 !important;
 }
 
 .modal-content {
-    background-color: #37404a !important;
+    background-color: #141d2e !important;
     color: white !important;
 }
 
 .modal-header {
-    border-bottom: 1px solid #51575d;
+    border-bottom: 1px solid #2a3750;
 }
 
 .modal-footer {
-    border-top: 1px solid #51575d;
+    border-top: 1px solid #2a3750;
 }
 
 .btn-close {
@@ -327,8 +327,8 @@ fieldset,
 
 .MuiPaper-root,
 .MuiDrawer-paper {
-    background-color: #37404a !important;
-    color: #aab8c5 !important;
+    background-color: #141d2e !important;
+    color: #94a3b8 !important;
 }
 
 .css-hpjz40,
@@ -359,12 +359,12 @@ fieldset,
 }
 
 .css-ub1r1 {
-    background-color: #37404a !important;
+    background-color: #141d2e !important;
     color: white !important;
 }
 
 .css-ub1r1:hover {
-    border: 1px solid #4ea8f7 !important;
+    border: 1px solid #38bdf8 !important;
 }
 
 .orangeBtn,
@@ -409,7 +409,7 @@ fieldset,
 }
 
 .blueBtn {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 .orangeBtn:hover,
@@ -427,7 +427,7 @@ fieldset,
 .blueBtn:hover,
 .blueBtn:active,
 .blueBtn:focus{
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 .orangeBtn:active,
@@ -449,7 +449,7 @@ fieldset,
 }
 
 .gadientIcon {
-    background-color: #4ea8f7 !important;
+    background-color: #38bdf8 !important;
     background-image: linear-gradient(48deg, rgba(227, 145, 79, 1) 0%, rgba(78, 168, 247, 1) 100%) !important;
     background-size: 100% !important;
     background-clip: text !important;
@@ -461,20 +461,20 @@ fieldset,
 }
 
 .blueIcon {
-    color: #4ea8f7 !important;
+    color: #38bdf8 !important;
 }
 
 .greyText {
-    color: #aab8c5 !important;
+    color: #94a3b8 !important;
 }
 
 .bm-menu {
-    background-color: #31373d !important;
+    background-color: #0b1220 !important;
 }
 
 @media screen and (max-width: 1080px) {
     .bm-menu {
-        background-color: #37404a !important;
+        background-color: #141d2e !important;
     }
 }
 
@@ -483,7 +483,7 @@ fieldset,
 }
 
 .MuiLinearProgress-bar1Determinate {
-    background-color: #4ea8f7 !important
+    background-color: #38bdf8 !important
 }
 
 .MuiDivider-root {
@@ -491,7 +491,7 @@ fieldset,
 }
 
 .MuiFab {
-    background-color: #4ea8f7 !important;
+    background-color: #38bdf8 !important;
     color: white
 }
 
@@ -499,7 +499,7 @@ fieldset,
     color: #DE4452;
 
     .ql-toolbar.ql-snow {
-        background-color: #31373D;
+        background-color: #0b1220;
     }
 
     .ql-toolbar.ql-snow .ql-picker-label,

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import { Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 import CardComponent from '../../../../../../Components/Cards/CardComponent/CardComponent';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
@@ -109,7 +109,7 @@ function Device() {
                 </Row>
                 <Row>
                     <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "20px" }}>
-                        <LoadingButton icon="fa-solid fa-floppy-disk" loading={loadingSubmit} onClick={handleClickButton} style={{ width: "250px", height: "50px" }} variant="outlined">
+                        <LoadingButton icon="fa-solid fa-floppy-disk" loading={loadingSubmit} onClick={handleClickButton} variant="outlined">
                             <Translate content="common.button.create" />
                         </LoadingButton>
                     </Col>

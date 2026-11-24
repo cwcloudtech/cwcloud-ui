@@ -5,10 +5,10 @@ import GenericTable from '../../Components/Table/GenericTable';
 import GlobalContext from '../../Context/GlobalContext';
 
 // Mock the react-translate-component
-jest.mock('react-translate-component', () => ({ children }) => children);
+jest.mock('../../Components/Translate/Translate', () => ({ children }) => children);
 
 // Mock the material-ui components
-jest.mock('@material-ui/core', () => ({
+jest.mock('@mui/material', () => ({
   Tooltip: ({ children }) => children,
 }));
 

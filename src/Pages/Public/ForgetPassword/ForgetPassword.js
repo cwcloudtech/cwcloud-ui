@@ -2,11 +2,10 @@ import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "../../../utils/axios";
 import classes from '../public.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 import { Row, Col, Input, Form, FormGroup, Label, FormFeedback } from "reactstrap";
 import BackGroundImage from "../../../assets/images/background.png"
 import GlobalContext from '../../../Context/GlobalContext';
-import Translate from "react-translate-component";
+import Translate from "../../../Components/Translate/Translate";
 import LoadingButton from "../../../Components/LoadingButton/LoadingButton";
 import logoimage from "../../../utils/logo";
 import { toast } from "react-toastify";
@@ -92,7 +91,7 @@ function ForgetPassword() {
                             <Col style={{ display: 'flex', justifyContent: "center", alignItems: "end" }}>
                                 <h4 style={{ color: "rgb(130,130,130)", fontSize: '14px', textAlign: "center" }}>
                                     <NavLink to="/" style={{ textDecoration: "none" }}>
-                                        <Translate content="login.goBackToLogin" style={{color: '#0861AF'}}/>
+                                        <Translate content="login.goBackToLogin" style={{color: '#0a6eb4'}}/>
                                     </NavLink>
                                 </h4>
                             </Col>

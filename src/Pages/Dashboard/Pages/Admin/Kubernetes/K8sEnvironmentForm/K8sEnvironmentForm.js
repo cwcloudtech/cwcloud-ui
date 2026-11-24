@@ -1,8 +1,8 @@
-import { FormControlLabel } from "@material-ui/core";
+import { FormControlLabel } from "@mui/material";
 import { useContext, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import {
   Col,
   Form,
@@ -117,7 +117,7 @@ function K8sEnvironmentForm(props) {
         </Col>
         {envId && (
           <Col xs="2" style={{ display: "flex", justifyContent: "flex-end" }}>
-            <LoadingButton
+            <LoadingButton icon="fa-solid fa-file-export"
               loading={loadingExport}
               onClick={exportEnvironmentHandler}
             >

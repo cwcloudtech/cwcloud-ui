@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import GlobalContext from "../../../../../../Context/GlobalContext";
 import Skeleton from "react-loading-skeleton";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import colors from "../../../../../../Context/Colors";
 import { Chip } from "@mui/material";
 import DataTable from "../../../../../../Components/Table/DataTable";
@@ -114,7 +114,7 @@ function K8sAppOverview() {
               label={"Success"}
               className={classes.success}
               style={{
-                backgroundColor: "#4ea8f7",
+                backgroundColor: "#38bdf8",
                 color: "#242424",
               }}
               variant="outlined"

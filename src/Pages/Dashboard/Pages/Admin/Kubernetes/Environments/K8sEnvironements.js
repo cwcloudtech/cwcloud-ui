@@ -7,7 +7,7 @@ import GlobalContext from "../../../../../../Context/GlobalContext";
 import formateDate from "../../../../../../utils/FormateDate";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import { Fab, InputAdornment, TextField } from "@mui/material";
 import Fade from "@mui/material/Fade";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";

@@ -10,7 +10,7 @@ import cloudResourceName from '../../../../../utils/cloudResourceName';
 import { toast } from 'react-toastify';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import Skeleton from 'react-loading-skeleton';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 import TransferBucketModal from '../../../../../Components/Modal/TransferModals/TransferBucketModal';
@@ -415,7 +415,7 @@ function BucketOverview() {
                         {(!loading && (bucket.access_key || bucket.secret_key)) && <Col xs="12" md="2" className="row"
                             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <LoadingButton
+                                <LoadingButton icon="fa-solid fa-key"
                                     loading={loadingUpdate}
                                     color="warning"
                                     onClick={updateBucketCredentialsHandler}

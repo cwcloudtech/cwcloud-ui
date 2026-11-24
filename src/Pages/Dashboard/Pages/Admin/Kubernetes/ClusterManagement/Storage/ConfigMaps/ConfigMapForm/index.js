@@ -5,7 +5,7 @@ import classes from "../../form.module.css";
 import { NavLink, useNavigate } from "react-router-dom"
 import GlobalContext from "../../../../../../../../../Context/GlobalContext";
 import { Container } from 'reactstrap';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../../../../Components/Translate/Translate';
 import LoadingButton from "../../../../../../../../../Components/LoadingButton/LoadingButton";
 import { useParams } from "react-router-dom";
 import Tabs from '@mui/material/Tabs';

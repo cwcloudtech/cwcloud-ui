@@ -1,44 +1,28 @@
 import React, { useContext } from 'react';
 import GlobalContext from '../../Context/GlobalContext';
-import { Col, Row } from 'reactstrap';
-import ReactMarkdown from 'react-markdown';
+import colors from '../../Context/Colors';
+import Markdown from '../Markdown/Markdown';
 
 const TicketDescription = (props) => {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
-    const messageEntered = {
-        backgroundColor: _mode === "dark" ? '#2c3139' : '#dae8f7',
-        color: _mode === "dark" ? 'white' : '#2775ba',
-        borderRadius: '15px',
-        padding: '15px',
-        marginBottom: '5px',
-        maxWidth: '100%',
-        fontSize: '20px',
-        wordWrap: 'break-word',
-        overflowWrap: 'break-word'
+    const card = {
+        backgroundColor: colors.secondBackground[_mode],
+        color: colors.mainText[_mode],
+        border: `1px solid ${colors.border[_mode]}`,
+        borderLeft: `4px solid ${colors.blue[_mode]}`,
+        borderRadius: '10px',
+        padding: '16px 20px',
+        margin: '16px 0',
+        boxShadow: colors.shadow[_mode],
+        textAlign: 'left',
+        minWidth: 0,
     };
 
-    const message = {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'row-reverse',
-    }
     return (
-        <Row style={{marginTop: '10px', marginBottom: '10px' }}>
-            <Col md="12">
-                <div style={message}>
-                    <div style={messageEntered} className='container-fluid'>
-                        <Row style={{ paddingRight: "10px", paddingLeft: "20px" }}>
-                            <Col md="12">
-                                <p className='text-center' style={{ fontSize: "20px" }}>
-                                    <ReactMarkdown>{props.reply.message}</ReactMarkdown>
-                                </p>
-                            </Col>
-                        </Row>
-                    </div>
-                </div>
-            </Col>
-        </Row>
+        <div style={card}>
+            <Markdown>{props.reply.message}</Markdown>
+        </div>
     )
 }
 

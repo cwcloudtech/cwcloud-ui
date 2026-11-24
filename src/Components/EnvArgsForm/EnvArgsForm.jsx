@@ -9,7 +9,7 @@ import { useContext} from "react";
 import CardComponent from "../Cards/CardComponent/CardComponent";
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 
 function EnvArgsForm({ title, subtitle, args, argsValues, setArgsValues, isInvalid }) {
   const context = useContext(GlobalContext);

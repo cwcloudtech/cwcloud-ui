@@ -13,6 +13,7 @@ const ThemeSelector = ({ children }) => {
     const system_mode = checkMode.matches ? 'light' : 'dark'
     const local_storage_mode = localStorage.getItem('modeCWCloud')
     const _mode = local_storage_mode == null ? system_mode : local_storage_mode;
+    document.documentElement.setAttribute('data-theme', _mode);
     return (
       <>
         <React.Suspense fallback={<></>}>

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import Box from '@material-ui/core/Box';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -19,10 +19,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormLabel from '@mui/material/FormLabel';
 import LoadingButton from '../../../../../../../Components/LoadingButton/LoadingButton';
-import { Button, Switch } from '@material-ui/core';
+import { Button, Switch } from '@mui/material';
 import GlobalContext from '../../../../../../../Context/GlobalContext';
 import colors from '../../../../../../../Context/Colors';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../../Components/Translate/Translate';
 import axios from '../../../../../../../utils/axios';
 
 function Drawer(props) {

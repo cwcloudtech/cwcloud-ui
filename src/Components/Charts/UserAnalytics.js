@@ -15,7 +15,7 @@ import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 import classes from './Chart.module.css';
 import GlobalContext from '../../Context/GlobalContext';
 import colors from '../../Context/Colors';
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 
 ChartJS.register(
     CategoryScale,

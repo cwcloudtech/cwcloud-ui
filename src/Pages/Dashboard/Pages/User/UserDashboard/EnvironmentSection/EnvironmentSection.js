@@ -1,7 +1,7 @@
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import { Col, Row } from "reactstrap";
 import colors from "../../../../.../../../../Context/Colors";
 import GlobalContext from "../../../../.../../../../Context/GlobalContext";

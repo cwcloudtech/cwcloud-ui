@@ -14,7 +14,7 @@ import GlobalContext from '../../../../../Context/GlobalContext';
 import PowerModal from '../../../../../Components/Modal/ActionModals/PowerModal';
 import RebootModal from '../../../../../Components/Modal/ActionModals/RebootModal';
 import Skeleton from 'react-loading-skeleton';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import colors from '../../../../../Context/Colors';
 import PowerSettingsNewOutlinedIcon from '@mui/icons-material/PowerSettingsNewOutlined';
 import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';

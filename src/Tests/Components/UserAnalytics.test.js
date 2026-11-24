@@ -25,7 +25,7 @@ jest.mock('react-chartjs-2', () => ({
 }));
 
 // Mock translations
-jest.mock('react-translate-component', () => ({
+jest.mock('../../Components/Translate/Translate', () => ({
   __esModule: true,
   default: ({ content }) => <span>{content}</span>,
 }));

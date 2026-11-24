@@ -15,7 +15,7 @@ import { Fab, OutlinedInput, Stack } from "@mui/material";
 import Fade from "@mui/material/Fade";
 import Tooltip from "@mui/material/Tooltip";
 import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import MiniCardComponent from "../../../../../../Components/Cards/MiniCardComponent/MiniCardComponent";
 import DropdownComponent from "../../../../../../Components/Dropdown/Dropdown";
 import EnvArgsForm from "../../../../../../Components/EnvArgsForm/EnvArgsForm";

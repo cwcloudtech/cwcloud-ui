@@ -43,7 +43,7 @@ function App() {
         <AppContext>
             <ToastContainer />
             <div style={{ position: 'relative', minHeight: '100vh' }}>
-                <BrowserRouter>
+                <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                     <Routes>
                         <Route exact path="/" element={<LoginForm />} />
                         <Route exact path="/signup" element={<SignUpForm />} />

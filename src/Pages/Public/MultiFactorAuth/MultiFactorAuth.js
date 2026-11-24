@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import classes from '../public.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 import cwcloudLogo from '../../../assets/images/cwcloud-whitemode.png'
 import { Row, Col, Input, Form, FormGroup, Label } from "reactstrap";
 import BackGroundImage from "../../../assets/images/background.png"
@@ -10,7 +9,7 @@ import LocalStorage from '../../../utils/localStorageService';
 import axios from 'axios'
 import { toast } from "react-toastify";
 import counterpart from '../../../utils/counterpart';
-import Translate from "react-translate-component";
+import Translate from "../../../Components/Translate/Translate";
 const apiHost = process.env.REACT_APP_APIURL;
 const apiVersion = process.env.REACT_APP_APIVERSION;
 function MultiFactorAuth() {

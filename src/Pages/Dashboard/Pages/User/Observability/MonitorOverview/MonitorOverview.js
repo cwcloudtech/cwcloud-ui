@@ -1,4 +1,4 @@
-import { FormControlLabel, FormGroup, MenuItem, OutlinedInput, Select, Switch } from '@material-ui/core';
+import { FormControlLabel, FormGroup, MenuItem, OutlinedInput, Select, Switch } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import { useContext, useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import { Col, Container, Input, Row } from "reactstrap";
 import EditorBox from '../../../../../../Components/EditorBox/EditorBox';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
@@ -714,7 +714,7 @@ const MonitorOverview = () => {
                             icon="fa-solid fa-floppy-disk"
                             loading={loadingSubmit}
                             onClick={handleSubmit}
-                            style={{ width: "250px", height: "50px" }}
+                           
                             variant="outlined"
                         >
                             <Translate content="common.button.update" />

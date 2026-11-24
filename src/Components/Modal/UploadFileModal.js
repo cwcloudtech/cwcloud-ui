@@ -92,6 +92,7 @@ const UploadFileModal = (props) => {
                 variant="contained"
                 onClick={() => inputRef.current.click()}
               >
+                <i className="icon fa-solid fa-folder-open"></i>
                 {counterpart("common.button.browseFiles")}
               </Button>
               {props.textIndicator &&

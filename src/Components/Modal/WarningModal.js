@@ -1,6 +1,6 @@
 import React, { useContext} from "react";
 import { useNavigate } from "react-router-dom";
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 import GlobalContext from "../../Context/GlobalContext";
 import colors from "../../Context/Colors";
 import {

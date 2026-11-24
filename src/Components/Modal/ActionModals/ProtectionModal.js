@@ -11,7 +11,7 @@ import {
     Col,
     Input,
 } from "reactstrap";
-import Translate from "react-translate-component";
+import Translate from "../../Translate/Translate";
 import LoadingButton from "../../LoadingButton/LoadingButton";
 
 const ProtectionModal = (props) => {
@@ -53,7 +53,7 @@ const ProtectionModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-shield-halved"
                     disabled={ConfirmationMessage !== props.name}
                     onClick={props.onUpdateInstanceProtection}
                     style={{ width: "100%" }}

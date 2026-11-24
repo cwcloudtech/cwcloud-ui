@@ -9,7 +9,7 @@ import DataTable from '../../../../../Components/Table/DataTable';
 import formateDate from '../../../../../utils/FormateDate';
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import { Link, useLocation } from 'react-router-dom';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import CustomDeleteIcon from '../../../../../Components/CustomIcon/CustomDeleteIcon';
 import { toast } from 'react-toastify';

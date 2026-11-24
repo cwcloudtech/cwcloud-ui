@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap';
 import classes from './ServiceNotAvailable.module.css';
 import '../../common.css';
-import Translate from 'react-translate-component';
+import Translate from '../Translate/Translate';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import GlobalContext from '../../Context/GlobalContext';
 import colors from '../../Context/Colors';
@@ -27,7 +27,7 @@ const ServiceNotAvailable = (props) => {
                     </Row>
                     <Row style={{ marginTop: '20px' }}>
                         <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <LoadingButton variant='outlined' onClick={() => navigate(props.backLink)}>
+                            <LoadingButton icon="fa-solid fa-reply" variant='outlined' onClick={() => navigate(props.backLink)}>
                                 <Translate content="common.button.return" />
                             </LoadingButton>
                         </Col>

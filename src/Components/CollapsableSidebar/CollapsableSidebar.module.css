@@ -1,68 +1,136 @@
+/* cwclock's sidebar (Slidebar.module.css / SidebarNav.module.css) */
 .noScrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .noScrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Existing styles */
-.toggleDrawerIcon {
-    position: relative;
-    display: inline-block;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    overflow: hidden;
+.sidebarCol {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 64px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--cw-surface);
+  border-right: 1px solid var(--cw-border);
+  transition: width var(--cw-transition);
+  flex-shrink: 0;
+  z-index: 1100;
 }
 
-.toggleDrawerIcon i {
-    font-size: 20px;
+.sidebarColExpanded {
+  width: 240px;
 }
 
-.drawerHeaderContent {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-    padding: 0 8px;;
+/* The column scrolls as a whole: never squeeze the logo, the toggle or the
+   links to fit the viewport height. */
+.sidebarCol > * {
+  flex-shrink: 0;
 }
 
-.drawerHeader {
-    position: sticky;
-    top: 0;
-    z-index: 20;
+/* The logo may come from an external URL (REACT_APP_EXTERNAL_LOGO) of any size or
+   ratio: it is bounded to the block and scaled down, never cropped. */
+.logoBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 64px;
+  padding: 12px 12px 4px;
+  overflow: hidden;
 }
 
-.drawerHeaderCustomContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 8px;
+.logo {
+  display: block;
+  max-width: 100%;
+  max-height: 56px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
-.drawerHeaderText {
-    font-weight: 300;
-    font-size: 12px;
-    display: inline-block;
-    margin-top: 10px;
-    text-align: center;
+.logoSmall {
+  display: block;
+  max-width: 36px;
+  max-height: 36px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
-.toggleDrawerIconContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:hover {
-        cursor: pointer;
-    }
-    position: relative;
-    top: 10px;
-    border-radius: 100%;
-    border: 1px solid #aab8c5;
-    height: 45px;
-    width: 45px;
-    padding-top: 3px;
+.logoText {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.72rem;
+  color: var(--cw-text-muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.logoUrl {
+  display: block;
+  font-weight: 700;
+  color: var(--cw-text);
+}
+
+.toggleTooltip {
+  display: flex;
+  padding: 8px;
+}
+
+.sidebarToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  background-color: var(--cw-bg-alt);
+  color: var(--cw-text-muted);
+  border: none;
+  border-radius: var(--cw-radius-sm);
+  cursor: pointer;
+}
+
+.sidebarToggle:hover {
+  background-color: var(--cw-border);
+  color: var(--cw-primary-700);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px 8px;
+  gap: 2px;
+}
+
+/* Admin entries in their own section below the user ones, like uprodit. */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--cw-border);
+}
+
+.sectionTitle {
+  padding: 4px 12px 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cw-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

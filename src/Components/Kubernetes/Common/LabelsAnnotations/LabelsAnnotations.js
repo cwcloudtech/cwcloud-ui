@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Input, Form, FormGroup, Col, Row, Label } from "reactstrap";
 import GlobalContext from "../../../../Context/GlobalContext";
 import colors from "../../../../Context/Colors";
-import Translate from "react-translate-component";
+import Translate from "../../../Translate/Translate";
 import classes from "./LabelsAnnotations.module.css";
 import LoadingButton from "../../../LoadingButton/LoadingButton";
 import MetadataFormContext from "../../../../Context/kubernetes/MetadataFormContext";

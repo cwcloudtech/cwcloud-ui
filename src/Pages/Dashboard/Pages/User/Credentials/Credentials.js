@@ -14,7 +14,7 @@ import filteredListWithoutRemovedElement from "../../../../../utils/filter";
 import AddApiKeyModal from './AddApiKeyModal/AddApiKeyModal';
 import GeneratedApiKeyModal from './GeneratedApiKeyModal/GeneratedApiKeyModal';
 import AddAccessModal from './AddAccessModal/AddAccessModal';
-import Translate from "react-translate-component";
+import Translate from "../../../../../Components/Translate/Translate";
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import Fab from '@mui/material/Fab';

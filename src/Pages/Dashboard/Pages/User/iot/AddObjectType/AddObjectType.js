@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Col, Row, Container, Form, FormGroup, Label, Input, FormFeedback } from "reactstrap";
 // import classes from "./AddObjectType.module.css";
 import '../../../../../../common.css';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -340,7 +340,7 @@ function AddObjectType() {
                 }
                 <Row>
                     <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "20px" }}>
-                        <LoadingButton icon="fa-solid fa-floppy-disk" loading={loadingSubmit} onClick={handleClickButton} style={{ width: "250px", height: "50px" }} variant="outlined">
+                        <LoadingButton icon="fa-solid fa-floppy-disk" loading={loadingSubmit} onClick={handleClickButton} variant="outlined">
                             <Translate content="common.button.create" />
                         </LoadingButton>
                     </Col>

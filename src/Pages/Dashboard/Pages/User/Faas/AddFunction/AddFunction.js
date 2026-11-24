@@ -7,13 +7,13 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import TextField from '@mui/material/TextField';
 import LoadingSpinner from '../../../../../../Components/LoadingSpinner/LoadingSpinner';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import GlobalContext from '../../../../../../Context/GlobalContext';
 import colors from '../../../../../../Context/Colors';
 import LoadingButton from '../../../../../../Components/LoadingButton/LoadingButton';
 import IOSSwitch from '../../../../../../utils/iosswitch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { OutlinedInput, MenuItem, Select } from '@material-ui/core';
+import { OutlinedInput, MenuItem, Select } from '@mui/material';
 import BlocklyWorkspace from '../../../../../../Components/BlocklyWorkspace/BlocklyWorkspace';
 import EditorModal from '../../../../../../Components/Modal/EditorModal';
 import BlocklyModal from '../../../../../../Components/Modal/BlocklyModal';
@@ -550,7 +550,7 @@ function AddFunction() {
                     </Row>
                     <Row>
                         <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "20px" }}>
-                            <LoadingButton icon="fa-solid fa-floppy-disk" loading={loadingSubmit} onClick={handleClickButton} style={{ width: "250px", height: "50px" }} variant="outlined">
+                            <LoadingButton icon="fa-solid fa-floppy-disk" loading={loadingSubmit} onClick={handleClickButton} variant="outlined">
                                 <Translate content="common.button.create" />
                             </LoadingButton>
                         </Col>

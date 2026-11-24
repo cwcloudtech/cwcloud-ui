@@ -8,7 +8,7 @@ import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify";
 import GlobalContext from "../../../../../Context/GlobalContext";
 import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 import colors from "../../../../../Context/Colors";
 import MiniCardComponent from "../../../../../Components/Cards/MiniCardComponent/MiniCardComponent";
@@ -150,7 +150,7 @@ function AttachInstance(props) {
             </CardComponent>
             <Row style={{ marginTop: '20px', marginBottom: '20px' }}  >
                 <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <LoadingButton loading={loading} onClick={attachInstanceHandler} style={{ minWidth: '180px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: "0" }}>
+                    <LoadingButton icon="fa-solid fa-plus" loading={loading} onClick={attachInstanceHandler} style={{ minWidth: '180px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: "0" }}>
                         <Translate content="common.button.create" />
                     </LoadingButton>
                 </Col>

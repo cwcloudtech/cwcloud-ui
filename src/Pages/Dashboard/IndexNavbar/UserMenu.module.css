@@ -1,0 +1,72 @@
+/* Same rules as cwclock's navbar profile menu (Slidebar.module.css). */
+.profileTrigger {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  justify-content: center;
+}
+
+.profileAvatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profileEmail {
+  color: var(--cw-text-muted);
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menuItemTooltip {
+  width: 100%;
+}
+
+.languageLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--cw-text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-top: 4px;
+}
+
+.flag {
+  width: 16px;
+  height: auto;
+  display: inline-block;
+}
+
+.logoutItem {
+  justify-content: center;
+  color: var(--cw-danger);
+}
+
+.versionLabelWrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.versionBadge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-style: italic;
+  color: #ffffff;
+  background-color: #1cb9f7;
+}
+
+.versionBadgeApi {
+  background-color: var(--cw-gray-500);
+}

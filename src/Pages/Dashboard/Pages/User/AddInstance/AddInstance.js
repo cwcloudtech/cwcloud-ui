@@ -11,7 +11,7 @@ import { Fab, OutlinedInput, TextField } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import Fade from "@mui/material/Fade";
 import AddIcon from "@mui/icons-material/Add";
-import Translate from "react-translate-component";
+import Translate from "../../../../../Components/Translate/Translate";
 import LoadingSpinner from "../../../../../Components/LoadingSpinner/LoadingSpinner";
 import ServiceNotAvailable from "../../../../../Components/ServiceNotAvailable/ServiceNotAvailable";
 import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";

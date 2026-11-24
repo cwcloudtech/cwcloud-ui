@@ -8,8 +8,7 @@
 }
 
 .buttonStyle {
-    width: 150px;
-    height: 50px;
+    min-width: 0;
 }
 
 .icon {
@@ -22,7 +21,7 @@
 
 .addicon {
     margin-right: 8px;
-    color: #0861AF;
+    color: #0a6eb4;
 }
 
 .linkicon {
@@ -73,7 +72,7 @@
 }
 
 .iconStyle {
-    color: #0861AF;
+    color: #0a6eb4;
     font-size: 20px;
     margin-right: 5px;
     cursor: pointer;
@@ -86,7 +85,7 @@
 .roleStyle {
     letter-spacing: 0.1px;
     font-weight: 400;
-    color: #4a4f62;
+    color: #334155;
     font-size: 16px;
     line-height: 24px;
 }
@@ -113,7 +112,7 @@
 .labelName {
     letter-spacing: 0.1px;
     font-weight: 400;
-    color: #4a4f62;
+    color: #334155;
     margin: 0;
     font-size: 16px;
     line-height: 24px;
@@ -262,7 +261,7 @@
 .colInlineValue {
     letter-spacing: 0.1px;
     font-weight: 400;
-    color: #4A4F62;
+    color: #334155;
     margin: 0 0 0 8px;
     font-size: 16px;
     line-height: 24px;
@@ -363,7 +362,7 @@
 
 @keyframes toggle_color {
     0% {
-        color: #0861AF;
+        color: #0a6eb4;
     }
 
     25% {

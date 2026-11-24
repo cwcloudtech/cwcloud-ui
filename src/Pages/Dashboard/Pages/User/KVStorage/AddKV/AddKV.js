@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Col, Form, FormGroup, FormText, Input, Row } from "reactstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Translate from 'react-translate-component';
+import Translate from '../../../../../../Components/Translate/Translate';
 import { Container } from 'reactstrap';
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
@@ -171,7 +171,7 @@ function AddKV(props) {
             </Row>
             <Row style={{ marginTop: "20px" }}>
                 <Col className="text-center">
-                    <LoadingButton
+                    <LoadingButton icon="fa-solid fa-plus"
                         loading={loading}
                         onClick={addKVHandler}
                     >

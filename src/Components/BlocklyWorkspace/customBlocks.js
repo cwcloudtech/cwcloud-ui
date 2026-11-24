@@ -218,7 +218,7 @@ export const customizeBlocks = () => {
         .setAlign(Blockly.ALIGN_LEFT)
         .appendField('set result in variable');
       this.setInputsInline(false);
-      this.setColour("#0860AF");
+      this.setColour("#0a6eb4");
       this.setTooltip('Calls a serverless function you own with the given ID');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -235,7 +235,7 @@ export const customizeBlocks = () => {
         .setAlign(Blockly.ALIGN_LEFT)
         .appendField('and value');
       this.setInputsInline(false);
-      this.setColour("#0860AF");
+      this.setColour("#0a6eb4");
       this.setTooltip('Set an argument with a given name, key, and value');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -248,7 +248,7 @@ export const customizeBlocks = () => {
         .appendField('argumemnt with key')
         .appendField(new Blockly.FieldTextInput('key'), 'ARG_KEY');
       this.setOutput(true, 'String');
-      this.setColour("#0860AF");
+      this.setColour("#0a6eb4");
       this.setTooltip('Get the value of an argument with a given key');
     }
   };
@@ -258,7 +258,7 @@ export const customizeBlocks = () => {
       this.appendDummyInput()
         .appendField('arguments');
       this.setOutput(true, 'String');
-      this.setColour("#0860AF");
+      this.setColour("#0a6eb4");
       this.setTooltip('Get the value of an arguments list');
     }
   };  

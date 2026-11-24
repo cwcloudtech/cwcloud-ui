@@ -11,7 +11,7 @@ import {
     Col,
     Input,
 } from "reactstrap";
-import Translate from "react-translate-component";
+import Translate from "../../Translate/Translate";
 import LoadingButton from "../../LoadingButton/LoadingButton";
 
 const RebootModal = (props) => {
@@ -53,7 +53,7 @@ const RebootModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-rotate-right"
                     color="error"
                     disabled={ConfirmationMessage !== props.name}
                     onClick={props.onReboot}

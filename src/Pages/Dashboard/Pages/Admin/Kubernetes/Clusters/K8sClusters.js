@@ -8,7 +8,7 @@ import formateDate from "../../../../../../utils/FormateDate";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import UploadFileModal from "../../../../../../Components/Modal/UploadFileModal";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import {
   Fab,
   InputAdornment,

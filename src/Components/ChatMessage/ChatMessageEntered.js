@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import GlobalContext from '../../Context/GlobalContext';
-import Identicon from 'react-identicons';
+import Identicon from '../Identicon/Identicon';
 
 const ChatMessageEntered = ({ text }) => {
   const context = useContext(GlobalContext);
   const _mode = context.mode;
 
   const messageStyle = {
-    backgroundColor: _mode === "dark" ? '#2c3139' : '#dae8f7',
-    color: _mode === "dark" ? 'white' : '#2775ba',
+    backgroundColor: _mode === "dark" ? '#111a2b' : '#e0f2fe',
+    color: _mode === "dark" ? 'white' : '#0a6eb4',
     borderRadius: '5px',
     padding: '15px',
     marginBottom: '5px',

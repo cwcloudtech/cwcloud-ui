@@ -22,11 +22,11 @@ import { Table } from 'reactstrap';
 import InstanceItem from './InstanceItem/InstanceItem';
 import formateDate from '../../../../../utils/FormateDate';
 import LoadingSpinner from '../../../../../Components/LoadingSpinner/LoadingSpinner';
-import Translate from 'react-translate-component';
+import Translate from '../../../../../Components/Translate/Translate';
 import LoadingButton from '../../../../../Components/LoadingButton/LoadingButton';
 import colors from '../../../../../Context/Colors';
 import InfoCard from '../../../../../Components/Cards/InfoCard/InfoCard';
-import Identicon from 'react-identicons';
+import Identicon from '../../../../../Components/Identicon/Identicon';
 
 function UserOverview() {
     const { userId } = useParams()

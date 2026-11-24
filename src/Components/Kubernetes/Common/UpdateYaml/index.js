@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Translate from "react-translate-component";
+import Translate from "../../../Translate/Translate";
 import { Col, Container, Row } from "reactstrap";
 import LoadingButton from "../../../LoadingButton/LoadingButton";
 import classes from "./style.module.css";

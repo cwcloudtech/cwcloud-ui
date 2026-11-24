@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Row, Container, Input, FormGroup } from "reactstrap";
 import GlobalContext from "../../../../../../../Context/GlobalContext";
-import Translate from 'react-translate-component'
+import Translate from '../../../../../../../Components/Translate/Translate'
 import classes from "./ClusterOverview.module.css"
 import colors from "../../../../../../../Context/Colors";
 import useClusterOverview from "../../../../../../../Hooks/kubernetes/useClusterOverview";
 import ResourceUsage from "../../../../../../../Components/Kubernetes/Common/ResourceUsage/ResourceUsage";
 import DataTable from "../../../../../../../Components/Table/DataTable";
-import { Chip } from "@material-ui/core";
+import { Chip } from "@mui/material";
 import LoadingSpinner from "../../../../../../../Components/LoadingSpinner/LoadingSpinner";
 import ResourceItem from "../../../../User/UserDashboard/ResourceItem/ResourceItem";
 import calculateObjectAge from "../../../../../../../utils/calculateObjectAge";
@@ -64,7 +64,7 @@ export default function ClusterOverview() {
         else if (params.row.status.toUpperCase() === 'RUNNING') {
           return <Chip label={"Running"} className={classes.success}
             style={{
-              backgroundColor: '#4ea8f7',
+              backgroundColor: '#38bdf8',
               color: '#242424'
             }} variant="outlined" />
         }
@@ -255,7 +255,6 @@ export default function ClusterOverview() {
 
 
   useEffect(() => {
-    console.log("Cluster ID from params:", clusterId);
     setFilteredPods(pods)
     setFilteredDeployments(deployments)
     var namespaces = getUniqueNamespaces(pods)

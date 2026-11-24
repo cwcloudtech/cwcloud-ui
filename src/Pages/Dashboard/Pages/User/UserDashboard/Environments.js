@@ -10,7 +10,7 @@ import classes from "./UserDashboard.module.css";
 import { InputAdornment, TextField } from "@mui/material";
 
 import { useSearchParams } from "react-router-dom";
-import Translate from "react-translate-component";
+import Translate from "../../../../../Components/Translate/Translate";
 import FilterSwitch from "../../../../../Components/FilterSwitch";
 
 const Environments = () => {

@@ -1,8 +1,19 @@
 import React from 'react';
 import { formatDateTime } from '../../utils/FormateDate';
-import { Col, Row } from 'reactstrap';
 import MessageEntered from './MessageEntered';
 import MessageResponded from './MessageResponded';
+
+const rowStyle = (alignRight) => ({
+    display: 'flex',
+    justifyContent: alignRight ? 'flex-end' : 'flex-start',
+    margin: '14px 0',
+});
+
+const columnStyle = {
+    width: '100%',
+    maxWidth: '860px',
+    minWidth: 0,
+};
 
 const TicketReply = (props) => {
     var change_date = formatDateTime(props.reply.change_date)
@@ -10,20 +21,18 @@ const TicketReply = (props) => {
 
     if (props.reply.is_admin)
         return (
-            <Row style={{marginTop: '10px', marginBottom: '10px'}}>
-                <Col md="8" lg="6">
+            <div style={rowStyle(false)}>
+                <div style={columnStyle}>
                     <MessageResponded ticket_id={props.ticket_id} reply_id={props.reply.id} text={props.reply.message} user={props.reply.user} creation_date={creation_date} change_date={change_date} />
-                </Col>
-                <Col md="4" lg="6" />
-            </Row>
+                </div>
+            </div>
         )
     return (
-        <Row style={{marginTop: '10px', marginBottom: '10px'}}>
-            <Col md="4" lg="6" />
-            <Col md="8" lg="6">
+        <div style={rowStyle(true)}>
+            <div style={columnStyle}>
                 <MessageEntered ticket_id={props.ticket_id} reply_id={props.reply.id} text={props.reply.message} user={props.reply.user} creation_date={creation_date} change_date={change_date} />
-            </Col>
-        </Row>
+            </div>
+        </div>
     )
 }
 

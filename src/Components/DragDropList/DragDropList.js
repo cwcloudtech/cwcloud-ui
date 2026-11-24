@@ -9,7 +9,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
 import MButton from '@mui/material/Button';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import classes from "./DragDropList.module.css"
 import '../../common.css';
 import GlobalContext from '../../Context/GlobalContext';
@@ -17,7 +16,7 @@ import colors from "../../Context/Colors";
 import { IconButton, Tooltip } from '@mui/material';
 import { Col, Row } from 'reactstrap';
 import AddIcon from '@mui/icons-material/Add';
-import Translate from 'react-translate-component';
+import Translate from '../Translate/Translate';
 
 const not = (a, b) => {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -34,7 +33,7 @@ const union = (a, b) => {
 const DragDropList = (props) => {
     const context = useContext(GlobalContext);
     const _mode = context.mode;
-    const backgroundColor = _mode === "dark" ? "#2C3139" : "#0861AF";
+    const backgroundColor = _mode === "dark" ? "#111a2b" : "#0a6eb4";
     const [checked, setChecked] = useState([]);
     const leftChecked = intersection(checked, props.unselectedRoles);
     const rightChecked = intersection(checked, props.selectedRoles);
@@ -95,8 +94,33 @@ const DragDropList = (props) => {
         return false;
     }
 
-    const handleOnBeforeDragStart = () => {
+    const [dragSource, setDragSource] = useState(null);
+
+    const handleDragStart = (droppableId, index) => (e) => {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', String(index));
+        setDragSource({ droppableId, index });
         setDragStarted(true);
+    }
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+    }
+
+    const handleDrop = (droppableId, index) => (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleOnDragEndSelectedRoles({
+            source: dragSource,
+            destination: { droppableId, index },
+        });
+        setDragSource(null);
+    }
+
+    const handleDragEnd = () => {
+        setDragSource(null);
+        setDragStarted(false);
     }
 
     const showDeleteButton = (value) => {
@@ -137,9 +161,9 @@ const DragDropList = (props) => {
                 subheader={`${numberOfChecked(items)}/${items.length} selected`}
             />
             <Divider style={{ backgroundColor: colors.secondText[_mode] }} />
-            <DragDropContext onDragEnd={handleOnDragEndSelectedRoles} onBeforeDragStart={handleOnBeforeDragStart}>
-                <Droppable droppableId={title}>
-                    {provided => (<List {...provided.droppableProps} ref={provided.innerRef}
+            <List
+                        onDragOver={handleDragOver}
+                        onDrop={handleDrop(title, Math.max(items.length - 1, 0))}
                         sx={{
                             width: "100%",
                             height: 430,
@@ -154,12 +178,15 @@ const DragDropList = (props) => {
                         {items.map((value, index) => {
                             const labelId = `transfer-list-all-item-${value}-label`;
                             return (
-                                <Row>
+                                <Row key={value}>
                                     <Col xs={8} md={9} lg={10}>
-                                        <Draggable key={value} draggableId={value} index={index}>
-                                            {(provided) => (
-                                                <ListItem {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
-                                                    key={value}
+                                                <ListItem
+                                                    draggable
+                                                    onDragStart={handleDragStart(title, index)}
+                                                    onDragOver={handleDragOver}
+                                                    onDrop={handleDrop(title, index)}
+                                                    onDragEnd={handleDragEnd}
+                                                    style={{ cursor: 'grab', opacity: dragSource && dragSource.droppableId === title && dragSource.index === index ? 0.5 : 1 }}
                                                     role="listitem"
                                                     button
                                                     onClick={handleToggle(value)}
@@ -192,17 +219,12 @@ const DragDropList = (props) => {
                                                                 : null
                                                     }
                                                 </ListItem>
-                                            )}
-                                        </Draggable>
                                     </Col>
                                     {showDeleteButton(value)}
                                 </Row>
                             );
                         })}
-                        {provided.placeholder}
-                    </List>)}
-                </Droppable>
-            </DragDropContext>
+                    </List>
         </Card>
     );
 

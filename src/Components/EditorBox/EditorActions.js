@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import './EditorActions.css';
-import { Tooltip } from '@material-ui/core';
-import Translate from 'react-translate-component';
+import { Tooltip } from '@mui/material';
+import Translate from '../Translate/Translate';
 import counterpart from 'counterpart';
 import GlobalContext from '../../Context/GlobalContext';
 import DoneIcon from '@mui/icons-material/Done';

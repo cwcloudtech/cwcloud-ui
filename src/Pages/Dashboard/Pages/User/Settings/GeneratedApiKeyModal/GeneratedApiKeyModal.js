@@ -7,7 +7,7 @@ import {
     Row,
     Col,
 } from "reactstrap";
-import Translate from "react-translate-component";
+import Translate from "../../../../../../Components/Translate/Translate";
 import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 const GeneratedApiKeyModal = (props) => {
     const [clickedCopyAccessKey, setClickedCopyAccessKey] = useState(false)
@@ -105,7 +105,7 @@ const GeneratedApiKeyModal = (props) => {
                 </Row>
             </ModalBody>
             <ModalFooter>
-                <LoadingButton
+                <LoadingButton icon="fa-solid fa-check"
                     onClick={props.toggle}
                     style={{ width: "100%" }}
                 >

@@ -5,7 +5,7 @@ import axios from '../../../utils/axios';
 import { toast } from 'react-toastify';
 import LoadingButton from '../../../Components/LoadingButton/LoadingButton';
 import GlobalContext from '../../../Context/GlobalContext';
-import Translate from 'react-translate-component';
+import Translate from '../../../Components/Translate/Translate';
 import BackGroundImage from "../../../assets/images/background.png"
 import { NavLink } from 'react-router-dom';
 import logoimage from '../../../utils/logo';
@@ -73,7 +73,7 @@ const Confirm = (props) => {
                     <Col style={{ display: 'flex', justifyContent: "center", alignItems: "end" }}>
                         <h4 style={{ color: "rgb(130,130,130)", fontSize: '15px', textAlign: "center" }}>
                             <NavLink to="/" style={{ textDecoration: "none" }}>
-                                <Translate content="signup.login" style={{color: '#0861AF'}}/>
+                                <Translate content="signup.login" style={{color: '#0a6eb4'}}/>
                             </NavLink>
                         </h4>
                     </Col>

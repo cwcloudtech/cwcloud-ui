@@ -1,5 +1,5 @@
 import { MenuItem, Select } from "@mui/material";
-import Translate from "react-translate-component";
+import Translate from "../Translate/Translate";
 
 const SimpleDropdown = ({selectedItem, onChange, placeholder, items}) => {
     return (
