@@ -366,3 +366,47 @@
     box-shadow: var(--cw-shadow-lg);
   }
 }
+
+/* MFA verification: "press your security key" block. The hidden input
+   receives the key's keyboard-emulated OTP. */
+.cw-mfa-key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--cw-spacing-sm);
+  padding: var(--cw-spacing-lg);
+  border: 1px dashed var(--cw-border);
+  border-radius: var(--cw-radius-sm);
+  background-color: var(--cw-bg-alt);
+  text-align: center;
+}
+
+.cw-mfa-key-icon {
+  font-size: 2.4rem;
+  color: var(--cw-primary);
+}
+
+.cw-mfa-key-spinner {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--cw-primary);
+}
+
+.cw-mfa-key-label {
+  font-weight: 600;
+  color: var(--cw-text);
+}
+
+.cw-mfa-key-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+}
+
+.cw-mfa-error {
+  text-align: center;
+  margin-top: var(--cw-spacing-sm);
+}

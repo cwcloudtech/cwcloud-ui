@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, lazy, Suspense } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
 import IndexNavbar from "./IndexNavbar/IndexNavbar";
 import { SidebarProvider } from "../../Context/SidebarContext";
@@ -270,6 +270,7 @@ function Dashboard() {
                   element={<EnvironmentOverview />}
                 />
                 <Route exact path="/admin/email" element={<SendEmail />} />
+                <Route exact path="/admin/emails" element={<Navigate to="/admin/email" replace />} />
                 <Route exact path="/admin/contactForms" element={<ContactForms />} />
                 <Route exact path="/admin/contactForm/add" element={<AddContactForm />} />
                 <Route exact path="/admin/contactForm/:id" element={<ContactFormOverview />} />
