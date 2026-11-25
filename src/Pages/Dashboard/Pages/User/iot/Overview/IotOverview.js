@@ -1,5 +1,4 @@
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
+import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import Fade from '@mui/material/Fade';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useContext, useEffect, useRef, useState } from 'react';
@@ -21,7 +20,6 @@ import { isBlank } from '../../../../../../utils/common';
 import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import PublishOutlinedIcon from '@mui/icons-material/PublishOutlined';
 import CustomPairIcon from '../../../../../../Components/CustomIcon/CustomPairIcon';
 
 function IotOverviewPage(props) {
@@ -220,18 +218,14 @@ function IotOverviewPage(props) {
                             <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.function.import" />
                             </h5>} placement="bottom">
-                                <Fab color="primary" aria-label="import" onClick={() => uploadFileRef.current.click()} style={{ transform: 'scale(0.7)' }} >
-                                    <PublishOutlinedIcon className="whiteIcon" />
-                                </Fab>
+                                <LoadingButton icon="fa-solid fa-file-import" className="cw-toolbar-button" onClick={() => uploadFileRef.current.click()}><Translate content="common.button.import" /></LoadingButton>
                             </Tooltip>
                             <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={
                                 <h5 className="tootltipValue">
                                     <Translate content="dashboard.iot.addObjectType.mainTitle" />
                                 </h5>}
                                 placement="bottom">
-                                <Fab color="primary" aria-label="add" onClick={() => navigate(createLink)} style={{ transform: 'scale(0.7)' }} >
-                                    <AddIcon className="whiteIcon" />
-                                </Fab>
+                                <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => navigate(createLink)}><Translate content="common.button.add" /></LoadingButton>
                             </Tooltip>
                         </div>
                     </div>

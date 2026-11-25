@@ -10,7 +10,7 @@ function CardComponent(props) {
     const _mode = context.mode;
     const docUrl = process.env.REACT_APP_DOCURL;
     return (
-        <Row style={props.style}>
+        <Row className="cw-card-row" style={props.style}>
             <Col className={`${props.containerStyles} pb-0 pt-0`} style={{ backgroundColor: colors.secondBackground[_mode], border: '1px solid ' + colors.border[_mode], borderRadius: "7px", marginTop: props.customMarginTop ?? "3px", boxShadow: colors.shadow[_mode], padding: "23px 20px" }}>
                 <Row >
                     <Col>

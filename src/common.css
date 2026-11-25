@@ -11,6 +11,35 @@
     min-width: 0;
 }
 
+/* Card panels line up with the invoices' panels (a padded Container fluid >
+   Row > Col.formContainer): at the top level of a page the card gets the same
+   20px inset and top offset; inside such a container it's already aligned. */
+.cw-card-row {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.cw-card-row:first-child {
+    margin-top: 42px;
+}
+
+.container-fluid .cw-card-row {
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.container-fluid .cw-card-row:first-child {
+    margin-top: 0;
+}
+
+/* The toolbar action next to a list's search field (add, import, delete all):
+   same outlined button as every other action, never wrapped nor squeezed. */
+.cw-toolbar-button {
+    flex-shrink: 0;
+    white-space: nowrap;
+    height: 40px;
+}
+
 .icon {
     margin-right: 8px;
 }

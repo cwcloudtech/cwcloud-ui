@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 import { Row, Col } from "reactstrap";
 // import classes from "./RegistriesPage.module.css";
 import '../../../../../common.css';
@@ -9,8 +10,6 @@ import { isBlank } from "../../../../../utils/common";
 import GlobalContext from "../../../../../Context/GlobalContext";
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
 import Translate from '../../../../../Components/Translate/Translate';
 import DeleteModal from "../../../../../Components/Modal/DeleteModal";
 import formateDate from "../../../../../utils/FormateDate";
@@ -181,9 +180,7 @@ function RegistriesPage(props) {
                                     <Translate content="dashboard.adminRegistriesPage.addInstance" />
                                 </h5>}
                                 placement="bottom">
-                                <Fab color="primary" aria-label="add" onClick={() => navigate("/admin/registries/create")} style={{ transform: 'scale(0.7)' }} >
-                                    <AddIcon className="whiteIcon" />
-                                </Fab>
+                                <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => navigate("/admin/registries/create")}><Translate content="common.button.add" /></LoadingButton>
                             </Tooltip>
                         }
                     </div>

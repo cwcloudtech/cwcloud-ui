@@ -225,6 +225,7 @@ export const englishLanguage = {
         button: {
             create: "Create",
             add: "Add",
+            import: "Import",
             delete: "Delete",
             update: "Update",
             save: "Save",
@@ -356,6 +357,7 @@ export const englishLanguage = {
     },
     intro: {
         presentation: "This is the CWCloud web console",
+        heroTitle: "Deploy, run and observe your cloud, in one place",
         wiki: {
             part1: "Check out our",
             part2: "documentation"
@@ -368,7 +370,7 @@ export const englishLanguage = {
         password: "Password",
         button: "Login",
         contact: "Contact",
-        question: "Don't have an acount?",
+        question: "Don't have an account?",
         signup: "Register",
         forgottenpassword: "Forgot password?",
         goBackToLogin: "Go back to login",
@@ -2689,6 +2691,7 @@ export const frenchLanguage = {
         ok: "OK",
         button: {
             create: "Créer",
+            import: "Importer",
             add: "Ajouter",
             delete: "Supprimer",
             update: "Modifier",
@@ -2820,6 +2823,7 @@ export const frenchLanguage = {
     },
     intro: {
         presentation: "Ceci est la console web de CWCloud",
+        heroTitle: "Déployez, exploitez et observez votre cloud, au même endroit",
         wiki: {
             part1: "Plus de détails sur notre",
             part2: "documentation"

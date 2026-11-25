@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import DataTable from "../../../../../../Components/Table/DataTable";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./K8sEnvironements.module.css";
@@ -8,17 +9,14 @@ import formateDate from "../../../../../../utils/FormateDate";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import Translate from "../../../../../../Components/Translate/Translate";
-import { Fab, InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import Fade from "@mui/material/Fade";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { toast } from "react-toastify";
 import Tooltip from "@mui/material/Tooltip";
-import AddIcon from "@mui/icons-material/Add";
 import axios from "../../../../../../utils/axios";
 import CustomDeleteIcon from "../../../../../../Components/CustomIcon/CustomDeleteIcon";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
-import PublishOutlinedIcon from "@mui/icons-material/PublishOutlined";
-import LoadingSpinner from "../../../../../../Components/LoadingSpinner/LoadingSpinner";
 
 export default function K8sEnvironements(props) {
   const { counterpart } = useContext(GlobalContext);
@@ -266,25 +264,7 @@ export default function K8sEnvironements(props) {
                 }
                 placement="bottom"
               >
-                <Fab
-                  color="primary"
-                  aria-label="import"
-                  onClick={() => uploadFileRef.current.click()}
-                  style={{ transform: "scale(0.7)" }}
-                  load
-                  disabled={loadingUpload}
-                >
-                  {loadingUpload ? (
-                    <LoadingSpinner
-                      spinnerHeight="20px"
-                      spinnerWidth="20px"
-                      disableBackgroundColor
-                      borderWidth="2px"
-                    />
-                  ) : (
-                    <PublishOutlinedIcon className="whiteIcon" />
-                  )}
-                </Fab>
+                <LoadingButton icon="fa-solid fa-file-import" className="cw-toolbar-button" onClick={() => uploadFileRef.current.click()} loading={loadingUpload} disabled={loadingUpload}><Translate content="common.button.import" /></LoadingButton>
               </Tooltip>
               <Tooltip
                 TransitionComponent={Fade}
@@ -296,14 +276,7 @@ export default function K8sEnvironements(props) {
                 }
                 placement="bottom"
               >
-                <Fab
-                  color="primary"
-                  aria-label="add"
-                  onClick={handleAddEnvClick}
-                  style={{ transform: "scale(0.7)" }}
-                >
-                  <AddIcon className="whiteIcon" />
-                </Fab>
+                <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={handleAddEnvClick}><Translate content="common.button.add" /></LoadingButton>
               </Tooltip>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import DataTable from "../../../../../../Components/Table/DataTable";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./K8sClusters.module.css";
@@ -10,7 +11,6 @@ import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import UploadFileModal from "../../../../../../Components/Modal/UploadFileModal";
 import Translate from "../../../../../../Components/Translate/Translate";
 import {
-  Fab,
   InputAdornment,
   TextField,
 } from "@mui/material";
@@ -18,7 +18,6 @@ import Fade from "@mui/material/Fade";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { toast } from "react-toastify";
 import Tooltip from "@mui/material/Tooltip";
-import AddIcon from "@mui/icons-material/Add";
 import axios from "../../../../../../utils/axios";
 import CustomDeleteIcon from "../../../../../../Components/CustomIcon/CustomDeleteIcon";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
@@ -228,14 +227,7 @@ export default function K8sClusters(props) {
               }
               placement="bottom"
             >
-              <Fab
-                color="primary"
-                aria-label="add"
-                onClick={() => setShowUploadFileModal(true)}
-                style={{ transform: "scale(0.7)" }}
-              >
-                <AddIcon className="whiteIcon" />
-              </Fab>
+              <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => setShowUploadFileModal(true)}><Translate content="common.button.add" /></LoadingButton>
             </Tooltip>
           </div>
         </Col>

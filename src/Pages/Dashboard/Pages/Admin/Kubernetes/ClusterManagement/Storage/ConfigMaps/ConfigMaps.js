@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import LoadingButton from "../../../../../../../../Components/LoadingButton/LoadingButton";
 import { useNavigate, useParams } from "react-router-dom";
 import DataTable from "../../../../../../../../Components/Table/DataTable";
 import GlobalContext from "../../../../../../../../Context/GlobalContext";
@@ -15,10 +16,8 @@ import Translate from "../../../../../../../../Components/Translate/Translate";
 import Fade from "@mui/material/Fade";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Tooltip from "@mui/material/Tooltip";
-import AddIcon from "@mui/icons-material/Add";
 import {
   ButtonGroup,
-  Fab,
   InputAdornment,
   TextField,
 } from "@mui/material";
@@ -286,14 +285,7 @@ export default function Services(props) {
               }
               placement="bottom"
             >
-              <Fab
-                color="primary"
-                aria-label="add"
-                onClick={() => navigate(`/kubernetes/cluster/${clusterId}/storage/configMaps/create`)}
-                style={{ transform: "scale(0.7)" }}
-              >
-                <AddIcon className="whiteIcon" />
-              </Fab>
+              <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => navigate(`/kubernetes/cluster/${clusterId}/storage/configMaps/create`)}><Translate content="common.button.add" /></LoadingButton>
             </Tooltip>
           </div>
         </Col>

@@ -1,4 +1,5 @@
 import React, { useContext , useState, useEffect } from 'react';
+import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import { Link } from "react-router-dom";
 // import classes from "./InvocationsPage.module.css";
@@ -13,9 +14,7 @@ import { toast } from 'react-toastify';
 import Translate from '../../../../../../Components/Translate/Translate';
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
-import Fab from '@mui/material/Fab';
 import InputAdornment from '@mui/material/InputAdornment';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DeleteModal from "../../../../../../Components/Modal/DeleteModal";
 import filteredListWithoutRemovedElement from "../../../../../../utils/filter";
@@ -187,9 +186,7 @@ function InvocationsPage(props) {
                             <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.invocation.truncate" />
                             </h5>} placement="bottom">
-                                <Fab color="primary" aria-label="delete" onClick={preTruncateInvocationsHandler} style={{ transform: 'scale(0.7)' }} >
-                                    <DeleteIcon className="whiteIcon" />
-                                </Fab>                      
+                                <LoadingButton icon="fa-solid fa-trash-can" className="cw-toolbar-button" onClick={preTruncateInvocationsHandler}><Translate content="common.button.delete" /></LoadingButton>                      
                             </Tooltip>
                         </div>
                     </div>

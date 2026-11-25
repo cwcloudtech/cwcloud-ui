@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
+import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 import axios from '../../../../../utils/axios';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import colors from '../../../../../Context/Colors';
@@ -17,8 +18,6 @@ import AddAccessModal from './AddAccessModal/AddAccessModal';
 import Translate from "../../../../../Components/Translate/Translate";
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
 import CardComponent from '../../../../../Components/Cards/CardComponent/CardComponent';
 import CustomDownloadIcon from '../../../../../Components/CustomIcon/CustomDownloadIcon';
 import CustomViewIcon from '../../../../../Components/CustomIcon/CustomViewIcon';
@@ -250,9 +249,7 @@ function Credentials() {
                             <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<p className="tootltipValue">
                                 <Translate content="iam.apikey.generate" />
                             </p>} placement="left">
-                                <Fab color="primary" aria-label="add" style={{ transform: 'scale(0.7)' }} onClick={() => setShowAddApiKeyModal(true)} >
-                                    <AddIcon className="whiteIcon" />
-                                </Fab>
+                                <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => setShowAddApiKeyModal(true)}><Translate content="common.button.add" /></LoadingButton>
                             </Tooltip>
                         </div>
                     </Col>
@@ -274,9 +271,7 @@ function Credentials() {
                             <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<p className="tootltipValue">
                                 <Translate content="iam.access.generate" />
                             </p>} placement="left">
-                                <Fab color="primary" aria-label="add" style={{ transform: 'scale(0.7)' }} onClick={() => setShowAddAccessModal(true)} >
-                                    <AddIcon className="whiteIcon" />
-                                </Fab>
+                                <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => setShowAddAccessModal(true)}><Translate content="common.button.add" /></LoadingButton>
                             </Tooltip>
                         </div>
                     </Col>

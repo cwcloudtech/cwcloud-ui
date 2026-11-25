@@ -1,16 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import classes from '../public.module.css';
 import axios from "../../../utils/axios";
 import { isBlank } from "../../../utils/common";
 import { toast } from "react-toastify";
 import GlobalContext from "../../../Context/GlobalContext";
-import { Row, Col, Input, Form, FormGroup, Label} from "reactstrap";
-import Alert from '@mui/material/Alert';
-import BackGroundImage from "../../../assets/images/background.png"
+import { Spinner } from "reactstrap";
 import Translate from "../../../Components/Translate/Translate";
-import LoadingButton from "../../../Components/LoadingButton/LoadingButton";
-import logoimage from "../../../utils/logo";
+import AuthLayout from "../../../Components/AuthLayout/AuthLayout";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function SignUpForm() {
@@ -29,7 +25,8 @@ function SignUpForm() {
     const context = useContext(GlobalContext)
     const navigate = useNavigate()
     const signupHandler = () => {
-        setShowPasswordMatchError(userData.password !== ConfirmPass);
+        const passwordsMismatch = userData.password !== ConfirmPass;
+        setShowPasswordMatchError(passwordsMismatch);
         if (!acceptTerms) {
             return toast.error(context.counterpart('signup.error.acceptTerms'))
 
@@ -38,7 +35,7 @@ function SignUpForm() {
             return toast.error(context.counterpart('signup.error.passwordsNotFound'))
         }
 
-        if (showPasswordMatchError) {
+        if (passwordsMismatch) {
             return toast.error(context.counterpart('signup.error.passwordsNotMatch'))
         }
 
@@ -60,203 +57,165 @@ function SignUpForm() {
     }, [navigate, context.user])
 
 
-    const inputChangeHandler = (e) => {
-        if (e.key === 'Enter')
-            signupHandler()
-    }
+  const eye = (
+    <button
+      type="button"
+      className="cw-input-eye"
+      onClick={() => setShowPassword(!showPassword)}
+      aria-label={showPassword ? "Hide password" : "Show password"}
+    >
+      {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </button>
+  );
 
-    return (
-        <Row className={classes.row} >
-            <Col md="4" sm="12" className={classes.mainContainer}>
-                <Row style={{ width: "100%" }}>
-                    <Col className={classes.logoContainer}>
-                        <img src={logoimage()} className={classes.cwcloudLogo} alt="logo" />
-                    </Col>
-                </Row>
-                <Row style={{ width: "100%" }}>
-                    <Col className="formContainer">
-                        <Row className={classes.form}>
-                            <Col style={{ padding: "0" }}>
-                                <h4 className={classes.headerTitle}>
-                                    <Translate content="signup.title" />
-                                </h4>
-                            </Col>
-                            <Col style={{ padding: "0", marginBottom: "20px" }}>
-                                <span className={classes.subtitleStyle}>
-                                    <Translate content="signup.instruction.part1" />
-                                    <a className={classes.wikiDoc} href={docUrl + '/docs/subscription'} target="_blank" rel="noreferrer">
-                                        <Translate content="signup.instruction.part2" />
-                                    </a>{" "}
-                                    <Translate content="signup.instruction.part3" />
-                                </span>
-                            </Col>
-                            <Col style={{ padding: "0" }}>
-                                <Form>
-                                    <FormGroup floating>
-                                        <Input
-                                            id="email"
-                                            name="email"
-                                            placeholder={context.counterpart('signup.email')}
-                                            type="email"
-                                            onKeyDown={inputChangeHandler}
-                                            onChange={e => {
-                                                setUserData({ ...userData, email: e.target.value })
-                                            }}
-                                        />
-                                        <Label for="email">
-                                            <Translate content="signup.email" />
-                                        </Label>
-                                    </FormGroup>
-                                    {' '}
-                                    <FormGroup floating>
-                                        <Input
-                                            id="company-name"
-                                            name="company-name"
-                                            placeholder={context.counterpart('signup.company')}
-                                            onKeyDown={inputChangeHandler}
-                                            onChange={e => {
-                                                setUserData({ ...userData, company_name: e.target.value })
-                                            }}
-                                        />
-                                        <Label for="company-name">
-                                            <Translate content="signup.company" />
-                                        </Label>
-                                    </FormGroup>
-                                    {' '}
-                                    <FormGroup floating>
-                                        <Input
-                                            id="registration-number"
-                                            name="registration-number"
-                                            placeholder={context.counterpart('signup.registrationNumber')}
-                                            onKeyDown={inputChangeHandler}
-                                            onChange={e => {
-                                                setUserData({ ...userData, registration_number: e.target.value })
-                                            }}
-                                        />
-                                        <Label for="registration-number">
-                                            <Translate content="signup.registrationNumber" />
-                                        </Label>
-                                    </FormGroup>
-                                    {' '}
-                                    <FormGroup floating>
-                                        <Input
-                                            id="adress"
-                                            name="adress"
-                                            placeholder={context.counterpart('signup.address')}
-                                            onKeyDown={inputChangeHandler}
-                                            onChange={e => {
-                                                setUserData({ ...userData, address: e.target.value })
-                                            }}
-                                        />
-                                        <Label for="adress">
-                                            <Translate content="signup.address" />
-                                        </Label>
-                                    </FormGroup>
-                                    {' '}
-                                    <FormGroup floating>
-                                        <Input
-                                            id="contact-information"
-                                            name="contact-information"
-                                            placeholder={context.counterpart('signup.contactInformations')}
-                                            onKeyDown={inputChangeHandler}
-                                            onChange={e => {
-                                                setUserData({ ...userData, contact_info: e.target.value })
-                                            }}
-                                        />
-                                        <Label for="contact-information">
-                                            <Translate content="signup.contactInformations" />
-                                        </Label>
-                                    </FormGroup>
-                                    {' '}
-                                    <FormGroup floating>
-                                        <Input
-                                            id="password"
-                                            name="password"
-                                            placeholder={context.counterpart('signup.password')}
-                                            type={showPassword ? "text" : "password"}
-                                            value={userData.password}
-                                            onKeyDown={inputChangeHandler}
-                                            onChange={e => {
-                                                setUserData({ ...userData, password: e.target.value })
-                                            }}
-                                        />
-                                        <Label for="password">
-                                            <Translate content="signup.password" />
-                                        </Label>
-                                        <div className={classes.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
-                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                        </div>
-                                    </FormGroup>
-                                    {' '}
-                                    <FormGroup floating>
-                                        <Input
-                                            id="verify-password"
-                                            name="verify-password"
-                                            placeholder={context.counterpart('signup.passwordConfirmation')}
-                                            type={showPassword ? "text" : "password"}
-                                            value={ConfirmPass}
-                                            onKeyDown={inputChangeHandler}
-                                            onChange={(e) => { setConfirmPass(e.target.value) }}
-                                            invalid={showPasswordMatchError}
-                                        />
-                                        <Label for="verify-password">
-                                            <Translate content="signup.passwordConfirmation" />
-                                        </Label>
-                                        <div className={classes.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
-                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                        </div>
-                                    </FormGroup>
-                                    {' '}
-                                    <Col style={{ padding: "0", marginTop: "20px" }}>
-                                        {showPasswordMatchError ? <Alert severity="info">Passwords did not match </Alert> : ''}
-                                    </Col>
-                                    {' '}
-                                </Form>
-                            </Col>
-                            <Col style={{ padding: "0" }}>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
-                                    <Form check>
-                                        <FormGroup
-                                            check
-                                            onChange={e => setAcceptTerms(e.target.checked)}
-                                            inline
-                                        >
-                                            <Input checked={acceptTerms} type="checkbox" />
-                                            <Label check>
-                                            <h5 onClick={() => setAcceptTerms(!acceptTerms)} style={{ fontSize: '13px', fontWeight: '500', margin: '0' }}>
-                                                <Translate content="signup.acceptTerms" />{' '}
-                                                <a href={`${process.env.REACT_APP_DOCURL}/docs/terms/`}>
-                                                    <Translate content="signup.terms" style={{color: '#0a6eb4'}}/>
-                                                </a>.
-                                            </h5>
-                                            </Label>
-                                        </FormGroup>
-                                    </Form>
-                                </div>
-                            </Col>
-                            <Col style={{ padding: "0" }}>
-                                <LoadingButton loading={loading} icon="fa-solid fa-right-to-bracket" className={classes.buttonStyle} onClick={signupHandler}>
-                                    <Translate content="signup.button" style={{color: 'white'}}/>
-                                </LoadingButton>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-                <Row className={classes.centerRow}>
-                    <Col style={{ display: 'flex', justifyContent: "center", alignItems: "end", paddingTop: "7px" }}>
-                        <h4 style={{ color: "rgb(130,130,130)", fontSize: '14px', textAlign: "center" }}>
-                            <Translate content="signup.question" /> {"     "}
-                            <NavLink to="/" style={{ textDecoration: "none" }}>
-                                <Translate content="signup.login" style={{color: '#0a6eb4'}}/>
-                            </NavLink>
-                        </h4>
-                    </Col>
-                </Row>
-            </Col>
-            <Col md="8" sm="0" className={classes.backgroundLogin}>
-                <img className={classes.imageStyle} src={BackGroundImage} alt="background"></img>
-            </Col>
-        </Row>
-    )
+  return (
+    <AuthLayout>
+      <h1>
+        <Translate content="signup.title" />
+      </h1>
+      <>
+          <p className="cw-auth-subtitle">
+            <Translate content="signup.instruction.part1" />{" "}
+            <a href={docUrl + "/docs/subscription"} target="_blank" rel="noreferrer">
+              <Translate content="signup.instruction.part2" />
+            </a>{" "}
+            <Translate content="signup.instruction.part3" />
+          </p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              signupHandler();
+            }}
+          >
+          <div className="cw-field">
+            <label className="cw-label" htmlFor="email">
+              <Translate content="signup.email" />
+            </label>
+            <input
+              id="email"
+              className="cw-input"
+              type="email"
+              autoComplete="email"
+              value={userData.email || ""}
+              onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+              required
+            />
+          </div>
+          <div className="cw-field">
+            <label className="cw-label" htmlFor="company-name">
+              <Translate content="signup.company" />
+            </label>
+            <input
+              id="company-name"
+              className="cw-input"
+              type="text"
+              autoComplete="organization"
+              value={userData.company_name || ""}
+              onChange={(e) => setUserData({ ...userData, company_name: e.target.value })}
+            />
+          </div>
+          <div className="cw-field">
+            <label className="cw-label" htmlFor="registration-number">
+              <Translate content="signup.registrationNumber" />
+            </label>
+            <input
+              id="registration-number"
+              className="cw-input"
+              type="text"
+              autoComplete="off"
+              value={userData.registration_number || ""}
+              onChange={(e) => setUserData({ ...userData, registration_number: e.target.value })}
+            />
+          </div>
+          <div className="cw-field">
+            <label className="cw-label" htmlFor="address">
+              <Translate content="signup.address" />
+            </label>
+            <input
+              id="address"
+              className="cw-input"
+              type="text"
+              autoComplete="street-address"
+              value={userData.address || ""}
+              onChange={(e) => setUserData({ ...userData, address: e.target.value })}
+            />
+          </div>
+          <div className="cw-field">
+            <label className="cw-label" htmlFor="contact-information">
+              <Translate content="signup.contactInformations" />
+            </label>
+            <input
+              id="contact-information"
+              className="cw-input"
+              type="text"
+              autoComplete="tel"
+              value={userData.contact_info || ""}
+              onChange={(e) => setUserData({ ...userData, contact_info: e.target.value })}
+            />
+          </div>
+          <div className="cw-field">
+            <label className="cw-label" htmlFor="password">
+              <Translate content="signup.password" />
+            </label>
+            <div className="cw-input-wrapper">
+              <input
+                id="password"
+                className="cw-input"
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                value={userData.password}
+                onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+                required
+              />
+              {eye}
+            </div>
+          </div>
+          <div className="cw-field">
+            <label className="cw-label" htmlFor="verify-password">
+              <Translate content="signup.passwordConfirmation" />
+            </label>
+            <div className="cw-input-wrapper">
+              <input
+                id="verify-password"
+                className={`cw-input ${showPasswordMatchError ? "cw-input-invalid" : ""}`}
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                value={ConfirmPass}
+                onChange={(e) => setConfirmPass(e.target.value)}
+                required
+              />
+              {eye}
+            </div>
+            {showPasswordMatchError && (
+              <div className="cw-input-hint">
+                <Translate content="signup.error.passwordsNotMatch" />
+              </div>
+            )}
+          </div>
+          <label className="cw-auth-terms">
+            <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} />
+            <span>
+              <Translate content="signup.acceptTerms" />{" "}
+              <a href={`${process.env.REACT_APP_DOCURL}/docs/terms/`} target="_blank" rel="noreferrer">
+                <Translate content="signup.terms" />
+              </a>
+              .
+            </span>
+          </label>
+          <button className="cw-button" type="submit" disabled={loading}>
+            {loading ? <Spinner size="sm" /> : <i className="fa-solid fa-user-plus" />}
+            <Translate content="signup.button" />
+          </button>
+          </form>
+      </>
+      <div className="cw-auth-links">
+        <Translate content="signup.question" />
+        <NavLink to="/">
+          <Translate content="signup.login" />
+        </NavLink>
+      </div>
+    </AuthLayout>
+  );
 }
-export default SignUpForm
+
+export default SignUpForm;

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import LoadingButton from "../../../../../../../../Components/LoadingButton/LoadingButton";
 import { useNavigate, useParams } from "react-router-dom";
 import DataTable from "../../../../../../../../Components/Table/DataTable";
 import GlobalContext from "../../../../../../../../Context/GlobalContext";
@@ -15,8 +16,7 @@ import Translate from "../../../../../../../../Components/Translate/Translate";
 import Fade from "@mui/material/Fade";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Tooltip from "@mui/material/Tooltip";
-import AddIcon from "@mui/icons-material/Add";
-import { Fab, InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import useDeleteResource from "../../../../../../../../Hooks/kubernetes/useDeleteResource";
 import UpdateYaml from "../../../../../../../../Components/Kubernetes/Common/UpdateYaml";
 import useUpdateYaml from "../../../../../../../../Hooks/kubernetes/useUpdateYaml";
@@ -284,18 +284,11 @@ export default function Secrets(props) {
               }
               placement="bottom"
             >
-              <Fab
-                color="primary"
-                aria-label="add"
-                onClick={() =>
+              <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() =>
                   navigate(
                     `/kubernetes/cluster/${clusterId}/storage/secrets/create`
                   )
-                }
-                style={{ transform: "scale(0.7)" }}
-              >
-                <AddIcon className="whiteIcon" />
-              </Fab>
+                }><Translate content="common.button.add" /></LoadingButton>
             </Tooltip>
           </div>
         </Col>

@@ -1,19 +1,14 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { Row, Col, Input, Form, FormGroup, Label } from "reactstrap";
-import classes from '../public.module.css';
+import { Spinner } from "reactstrap";
 import axios from "../../../utils/axios";
 import { toast } from "react-toastify";
 import LocalStorage from '../../../utils/localStorageService';
 import GlobalContext from '../../../Context/GlobalContext';
-import BackGroundImage from "../../../assets/images/background.png";
 import Translate from "../../../Components/Translate/Translate";
-import LoadingButton from '../../../Components/LoadingButton/LoadingButton';
-import logoimage from '../../../utils/logo';
+import AuthLayout from '../../../Components/AuthLayout/AuthLayout';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-
-const docUrl = process.env.REACT_APP_DOCURL;
 
 function LoginForm() {
     const [email, setemail] = useState('')
@@ -37,11 +32,6 @@ function LoginForm() {
             setLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    const inputChangeHandler = (e) => {
-        if (e.key === 'Enter')
-            loginHandler()
-    }
 
     const loginHandler = () => {
         setLoadingSubmit(true)
@@ -75,101 +65,76 @@ function LoginForm() {
     if (loading)
         return null
     return (
-        <Row className={classes.row}>
-            <Col md="4" sm="12" className={classes.mainContainer}>
-                <Row style={{ width: "100%" }}>
-                    <Col className={classes.logoContainer} >
-                        <img src={logoimage()} className={classes.cwcloudLogo} alt="logo" />
-                        <div className="wiki-subtitle">
-                            <Translate content="intro.presentation" />
-                            <br />
-                            <Translate content="intro.wiki.part1" />{" "}
-                            <a  href={docUrl} target="_blank" rel="noreferrer">
-                                <Translate content="intro.wiki.part2" />
-                            </a>
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{ width: "100%" }}>
-                    <Col className="formContainer">
-                        <Row className={classes.form}>
-                            <Col style={{ padding: "0" }}>
-                                <h4 className={classes.headerTitle}><Translate content="login.title" /></h4>
-                            </Col>
-                            <Col style={{ padding: "0" }}>
-                                <Form>
-                                    <FormGroup floating>
-                                        <Input
-                                            id="email"
-                                            name="email"
-                                            placeholder={context.counterpart('login.email')}
-                                            type="email"
-                                            onChange={e => {
-                                                setemail(e.target.value)
-                                            }}
-                                            onKeyDown={inputChangeHandler}
-                                        />
-                                        <Label for="email">
-                                            <Translate content="login.email" />
-                                        </Label>
-                                    </FormGroup>
-                                    {' '}
-                                    <FormGroup floating>
-                                        <Input
-                                            id="password"
-                                            name="password"
-                                            placeholder={context.counterpart('login.password')}
-                                            type={showPassword ? "text" : "password"}
-                                            onChange={e => {
-                                                setpassword(e.target.value)
-                                            }}
-                                            onKeyDown={inputChangeHandler}
-                                        />
-                                        <Label for="password">
-                                            <Translate content="login.password" />
-                                        </Label>
-                                        <div className={classes.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
-                                            {showPassword ? <FaEyeSlash  /> : <FaEye />}
-                                        </div>
-                                    </FormGroup>
-                                </Form>
-                            </Col>
-                            <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', fontSize: '15px'}}>
-                                <Link to="/forget-password" >
-                                    <Translate content="login.forgottenpassword" style={{color: '#0a6eb4'}}/>
-                                </Link>
-                            </Col>
-                            <Col style={{ padding: "0" }}>
-                                <LoadingButton loading={loadingSubmit} icon="fa-solid fa-right-to-bracket" className={classes.buttonStyle} onClick={() => loginHandler()}>
-                                    <Translate content="login.button" style={{color: "white" }} />
-                                </LoadingButton>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-                <Row className={classes.centerRow}>
-                    <Col style={{ marginTop: '10px' }}>
-                        <Row>
-                            <Col style={{ display: 'flex', justifyContent: "center", alignItems: "end" }}>
-                                <h4 style={{ color: "rgb(130,130,130)", fontSize: '14px', textAlign: "center" }}>
-                                    <Translate content="login.question" /> {"     "}
-                                    <NavLink  to="/signup" style={{ textDecoration: "none" }}>
-                                        <Translate content="login.signup" style={{color: '#0a6eb4'}}/>
-                                    </NavLink>
-                                    {" | "}
-                                    <NavLink  to="/contact" style={{ textDecoration: "none" }}>
-                                        <Translate content="login.contact" style={{color: '#0a6eb4'}}/>
-                                    </NavLink>
-                                </h4>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-            </Col>
-            <Col md="8" sm="0" className={classes.backgroundLogin}>
-                <img className={classes.imageStyle} src={BackGroundImage} alt="background"></img>
-            </Col>
-        </Row >
+        <AuthLayout>
+            <h1>
+                <Translate content="login.title" />
+            </h1>
+            <p className="cw-auth-subtitle">
+                <Translate content="login.instruction" />
+            </p>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    loginHandler();
+                }}
+            >
+                <div className="cw-field">
+                    <label className="cw-label" htmlFor="email">
+                        <Translate content="login.email" />
+                    </label>
+                    <input
+                        id="email"
+                        name="email"
+                        className="cw-input"
+                        type="email"
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setemail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="cw-field">
+                    <label className="cw-label" htmlFor="password">
+                        <Translate content="login.password" />
+                    </label>
+                    <div className="cw-input-wrapper">
+                        <input
+                            id="password"
+                            name="password"
+                            className="cw-input"
+                            type={showPassword ? "text" : "password"}
+                            autoComplete="current-password"
+                            value={password}
+                            onChange={(e) => setpassword(e.target.value)}
+                            required
+                        />
+                        <button
+                            type="button"
+                            className="cw-input-eye"
+                            onClick={() => setShowPassword(!showPassword)}
+                            aria-label={showPassword ? "Hide password" : "Show password"}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                    </div>
+                </div>
+                <div className="cw-auth-row">
+                    <Link to="/forget-password">
+                        <Translate content="login.forgottenpassword" />
+                    </Link>
+                </div>
+                <button className="cw-button" type="submit" disabled={loadingSubmit}>
+                    {loadingSubmit ? <Spinner size="sm" /> : <i className="fa-solid fa-right-to-bracket" />}
+                    <Translate content="login.button" />
+                </button>
+            </form>
+            <div className="cw-auth-links">
+                <Translate content="login.question" />
+                <NavLink to="/signup">
+                    <Translate content="login.signup" />
+                </NavLink>
+            </div>
+        </AuthLayout>
     )
 }
 

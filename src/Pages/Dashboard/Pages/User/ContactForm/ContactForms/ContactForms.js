@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Translate from "../../../../../../Components/Translate/Translate";
+import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { TextField, Tooltip, Fab } from '@mui/material';
+import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import AddIcon from '@mui/icons-material/Add';
-import Fade from '@mui/material/Fade';
 import { Row, Col } from 'reactstrap';
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 import CustomDeleteIcon from '../../../../../../Components/CustomIcon/CustomDeleteIcon';
@@ -256,20 +256,7 @@ function ContactForms(props) {
                     />
                 </Col>
                 <Col md="1">
-                    <Tooltip
-                        TransitionComponent={Fade}
-                        TransitionProps={{ timeout: 600 }}
-                        placement="bottom"
-                    >
-                        <Fab
-                            color="primary"
-                            aria-label="add"
-                            onClick={() => navigate(nextPath)}
-                            style={{ transform: "scale(0.7)" }}
-                        >
-                            <AddIcon className="whiteIcon" />
-                        </Fab>
-                    </Tooltip>
+                    <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => navigate(nextPath)}><Translate content="common.button.add" /></LoadingButton>
                 </Col>
             </Row>
 

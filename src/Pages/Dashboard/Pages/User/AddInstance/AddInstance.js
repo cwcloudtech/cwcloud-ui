@@ -7,10 +7,9 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import GlobalContext from "../../../../../Context/GlobalContext";
 import colors from "../../../../../Context/Colors";
-import { Fab, OutlinedInput, TextField } from "@mui/material";
+import { OutlinedInput, TextField } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import Fade from "@mui/material/Fade";
-import AddIcon from "@mui/icons-material/Add";
 import Translate from "../../../../../Components/Translate/Translate";
 import LoadingSpinner from "../../../../../Components/LoadingSpinner/LoadingSpinner";
 import ServiceNotAvailable from "../../../../../Components/ServiceNotAvailable/ServiceNotAvailable";
@@ -356,14 +355,7 @@ function AddInstance(props) {
           }
           placement="right"
         >
-          <Fab
-            color="primary"
-            aria-label="add"
-            onClick={() => navigate("/projects/create")}
-            style={{ transform: "scale(0.7)", top: "18px" }}
-          >
-            <AddIcon className="whiteIcon" />
-          </Fab>
+          <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => navigate("/projects/create")} style={{ marginTop: "18px" }}><Translate content="common.button.add" /></LoadingButton>
         </Tooltip>
       </CardComponent>
 

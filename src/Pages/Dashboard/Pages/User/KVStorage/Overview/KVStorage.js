@@ -1,4 +1,5 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import React, { useContext, useEffect, useState } from 'react';
@@ -6,8 +7,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Translate from '../../../../../../Components/Translate/Translate';
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
 import { toast } from 'react-toastify';
 import { Col, Row } from 'reactstrap';
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
@@ -268,9 +267,7 @@ function KVStorage(props) {
                         <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                             <Translate content="dashboard.kv.overview.addKV" />
                         </h5>} placement="bottom">
-                            <Fab color="primary" aria-label="add" onClick={() => navigate(createLink)} style={{ transform: 'scale(0.7)' }} >
-                                <AddIcon className="whiteIcon" />
-                            </Fab>
+                            <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => navigate(createLink)}><Translate content="common.button.add" /></LoadingButton>
                         </Tooltip>
                     </div>
                 </Col>

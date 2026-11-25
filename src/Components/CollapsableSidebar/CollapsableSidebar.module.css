@@ -49,6 +49,49 @@
   overflow: hidden;
 }
 
+/* The logo is the way home (like cwclock / strong-fish). */
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  border-radius: var(--cw-radius);
+  transition: opacity var(--cw-transition), background-color var(--cw-transition);
+}
+
+.logoLink:hover {
+  opacity: 0.85;
+}
+
+.logoLink:focus-visible {
+  outline: none;
+  box-shadow: var(--cw-focus-ring);
+}
+
+/* Dark mode, external logo only: it may mix white and dark lettering, so it
+   sits on a translucent badge - the sidebar's own colour, a lighter shade -
+   rather than on white. Internal logos and light mode are unchanged. */
+:global(:root[data-theme="dark"]) .logoBadge {
+  padding: 6px 10px;
+  background-color: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(2px);
+}
+
+:global(:root[data-theme="dark"]) .logoBadge.logoLinkSmall {
+  padding: 4px;
+}
+
+:global(:root[data-theme="dark"]) .logoBadge.logoLinkSmall .logoSmall {
+  max-width: 30px;
+  max-height: 30px;
+}
+
+:global(:root[data-theme="dark"]) .logoBadge:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.20);
+}
+
 .logo {
   display: block;
   max-width: 100%;

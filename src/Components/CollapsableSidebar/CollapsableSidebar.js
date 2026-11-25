@@ -1,10 +1,11 @@
 import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import classes from "./CollapsableSidebar.module.css";
 import GlobalContext from "../../Context/GlobalContext";
 import { useSidebar } from "../../Hooks/useSidebar";
 import Tooltip from "../Common/Tooltip";
-import logoimage from "../../utils/customizedLogo";
+import logoimage, { isExternalLogo } from "../../utils/customizedLogo";
 import lightLogo from "../../assets/images/cwcloud-whitemode.png";
 import darkLogo from "../../assets/images/cwcloud-darkmode.png";
 
@@ -28,6 +29,9 @@ function CollapsableSidebar(props) {
 
   const expandedLogo = logoimage(context.mode === "dark" ? darkLogo : lightLogo);
   const collapsedLogo = logoimage("/favicon.ico");
+  // Only an external logo gets the dark-mode badge: its lettering may be dark.
+  const badgeClass = isExternalLogo() ? classes.logoBadge : "";
+  const homeLabel = isEnglish ? "Back to home" : "Retour à l'accueil";
   const toggleLabel = open
     ? isEnglish ? "Collapse sidebar" : "Réduire le menu"
     : isEnglish ? "Expand sidebar" : "Déplier le menu";
@@ -37,7 +41,9 @@ function CollapsableSidebar(props) {
       <div className={classes.logoBlock}>
         {open ? (
           <>
-            <img src={expandedLogo} className={classes.logo} alt="CWCloud" />
+            <Link to="/dashboard" className={`${classes.logoLink} ${badgeClass}`} aria-label={homeLabel} title={homeLabel}>
+              <img src={expandedLogo} className={classes.logo} alt="CWCloud" />
+            </Link>
             {(process.env.REACT_APP_CWCLOUD_UI_LABEL || process.env.REACT_APP_CWCLOUD_UI_URL) && (
               <span className={classes.logoText}>
                 {process.env.REACT_APP_CWCLOUD_UI_LABEL}
@@ -46,7 +52,9 @@ function CollapsableSidebar(props) {
             )}
           </>
         ) : (
-          <img src={collapsedLogo} className={classes.logoSmall} alt="CWCloud" />
+          <Link to="/dashboard" className={`${classes.logoLink} ${badgeClass} ${classes.logoLinkSmall}`} aria-label={homeLabel} title={homeLabel}>
+            <img src={collapsedLogo} className={classes.logoSmall} alt="CWCloud" />
+          </Link>
         )}
       </div>
       <Tooltip label={toggleLabel} position="right" className={classes.toggleTooltip}>

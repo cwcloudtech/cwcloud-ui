@@ -1,7 +1,7 @@
-import AddIcon from "@mui/icons-material/Add";
+import LoadingButton from "../../../../../../Components/LoadingButton/LoadingButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Fab, InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -351,14 +351,7 @@ export default function AdminDnsOverview(props) {
                   }
                   placement="bottom"
                 >
-                  <Fab
-                    color="primary"
-                    aria-label="add"
-                    onClick={handleAddDnsRecord}
-                    style={{ transform: "scale(0.7)" }}
-                  >
-                    <AddIcon className="whiteIcon" />
-                  </Fab>
+                  <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={handleAddDnsRecord}><Translate content="common.button.add" /></LoadingButton>
                 </Tooltip>
               </Col>
               <Col md="12">

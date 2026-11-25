@@ -10,8 +10,7 @@ import {
 } from "reactstrap";
 import CardComponent from "../../../../../../Components/Cards/CardComponent/CardComponent";
 // import classes from "./AddK8sApplication.module.css"
-import AddIcon from "@mui/icons-material/Add";
-import { Fab, OutlinedInput, Stack } from "@mui/material";
+import { OutlinedInput, Stack } from "@mui/material";
 import Fade from "@mui/material/Fade";
 import Tooltip from "@mui/material/Tooltip";
 import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
@@ -274,14 +273,7 @@ function AddK8sApplication(props) {
               }
               placement="right"
             >
-              <Fab
-                color="primary"
-                aria-label="add"
-                onClick={() => navigate("/projects/create")}
-                style={{ transform: "scale(0.7)", top: "18px" }}
-              >
-                <AddIcon className="whiteIcon" />
-              </Fab>
+              <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => navigate("/projects/create")} style={{ marginTop: "18px" }}><Translate content="common.button.add" /></LoadingButton>
             </Tooltip>
             {selectedProjectEnv && (
               <div>

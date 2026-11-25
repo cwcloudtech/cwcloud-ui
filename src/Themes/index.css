@@ -850,3 +850,9 @@ a:hover {
     opacity: 0.7;
 }
 
+
+/* Icon buttons (delete, edit, close...) are rounded squares like cwclock's,
+   not MUI's default circles. */
+.MuiIconButton-root {
+    border-radius: var(--cw-radius-sm) !important;
+}

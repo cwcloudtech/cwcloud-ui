@@ -1,4 +1,5 @@
 import { useContext, useState, useRef, useEffect } from 'react';
+import LoadingButton from "../../../../../Components/LoadingButton/LoadingButton";
 import CardComponent from "../../../../../Components/Cards/CardComponent/CardComponent";
 import { Row, Col } from "reactstrap";
 // import classes from "./EnvironmentsPage.module.css";
@@ -9,14 +10,11 @@ import axios from "../../../../../utils/axios";
 import { isBlank } from "../../../../../utils/common";
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
-import Fab from '@mui/material/Fab';
 import GlobalContext from '../../../../../Context/GlobalContext';
 import CustomDeleteIcon from '../../../../../Components/CustomIcon/CustomDeleteIcon';
 import Translate from '../../../../../Components/Translate/Translate';
 import formateDate from '../../../../../utils/FormateDate';
 import filteredListWithoutRemovedElement from "../../../../../utils/filter";
-import AddIcon from '@mui/icons-material/Add';
-import PublishOutlinedIcon from '@mui/icons-material/PublishOutlined';
 import DataTable from '../../../../../Components/Table/DataTable';
 import DeleteModal from '../../../../../Components/Modal/DeleteModal';
 import { toast } from 'react-toastify';
@@ -137,16 +135,12 @@ function EnvironmentsPage(props) {
                             <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.environmentsPage.importEnvironment" />
                                 </h5>} placement="bottom">
-                                    <Fab color="primary" aria-label="import" onClick={() => uploadFileRef.current.click()} style={{ transform: 'scale(0.7)' }} >
-                                        <PublishOutlinedIcon className="whiteIcon" />
-                                    </Fab>
+                                    <LoadingButton icon="fa-solid fa-file-import" className="cw-toolbar-button" onClick={() => uploadFileRef.current.click()}><Translate content="common.button.import" /></LoadingButton>
                             </Tooltip>
                             <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={<h5 className="tootltipValue">
                                 <Translate content="dashboard.environmentsPage.addEnvironment" />
                             </h5>} placement="bottom">
-                                <Fab color="primary" aria-label="add" onClick={() => navigate("/admin/environment/add")} style={{ transform: 'scale(0.7)' }} >
-                                    <AddIcon className="whiteIcon" />
-                                </Fab>
+                                <LoadingButton icon="fa-solid fa-plus" className="cw-toolbar-button" onClick={() => navigate("/admin/environment/add")}><Translate content="common.button.add" /></LoadingButton>
                             </Tooltip>
                         </div>
 
