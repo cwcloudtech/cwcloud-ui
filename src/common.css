@@ -38,6 +38,12 @@
     flex-shrink: 0;
     white-space: nowrap;
     height: 40px;
+    /* every toolbar action (Add, Export, Import, Delete...) has the same size */
+    padding: 6px 16px !important;
+    font-size: 0.875rem !important;
+    line-height: 1.75 !important;
+    /* breathing room from the search field (or the button) on its left */
+    margin-left: var(--cw-spacing-sm) !important;
 }
 
 .icon {
