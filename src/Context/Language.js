@@ -320,6 +320,8 @@ export const englishLanguage = {
             },
             message: {
                 successDownloadConfigFile: "Config file successfully downloaded",
+                copyValue: "Copy the API key value",
+                valueCopied: "API key value copied to the clipboard",
             }
         },
         access: {
@@ -2785,7 +2787,9 @@ export const frenchLanguage = {
                 part2: "Soyez sûr de l'avoir sauvegardée."
             },
             message: {
-                successDownloadConfigFile: "Fichier de configuration téléchargé avec succès"
+                successDownloadConfigFile: "Fichier de configuration téléchargé avec succès",
+                copyValue: "Copier la valeur de la clé API",
+                valueCopied: "Valeur de la clé API copiée dans le presse-papiers"
             }
         },
         access: {

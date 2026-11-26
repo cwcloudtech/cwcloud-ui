@@ -21,6 +21,7 @@ import Fade from '@mui/material/Fade';
 import CardComponent from '../../../../../Components/Cards/CardComponent/CardComponent';
 import CustomDownloadIcon from '../../../../../Components/CustomIcon/CustomDownloadIcon';
 import CustomViewIcon from '../../../../../Components/CustomIcon/CustomViewIcon';
+import CustomCopyIcon from '../../../../../Components/CustomIcon/CustomCopyIcon';
 
 function Credentials() {
     const _mode = useContext(GlobalContext).mode;
@@ -87,6 +88,9 @@ function Credentials() {
                     } } />
                     <CustomViewIcon title={'View QR code'} onClick={() => {
                         viewQrCodeHandler(params.id)
+                    }} />
+                    <CustomCopyIcon title={context.counterpart('iam.apikey.message.copyValue')} onClick={() => {
+                        copyApiKeyValueHandler(params.id)
                     }} />
                 </>
             }
@@ -183,6 +187,16 @@ function Credentials() {
             }).catch(err => {
                 console.log(err)
             })
+    }
+
+    // Only the key's value (the X-Auth-Token), served by the API on demand: the
+    // list never carries it.
+    const copyApiKeyValueHandler = (api_key_id) => {
+        if (!navigator.clipboard) return
+        axios.get(`/api_keys/${api_key_id}/value`)
+            .then((response) => navigator.clipboard.writeText(response.data.value))
+            .then(() => toast.success(context.counterpart('iam.apikey.message.valueCopied')))
+            .catch(() => {})
     }
 
     const closeQrModalHandler = () => {
