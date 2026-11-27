@@ -4,7 +4,7 @@ import { Form, FormFeedback, FormGroup, FormText } from "reactstrap";
 
 const SuggestionsAutoComplete = ({ id, onChange, options, renderInput, feedbackMessage, hint, length, value, defaultValue }) => {
     return (
-        <Form>
+        <Form onSubmit={(e) => e.preventDefault()}>
             <FormGroup>
                 <Autocomplete
                     defaultValue={ defaultValue ? defaultValue : ""}

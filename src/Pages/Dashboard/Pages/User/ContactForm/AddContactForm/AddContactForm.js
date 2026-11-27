@@ -30,6 +30,15 @@ const AddContactForm = () => {
         ...(is_admin && { user_id: 0 })
     });
     const [users, setUsers] = useState([]);
+    const [ownerEmail, setOwnerEmail] = useState('');
+
+    // The owner is picked by email (from the list, or typed): resolve it to the user id.
+    const selectOwner = (email) => {
+        const value = (email || '').trim();
+        const selectedUserObj = users.find(u => u.email.toLowerCase() === value.toLowerCase());
+        setOwnerEmail(email || '');
+        setForm(prev => ({ ...prev, user_id: selectedUserObj ? selectedUserObj.id : 0 }));
+    };
 
     useEffect(() => {
         if (is_admin) {
@@ -227,17 +236,13 @@ const AddContactForm = () => {
                                     <Col md="6">
                                     <SuggestionsAutoComplete
                                         id="combo-box-email"
-                                        onChange={(event, newValue) => {
-                                            const selectedUserObj = users.find(u => u.email === newValue);
-                                            setForm(prev => ({
-                                                ...prev,
-                                                user_id: selectedUserObj ? selectedUserObj.id : 0
-                                            }));
-                                        }}
+                                        value={ownerEmail}
+                                        onChange={(event, newValue) => selectOwner(newValue)}
                                         options={users.map((u) => u.email)}
                                         renderInput={(params) => (
                                             <TextField
                                                 {...params}
+                                                onChange={(e) => selectOwner(e.target.value)}
                                                 label={context.counterpart('dashboard.contactForm.inputs.owner.placeholder')}
                                             />
                                         )}
