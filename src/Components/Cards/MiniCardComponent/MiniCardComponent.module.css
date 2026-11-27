@@ -1,8 +1,13 @@
 .miniContainer, .darkContainer {
     border: 2px solid #dfe0eb;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    width: 70%;
+    /* Fixed-size tiles that wrap (at least 4 per line on a 13" screen); the
+       old width: 70% won over col-md-2 and stretched each tile on its own line. */
+    flex: 0 0 auto;
+    width: 170px !important;
+    max-width: 100%;
+    min-height: 64px;
     padding: 10px;
 }
 
